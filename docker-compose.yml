@@ -32,7 +32,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    command: bash -c "cd app && yarn start"
+    command: sh -c "cd app && yarn start"
     volumes:
       - ./frontend:/usr/src/app
     ports:
