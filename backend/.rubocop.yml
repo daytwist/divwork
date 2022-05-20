@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 require:
   - rubocop-performance
   - rubocop-rails
@@ -12,7 +10,11 @@ AllCops:
     - 'db/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.1.2
+
+Rails/FilePath:
+  Exclude:
+    - 'config/environments/development.rb'
 
 Style/Documentation:
   Enabled: false
@@ -21,7 +23,7 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/StringLiterals:
-  EnforcedStyle: double_quotes
+  Enabled: false
 
 Style/SymbolArray:
   Enabled: false
