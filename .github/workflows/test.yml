@@ -9,7 +9,9 @@ jobs:
   rspec:
     name: RSpec
     runs-on: ubuntu-latest
-    working-directory: ./backend
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
