@@ -41,3 +41,21 @@ jobs:
           bundle exec rails db:migrate
       - name: Run RSpec
         run: bundle exec rspec
+
+  jest:
+    name: Jest
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.15"
+          cache: yarn
+      - name: Install dependencies
+        run: yarn install
+      - name: Run Jest
+        run: yarn run test
