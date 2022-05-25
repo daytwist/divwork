@@ -30,7 +30,7 @@ jobs:
         with:
           ruby-version: "3.1.2"
           bundler-cache: true
-        working-directory: frontend
+          working-directory: frontend
       - name: Run migration
         run: |
           cp config/database.yml.ci config/database.yml
