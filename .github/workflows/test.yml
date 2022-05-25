@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
-      DB_HOST: 127.0.0.1
-      DB_PORT: 3306
     defaults:
       run:
         working-directory: backend
@@ -38,7 +36,8 @@ jobs:
           bundle install
       - name: Run migration
         run: |
+          cp config/database.yml.ci config/database.yml
           bundle exec rails db:create
-          bundle exec rails db:test:prepare
+          bundle exec rails db:migrate
       - name: Run RSpec
         run: bundle exec rspec
