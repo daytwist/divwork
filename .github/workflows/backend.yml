@@ -1,9 +1,9 @@
-name: backend
+name: backend Lint and Test
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+    paths:
+      - "backend/**"
 
 jobs:
   rubocop:
