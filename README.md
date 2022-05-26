@@ -1,5 +1,7 @@
 # divwork
 
+[![frontend Lint and Test](https://github.com/daytwist/divwork/actions/workflows/frontend.yml/badge.svg)](https://github.com/daytwist/divwork/actions/workflows/frontend.yml) [![backend Lint and Test](https://github.com/daytwist/divwork/actions/workflows/backend.yml/badge.svg)](https://github.com/daytwist/divwork/actions/workflows/backend.yml)
+
 ### サービス概要
 チームで作業する時、誰が何のタスクを担当しているか把握出来ず困ったことはありませんか？<br>
 また、自分のタスクが多い時に、チームのメンバーに手伝って欲しいと思ったことはありませんか？<br>
