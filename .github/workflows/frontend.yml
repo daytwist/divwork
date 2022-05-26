@@ -14,6 +14,12 @@ jobs:
         working-directory: frontend/app
     steps:
       - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.15"
+          cache: "yarn"
+          cache-dependency-path: "frontend/app/package.json"
       - name: Run yarn install
         run: yarn install
       - name: Run lint
