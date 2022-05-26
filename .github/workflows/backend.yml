@@ -1,9 +1,9 @@
-name: Linting and Testing
+name: backend Lint and Test
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+    paths:
+      - "backend/**"
 
 jobs:
   rubocop:
@@ -56,38 +56,3 @@ jobs:
           bundle exec rails db:migrate
       - name: Run RSpec
         run: bundle exec rspec
-
-  eslint_prettier:
-    name: ESlint and Prettier
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend/app
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run yarn install
-        run: yarn install
-      - name: Run lint
-        run: yarn run lint
-      - name: Run format
-        run: yarn run format
-
-  jest:
-    name: Jest
-    needs: eslint_prettier
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend/app
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.15"
-          cache: "yarn"
-          cache-dependency-path: "frontend/app/package.json"
-      - name: Run yarn install
-        run: yarn install
-      - name: Run Jest
-        run: yarn run test
