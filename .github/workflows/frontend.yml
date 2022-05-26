@@ -1,9 +1,9 @@
-name: frontend
+name: frontend Lint and Test
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+    paths:
+      - "frontend/app/**"
 
 jobs:
   eslint_prettier:
