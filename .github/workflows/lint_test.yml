@@ -57,8 +57,8 @@ jobs:
       - name: Run RSpec
         run: bundle exec rspec
 
-  eslint:
-    name: ESlint
+  eslint_prettier:
+    name: ESlint and Prettier
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -67,12 +67,14 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run yarn install
         run: yarn install
-      - name: Run ESlint
+      - name: Run lint
         run: yarn run lint
+      - name: Run format
+        run: yarn run format
 
   jest:
     name: Jest
-    needs: eslint
+    needs: eslint_prettier
     runs-on: ubuntu-latest
     defaults:
       run:
