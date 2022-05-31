@@ -34,3 +34,6 @@ Layout/LineLength:
 
 Style/WordArray:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
