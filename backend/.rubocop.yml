@@ -31,3 +31,6 @@ Style/SymbolArray:
 Layout/LineLength:
   Exclude:
     - "config/initializers/devise.rb"
+
+Style/WordArray:
+  Enabled: false
