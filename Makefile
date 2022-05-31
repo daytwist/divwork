@@ -1,11 +1,14 @@
 up:
 	docker-compose up -d
 
-restart:
-	docker-compose restart
+start:
+	docker-compose start
 
 stop:
 	docker-compose stop
+
+restart:
+	docker-compose restart
 
 front:
 	docker-compose exec frontend ash
