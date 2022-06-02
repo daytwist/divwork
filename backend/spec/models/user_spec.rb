@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
 
     it "エラーが発生すること" do
       user.valid?
-      expect(user.errors.messages[:email]).to include "can't be blank"
+      expect(user.errors).to be_of_kind(:email, :blank)
     end
   end
 
@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
 
     it "エラーが発生すること" do
       user.valid?
-      expect(user.errors.messages[:password]).to include "can't be blank"
+      expect(user.errors).to be_of_kind(:password, :blank)
     end
   end
 
@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
 
     it "エラーが発生すること" do
       user2.valid?
-      expect(user2.errors.messages[:email]).to include "has already been taken"
+      expect(user2.errors).to be_of_kind(:email, :taken)
     end
   end
 end
