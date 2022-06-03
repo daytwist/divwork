@@ -5,7 +5,8 @@ Rails.application.routes.draw do
         registrations: "api/v1/auth/registrations"
       }
 
-      get "teams/", to: "teams#index"
+      get "teams/select", to: "teams#select"
+      resources :teams, only: [:create, :show]
     end
   end
 end

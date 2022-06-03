@@ -1,3 +1,10 @@
 class Api::V1::TeamsController < ApplicationController
-  def index; end
+  def select
+  end
+
+  def create
+  end
+
+  def show
+  end
 end
