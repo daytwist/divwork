@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      team: チーム
+    attributes:
+      team:
+        name: チーム名
