@@ -1,5 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Team, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "チーム名を指定しない時" do
+    let(:team) { build(:team, name: nil) }
+
+    it "エラーが発生すること" do
+      team.valid?
+      expect(team.errors).to be_of_kind(:name, :blank)
+    end
+  end
 end
