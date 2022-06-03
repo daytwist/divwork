@@ -8,4 +8,6 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   belongs_to :team
+
+  validates :name, presence: true, length: { maximum: 10 }
 end
