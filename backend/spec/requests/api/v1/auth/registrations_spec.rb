@@ -1,8 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Auth::Registrations", type: :request do
+  let(:team) { create(:team) }
+
   describe "POST /api/v1/auth" do
-    let(:params) { attributes_for(:user) }
+    let(:params) { attributes_for(:user, team_id: team.id) }
 
     it "ユーザー登録が成功すること" do
       post "/api/v1/auth", params: params
@@ -11,7 +13,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   end
 
   describe "POST /api/v1/auth/sign_in" do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, team_id: team.id) }
     let(:params) { { email: user.email, password: user.password } }
 
     it "ログインが成功すること" do
@@ -21,7 +23,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   end
 
   describe "PUT /api/v1/auth/password" do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, team_id: team.id) }
     let(:params) { { password: "new_password", password_confirmation: "new_password" } }
     let(:headers) { user.create_new_auth_token }
 
@@ -32,7 +34,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   end
 
   describe "DELETE /api/v1/auth/sign_out" do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, team_id: team.id) }
     let(:headers) { user.create_new_auth_token }
 
     it "ログアウトが成功すること" do
