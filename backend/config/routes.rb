@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       }
 
       get "teams/select", to: "teams#select"
-      resources :teams, only: [:create, :show]
+      resources :teams, only: [:create, :show, :update, :destroy]
     end
   end
 end
