@@ -40,6 +40,9 @@ module Divwork
 
     config.generators do |g|
       g.test_framework :rspec,
+                       model_specs: true,
+                       request_specs: true,
+                       controller_specs: false,
                        fixtures: false,
                        view_specs: false,
                        helper_specs: false,
