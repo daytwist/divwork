@@ -23,6 +23,16 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     end
   end
 
+  describe "PUT /api/v1/auth" do
+    let(:params) { { name: "new_name" } }
+
+    it "名前の変更に成功すること" do
+      put "/api/v1/auth", params: params, headers: headers
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("new_name")
+    end
+  end
+
   describe "PUT /api/v1/auth/password" do
     let(:params) { { password: "new_password", password_confirmation: "new_password" } }
 
