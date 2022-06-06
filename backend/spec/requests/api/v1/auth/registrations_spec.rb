@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   let(:team) { create(:team) }
+  let(:user) { create(:user, team_id: team.id) }
+  let(:headers) { user.create_new_auth_token }
 
   describe "POST /api/v1/auth" do
     let(:params) { attributes_for(:user, team_id: team.id) }
@@ -13,7 +15,6 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   end
 
   describe "POST /api/v1/auth/sign_in" do
-    let(:user) { create(:user, team_id: team.id) }
     let(:params) { { email: user.email, password: user.password } }
 
     it "ログインが成功すること" do
@@ -23,9 +24,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   end
 
   describe "PUT /api/v1/auth/password" do
-    let(:user) { create(:user, team_id: team.id) }
     let(:params) { { password: "new_password", password_confirmation: "new_password" } }
-    let(:headers) { user.create_new_auth_token }
 
     it "パスワード変更が成功すること" do
       put "/api/v1/auth/password", params: params, headers: headers
@@ -34,9 +33,6 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   end
 
   describe "DELETE /api/v1/auth/sign_out" do
-    let(:user) { create(:user, team_id: team.id) }
-    let(:headers) { user.create_new_auth_token }
-
     it "ログアウトが成功すること" do
       delete "/api/v1/auth/sign_out", headers: headers
       expect(response).to have_http_status(:ok)
