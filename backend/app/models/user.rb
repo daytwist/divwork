@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_one_attached :avatar
   belongs_to :team
 
   validates :name, presence: true, length: { maximum: 10 }
