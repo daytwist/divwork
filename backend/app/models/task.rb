@@ -6,6 +6,6 @@ class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
   validates :content, length: { maximum: 400 }
   validates :deadline, presence: true
-  validates :priority, inclusion: {in: Task.priorities.keys}
-  validates :is_done, inclusion: {in: [true, false]}
+  validates :priority, inclusion: { in: Task.priorities.keys }
+  validates :is_done, inclusion: { in: [true, false] }
 end
