@@ -15,7 +15,7 @@ RSpec.describe User, type: :model do
     context "ユーザー名を指定しない時" do
       let(:user) { build(:user, name: nil, team_id: team.id) }
 
-      it "エラーが発生すること" do
+      it "バリデーションエラーが発生すること" do
         user.valid?
         expect(user.errors).to be_of_kind(:name, :blank)
       end
@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
     context "emailを指定しない時" do
       let(:user) { build(:user, email: nil, team_id: team.id) }
 
-      it "エラーが発生すること" do
+      it "バリデーションエラーが発生すること" do
         user.valid?
         expect(user.errors).to be_of_kind(:email, :blank)
       end
@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
     context "passwordを指定しない時" do
       let(:user) { build(:user, password: nil, team_id: team.id) }
 
-      it "エラーが発生すること" do
+      it "バリデーションエラーが発生すること" do
         user.valid?
         expect(user.errors).to be_of_kind(:password, :blank)
       end
@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
     context "チームを指定しない時" do
       let(:user) { build(:user) }
 
-      it "エラーが発生すること" do
+      it "バリデーションエラーが発生すること" do
         user.valid?
         expect(user.errors).to be_of_kind(:team, :blank)
       end
@@ -52,7 +52,7 @@ RSpec.describe User, type: :model do
       let(:user1) { create(:user, team_id: team.id) }
       let(:user2) { build(:user, email: user1.email, team_id: team.id) }
 
-      it "エラーが発生すること" do
+      it "バリデーションエラーが発生すること" do
         user2.valid?
         expect(user2.errors).to be_of_kind(:email, :taken)
       end
