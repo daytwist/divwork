@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :finished]
 
   def show
-    tasks = @user.tasks
+    tasks = @user.tasks.unfinished
     render json: { tasks: }, status: :ok
   end
 
