@@ -8,4 +8,6 @@ class Task < ApplicationRecord
   validates :deadline, presence: true
   validates :priority, inclusion: { in: Task.priorities.keys }
   validates :is_done, inclusion: { in: [true, false] }
+
+  scope :finished, -> { where(is_done: true) }
 end
