@@ -9,6 +9,6 @@ class Task < ApplicationRecord
   validates :priority, inclusion: { in: Task.priorities.keys }
   validates :is_done, inclusion: { in: [true, false] }
 
-  scope :unfinished, -> { where(is_done: false)}
+  scope :unfinished, -> { where(is_done: false) }
   scope :finished, -> { where(is_done: true) }
 end
