@@ -7,7 +7,10 @@ class Api::V1::UsersController < ApplicationController
     render json: { tasks: }, status: :ok
   end
 
-  def finished; end
+  def finished
+    tasks = @user.tasks.finished
+    render json: { tasks: }, status: :ok
+  end
 
   private
 
