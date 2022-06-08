@@ -1,5 +1,5 @@
 class Api::V1::TasksController < ApplicationController
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: [:show, :update, :destroy, :share]
 
   def create
     task = Task.new(params[:task])
@@ -29,6 +29,8 @@ class Api::V1::TasksController < ApplicationController
       render json: {}, status: :internal_server_error
     end
   end
+
+  def share; end
 
   private
 
