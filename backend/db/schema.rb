@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_053801) do
+ActiveRecord::Schema.define(version: 2022_06_07_073854) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(version: 2022_06_06_053801) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content"
+    t.datetime "deadline", null: false
+    t.integer "priority", default: 0, null: false
+    t.boolean "is_done", default: false, null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
   create_table "teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -54,11 +66,11 @@ ActiveRecord::Schema.define(version: 2022_06_06_053801) do
     t.datetime "reset_password_sent_at"
     t.boolean "allow_password_change", default: false
     t.datetime "remember_created_at"
-    t.string "name"
+    t.string "name", null: false
     t.string "nickname"
     t.string "image"
-    t.string "email"
-    t.integer "team_id"
+    t.string "email", null: false
+    t.bigint "team_id", null: false
     t.text "tokens"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
@@ -69,9 +81,12 @@ ActiveRecord::Schema.define(version: 2022_06_06_053801) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["team_id"], name: "fk_rails_b2bbf87303"
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "tasks", "users"
+  add_foreign_key "users", "teams"
 end

@@ -46,3 +46,12 @@ RSpec/LetSetup:
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
