@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   belongs_to :team
+  has_many :tasks, dependent: :nullify
 
   validates :name, presence: true, length: { maximum: 10 }
 end
