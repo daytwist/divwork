@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_one :division, dependent: :destroy
 
   enum priority: { low: 0, medium: 1, high: 2 }
 
