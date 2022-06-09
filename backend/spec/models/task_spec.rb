@@ -56,4 +56,21 @@ RSpec.describe Task, type: :model do
       expect(task.errors).to be_of_kind(:user, :blank)
     end
   end
+
+  describe "scope unfinished/finished" do
+    let!(:unfinished_task) { create(:task, is_done: false, user:) }
+    let!(:finished_task) { create(:task, is_done: true, user:) }
+
+    it "未了タスクを抽出すること" do
+      tasks = user.tasks.unfinished
+      expect(tasks).to include(unfinished_task)
+      expect(tasks).not_to include(finished_task)
+    end
+
+    it "完了済みタスクを抽出すること" do
+      tasks = user.tasks.finished
+      expect(tasks).to include(finished_task)
+      expect(tasks).not_to include(unfinished_task)
+    end
+  end
 end
