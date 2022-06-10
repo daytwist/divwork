@@ -15,14 +15,14 @@ RSpec.describe "Api::V1::Tasks", type: :request do
       let(:params) { attributes_for(:task, user_id: user.id) }
 
       it "タスクの新規作成に成功すること" do
-        post "/api/v1/users/#{user.id}/tasks", params: params.to_json, headers: headers
+        post "/api/v1/tasks", params: params.to_json, headers: headers
         expect(response).to have_http_status(:created)
       end
     end
 
     describe "GET /:id" do
       it "タスクの情報取得に成功すること" do
-        get "/api/v1/users/#{user.id}/tasks/#{task.id}", headers: headers
+        get "/api/v1/tasks/#{task.id}", headers: headers
         expect(response).to have_http_status(:ok)
         expect(response.body).to include(task.to_json)
       end
@@ -32,7 +32,7 @@ RSpec.describe "Api::V1::Tasks", type: :request do
       let(:params) { attributes_for(:task, title: "task_update", user_id: user.id) }
 
       it "タスクの情報更新に成功すること" do
-        patch "/api/v1/users/#{user.id}/tasks/#{task.id}", params: params.to_json, headers: headers
+        patch "/api/v1/tasks/#{task.id}", params: params.to_json, headers: headers
         expect(response).to have_http_status(:ok)
         expect(response.body).to include("task_update")
       end
@@ -40,7 +40,7 @@ RSpec.describe "Api::V1::Tasks", type: :request do
 
     describe "DELETE /:id" do
       it "タスクの削除に成功すること" do
-        delete "/api/v1/users/#{user.id}/tasks/#{task.id}", headers: headers
+        delete "/api/v1/tasks/#{task.id}", headers: headers
         expect(response).to have_http_status(:ok)
       end
     end
@@ -56,12 +56,12 @@ RSpec.describe "Api::V1::Tasks", type: :request do
 
     describe "ensure_correct_user" do
       it "他ユーザーのタスクを更新しようとするとエラーが発生すること" do
-        patch "/api/v1/users/#{user.id}/tasks/#{task.id}", params: params.to_json, headers: headers
+        patch "/api/v1/tasks/#{task.id}", params: params.to_json, headers: headers
         expect(response).to have_http_status(:internal_server_error)
       end
 
       it "他ユーザーのタスクを削除しようとするとエラーが発生すること" do
-        delete "/api/v1/users/#{user.id}/tasks/#{task.id}", headers: headers
+        delete "/api/v1/tasks/#{task.id}", headers: headers
         expect(response).to have_http_status(:internal_server_error)
       end
     end
