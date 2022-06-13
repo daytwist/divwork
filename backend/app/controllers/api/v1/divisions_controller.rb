@@ -12,7 +12,11 @@ class Api::V1::DivisionsController < ApplicationController
     new_task = Task.new(task_params)
     new_task.save!
 
-    division = Division.new(user_id: current_api_v1_user.id, task_id: new_task.id)
+    division = Division.new(
+      user_id: current_api_v1_user.id,
+      task_id: new_task.id,
+      comment: division_params[:comment]
+    )
     division.save!
 
     render json: { task: new_task, division: }, status: :ok
@@ -23,6 +27,10 @@ class Api::V1::DivisionsController < ApplicationController
   private
 
   def task_params
-    params.permit(:title, :content, :deadline, :priority, :is_done, :user_id, :parent_id)
+    params.require(:task).permit(:title, :description, :deadline, :priority, :is_done, :user_id, :parent_id)
+  end
+
+  def division_params
+    params.require(:division).permit(:comment)
   end
 end

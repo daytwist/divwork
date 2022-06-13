@@ -55,3 +55,10 @@ Style/GuardClause:
 
 Style/IfUnlessModifier:
   Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 30
+
+RSpec/ExampleLength:
+  Enabled: false
