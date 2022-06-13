@@ -6,9 +6,10 @@ Rails.application.routes.draw do
       get "teams/select", to: "teams#select"
       resources :teams, only: [:create, :show, :update, :destroy]
 
-      resources :users do
-        resources :tasks, only: [:create, :show, :update, :destroy]
-        post "tasks/:id/share", to: "tasks#share"
+      resources :users, only: [:show]
+
+      resources :tasks, only: [:create, :show, :update, :destroy] do
+        resources :divisions, only: [:new, :create]
       end
 
       get "users/:id/finished", to: "users#finished"

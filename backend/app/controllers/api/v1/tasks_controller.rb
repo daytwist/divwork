@@ -1,7 +1,7 @@
 class Api::V1::TasksController < ApplicationController
   before_action :authenticate_api_v1_user!
-  before_action :set_task, only: [:show, :update, :destroy, :share, :ensure_correct_user]
-  before_action :ensure_correct_user, only: [:update, :destroy, :share]
+  before_action :set_task, only: [:show, :update, :destroy, :ensure_correct_user]
+  before_action :ensure_correct_user, only: [:update, :destroy]
 
   def create
     task = Task.new(task_params)
@@ -32,21 +32,19 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
-  def share; end
-
   private
 
   def set_task
     @task = Task.find(params[:id])
   end
 
-  def task_params
-    params.require(:task).permit(:title, :content, :deadline, :priority, :is_done, :user_id)
-  end
-
   def ensure_correct_user
     if @task.user != current_api_v1_user
       render json: { message: "User is wrong" }, status: :internal_server_error
     end
+  end
+
+  def task_params
+    params.require(:task).permit(:title, :content, :deadline, :priority, :is_done, :user_id)
   end
 end
