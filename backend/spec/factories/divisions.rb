@@ -1,3 +1,5 @@
 FactoryBot.define do
-  factory :division
+  factory :division do
+    comment { Faker::Books::Lovecraft.sentence }
+  end
 end
