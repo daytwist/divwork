@@ -12,7 +12,9 @@ ja:
         name: ユーザー名
       task:
         title: タイトル
-        content: 内容
+        description: 詳細
         deadline: 納期
         priority: 優先度
         is_done: 完了済み
+      division:
+        comment: コメント
