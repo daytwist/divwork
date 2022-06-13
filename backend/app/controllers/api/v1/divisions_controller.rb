@@ -23,6 +23,6 @@ class Api::V1::DivisionsController < ApplicationController
   private
 
   def task_params
-    params.permit(:title, :content, :deadline, :priority, :is_done, :user_id, :parent_id)
+    params.permit(:title, :description, :deadline, :priority, :is_done, :user_id, :parent_id)
   end
 end
