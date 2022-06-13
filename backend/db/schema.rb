@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_07_073854) do
+ActiveRecord::Schema.define(version: 2022_06_09_124047) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 2022_06_07_073854) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "divisions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_divisions_on_task_id"
+    t.index ["user_id"], name: "index_divisions_on_user_id"
+  end
+
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.text "content"
@@ -49,6 +58,8 @@ ActiveRecord::Schema.define(version: 2022_06_07_073854) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "parent_id"
+    t.index ["parent_id"], name: "index_tasks_on_parent_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -87,6 +98,8 @@ ActiveRecord::Schema.define(version: 2022_06_07_073854) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "divisions", "tasks"
+  add_foreign_key "divisions", "users"
   add_foreign_key "tasks", "users"
   add_foreign_key "users", "teams"
 end
