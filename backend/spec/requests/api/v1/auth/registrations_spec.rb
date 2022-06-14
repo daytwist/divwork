@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   end
 
   describe "PATCH /api/v1/auth" do
-    let(:params) { { name: "new_name", avatar: fixture_file_upload("sample.png", "image/png") } }
+    let(:params) { { name: "new_name", avatar: fixture_file_upload("blank.jpg", "image/jpg") } }
 
     before do
       patch "/api/v1/auth", params:, headers:
