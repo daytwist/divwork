@@ -88,4 +88,12 @@ RSpec.describe Task, type: :model do
       expect(parent_task.children).to include(child_task)
     end
   end
+
+  describe "Upload files" do
+    let(:task) { create(:task, user:, files: [fixture_file_upload("file.txt", "text/txt")]) }
+
+    it "ファイルがアップロードされていること" do
+      expect(task.files).to be_attached
+    end
+  end
 end
