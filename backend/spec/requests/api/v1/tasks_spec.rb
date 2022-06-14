@@ -12,10 +12,12 @@ RSpec.describe "Api::V1::Tasks", type: :request do
     end
 
     describe "POST /" do
-      let(:params) { attributes_for(:task, user_id: user.id) }
+      let(:params) { attributes_for(:task, user_id: user.id, files: fixture_file_upload("file.txt", "text/txt")) }
 
       it "タスクの新規作成に成功すること" do
-        post "/api/v1/tasks", params: params.to_json, headers: headers
+        expect do
+          post "/api/v1/tasks", params: params.to_json, headers:
+        end.to change { user.tasks.count }.by(1)
         expect(response).to have_http_status(:created)
       end
     end
@@ -29,12 +31,15 @@ RSpec.describe "Api::V1::Tasks", type: :request do
     end
 
     describe "PATCH /:id" do
-      let(:params) { attributes_for(:task, title: "task_update", user_id: user.id) }
+      let(:params) do
+        attributes_for(:task, title: "task_update", user_id: user.id,
+                              files: fixture_file_upload("file2.txt", "text/txt"))
+      end
 
       it "タスクの情報更新に成功すること" do
         patch "/api/v1/tasks/#{task.id}", params: params.to_json, headers: headers
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include("task_update")
+        expect(response.body).to include(params[:title])
       end
     end
 
