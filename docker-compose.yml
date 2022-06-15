@@ -1,6 +1,9 @@
 version: '3.8'
 volumes:
   mysql-data:
+  public-data:
+  tmp-data:
+  log-data:
 
 services:
   db:
@@ -18,10 +21,13 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    command: bash -c "rm -f /divwork/tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    command: bundle exec puma -C config/puma.rb
     volumes:
       - ./backend:/divwork
       - ./backend/vendor/bundle:/divwork/vendor/bundle
+      - public-data:/divwork/public
+      - tmp-data:/divwork/tmp
+      - log-data:/divwork/log
     environment:
       TZ: Asia/Tokyo
       RAILS_ENV: development
@@ -29,15 +35,29 @@ services:
       - '3000:3000'
     depends_on:
       - db
+    stdin_open: true
     tty: true
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    command: ash -c "cd app && yarn start"
+    command: ash -c "yarn start"
     volumes:
       - ./frontend:/usr/src/app
     ports:
       - '3001:3000'
+    stdin_open: true
     tty: true
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      - public-data:/divwork/public
+      - tmp-data:/divwork/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - backend
