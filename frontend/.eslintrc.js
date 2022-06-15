@@ -8,7 +8,6 @@ module.exports = {
     "react-app/jest",
     "airbnb",
     "airbnb/hooks",
-    "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/errors",
@@ -26,7 +25,12 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"],
   },
-  plugins: ["react", "@typescript-eslint", "import", "unused-imports"],
+  plugins: [
+    "react",
+    "@typescript-eslint",
+    "import",
+    "unused-imports"
+  ],
   ignorePatterns: [".eslintrc.js", "build"],
   rules: {
     "no-use-before-define": "off",
@@ -61,4 +65,5 @@ module.exports = {
       },
     },
   },
+  root: true,
 };
