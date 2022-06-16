@@ -1,20 +1,20 @@
 build:
-	docker-compose up -d --build
+	docker-compose -f docker-compose.dev.yml up -d --build
 
 up:
-	docker-compose up -d
+	docker-compose -f docker-compose.dev.yml up -d
 
 start:
-	docker-compose start
+	docker-compose -f docker-compose.dev.yml start
 
 stop:
-	docker-compose stop
+	docker-compose -f docker-compose.dev.yml stop
 
 restart:
-	docker-compose restart
+	docker-compose -f docker-compose.dev.yml restart
 
 front:
-	docker-compose exec frontend ash
+	docker-compose -f docker-compose.dev.yml exec frontend ash
 
 back:
-	docker-compose exec backend bash
+	docker-compose -f docker-compose.dev.yml exec backend bash
