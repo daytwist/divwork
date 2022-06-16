@@ -3,7 +3,7 @@ name: frontend Lint and Test
 on:
   push:
     paths:
-      - "frontend/app/**"
+      - "frontend/**"
 
 jobs:
   eslint_prettier:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend/app
+        working-directory: frontend
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.js
@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: "16.15"
           cache: "yarn"
-          cache-dependency-path: "frontend/app/package.json"
+          cache-dependency-path: "frontend/package.json"
       - name: Run yarn install
         run: yarn install
       - name: Run lint
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend/app
+        working-directory: frontend
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.js
@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: "16.15"
           cache: "yarn"
-          cache-dependency-path: "frontend/app/package.json"
+          cache-dependency-path: "frontend/package.json"
       - name: Run yarn install
         run: yarn install
       - name: Run Jest
