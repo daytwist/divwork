@@ -20,8 +20,8 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
-    command: bundle exec puma -C config/puma.rb
+      dockerfile: Dockerfile.dev
+    command: bash -c "rm -f /divwork/tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - ./backend:/divwork
       - ./backend/vendor/bundle:/divwork/vendor/bundle
@@ -41,7 +41,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     command: ash -c "yarn start"
     volumes:
       - ./frontend:/usr/src/app
@@ -49,15 +49,3 @@ services:
       - '3001:3000'
     stdin_open: true
     tty: true
-
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    volumes:
-      - public-data:/divwork/public
-      - tmp-data:/divwork/tmp
-    ports:
-      - 80:80
-    depends_on:
-      - backend
