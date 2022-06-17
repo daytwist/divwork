@@ -49,6 +49,15 @@ module.exports = {
     "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+
+    // あとで適用させる
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        checksVoidReturn: false,
+      },
+    ],
+
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "unused-imports/no-unused-imports": "error",
