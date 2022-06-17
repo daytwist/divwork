@@ -8,6 +8,7 @@ module.exports = {
     "react-app/jest",
     "airbnb",
     "airbnb/hooks",
+    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/errors",
@@ -25,18 +26,31 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"],
   },
-  plugins: [
-    "react",
-    "@typescript-eslint",
-    "import",
-    "unused-imports"
-  ],
+  plugins: ["react", "@typescript-eslint", "import", "unused-imports"],
   ignorePatterns: [".eslintrc.js", "build"],
   rules: {
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error"],
+    "arrow-body-style": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      { js: "never", jsx: "never", ts: "never", tsx: "never" },
+    ],
     "import/prefer-default-export": "off",
+    "no-param-reassign": [2, { props: false }],
+    "no-use-before-define": "off",
+    "no-void": ["error", { allowAsStatement: true }],
+    "react/function-component-definition": [
+      2,
+      {
+        namedComponents: "arrow-function",
+        unnamedComponents: "function-expression",
+      },
+    ],
+    "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }],
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
     "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "warn",
@@ -47,16 +61,6 @@ module.exports = {
         argsIgnorePattern: "^_",
       },
     ],
-    "no-param-reassign": [2, { props: false }],
-    "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      { js: "never", jsx: "never", ts: "never", tsx: "never" },
-    ],
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off",
-    "no-void": ["error", { allowAsStatement: true }],
   },
   settings: {
     "import/resolver": {
