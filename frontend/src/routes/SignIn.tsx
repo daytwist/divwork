@@ -9,7 +9,7 @@ const SignIn: React.FC = () => {
 
   const onClick = async () => {
     await axiosInstance.post("/auth/sign_in", { email, password });
-    navigate("/teams/:id", { replace: true });
+    // navigate(`/teams/${user.team.id}`, { replace: true });
   };
 
   return (
