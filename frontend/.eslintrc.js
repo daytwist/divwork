@@ -36,7 +36,7 @@ module.exports = {
       { js: "never", jsx: "never", ts: "never", tsx: "never" },
     ],
     "import/prefer-default-export": "off",
-    "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-console": "off",
     "no-param-reassign": [2, { props: false }],
     "no-use-before-define": "off",
     "no-void": ["error", { allowAsStatement: true }],
