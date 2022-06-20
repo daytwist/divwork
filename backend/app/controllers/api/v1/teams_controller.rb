@@ -17,7 +17,7 @@ class Api::V1::TeamsController < ApplicationController
 
   def show
     users = @team.users
-    render json: { users: }, status: :ok
+    render json: { team: @team, users: }, status: :ok
   end
 
   def update
