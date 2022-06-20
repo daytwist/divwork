@@ -1,5 +1,6 @@
 class Api::V1::TeamsController < ApplicationController
   before_action :set_team, only: [:show, :update, :destroy]
+  before_action :ensure_correct_user, only: [:show, :update]
 
   def select
     teams = Team.all
@@ -40,6 +41,12 @@ class Api::V1::TeamsController < ApplicationController
 
   def set_team
     @team = Team.find(params[:id])
+  end
+
+  def ensure_correct_user
+    if @team.users.exclude? current_api_v1_user
+      render json: { message: "User is wrong" }, status: :internal_server_error
+    end
   end
 
   def team_params
