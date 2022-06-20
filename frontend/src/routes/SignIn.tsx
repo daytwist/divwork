@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utils/axios";
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const onClick = async () => {
     await axiosInstance.post("/auth/sign_in", { email, password });

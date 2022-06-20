@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { Team, TeamResponse } from "../interfaces";
+import { Team, TeamsShowResponse } from "../interfaces";
 
 const TeamsShow: React.FC = () => {
   const [team, setTeam] = useState<Team>();
-  const params = useParams();
+  const params = useParams<{ id: string }>();
+  const options: AxiosRequestConfig = {
+    url: `/teams/${params.id}`,
+    method: "GET",
+  };
 
   useEffect(() => {
-    axiosInstance
-      .get("/teams/1")
-      .then((res: AxiosResponse<TeamResponse>) => {
+    axiosInstance(options)
+      .then((res: AxiosResponse<TeamsShowResponse>) => {
         const { data } = res;
-        console.log(data.team);
+        console.log(data);
+        console.log(params);
         setTeam(data.team);
       })
       .catch((e: AxiosError<{ error: string }>) => {
