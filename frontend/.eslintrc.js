@@ -40,6 +40,7 @@ module.exports = {
     "no-param-reassign": [2, { props: false }],
     "no-use-before-define": "off",
     "no-void": ["error", { allowAsStatement: true }],
+    "react-hooks/exhaustive-deps": "off",
     "react/function-component-definition": [
       2,
       {
@@ -61,6 +62,7 @@ module.exports = {
 
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/restrict-template-expressions": "off",
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "warn",
