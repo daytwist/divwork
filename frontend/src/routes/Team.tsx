@@ -4,7 +4,7 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse } from "../interfaces";
 
-const TeamsShow: React.FC = () => {
+const ShowTeam: React.FC = () => {
   const [team, setTeam] = useState<Team>();
   const params = useParams<{ id: string }>();
   const options: AxiosRequestConfig = {
@@ -34,4 +34,4 @@ const TeamsShow: React.FC = () => {
   );
 };
 
-export default TeamsShow;
+export default ShowTeam;

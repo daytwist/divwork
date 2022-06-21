@@ -4,9 +4,9 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import TeamsSelect from "./routes/TeamsSelect";
+import SelectTeam from "./routes/Teams";
 import SignIn from "./routes/SignIn";
-import TeamsShow from "./routes/TeamsShow";
+import ShowTeam from "./routes/Team";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,9 +15,9 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
+      <Route path="/sign_up/teams/select" element={<SelectTeam />} />
       <Route path="/sign_in" element={<SignIn />} />
-      <Route path="/teams/:id" element={<TeamsShow />} />
+      <Route path="/teams/:id" element={<ShowTeam />} />
     </Routes>
   </BrowserRouter>
 );
