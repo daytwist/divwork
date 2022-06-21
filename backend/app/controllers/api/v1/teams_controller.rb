@@ -1,5 +1,5 @@
 class Api::V1::TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :update, :destroy]
+  before_action :set_team, only: [:show, :update, :destroy, :ensure_correct_user]
   before_action :ensure_correct_user, only: [:show, :update]
 
   def select
