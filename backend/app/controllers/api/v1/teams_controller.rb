@@ -1,6 +1,7 @@
 class Api::V1::TeamsController < ApplicationController
+  before_action :authenticate_api_v1_user!, except: [:select, :create, :destroy]
   before_action :set_team, only: [:show, :update, :destroy, :ensure_correct_user]
-  before_action :ensure_correct_user, only: [:show, :update]
+  before_action :ensure_correct_user, except: [:select, :create, :destroy]
 
   def select
     teams = Team.all
