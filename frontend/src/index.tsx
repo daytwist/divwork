@@ -4,11 +4,11 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import SignIn from "./routes/SignIn";
-import SelectTeam from "./routes/Teams";
-import ShowTeam from "./routes/Team";
-import ShowUser from './routes/User';
-import ShowTask from './routes/Task';
+import SignIn from "./pages/SignIn";
+import SelectTeam from "./pages/Teams";
+import ShowTeam from "./pages/Team";
+import ShowUser from './pages/User';
+import ShowTask from './pages/Task';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
