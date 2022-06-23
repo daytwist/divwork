@@ -1,7 +1,7 @@
 const TeamsSelect: React.FC = () => {
   return (
     <div>
-      <h1>Select Team</h1>
+      <h1>Teams#Select</h1>
     </div>
   );
 };

@@ -32,16 +32,16 @@ export interface Task {
   parent_id: number;
 }
 
-export interface ShowTeamResponse {
+export interface TeamsShowResponse {
   team: Team;
   users: User[];
 }
 
-export interface ShowUserResponse {
+export interface UsersShowResponse {
   user: User;
   tasks: Task[];
 }
 
-export interface ShowTaskResponse {
+export interface TasksShowResponse {
   task: Task;
 }
