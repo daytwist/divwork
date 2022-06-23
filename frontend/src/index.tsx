@@ -5,10 +5,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import SignIn from "./pages/SignIn";
-import SelectTeam from "./pages/Teams";
-import ShowTeam from "./pages/Team";
-import ShowUser from "./pages/User";
-import ShowTask from "./pages/Task";
+import TeamsSelect from "./pages/TeamsSelect";
+import TeamsShow from "./pages/TeamsShow";
+import UsersShow from "./pages/UsersShow";
+import TasksShow from "./pages/TasksShow";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,11 +17,11 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/sign_up/teams/select" element={<SelectTeam />} />
+      <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
       <Route path="/sign_in" element={<SignIn />} />
-      <Route path="/teams/:id" element={<ShowTeam />} />
-      <Route path="users/:id" element={<ShowUser />} />
-      <Route path="tasks/:id" element={<ShowTask />} />
+      <Route path="/teams/:id" element={<TeamsShow />} />
+      <Route path="users/:id" element={<UsersShow />} />
+      <Route path="tasks/:id" element={<TasksShow />} />
     </Routes>
   </BrowserRouter>
 );
