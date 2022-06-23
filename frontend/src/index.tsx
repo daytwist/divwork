@@ -4,9 +4,11 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import TeamsSelect from "./routes/TeamsSelect";
-import SignIn from "./routes/SignIn";
-import TeamsShow from "./routes/TeamsShow";
+import SignIn from "./pages/SignIn";
+import TeamsSelect from "./pages/TeamsSelect";
+import TeamsShow from "./pages/TeamsShow";
+import UsersShow from "./pages/UsersShow";
+import TasksShow from "./pages/TasksShow";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,6 +20,8 @@ root.render(
       <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/teams/:id" element={<TeamsShow />} />
+      <Route path="users/:id" element={<UsersShow />} />
+      <Route path="tasks/:id" element={<TasksShow />} />
     </Routes>
   </BrowserRouter>
 );

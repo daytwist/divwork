@@ -4,7 +4,7 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     tasks = @user.tasks.unfinished
-    render json: { tasks: }, status: :ok
+    render json: { user: @user, tasks: }, status: :ok
   end
 
   def finished

@@ -1,8 +1,8 @@
 export interface Team {
   id: number;
   name: string;
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface User {
@@ -15,11 +15,33 @@ export interface User {
   image: string;
   email: string;
   team_id: number;
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface Task {
+  id: number;
+  title: string;
+  description: string;
+  deadline: string;
+  priority: string;
+  is_done: boolean;
+  user_id: number;
+  created_at: Date;
+  updated_at: Date;
+  parent_id: number;
 }
 
 export interface TeamsShowResponse {
   team: Team;
   users: User[];
+}
+
+export interface UsersShowResponse {
+  user: User;
+  tasks: Task[];
+}
+
+export interface TasksShowResponse {
+  task: Task;
 }

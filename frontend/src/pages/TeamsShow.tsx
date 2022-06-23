@@ -27,7 +27,7 @@ const TeamsShow: React.FC = () => {
 
   return (
     <div>
-      <h1>Teams Show</h1>
+      <h1>Teams#Show</h1>
       <h2>{params.id}</h2>
       <h2>{team?.name}</h2>
     </div>
