@@ -1,4 +1,4 @@
-const SelectTeam: React.FC = () => {
+const TeamsSelect: React.FC = () => {
   return (
     <div>
       <h1>Select Team</h1>
@@ -6,4 +6,4 @@ const SelectTeam: React.FC = () => {
   );
 };
 
-export default SelectTeam;
+export default TeamsSelect;

@@ -4,7 +4,7 @@ import { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { User, Task, ShowUserResponse } from "../interfaces";
 import { axiosInstance } from "../utils/axios";
 
-const ShowUser: React.FC = () => {
+const UsersShow: React.FC = () => {
   const [user, setUser] = useState<User>();
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -47,4 +47,4 @@ const ShowUser: React.FC = () => {
   );
 };
 
-export default ShowUser;
+export default UsersShow;
