@@ -27,7 +27,7 @@ module.exports = {
     project: ["./tsconfig.json"],
   },
   plugins: ["react", "@typescript-eslint", "import", "unused-imports"],
-  ignorePatterns: [".eslintrc.js", "build"],
+  ignorePatterns: [".eslintrc.js", "build", "jest.config.js"],
   rules: {
     "arrow-body-style": "off",
     "import/extensions": [
