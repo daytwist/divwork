@@ -41,3 +41,7 @@ export interface ShowUserResponse {
   user: User;
   tasks: Task[];
 }
+
+export interface ShowTaskResponse {
+  task: Task;
+}

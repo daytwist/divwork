@@ -7,8 +7,8 @@ import reportWebVitals from "./reportWebVitals";
 import SignIn from "./pages/SignIn";
 import SelectTeam from "./pages/Teams";
 import ShowTeam from "./pages/Team";
-import ShowUser from './pages/User';
-import ShowTask from './pages/Task';
+import ShowUser from "./pages/User";
+import ShowTask from "./pages/Task";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
