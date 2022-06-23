@@ -23,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "lint": "eslint --ext 'src/**/*.{jsx,js,tsx,ts}'",
     "format": "eslint --cache --fix --resolve-plugins-relative-to . 'src/**/*.{jsx,js,tsx,ts}' && prettier --write 'src/**/*.{jsx,js,tsx,ts}'"
