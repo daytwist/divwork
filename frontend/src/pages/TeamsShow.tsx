@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { Team, ShowTeamResponse } from "../interfaces";
+import { Team, TeamsShowResponse } from "../interfaces";
 
 const TeamsShow: React.FC = () => {
   const [team, setTeam] = useState<Team>();
@@ -14,7 +14,7 @@ const TeamsShow: React.FC = () => {
 
   useEffect(() => {
     axiosInstance(options)
-      .then((res: AxiosResponse<ShowTeamResponse>) => {
+      .then((res: AxiosResponse<TeamsShowResponse>) => {
         const { data } = res;
         console.log(data);
         console.log(params);
@@ -27,7 +27,7 @@ const TeamsShow: React.FC = () => {
 
   return (
     <div>
-      <h1>Teams Show</h1>
+      <h1>Teams#Show</h1>
       <h2>{params.id}</h2>
       <h2>{team?.name}</h2>
     </div>

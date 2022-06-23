@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
-import { User, Task, ShowUserResponse } from "../interfaces";
+import { User, Task, UsersShowResponse } from "../interfaces";
 import { axiosInstance } from "../utils/axios";
 
 const UsersShow: React.FC = () => {
@@ -17,7 +17,7 @@ const UsersShow: React.FC = () => {
 
   useEffect(() => {
     axiosInstance(options)
-      .then((res: AxiosResponse<ShowUserResponse>) => {
+      .then((res: AxiosResponse<UsersShowResponse>) => {
         const { data } = res;
         console.log(data);
         console.log(params);
@@ -31,7 +31,7 @@ const UsersShow: React.FC = () => {
 
   return (
     <div>
-      <h1>Show User</h1>
+      <h1>Users#Show</h1>
       <h2>{params.id}</h2>
       <h2>{user?.name}</h2>
       <div>
