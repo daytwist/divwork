@@ -29,7 +29,7 @@ RSpec.describe "Api::V1::Teams", type: :request do
     end
   end
 
-  context "ユーザーがログインしている時" do
+  context "チームのユーザーがログインしている時" do
     let(:user) { create(:user, team:) }
     let(:headers) { user.create_new_auth_token }
 
@@ -50,9 +50,8 @@ RSpec.describe "Api::V1::Teams", type: :request do
     end
 
     describe "PATCH /:id" do
-      let(:params) { { name: "team_update" } }
-
       it "チームの情報更新に成功すること" do
+        params = { name: "team_update" }
         headers["Content-Type"] = "application/json"
         patch "/api/v1/teams/#{team.id}", params: params.to_json, headers: headers
 
