@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utils/axios";
@@ -8,15 +8,20 @@ const SignIn: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   // const navigate = useNavigate();
 
-  const options: AxiosRequestConfig = {
-    url: "/auth/sign_in",
-    method: "POST",
-    params: { email, password },
-  };
+  const onClickSignIn = async () => {
+    const options: AxiosRequestConfig = {
+      url: "/auth/sign_in",
+      method: "POST",
+      params: { email, password },
+    };
 
-  const onClick = async () => {
-    await axiosInstance(options);
-    // navigate(`/teams/${user.team.id}`, { replace: true });
+    try {
+      const res: AxiosResponse = await axiosInstance(options);
+      console.log(res);
+      // navigate(`/teams/${user.team.id}`, { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -29,7 +34,7 @@ const SignIn: React.FC = () => {
         <input value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
       <div>
-        <button type="submit" onClick={onClick}>
+        <button type="submit" onClick={onClickSignIn}>
           サインイン
         </button>
       </div>
