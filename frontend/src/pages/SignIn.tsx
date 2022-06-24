@@ -1,17 +1,16 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SignInResponse, User } from "../types";
-// import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utils/axios";
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [currentUser, setCurrentUser] = useState<User>();
 
-  const [currentUser, setCurrentUser] = useState<User | undefined>();
-
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const onClickSignIn = async () => {
     const options: AxiosRequestConfig = {
@@ -29,9 +28,8 @@ const SignIn: React.FC = () => {
           Cookies.set("client", res.headers.client);
           Cookies.set("uid", res.headers.uid);
 
-          console.log(res.data);
           setCurrentUser(res.data.data);
-          // navigate(`/teams/${user.team.id}`, { replace: true });
+          navigate(`/teams/${res.data.data.team_id}`, { replace: false });
         }
       })
       .catch((err) => console.log(err));
@@ -51,6 +49,7 @@ const SignIn: React.FC = () => {
           サインイン
         </button>
       </div>
+      <h3>{currentUser?.name}</h3>
     </div>
   );
 };
