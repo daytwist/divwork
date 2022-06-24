@@ -6,7 +6,7 @@ const App: React.FC = () => {
     <div className="App">
       <h1>DivWork</h1>
       <div>
-        <Link to="sign_up/teams/select">サインアップ</Link>
+        <Link to="/sign_up/teams/select">サインアップ</Link>
       </div>
       <div>
         <Link to="/sign_in">サインイン</Link>
