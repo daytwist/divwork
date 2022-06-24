@@ -1,11 +1,11 @@
-export interface Team {
+export type Team = {
   id: number;
   name: string;
   created_at: Date;
   updated_at: Date;
-}
+};
 
-export interface User {
+export type User = {
   id: number;
   provider: string;
   uid: string;
@@ -17,9 +17,9 @@ export interface User {
   team_id: number;
   created_at: Date;
   updated_at: Date;
-}
+};
 
-export interface Task {
+export type Task = {
   id: number;
   title: string;
   description: string;
@@ -30,18 +30,18 @@ export interface Task {
   created_at: Date;
   updated_at: Date;
   parent_id: number;
-}
+};
 
-export interface TeamsShowResponse {
+export type TeamsShowResponse = {
   team: Team;
   users: User[];
-}
+};
 
-export interface UsersShowResponse {
+export type UsersShowResponse = {
   user: User;
   tasks: Task[];
-}
+};
 
-export interface TasksShowResponse {
+export type TasksShowResponse = {
   task: Task;
-}
+};

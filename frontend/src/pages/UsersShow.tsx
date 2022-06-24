@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
-import { User, Task, UsersShowResponse } from "../interfaces";
+import { User, Task, UsersShowResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
 const UsersShow: React.FC = () => {
