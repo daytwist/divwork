@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { Team, TeamsShowResponse } from "../interfaces";
+import { Team, TeamsShowResponse } from "../types";
 
 const TeamsShow: React.FC = () => {
   const [team, setTeam] = useState<Team>();

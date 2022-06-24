@@ -1,7 +1,7 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TasksShowResponse, Task } from "../interfaces";
+import { TasksShowResponse, Task } from "../types";
 import { axiosInstance } from "../utils/axios";
 
 const TasksShow: React.FC = () => {
