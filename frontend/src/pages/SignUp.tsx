@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useState } from "react";
 import { axiosInstance } from "../utils/axios";
 
@@ -6,14 +6,19 @@ const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const options: AxiosRequestConfig = {
-    url: "/auth",
-    method: "POST",
-    params: { email, password },
-  };
+  const onClickSignUp = async () => {
+    const options: AxiosRequestConfig = {
+      url: "/auth",
+      method: "POST",
+      params: { email, password },
+    };
 
-  const onClick = async () => {
-    await axiosInstance(options);
+    try {
+      const res: AxiosResponse = await axiosInstance(options);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -26,7 +31,7 @@ const SignUp: React.FC = () => {
         <input value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
       <div>
-        <button type="submit" onClick={onClick}>
+        <button type="submit" onClick={onClickSignUp}>
           サインアップ
         </button>
       </div>
