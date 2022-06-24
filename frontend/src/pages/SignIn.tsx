@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from "axios";
 import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utils/axios";
@@ -7,8 +8,14 @@ const SignIn: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   // const navigate = useNavigate();
 
+  const options: AxiosRequestConfig = {
+    url: "/auth/sign_in",
+    method: "POST",
+    params: { email, password },
+  };
+
   const onClick = async () => {
-    await axiosInstance.post("/auth/sign_in", { email, password });
+    await axiosInstance(options);
     // navigate(`/teams/${user.team.id}`, { replace: true });
   };
 
