@@ -32,6 +32,10 @@ export type Task = {
   parent_id: number;
 };
 
+export type TeamsSelectResponse = {
+  teams: Team[];
+};
+
 export type TeamsShowResponse = {
   team: Team;
   users: User[];
