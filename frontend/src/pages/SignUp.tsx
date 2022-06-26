@@ -1,9 +1,13 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { SignInResponse } from "../types";
+import { useLocation, useNavigate } from "react-router-dom";
+import { SignInResponse, Team } from "../types/index";
 import { axiosInstance } from "../utils/axios";
+
+type State = {
+  selectTeam: Team;
+};
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -11,11 +15,18 @@ const SignUp: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const { selectTeam } = location.state as State;
+
   const onClickSignUp = () => {
     const options: AxiosRequestConfig = {
       url: "/auth",
       method: "POST",
-      params: { email, password },
+      params: {
+        email,
+        password,
+        team_id: selectTeam.id,
+      },
     };
 
     axiosInstance(options)
@@ -36,6 +47,7 @@ const SignUp: React.FC = () => {
   return (
     <div>
       <h1>Sign Up</h1>
+      <div>{selectTeam.name}</div>
       <div>
         <input
           value={email}

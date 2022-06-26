@@ -1,4 +1,4 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Team, TeamsSelectResponse } from "../types";
@@ -15,12 +15,11 @@ const TeamsSelect: React.FC = () => {
   useEffect(() => {
     axiosInstance(options)
       .then((res: AxiosResponse<TeamsSelectResponse>) => {
-        const { data } = res;
-        console.log(data);
-        setTeams(data.teams);
+        console.log(res);
+        setTeams(res.data.teams);
       })
-      .catch((e: AxiosError<{ error: string }>) => {
-        console.log(e);
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -30,7 +29,7 @@ const TeamsSelect: React.FC = () => {
       <div>
         <ul>
           {teams?.map((team) => (
-            <Link to="/sign_up" key={team.id}>
+            <Link to="/sign_up" key={team.id} state={{ selectTeam: team }}>
               <li>{team.name}</li>
             </Link>
           ))}
