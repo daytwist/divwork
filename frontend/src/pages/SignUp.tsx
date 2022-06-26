@@ -37,10 +37,16 @@ const SignUp: React.FC = () => {
     <div>
       <h1>Sign Up</h1>
       <div>
-        <input value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
       </div>
       <div>
-        <input value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
       </div>
       <div>
         <button type="submit" onClick={onClickSignUp}>
