@@ -10,6 +10,7 @@ type State = {
 };
 
 const SignUp: React.FC = () => {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -23,6 +24,7 @@ const SignUp: React.FC = () => {
       url: "/auth",
       method: "POST",
       params: {
+        name,
         email,
         password,
         team_id: selectTeam.id,
@@ -48,6 +50,9 @@ const SignUp: React.FC = () => {
     <div>
       <h1>Sign Up</h1>
       <div>{selectTeam.name}</div>
+      <div>
+        <input value={name} onChange={(event) => setName(event.target.value)} />
+      </div>
       <div>
         <input
           value={email}
