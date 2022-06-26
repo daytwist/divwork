@@ -1,24 +1,36 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
+import Cookies from "js-cookie";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SignInResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const onClickSignUp = async () => {
+  const navigate = useNavigate();
+
+  const onClickSignUp = () => {
     const options: AxiosRequestConfig = {
       url: "/auth",
       method: "POST",
       params: { email, password },
     };
 
-    try {
-      const res: AxiosResponse = await axiosInstance(options);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
+    axiosInstance(options)
+      .then((res: AxiosResponse<SignInResponse>) => {
+        console.log(res);
+
+        if (res.status === 200) {
+          Cookies.set("_access_token", res.headers["access-token"]);
+          Cookies.set("_client", res.headers.client);
+          Cookies.set("_uid", res.headers.uid);
+
+          navigate(`/teams/${res.data.data.team_id}`, { replace: false });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
