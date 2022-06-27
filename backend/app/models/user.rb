@@ -13,4 +13,11 @@ class User < ApplicationRecord
   has_many :divisions, dependent: :nullify
 
   validates :name, presence: true, length: { maximum: 10 }
+
+  def tasks_count
+    low    = tasks.where(priority: 0).size
+    medium = tasks.where(priority: 1).size
+    high   = tasks.where(priority: 2).size
+    [low, medium, high]
+  end
 end
