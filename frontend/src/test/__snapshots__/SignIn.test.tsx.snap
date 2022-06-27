@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignIn スナップショット 1`] = `
+<div>
+  <h1>
+    Sign In
+  </h1>
+  <div>
+    <input
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <div>
+    <input
+      onChange={[Function]}
+      value=""
+    />
+  </div>
+  <div>
+    <button
+      onClick={[Function]}
+      type="submit"
+    >
+      サインイン
+    </button>
+  </div>
+</div>
+`;

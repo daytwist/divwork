@@ -1,21 +1,34 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { SignInResponse } from "../types";
+import { useLocation, useNavigate } from "react-router-dom";
+import { SignInResponse, Team } from "../types/index";
 import { axiosInstance } from "../utils/axios";
 
-const SignIn: React.FC = () => {
+type State = {
+  selectTeam: Team;
+};
+
+const SignUp: React.FC = () => {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const navigate = useNavigate();
 
-  const onClickSignIn = () => {
+  const location = useLocation();
+  const { selectTeam } = location.state as State;
+
+  const onClickSignUp = () => {
     const options: AxiosRequestConfig = {
-      url: "/auth/sign_in",
+      url: "/auth",
       method: "POST",
-      params: { email, password },
+      params: {
+        name,
+        email,
+        password,
+        team_id: selectTeam.id,
+      },
     };
 
     axiosInstance(options)
@@ -35,7 +48,11 @@ const SignIn: React.FC = () => {
 
   return (
     <div>
-      <h1>Sign In</h1>
+      <h1>Sign Up</h1>
+      <div>{selectTeam.name}</div>
+      <div>
+        <input value={name} onChange={(event) => setName(event.target.value)} />
+      </div>
       <div>
         <input
           value={email}
@@ -49,12 +66,12 @@ const SignIn: React.FC = () => {
         />
       </div>
       <div>
-        <button type="submit" onClick={onClickSignIn}>
-          サインイン
+        <button type="submit" onClick={onClickSignUp}>
+          サインアップ
         </button>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;
