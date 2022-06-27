@@ -36,14 +36,18 @@ const TeamsShow: React.FC = () => {
   return (
     <div>
       <h1>Teams#Show</h1>
-      <h2>{params.id}</h2>
       <h2>{team?.name}</h2>
       <div>
         <ul>
           {users?.map((user) => (
-            <Link to={`/users/${user.id}`} key={user.id}>
-              <li>{user.name}</li>
-            </Link>
+            <div key={user.id}>
+              <Link to={`/users/${user.id}`}>
+                <li>{user.name}</li>
+              </Link>
+              {user.tasks_count[0]}
+              {user.tasks_count[1]}
+              {user.tasks_count[2]}
+            </div>
           ))}
         </ul>
       </div>
