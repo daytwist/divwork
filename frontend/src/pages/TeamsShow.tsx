@@ -1,27 +1,33 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import Cookies from "js-cookie";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse } from "../types";
 
 const TeamsShow: React.FC = () => {
   const [team, setTeam] = useState<Team>();
+
   const params = useParams<{ id: string }>();
+
   const options: AxiosRequestConfig = {
     url: `/teams/${params.id}`,
     method: "GET",
+    headers: {
+      "access-token": Cookies.get("_access_token") || "",
+      client: Cookies.get("_client") || "",
+      uid: Cookies.get("_uid") || "",
+    },
   };
 
   useEffect(() => {
     axiosInstance(options)
       .then((res: AxiosResponse<TeamsShowResponse>) => {
-        const { data } = res;
-        console.log(data);
-        console.log(params);
-        setTeam(data.team);
+        console.log(res);
+        setTeam(res.data.team);
       })
-      .catch((e: AxiosError<{ error: string }>) => {
-        console.log(e.message);
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 

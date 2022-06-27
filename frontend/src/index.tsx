@@ -8,6 +8,7 @@ import TeamsSelect from "./pages/TeamsSelect";
 import TeamsShow from "./pages/TeamsShow";
 import UsersShow from "./pages/UsersShow";
 import TasksShow from "./pages/TasksShow";
+import SignUp from "./pages/SignUp";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,6 +18,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
+      <Route path="/sign_up" element={<SignUp />} />
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/teams/:id" element={<TeamsShow />} />
       <Route path="users/:id" element={<UsersShow />} />

@@ -32,6 +32,10 @@ export type Task = {
   parent_id: number;
 };
 
+export type SignInResponse = {
+  data: User;
+};
+
 export type TeamsSelectResponse = {
   teams: Team[];
 };
