@@ -1,8 +1,9 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TasksShowResponse, Task } from "../types";
+import Cookies from "js-cookie";
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
+import { TasksShowResponse, Task } from "../types";
 
 const TasksShow: React.FC = () => {
   const [task, setTask] = useState<Task>();
@@ -11,6 +12,11 @@ const TasksShow: React.FC = () => {
   const options: AxiosRequestConfig = {
     url: `/tasks/${params.id}`,
     method: "GET",
+    headers: {
+      "access-token": Cookies.get("_access_token") || "",
+      client: Cookies.get("_client") || "",
+      uid: Cookies.get("_uid") || "",
+    },
   };
 
   useEffect(() => {
