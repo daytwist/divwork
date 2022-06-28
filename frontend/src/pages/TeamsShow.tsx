@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { Team, TeamsShowResponse } from "../types";
+import { Team, TeamsShowResponse, User } from "../types";
 
 const TeamsShow: React.FC = () => {
   const [team, setTeam] = useState<Team>();
+  const [users, setUsers] = useState<User[]>();
 
   const params = useParams<{ id: string }>();
 
@@ -25,6 +26,7 @@ const TeamsShow: React.FC = () => {
       .then((res: AxiosResponse<TeamsShowResponse>) => {
         console.log(res);
         setTeam(res.data.team);
+        setUsers(res.data.users);
       })
       .catch((err) => {
         console.log(err);
@@ -34,8 +36,21 @@ const TeamsShow: React.FC = () => {
   return (
     <div>
       <h1>Teams#Show</h1>
-      <h2>{params.id}</h2>
       <h2>{team?.name}</h2>
+      <div>
+        <ul>
+          {users?.map((user) => (
+            <div key={user.id}>
+              <Link to={`/users/${user.id}`}>
+                <li>{user.name}</li>
+              </Link>
+              {user.tasks_count[0]}
+              {user.tasks_count[1]}
+              {user.tasks_count[2]}
+            </div>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

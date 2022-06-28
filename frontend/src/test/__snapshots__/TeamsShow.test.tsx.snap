@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeamsShow スナップショット 1`] = `
+<div>
+  <h1>
+    Teams#Show
+  </h1>
+  <h2 />
+  <div>
+    <ul />
+  </div>
+</div>
+`;
