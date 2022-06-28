@@ -9,7 +9,7 @@ import TeamsShow from "./pages/TeamsShow";
 import UsersShow from "./pages/UsersShow";
 import TasksShow from "./pages/TasksShow";
 import SignUp from "./pages/SignUp";
-import Header from "./layouts/Header";
+import Header from "./components/Header";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
