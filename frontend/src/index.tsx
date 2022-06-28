@@ -9,12 +9,14 @@ import TeamsShow from "./pages/TeamsShow";
 import UsersShow from "./pages/UsersShow";
 import TasksShow from "./pages/TasksShow";
 import SignUp from "./pages/SignUp";
+import Header from "./layouts/Header";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <BrowserRouter>
+    <Header />
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
