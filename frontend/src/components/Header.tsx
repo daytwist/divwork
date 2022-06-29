@@ -1,9 +1,13 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utils/axios";
+import { AuthContext } from "./AuthProvider";
 
-const Header: React.FC = () => {
+const SignOutButton = () => {
+  const { isSignedIn } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const onClickSignOut = () => {
@@ -32,11 +36,28 @@ const Header: React.FC = () => {
       .catch((err) => console.log(err));
   };
 
+  if (isSignedIn === true) {
+    return (
+      <div>
+        {/* <h4>{currentUser?.name}</h4> */}
+        <button type="submit" onClick={onClickSignOut}>
+          サインアウト
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <button type="submit" onClick={onClickSignOut}>
-        サインアウト
-      </button>
+      <h4>サインイン</h4>
+    </div>
+  );
+};
+
+const Header: React.FC = () => {
+  return (
+    <div>
+      <SignOutButton />
     </div>
   );
 };
