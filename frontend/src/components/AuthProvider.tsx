@@ -1,11 +1,9 @@
-import Cookies from "js-cookie";
 import {
   createContext,
   Dispatch,
   FC,
   ReactNode,
   SetStateAction,
-  useContext,
   useMemo,
   useState,
 } from "react";
@@ -36,20 +34,4 @@ export const AuthProvider: FC<Props> = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const GetIsSignedIn = () => {
-  const { isSignedIn, setIsSignedIn } = useContext(AuthContext);
-
-  if (
-    Cookies.get("_access_token") &&
-    Cookies.get("_client") &&
-    Cookies.get("_uid")
-  ) {
-    setIsSignedIn(true);
-    console.log(isSignedIn);
-  } else {
-    setIsSignedIn(false);
-    console.log(isSignedIn);
-  }
 };
