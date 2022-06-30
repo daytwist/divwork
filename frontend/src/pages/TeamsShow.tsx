@@ -25,6 +25,7 @@ const TeamsShow: React.FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<TeamsShowResponse>) => {
         console.log(res);
+
         setTeam(res.data.team);
         setUsers(res.data.users);
       })

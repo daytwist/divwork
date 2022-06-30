@@ -33,6 +33,11 @@ export type Task = {
   parent_id: number;
 };
 
+export type AuthSessionsResponse = {
+  is_signed_in: boolean;
+  current_user: User | undefined;
+};
+
 export type SignInResponse = {
   data: User;
 };
