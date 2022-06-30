@@ -2,7 +2,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { FC, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { SignInResponse, Team } from "../types/index";
+import { AuthResponse, Team } from "../types/index";
 import { axiosInstance } from "../utils/axios";
 
 type State = {
@@ -32,7 +32,7 @@ const SignUp: FC = () => {
     };
 
     axiosInstance(options)
-      .then((res: AxiosResponse<SignInResponse>) => {
+      .then((res: AxiosResponse<AuthResponse>) => {
         console.log(res);
 
         if (res.status === 200) {

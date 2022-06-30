@@ -24,13 +24,13 @@ export type Task = {
   id: number;
   title: string;
   description: string;
-  deadline: string;
+  deadline: Date | null;
   priority: string;
   is_done: boolean;
-  user_id: number;
+  user_id: number | null;
   created_at: Date;
   updated_at: Date;
-  parent_id: number;
+  parent_id: number | null;
 };
 
 export type AuthSessionsResponse = {
@@ -38,7 +38,7 @@ export type AuthSessionsResponse = {
   current_user: User | undefined;
 };
 
-export type SignInResponse = {
+export type AuthResponse = {
   data: User;
 };
 
@@ -56,6 +56,6 @@ export type UsersShowResponse = {
   tasks: Task[];
 };
 
-export type TasksShowResponse = {
+export type TasksResponse = {
   task: Task;
 };
