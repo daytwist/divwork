@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
@@ -35,6 +35,11 @@ const TasksShow: FC = () => {
       <h1>Tasks#Show</h1>
       <h2>{task?.title}</h2>
       <h3>{task?.description}</h3>
+      <div>
+        <Link to={`/tasks/${task?.id}/divisions/new`}>
+          <button type="button">分担する</button>
+        </Link>
+      </div>
     </div>
   );
 };
