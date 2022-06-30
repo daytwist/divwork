@@ -1,23 +1,33 @@
 import { render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer"; // eslint-disable-line import/no-extraneous-dependencies
 import { BrowserRouter } from "react-router-dom";
-import SignIn from "../pages/SignIn";
+import Home from "../pages/Home";
 
-describe("SignIn", () => {
-  test("'Sign In'が表示されていること", () => {
+describe("Home", () => {
+  test("'DivWork'が表示されていること", () => {
     render(
       <BrowserRouter>
-        <SignIn />
+        <Home />
       </BrowserRouter>
     );
-    const textElement = screen.getByText("Sign In");
+    const textElement = screen.getByText("DivWork");
+    expect(textElement).toBeInTheDocument();
+  });
+
+  test("'サインアップ'が表示されていること", () => {
+    render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
+    const textElement = screen.getByText("サインアップ");
     expect(textElement).toBeInTheDocument();
   });
 
   test("'サインイン'が表示されていること", () => {
     render(
       <BrowserRouter>
-        <SignIn />
+        <Home />
       </BrowserRouter>
     );
     const textElement = screen.getByText("サインイン");
@@ -28,7 +38,7 @@ describe("SignIn", () => {
     const tree = renderer
       .create(
         <BrowserRouter>
-          <SignIn />
+          <Home />
         </BrowserRouter>
       )
       .toJSON();
