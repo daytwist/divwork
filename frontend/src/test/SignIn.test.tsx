@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import SignIn from "../pages/SignIn";
 
 describe("SignIn", () => {
-  it("'Sign In'が表示されていること", () => {
+  test("'Sign In'が表示されていること", () => {
     render(
       <BrowserRouter>
         <SignIn />
@@ -14,7 +14,7 @@ describe("SignIn", () => {
     expect(textElement).toBeInTheDocument();
   });
 
-  it("'サインイン'が表示されていること", () => {
+  test("'サインイン'が表示されていること", () => {
     render(
       <BrowserRouter>
         <SignIn />
@@ -24,7 +24,7 @@ describe("SignIn", () => {
     expect(textElement).toBeInTheDocument();
   });
 
-  it("スナップショット", () => {
+  test("スナップショット", () => {
     const tree = renderer
       .create(
         <BrowserRouter>
