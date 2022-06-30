@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { TasksShowResponse, Task } from "../types";
+import { TasksResponse, Task } from "../types";
 
 const TasksShow: FC = () => {
   const [task, setTask] = useState<Task>();
@@ -21,9 +21,9 @@ const TasksShow: FC = () => {
 
   useEffect(() => {
     axiosInstance(options)
-      .then((res: AxiosResponse<TasksShowResponse>) => {
+      .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
-        setTask(res.data.task);
+        setTask(res?.data.task);
       })
       .catch((err) => {
         console.log(err);

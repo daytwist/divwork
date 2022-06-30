@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../components/AuthProvider";
-import { SignInResponse } from "../types";
+import { AuthResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
 const SignIn: FC = () => {
@@ -22,7 +22,7 @@ const SignIn: FC = () => {
     };
 
     axiosInstance(options)
-      .then((res: AxiosResponse<SignInResponse>) => {
+      .then((res: AxiosResponse<AuthResponse>) => {
         console.log(res);
 
         if (res.status === 200) {
