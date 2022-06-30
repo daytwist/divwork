@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header スナップショット 1`] = `
+<div>
+  <h4>
+    サインイン
+  </h4>
+</div>
+`;
