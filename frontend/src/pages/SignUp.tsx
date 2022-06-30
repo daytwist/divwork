@@ -1,6 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SignInResponse, Team } from "../types/index";
 import { axiosInstance } from "../utils/axios";
@@ -9,7 +9,7 @@ type State = {
   selectTeam: Team;
 };
 
-const SignUp: React.FC = () => {
+const SignUp: FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");

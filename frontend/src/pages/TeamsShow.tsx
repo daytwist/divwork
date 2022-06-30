@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
 
-const TeamsShow: React.FC = () => {
+const TeamsShow: FC = () => {
   const [team, setTeam] = useState<Team>();
   const [users, setUsers] = useState<User[]>();
 

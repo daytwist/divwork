@@ -1,10 +1,10 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Team, TeamsSelectResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
-const TeamsSelect: React.FC = () => {
+const TeamsSelect: FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
 
   const options: AxiosRequestConfig = {

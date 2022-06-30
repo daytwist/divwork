@@ -1,12 +1,12 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
-import { useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../components/AuthProvider";
 import { SignInResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
-const SignIn: React.FC = () => {
+const SignIn: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 

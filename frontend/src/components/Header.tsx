@@ -1,11 +1,11 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "./AuthProvider";
 
-const Header: React.FC = () => {
+const Header: FC = () => {
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();

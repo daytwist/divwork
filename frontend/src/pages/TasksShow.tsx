@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksShowResponse, Task } from "../types";
 
-const TasksShow: React.FC = () => {
+const TasksShow: FC = () => {
   const [task, setTask] = useState<Task>();
   const params = useParams<{ id: string }>();
 

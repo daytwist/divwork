@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { User, Task, UsersShowResponse } from "../types";
 
-const UsersShow: React.FC = () => {
+const UsersShow: FC = () => {
   const [user, setUser] = useState<User>();
   const [tasks, setTasks] = useState<Task[]>([]);
 
