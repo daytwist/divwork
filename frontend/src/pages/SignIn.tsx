@@ -2,7 +2,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from '../components/AuthProvider';
+import { AuthContext } from "../components/AuthProvider";
 import { SignInResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
@@ -30,7 +30,7 @@ const SignIn: React.FC = () => {
           Cookies.set("_client", res.headers.client);
           Cookies.set("_uid", res.headers.uid);
 
-          setIsSignedIn(true)
+          setIsSignedIn(true);
           navigate(`/teams/${res.data.data.team_id}`, { replace: false });
         }
       })
