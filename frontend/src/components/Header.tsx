@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "./AuthProvider";
 
-const SignOutButton = () => {
-  const { isSignedIn } = useContext(AuthContext);
+const Header: React.FC = () => {
+  const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ const SignOutButton = () => {
           Cookies.remove("_client");
           Cookies.remove("_uid");
 
+          setIsSignedIn(false);
           navigate("/", { replace: true });
         }
       })
@@ -39,7 +40,7 @@ const SignOutButton = () => {
   if (isSignedIn === true) {
     return (
       <div>
-        {/* <h4>{currentUser?.name}</h4> */}
+        <h4>{currentUser?.name}</h4>
         <button type="submit" onClick={onClickSignOut}>
           サインアウト
         </button>
@@ -50,14 +51,6 @@ const SignOutButton = () => {
   return (
     <div>
       <h4>サインイン</h4>
-    </div>
-  );
-};
-
-const Header: React.FC = () => {
-  return (
-    <div>
-      <SignOutButton />
     </div>
   );
 };
