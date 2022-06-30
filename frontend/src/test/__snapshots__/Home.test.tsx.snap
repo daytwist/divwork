@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home スナップショット 1`] = `
+<div
+  className="Home"
+>
+  <h1>
+    DivWork
+  </h1>
+  <div>
+    <a
+      href="/sign_up/teams/select"
+      onClick={[Function]}
+    >
+      サインアップ
+    </a>
+  </div>
+  <div>
+    <a
+      href="/sign_in"
+      onClick={[Function]}
+    >
+      サインイン
+    </a>
+  </div>
+</div>
+`;
