@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksShowResponse, Task } from "../types";
 
@@ -22,20 +22,17 @@ const TasksShow: FC = () => {
   useEffect(() => {
     axiosInstance(options)
       .then((res: AxiosResponse<TasksShowResponse>) => {
-        const { data } = res;
-        console.log(data);
-        console.log(params);
-        setTask(data?.task);
+        console.log(res);
+        setTask(res.data.task);
       })
-      .catch((e: AxiosError<{ error: string }>) => {
-        console.log(e);
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
   return (
     <div>
       <h1>Tasks#Show</h1>
-      <h2>{params.id}</h2>
       <h2>{task?.title}</h2>
       <h3>{task?.description}</h3>
     </div>
