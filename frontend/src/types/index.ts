@@ -27,10 +27,20 @@ export type Task = {
   deadline: string;
   priority: string;
   is_done: boolean;
-  user_id: number | null;
+  user_id: number;
   created_at: string;
   updated_at: string;
-  parent_id: number | null;
+  parent_id: number;
+};
+
+export type newTask = {
+  title: string;
+  description: string;
+  deadline: string;
+  priority: string;
+  is_done: boolean;
+  user_id: number;
+  parent_id: number;
 };
 
 export type AuthSessionsResponse = {

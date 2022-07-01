@@ -2,18 +2,8 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TasksResponse } from "../types";
+import { newTask, TasksResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
-
-type newTask = {
-  title: string;
-  description: string;
-  deadline: string;
-  priority: string;
-  is_done: boolean;
-  user_id: number | null;
-  parent_id: number | null;
-};
 
 const DivisionsNew: FC = () => {
   const [task, setTask] = useState<newTask>({
@@ -22,8 +12,8 @@ const DivisionsNew: FC = () => {
     deadline: "",
     priority: "",
     is_done: false,
-    user_id: null,
-    parent_id: null,
+    user_id: 0,
+    parent_id: 0,
   });
 
   const handleInputChange = (
@@ -60,34 +50,56 @@ const DivisionsNew: FC = () => {
     <div>
       <h1>Divisions#New</h1>
       <div>
-        <p>タイトル</p>
-        <input name="title" value={task.title} onChange={handleInputChange} />
+        <label>
+          タイトル
+          <input name="title" value={task.title} onChange={handleInputChange} />
+        </label>
       </div>
+      <br />
       <div>
-        <p>詳細</p>
-        <textarea
-          name="description"
-          value={task.description}
-          onChange={handleInputChange}
-        />
+        <label>
+          詳細
+          <textarea
+            name="description"
+            value={task.description}
+            onChange={handleInputChange}
+          />
+        </label>
       </div>
+      <br />
       <div>
-        <p>納期</p>
-        <input
-          type="date"
-          name="deadline"
-          value={task.deadline}
-          onChange={handleInputChange}
-        />
+        <label>
+          納期
+          <input
+            type="text"
+            name="deadline"
+            value={task.deadline}
+            onChange={handleInputChange}
+          />
+        </label>
       </div>
+      <br />
       <div>
-        <p>優先度</p>
-        <input
-          name="priority"
-          value={task.priority}
-          onChange={handleInputChange}
-        />
+        <label>
+          優先度
+          <input
+            name="priority"
+            value={task.priority}
+            onChange={handleInputChange}
+          />
+        </label>
       </div>
+      <br />
+      <div>
+        <label>
+          送信先ユーザー
+          <input
+            name="user_id"
+            onChange={handleInputChange}
+          />
+        </label>
+      </div>
+      <br />
       <button type="submit">分担する</button>
     </div>
   );
