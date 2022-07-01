@@ -36,6 +36,22 @@ module.exports = {
       { js: "never", jsx: "never", ts: "never", tsx: "never" },
     ],
     "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        required: {
+          some: ["nesting", "id"],
+        },
+      },
+    ],
+    "jsx-a11y/label-has-for": [
+      "error",
+      {
+        required: {
+          some: ["nesting", "id"],
+        },
+      },
+    ],
     "no-console": "off",
     "no-param-reassign": [2, { props: false }],
     "no-use-before-define": "off",
@@ -51,15 +67,6 @@ module.exports = {
     "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-
-    // あとで適用させる
-    "@typescript-eslint/no-misused-promises": [
-      "error",
-      {
-        checksVoidReturn: false,
-      },
-    ],
-
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "@typescript-eslint/restrict-template-expressions": "off",
