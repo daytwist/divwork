@@ -1,8 +1,8 @@
 export type Team = {
   id: number;
   name: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 };
 
 export type User = {
@@ -15,8 +15,8 @@ export type User = {
   image: string;
   email: string;
   team_id: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   tasks_count: number[];
 };
 
@@ -24,12 +24,12 @@ export type Task = {
   id: number;
   title: string;
   description: string;
-  deadline: Date | null;
+  deadline: string;
   priority: string;
   is_done: boolean;
   user_id: number | null;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   parent_id: number | null;
 };
 
