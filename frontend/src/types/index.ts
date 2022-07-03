@@ -33,6 +33,15 @@ export type Task = {
   parent_id: number;
 };
 
+export type Division = {
+  id: number;
+  user_id: number;
+  task_id: number;
+  created_at: string;
+  updated_at: string;
+  comment: string;
+};
+
 export type newTask = {
   title: string;
   description: string;
@@ -41,6 +50,10 @@ export type newTask = {
   is_done: boolean;
   user_id: number;
   parent_id: number;
+};
+
+export type newDivision = {
+  comment: string;
 };
 
 export type AuthSessionsResponse = {
@@ -68,4 +81,9 @@ export type UsersShowResponse = {
 
 export type TasksResponse = {
   task: Task;
+};
+
+export type DivisionsCreateResponse = {
+  task: Task;
+  division: Division;
 };

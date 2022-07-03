@@ -1,11 +1,14 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { newTask, TasksResponse } from "../types";
+import { useNavigate, useParams } from "react-router-dom";
+import { newTask, TasksResponse, DivisionsCreateResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
 const DivisionsNew: FC = () => {
+  const params = useParams<{ id: string }>();
+  const navigate = useNavigate();
+
   const [task, setTask] = useState<newTask>({
     title: "",
     description: "",
@@ -16,6 +19,8 @@ const DivisionsNew: FC = () => {
     parent_id: 0,
   });
 
+  const [comment, setComment] = useState<string>("");
+
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -23,7 +28,40 @@ const DivisionsNew: FC = () => {
     setTask({ ...task, [name]: value });
   };
 
-  const params = useParams<{ id: string }>();
+  const handleDivisionsCreate = () => {
+    const options: AxiosRequestConfig = {
+      url: `/tasks/${params.id}/divisions`,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "access-token": Cookies.get("_access_token") || "",
+        client: Cookies.get("_client") || "",
+        uid: Cookies.get("_uid") || "",
+      },
+      data: {
+        task: {
+          title: task.title,
+          description: task.description,
+          deadline: task.deadline,
+          priority: task.priority,
+          is_done: task.is_done,
+          user_id: task.user_id,
+          parent_id: task.parent_id,
+        },
+        division: { comment },
+      },
+    };
+
+    axiosInstance(options)
+      .then((res: AxiosResponse<DivisionsCreateResponse>) => {
+        console.log(res);
+
+        if (res.status === 200) {
+          navigate(`/users/${res.data.division.user_id}`, { replace: false });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   const options: AxiosRequestConfig = {
     url: `/tasks/${params.id}/divisions/new`,
@@ -93,14 +131,23 @@ const DivisionsNew: FC = () => {
       <div>
         <label>
           送信先ユーザー
+          <input name="user_id" onChange={handleInputChange} />
+        </label>
+      </div>
+      <br />
+      <div>
+        <label>
+          コメント
           <input
-            name="user_id"
-            onChange={handleInputChange}
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
           />
         </label>
       </div>
       <br />
-      <button type="submit">分担する</button>
+      <button type="submit" onClick={handleDivisionsCreate}>
+        分担する
+      </button>
     </div>
   );
 };
