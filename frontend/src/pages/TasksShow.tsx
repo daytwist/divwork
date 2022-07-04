@@ -1,34 +1,9 @@
-import { FC, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import Cookies from "js-cookie";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { TasksResponse, Task } from "../types";
+import { FC } from "react";
+import { Link } from "react-router-dom";
+import { useFetchTask } from "../hooks/useFetchTask";
 
 const TasksShow: FC = () => {
-  const [task, setTask] = useState<Task>();
-  const params = useParams<{ id: string }>();
-
-  const options: AxiosRequestConfig = {
-    url: `/tasks/${params.id}`,
-    method: "GET",
-    headers: {
-      "access-token": Cookies.get("_access_token") || "",
-      client: Cookies.get("_client") || "",
-      uid: Cookies.get("_uid") || "",
-    },
-  };
-
-  useEffect(() => {
-    axiosInstance(options)
-      .then((res: AxiosResponse<TasksResponse>) => {
-        console.log(res);
-        setTask(res?.data.task);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const task = useFetchTask();
 
   return (
     <div>

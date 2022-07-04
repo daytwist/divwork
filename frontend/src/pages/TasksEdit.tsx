@@ -1,10 +1,11 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, editTask } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
+import { useFetchTask } from "../hooks/useFetchTask";
 
 const TasksEdit: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -26,28 +27,10 @@ const TasksEdit: FC = () => {
     setTask({ ...task, [name]: value });
   };
 
+  const data = useFetchTask();
+  if (data) setTask(data);
+
   const params = useParams<{ id: string }>();
-
-  const options: AxiosRequestConfig = {
-    url: `/tasks/${params.id}`,
-    method: "GET",
-    headers: {
-      "access-token": Cookies.get("_access_token") || "",
-      client: Cookies.get("_client") || "",
-      uid: Cookies.get("_uid") || "",
-    },
-  };
-
-  useEffect(() => {
-    axiosInstance(options)
-      .then((res: AxiosResponse<TasksResponse>) => {
-        console.log(res);
-        setTask(res?.data.task);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   const handleTasksUpdate = () => {
     const updateOptions: AxiosRequestConfig = {
@@ -79,7 +62,11 @@ const TasksEdit: FC = () => {
       <div>
         <label>
           タイトル
-          <input name="title" value={task.title} onChange={handleInputChange} />
+          <input
+            name="title"
+            value={task?.title}
+            onChange={handleInputChange}
+          />
         </label>
       </div>
       <br />
@@ -88,7 +75,7 @@ const TasksEdit: FC = () => {
           詳細
           <textarea
             name="description"
-            value={task.description}
+            value={task?.description}
             onChange={handleInputChange}
           />
         </label>
@@ -100,7 +87,7 @@ const TasksEdit: FC = () => {
           <input
             type="text"
             name="deadline"
-            value={task.deadline}
+            value={task?.deadline}
             onChange={handleInputChange}
           />
         </label>
@@ -111,7 +98,7 @@ const TasksEdit: FC = () => {
           優先度
           <input
             name="priority"
-            value={task.priority}
+            value={task?.priority}
             onChange={handleInputChange}
           />
         </label>
