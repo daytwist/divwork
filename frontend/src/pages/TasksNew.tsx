@@ -16,7 +16,6 @@ const TasksNew: FC = () => {
     deadline: "",
     priority: "",
     is_done: false,
-    user_id: 0,
   });
 
   const handleInputChange = (
@@ -36,14 +35,21 @@ const TasksNew: FC = () => {
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
       },
-      data: task,
+      data: {
+        title: task.title,
+        description: task.description,
+        deadline: task.deadline,
+        priority: task.priority,
+        is_done: task.is_done,
+        user_id: currentUser?.id,
+      },
     };
 
     axiosInstance(options)
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
 
-        if (res.status === 200) {
+        if (res.status === 201) {
           navigate(`/users/${currentUser?.id}`, { replace: false });
         }
       })
@@ -52,7 +58,7 @@ const TasksNew: FC = () => {
 
   return (
     <div>
-      <h1>Divisions#New</h1>
+      <h1>Tasks#New</h1>
       <div>
         <label>
           タイトル
@@ -89,17 +95,6 @@ const TasksNew: FC = () => {
           <input
             name="priority"
             value={task.priority}
-            onChange={handleInputChange}
-          />
-        </label>
-      </div>
-      <br />
-      <div>
-        <label>
-          ユーザー
-          <input
-            name="user_id"
-            value={task.user_id}
             onChange={handleInputChange}
           />
         </label>

@@ -48,7 +48,6 @@ export type newTask = {
   deadline: string;
   priority: string;
   is_done: boolean;
-  user_id: number;
 };
 
 export type divisionTask = {
