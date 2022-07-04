@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DivisionsNew スナップショット 1`] = `
+<div>
+  <h1>
+    Divisions#New
+  </h1>
+  <div>
+    <label>
+      タイトル
+      <input
+        name="title"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+  </div>
+  <br />
+  <div>
+    <label>
+      詳細
+      <textarea
+        name="description"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+  </div>
+  <br />
+  <div>
+    <label>
+      納期
+      <input
+        name="deadline"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+  </div>
+  <br />
+  <div>
+    <label>
+      優先度
+      <input
+        name="priority"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+  </div>
+  <br />
+  <div>
+    <label>
+      送信先ユーザー
+      <input
+        name="user_id"
+        onChange={[Function]}
+      />
+    </label>
+  </div>
+  <br />
+  <div>
+    <label>
+      コメント
+      <input
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+  </div>
+  <br />
+  <button
+    onClick={[Function]}
+    type="submit"
+  >
+    分担する
+  </button>
+</div>
+`;

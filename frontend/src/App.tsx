@@ -4,10 +4,11 @@ import TeamsSelect from "./pages/TeamsSelect";
 import TeamsShow from "./pages/TeamsShow";
 import UsersShow from "./pages/UsersShow";
 import TasksShow from "./pages/TasksShow";
+import DivisionsNew from "./pages/DivisionsNew";
 import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import { AuthProvider } from "./components/AuthProvider";
+import { AuthProvider } from "./providers/AuthProvider";
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route path="/teams/:id" element={<TeamsShow />} />
           <Route path="users/:id" element={<UsersShow />} />
           <Route path="tasks/:id" element={<TasksShow />} />
+          <Route path="tasks/:id/divisions/new" element={<DivisionsNew />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

@@ -1,8 +1,8 @@
 export type Team = {
   id: number;
   name: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 };
 
 export type User = {
@@ -15,8 +15,8 @@ export type User = {
   image: string;
   email: string;
   team_id: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   tasks_count: number[];
 };
 
@@ -28,9 +28,32 @@ export type Task = {
   priority: string;
   is_done: boolean;
   user_id: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   parent_id: number;
+};
+
+export type Division = {
+  id: number;
+  user_id: number;
+  task_id: number;
+  created_at: string;
+  updated_at: string;
+  comment: string;
+};
+
+export type newTask = {
+  title: string;
+  description: string;
+  deadline: string;
+  priority: string;
+  is_done: boolean;
+  user_id: number;
+  parent_id: number;
+};
+
+export type newDivision = {
+  comment: string;
 };
 
 export type AuthSessionsResponse = {
@@ -38,7 +61,7 @@ export type AuthSessionsResponse = {
   current_user: User | undefined;
 };
 
-export type SignInResponse = {
+export type AuthResponse = {
   data: User;
 };
 
@@ -56,6 +79,11 @@ export type UsersShowResponse = {
   tasks: Task[];
 };
 
-export type TasksShowResponse = {
+export type TasksResponse = {
   task: Task;
+};
+
+export type DivisionsCreateResponse = {
+  task: Task;
+  division: Division;
 };
