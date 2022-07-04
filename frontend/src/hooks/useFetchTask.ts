@@ -28,7 +28,7 @@ export const useFetchTask = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [data]);
 
   return data;
 };

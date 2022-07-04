@@ -31,7 +31,7 @@ const TasksShow: FC = () => {
       </div>
       {task?.user_id === currentUser?.id && (
         <div>
-          <Link to="/tasks/edit">
+          <Link to={`/tasks/${task?.id}/edit`}>
             <button type="button">編集</button>
           </Link>
         </div>
