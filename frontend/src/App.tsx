@@ -10,6 +10,7 @@ import UsersShow from "./pages/UsersShow";
 import TasksShow from "./pages/TasksShow";
 import TasksNew from "./pages/TasksNew";
 import DivisionsNew from "./pages/DivisionsNew";
+import TasksEdit from "./pages/TasksEdit";
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
           <Route path="users/:id" element={<UsersShow />} />
           <Route path="/tasks/new" element={<TasksNew />} />
           <Route path="/tasks/:id" element={<TasksShow />} />
+          <Route path="/tasks/:id/edit" element={<TasksEdit />} />
           <Route path="/tasks/:id/divisions/new" element={<DivisionsNew />} />
         </Routes>
       </AuthProvider>
