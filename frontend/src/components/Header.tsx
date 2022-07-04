@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { FC, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utils/axios";
-import { AuthContext } from "./AuthProvider";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Header: FC = () => {
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
