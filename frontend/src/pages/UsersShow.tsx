@@ -1,13 +1,16 @@
-import { useState, useEffect, FC } from "react";
+import { useState, useEffect, FC, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { User, Task, UsersShowResponse } from "../types";
+import { AuthContext } from "../providers/AuthProvider";
 
 const UsersShow: FC = () => {
   const [user, setUser] = useState<User>();
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  const { currentUser } = useContext(AuthContext);
 
   const params = useParams<{ id: string }>();
 
@@ -37,6 +40,13 @@ const UsersShow: FC = () => {
     <div>
       <h1>Users#Show</h1>
       <h2>{user?.name}</h2>
+      {user?.id === currentUser?.id && (
+        <div>
+          <Link to="/tasks/new">
+            <button type="button">新規作成</button>
+          </Link>
+        </div>
+      )}
       <div>
         <ul>
           {tasks?.map((task) => (

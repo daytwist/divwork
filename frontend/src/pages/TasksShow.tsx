@@ -1,40 +1,42 @@
-import { FC, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import Cookies from "js-cookie";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { TasksResponse, Task } from "../types";
+import { FC, useContext } from "react";
+import { Link } from "react-router-dom";
+import { useFetchTask } from "../hooks/useFetchTask";
+import { AuthContext } from "../providers/AuthProvider";
 
 const TasksShow: FC = () => {
-  const [task, setTask] = useState<Task>();
-  const params = useParams<{ id: string }>();
-
-  const options: AxiosRequestConfig = {
-    url: `/tasks/${params.id}`,
-    method: "GET",
-    headers: {
-      "access-token": Cookies.get("_access_token") || "",
-      client: Cookies.get("_client") || "",
-      uid: Cookies.get("_uid") || "",
-    },
-  };
-
-  useEffect(() => {
-    axiosInstance(options)
-      .then((res: AxiosResponse<TasksResponse>) => {
-        console.log(res);
-        setTask(res?.data.task);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const task = useFetchTask();
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <div>
       <h1>Tasks#Show</h1>
-      <h2>{task?.title}</h2>
-      <h3>{task?.description}</h3>
+      <div>
+        <h2>{task?.title}</h2>
+      </div>
+      <div>
+        <h4>詳細</h4>
+        <p>{task?.description}</p>
+      </div>
+      <div>
+        <h4>納期</h4>
+        <p>{task?.deadline}</p>
+      </div>
+      <div>
+        <h4>優先度</h4>
+        <p>{task?.priority}</p>
+      </div>
+      <div>
+        <h4>完了フラグ</h4>
+        <p>{task?.is_done.toString()}</p>
+      </div>
+      {task?.user_id === currentUser?.id && (
+        <div>
+          <Link to={`/tasks/${task?.id}/edit`}>
+            <button type="button">編集</button>
+          </Link>
+        </div>
+      )}
+      <br />
       <div>
         <Link to={`/tasks/${task?.id}/divisions/new`}>
           <button type="button">分担する</button>
