@@ -38,18 +38,7 @@ const DivisionsNew: FC = () => {
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
       },
-      data: {
-        task: {
-          title: task.title,
-          description: task.description,
-          deadline: task.deadline,
-          priority: task.priority,
-          is_done: task.is_done,
-          user_id: task.user_id,
-          parent_id: task.parent_id,
-        },
-        division: { comment },
-      },
+      data: { task, division: { comment } },
     };
 
     axiosInstance(options)

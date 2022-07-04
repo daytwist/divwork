@@ -4,7 +4,7 @@ import TeamsSelect from "./pages/TeamsSelect";
 import TeamsShow from "./pages/TeamsShow";
 import UsersShow from "./pages/UsersShow";
 import TasksShow from "./pages/TasksShow";
-import DivisionsNew from './pages/DivisionsNew';
+import DivisionsNew from "./pages/DivisionsNew";
 import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
 import Home from "./pages/Home";
