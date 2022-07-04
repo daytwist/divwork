@@ -2,14 +2,14 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { newTask, TasksResponse, DivisionsCreateResponse } from "../types";
+import { divisionTask, TasksResponse, DivisionsCreateResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
 const DivisionsNew: FC = () => {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [task, setTask] = useState<newTask>({
+  const [task, setTask] = useState<divisionTask>({
     title: "",
     description: "",
     deadline: "",
