@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { User, Task, UsersShowResponse } from "../types";
 
-const UsersShow: React.FC = () => {
+const UsersShow: FC = () => {
   const [user, setUser] = useState<User>();
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -24,21 +24,18 @@ const UsersShow: React.FC = () => {
   useEffect(() => {
     axiosInstance(options)
       .then((res: AxiosResponse<UsersShowResponse>) => {
-        const { data } = res;
-        console.log(data);
-        console.log(params);
-        setUser(data.user);
-        setTasks(data.tasks);
+        console.log(res);
+        setUser(res.data.user);
+        setTasks(res.data.tasks);
       })
-      .catch((e: AxiosError<{ error: string }>) => {
-        console.log(e);
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
   return (
     <div>
       <h1>Users#Show</h1>
-      <h2>{params.id}</h2>
       <h2>{user?.name}</h2>
       <div>
         <ul>
