@@ -2,7 +2,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../components/AuthProvider";
+import { AuthContext } from "../providers/AuthProvider";
 import { AuthResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
