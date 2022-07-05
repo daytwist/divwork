@@ -11,12 +11,13 @@ Rails.application.routes.draw do
       resources :teams, only: [:create, :show, :update, :destroy]
 
       resources :users, only: [:show]
+      get "users/:id/finished", to: "users#finished"
 
       resources :tasks, only: [:create, :show, :update, :destroy] do
         resources :divisions, only: [:new, :create]
       end
 
-      get "users/:id/finished", to: "users#finished"
+      get "health_check", to: "health_check#index"
     end
   end
 end
