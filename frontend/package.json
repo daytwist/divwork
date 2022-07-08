@@ -20,8 +20,9 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start-dev": "dotenv -e .env react-scripts start",
+    "start": "dotenv -e .env.prod react-scripts start",
+    "build": "dotenv -e .env.prod react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
     "lint": "eslint --ext 'src/**/*.{jsx,js,tsx,ts}'",
@@ -48,6 +49,7 @@
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
+    "dotenv-cli": "^6.0.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
