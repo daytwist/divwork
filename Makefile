@@ -1,3 +1,4 @@
+# development
 build:
 	docker-compose -f docker-compose.dev.yml up -d --build
 
@@ -18,3 +19,25 @@ front:
 
 back:
 	docker-compose -f docker-compose.dev.yml exec backend bash
+
+# production
+build-prod:
+	docker-compose -f docker-compose.prod.yml up -d --build
+
+up-prod:
+	docker-compose -f docker-compose.prod.yml up -d
+
+start-prod:
+	docker-compose -f docker-compose.prod.yml start
+
+stop-prod:
+	docker-compose -f docker-compose.prod.yml stop
+
+restart-prod:
+	docker-compose -f docker-compose.prod.yml restart
+
+front-prod:
+	docker-compose -f docker-compose.prod.yml exec frontend ash
+
+back-prod:
+	docker-compose -f docker-compose.prod.yml exec backend bash
