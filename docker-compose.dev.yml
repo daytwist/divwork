@@ -42,7 +42,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
-    command: ash -c "yarn start"
+    command: ash -c "yarn start-dev"
     volumes:
       - ./frontend:/usr/src/app:delegated
     ports:
