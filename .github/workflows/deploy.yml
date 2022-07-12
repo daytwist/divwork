@@ -29,4 +29,4 @@ jobs:
           ~/.rbenv/shims/bundle config --local without development:test &&
           ~/.rbenv/shims/bundle install &&
           RAILS_ENV=production ~/.rbenv/shims/bundle exec rails db:migrate &&
-          ~/.rbenv/shims/bundle exec rails s -e production"
+          ~/.rbenv/shims/bundle exec pumactl restart"
