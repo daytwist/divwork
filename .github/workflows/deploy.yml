@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  # pull_request:
+  push:
+    # branches:
+    #   - main
+
+jobs:
+  deploy:
+    name: Deploy app to AWS
+    # if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH
+        run: |
+          mkdir -p -m 700 ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/divwork-webapp
+          chmod 600 ~/.ssh/divwork-webapp
+      - name: Deploy
+        run: |
+          eval $(ssh-agent)
+          ssh-add ~/.ssh/divwork-webapp
+          ssh -o StrictHostKeyChecking=no -A webapp@${{ secrets.TARGET_HOSTNAME }} "cd divwork &&
+          git pull origin main &&
+          cd frontend && yarn install && yarn build &&
+          cd ../backend &&
+          ~/.rbenv/shims/bundle config --local deployment true &&
+          ~/.rbenv/shims/bundle config --local without development:test &&
+          ~/.rbenv/shims/bundle install &&
+          RAILS_ENV=production ~/.rbenv/shims/bundle exec rails db:migrate &&
+          systemctl --user restart puma.service"

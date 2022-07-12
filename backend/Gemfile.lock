@@ -239,6 +239,7 @@ GEM
     rubocop-rspec (2.11.1)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
+    sd_notify (0.1.1)
     spring (4.0.0)
     sprockets (4.0.3)
       concurrent-ruby (~> 1.0)
@@ -288,6 +289,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  sd_notify
   spring
   tzinfo-data
 
