@@ -17,20 +17,16 @@ jobs:
           mkdir -p -m 700 ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/divwork-webapp
           chmod 600 ~/.ssh/divwork-webapp
-      - name: git pull origin main
+      - name: Deploy
         run: |
           eval $(ssh-agent)
           ssh-add ~/.ssh/divwork-webapp
-          ssh -o StrictHostKeyChecking=no -A webapp@${{ secrets.TARGET_HOSTNAME }}
-          cd divwork && git pull origin main
-      - name: Set up React
-        run: |
-          cd frontend && yarn install && yarn build
-      - name: Set up Rails
-        run: |
+          ssh -o StrictHostKeyChecking=no -A webapp@${{ secrets.TARGET_HOSTNAME }} "cd divwork &&
+          git pull origin main &&
+          cd frontend && yarn install && yarn build &&
           cd ../backend &&
           ~/.rbenv/shims/bundle config --local deployment true &&
           ~/.rbenv/shims/bundle config --local without development:test &&
           ~/.rbenv/shims/bundle install &&
           RAILS_ENV=production ~/.rbenv/shims/bundle exec rails db:migrate &&
-          ~/.rbenv/shims/bundle exec rails s -e production
+          ~/.rbenv/shims/bundle exec rails s -e production"
