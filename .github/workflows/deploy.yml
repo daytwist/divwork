@@ -21,8 +21,8 @@ jobs:
         run: |
           eval $(ssh-agent)
           ssh-add ~/.ssh/divwork-webapp
-          ssh -o StrictHostKeyChecking=no -A webapp@${{ secrets.TARGET_HOSTNAME }} "cd divwork &&
-          git pull origin main
+          ssh -o StrictHostKeyChecking=no -A webapp@${{ secrets.TARGET_HOSTNAME }}
+          cd divwork && git pull origin main
       - name: Set up React
         run: |
           cd frontend && yarn install && yarn build
