@@ -12,6 +12,7 @@ jobs:
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Install SSH
         run: |
           mkdir -p -m 700 ~/.ssh
@@ -29,5 +30,5 @@ jobs:
           ~/.rbenv/shims/bundle config --local without development:test &&
           ~/.rbenv/shims/bundle install &&
           RAILS_ENV=production ~/.rbenv/shims/bundle exec rails db:migrate &&
-          mkdir -p tmp/pids &&
-          ~/.rbenv/shims/bundle exec rails s -e production -d"
+          kill $(cat tmp/pids/puma.pid) &&
+          ~/.rbenv/shims/bundle exec rails s -e production"
