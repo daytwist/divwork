@@ -6,6 +6,5 @@ COPY . /usr/src/app
 RUN yarn install
 RUN yarn build
 
-EXPOSE 3000
-
-ENTRYPOINT [ "yarn", "start" ]
+RUN mkdir -p /var/www/frontend
+COPY . /var/www/frontend
