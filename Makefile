@@ -1,6 +1,6 @@
 # development
 build:
-	docker-compose -f docker-compose.dev.yml up -d --build
+	docker-compose -f docker-compose.dev.yml build
 
 up:
 	docker-compose -f docker-compose.dev.yml up -d
@@ -22,7 +22,7 @@ back:
 
 # production
 build-prod:
-	docker-compose -f docker-compose.prod.yml up -d --build
+	docker-compose -f docker-compose.prod.yml build
 
 up-prod:
 	docker-compose -f docker-compose.prod.yml up -d
