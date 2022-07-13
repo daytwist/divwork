@@ -9,8 +9,8 @@ services:
       dockerfile: nginx/Dockerfile
     volumes:
       - type: bind
-        source: ./frontend/public
-        target: /var/www/frontend/public
+        source: ./frontend/build
+        target: /var/www/frontend/build
         consistency: cached
       - type: volume
         source: puma-sock
@@ -36,7 +36,7 @@ services:
         consistency: cached
       - type: volume
         source: puma-sock
-        target: /var/www/tmp/sockets
+        target: /var/www/backend/tmp/sockets
         volume:
           nocopy: true
     environment:
