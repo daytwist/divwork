@@ -1,42 +1,49 @@
 version: '3.8'
 volumes:
-  mysql-data:
-  public-data:
-  tmp-data:
-  log-data:
+  puma-sock:
 
 services:
-  db:
-    image: mysql:8.0.29
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
     volumes:
-      - mysql-data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
+      - type: bind
+        source: ./frontend/public
+        target: /var/www/frontend/public
+        consistency: cached
+      - type: volume
+        source: puma-sock
+        target: /var/www/backend/tmp/sockets
+        volume:
+          nocopy: true
     ports:
-      - '3306:3306'
-    cap_add:
-      - SYS_NICE
+      - 80:80
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
-    command: bundle exec puma -C config/puma.rb
+    command: bundle exec puma -e development
     volumes:
-      - ./backend:/divwork
-      - ./backend/vendor/bundle:/divwork/vendor/bundle
-      - public-data:/divwork/public
-      - tmp-data:/divwork/tmp
-      - log-data:/divwork/log
+      - type: bind
+        source: ./backend
+        target: /var/www/backend
+        consistency: cached
+      - type: bind
+        source: ~/.ssh
+        target: /root/.ssh
+        consistency: cached
+      - type: volume
+        source: puma-sock
+        target: /var/www/tmp/sockets
+        volume:
+          nocopy: true
     environment:
       TZ: Asia/Tokyo
-      RAILS_ENV: production
+      # RAILS_ENV: production
     ports:
-      - '3001:3000'
-    depends_on:
-      - db
-    stdin_open: true
-    tty: true
+      - '3001:3001'
 
   frontend:
     build:
@@ -44,23 +51,9 @@ services:
       dockerfile: Dockerfile.prod
     command: ash -c "yarn start"
     volumes:
-      - ./frontend:/usr/src/app
+      - type: bind
+        source: ./frontend/build
+        target: /var/www/frontend/build
+        consistency: cached
     ports:
       - '3000:3000'
-    stdin_open: true
-    tty: true
-
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    volumes:
-      - public-data:/divwork/public
-      - tmp-data:/divwork/tmp
-      - ./frontend/build:/var/www
-      - ./nginx/:/etc/nginx/conf.d/
-    ports:
-      - 80:80
-    depends_on:
-      - backend
-      - frontend
