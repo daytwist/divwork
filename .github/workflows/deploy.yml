@@ -1,15 +1,15 @@
 name: Deploy
 
 on:
-  # pull_request:
+  pull_request:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
 
 jobs:
   deploy:
     name: Deploy app to AWS
-    # if: github.ref == 'refs/heads/main'
+    if: github.ref == "refs/heads/main"
     runs-on: ubuntu-latest
     steps:
       - name: Install SSH
