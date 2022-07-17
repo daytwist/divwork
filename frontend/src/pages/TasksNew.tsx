@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, TextField } from "@mui/material";
+import { Button, Container, MenuItem, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, newTask } from "../types";
@@ -15,7 +15,6 @@ const TasksNew: FC = () => {
     title: "",
     description: "",
     deadline: "",
-    priority: "",
     is_done: false,
   });
 
@@ -24,6 +23,27 @@ const TasksNew: FC = () => {
   ) => {
     const { name, value } = event.target;
     setTask({ ...task, [name]: value });
+  };
+
+  const priorities = [
+    {
+      value: "low",
+      label: "低",
+    },
+    {
+      value: "medium",
+      label: "中",
+    },
+    {
+      value: "high",
+      label: "高",
+    },
+  ];
+
+  const [priority, setPriority] = useState<string>("low");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPriority(event.target.value);
   };
 
   const handleTasksCreate = () => {
@@ -40,7 +60,7 @@ const TasksNew: FC = () => {
         title: task.title,
         description: task.description,
         deadline: task.deadline,
-        priority: task.priority,
+        priority,
         is_done: task.is_done,
         user_id: currentUser?.id,
       },
@@ -62,7 +82,6 @@ const TasksNew: FC = () => {
       <h1>タスクを作成する</h1>
       <div>
         <TextField
-          id="standard-basic"
           label="タイトル"
           variant="standard"
           name="title"
@@ -73,7 +92,6 @@ const TasksNew: FC = () => {
       <br />
       <div>
         <TextField
-          id="standard-basic"
           label="詳細"
           variant="standard"
           multiline
@@ -86,7 +104,6 @@ const TasksNew: FC = () => {
       <br />
       <div>
         <TextField
-          id="standard-basic"
           label="納期"
           variant="standard"
           type="text"
@@ -98,19 +115,21 @@ const TasksNew: FC = () => {
       <br />
       <div>
         <TextField
-          id="standard-basic"
+          select
           label="優先度"
-          variant="standard"
           name="priority"
-          value={task.priority}
-          onChange={handleInputChange}
-        />
+          value={priority}
+          onChange={handleChange}
+        >
+          {priorities.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
       </div>
       <br />
-      <Button
-        variant="contained"
-        type="submit"
-        onClick={handleTasksCreate}>
+      <Button variant="contained" type="submit" onClick={handleTasksCreate}>
         完了
       </Button>
     </Container>
