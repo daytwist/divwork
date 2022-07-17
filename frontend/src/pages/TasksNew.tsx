@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, newTask } from "../types";
@@ -60,44 +61,50 @@ const TasksNew: FC = () => {
     <div>
       <h1>Tasks#New</h1>
       <div>
-        <label>
-          タイトル
-          <input name="title" value={task.title} onChange={handleInputChange} />
-        </label>
+        <TextField
+          id="standard-basic"
+          label="タイトル"
+          variant="standard"
+          name="title"
+          value={task.title}
+          onChange={handleInputChange}
+        />
       </div>
       <br />
       <div>
-        <label>
-          詳細
-          <textarea
-            name="description"
-            value={task.description}
-            onChange={handleInputChange}
-          />
-        </label>
+        <TextField
+          id="standard-basic"
+          label="詳細"
+          variant="standard"
+          multiline
+          rows={3}
+          name="description"
+          value={task.description}
+          onChange={handleInputChange}
+        />
       </div>
       <br />
       <div>
-        <label>
-          納期
-          <input
-            type="text"
-            name="deadline"
-            value={task.deadline}
-            onChange={handleInputChange}
-          />
-        </label>
+        <TextField
+          id="standard-basic"
+          label="納期"
+          variant="standard"
+          type="text"
+          name="deadline"
+          value={task.deadline}
+          onChange={handleInputChange}
+        />
       </div>
       <br />
       <div>
-        <label>
-          優先度
-          <input
-            name="priority"
-            value={task.priority}
-            onChange={handleInputChange}
-          />
-        </label>
+        <TextField
+          id="standard-basic"
+          label="優先度"
+          variant="standard"
+          name="priority"
+          value={task.priority}
+          onChange={handleInputChange}
+        />
       </div>
       <br />
       <button type="submit" onClick={handleTasksCreate}>
