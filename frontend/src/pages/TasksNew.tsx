@@ -1,11 +1,12 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, MenuItem, TextField } from "@mui/material";
+import { Button, Container, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, newTask } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
+import { PriorityTextField } from "../components/PriorityTextField";
 
 const TasksNew: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -18,6 +19,8 @@ const TasksNew: FC = () => {
     is_done: false,
   });
 
+  const [priority, setPriority] = useState<string>("low");
+
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -25,24 +28,7 @@ const TasksNew: FC = () => {
     setTask({ ...task, [name]: value });
   };
 
-  const priorities = [
-    {
-      value: "low",
-      label: "低",
-    },
-    {
-      value: "medium",
-      label: "中",
-    },
-    {
-      value: "high",
-      label: "高",
-    },
-  ];
-
-  const [priority, setPriority] = useState<string>("low");
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePriorityChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPriority(event.target.value);
   };
 
@@ -113,21 +99,7 @@ const TasksNew: FC = () => {
         />
       </div>
       <br />
-      <div>
-        <TextField
-          select
-          label="優先度"
-          name="priority"
-          value={priority}
-          onChange={handleChange}
-        >
-          {priorities.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </div>
+      <PriorityTextField value={priority} onChange={handlePriorityChange} />
       <br />
       <Button variant="contained" type="submit" onClick={handleTasksCreate}>
         完了
