@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { TextField } from "@mui/material";
+import { Button, Container, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, newTask } from "../types";
@@ -58,8 +58,8 @@ const TasksNew: FC = () => {
   };
 
   return (
-    <div>
-      <h1>Tasks#New</h1>
+    <Container maxWidth="sm">
+      <h1>タスクを作成する</h1>
       <div>
         <TextField
           id="standard-basic"
@@ -107,10 +107,13 @@ const TasksNew: FC = () => {
         />
       </div>
       <br />
-      <button type="submit" onClick={handleTasksCreate}>
-        作成する
-      </button>
-    </div>
+      <Button
+        variant="contained"
+        type="submit"
+        onClick={handleTasksCreate}>
+        完了
+      </Button>
+    </Container>
   );
 };
 
