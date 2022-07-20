@@ -7,6 +7,7 @@ import { axiosInstance } from "../utils/axios";
 import { TasksResponse, newTask } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
 import { PriorityTextField } from "../components/PriorityTextField";
+import { DeadlineTextField } from "../components/DeadlineTextField";
 
 const TasksNew: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -15,10 +16,10 @@ const TasksNew: FC = () => {
   const [task, setTask] = useState<newTask>({
     title: "",
     description: "",
-    deadline: "",
     is_done: false,
   });
 
+  const [deadline, setDeadline] = useState<Date | null>(new Date());
   const [priority, setPriority] = useState<string>("low");
 
   const handleInputChange = (
@@ -26,10 +27,6 @@ const TasksNew: FC = () => {
   ) => {
     const { name, value } = event.target;
     setTask({ ...task, [name]: value });
-  };
-
-  const handlePriorityChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPriority(event.target.value);
   };
 
   const handleTasksCreate = () => {
@@ -45,7 +42,7 @@ const TasksNew: FC = () => {
       data: {
         title: task.title,
         description: task.description,
-        deadline: task.deadline,
+        deadline,
         priority,
         is_done: task.is_done,
         user_id: currentUser?.id,
@@ -88,18 +85,19 @@ const TasksNew: FC = () => {
         />
       </div>
       <br />
-      <div>
-        <TextField
-          label="納期"
-          variant="standard"
-          type="text"
-          name="deadline"
-          value={task.deadline}
-          onChange={handleInputChange}
-        />
-      </div>
+      <DeadlineTextField
+        value={deadline}
+        onChange={(newValue) => {
+          setDeadline(newValue);
+        }}
+      />
       <br />
-      <PriorityTextField value={priority} onChange={handlePriorityChange} />
+      <PriorityTextField
+        value={priority}
+        onChange={(event) => {
+          setPriority(event.target.value);
+        }}
+      />
       <br />
       <Button variant="contained" type="submit" onClick={handleTasksCreate}>
         完了
