@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, TextField } from "@mui/material";
+import { Button, Container, Grid, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, newTask } from "../types";
@@ -63,45 +63,49 @@ const TasksNew: FC = () => {
   return (
     <Container maxWidth="sm">
       <h1>タスクを作成する</h1>
-      <div>
-        <TextField
-          label="タイトル"
-          variant="standard"
-          name="title"
-          value={task.title}
-          onChange={handleInputChange}
-        />
-      </div>
-      <br />
-      <div>
-        <TextField
-          label="詳細"
-          variant="standard"
-          multiline
-          rows={3}
-          name="description"
-          value={task.description}
-          onChange={handleInputChange}
-        />
-      </div>
-      <br />
-      <DeadlineTextField
-        value={deadline}
-        onChange={(newValue) => {
-          setDeadline(newValue);
-        }}
-      />
-      <br />
-      <PriorityTextField
-        value={priority}
-        onChange={(event) => {
-          setPriority(event.target.value);
-        }}
-      />
-      <br />
-      <Button variant="contained" type="submit" onClick={handleTasksCreate}>
-        完了
-      </Button>
+      <Grid container direction="column" spacing={3}>
+        <Grid item>
+          <TextField
+            label="タイトル"
+            variant="standard"
+            name="title"
+            value={task.title}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="詳細"
+            variant="standard"
+            multiline
+            rows={3}
+            name="description"
+            value={task.description}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item>
+          <DeadlineTextField
+            value={deadline}
+            onChange={(newValue) => {
+              setDeadline(newValue);
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <PriorityTextField
+            value={priority}
+            onChange={(event) => {
+              setPriority(event.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <Button variant="contained" type="submit" onClick={handleTasksCreate}>
+            完了
+          </Button>
+        </Grid>
+      </Grid>
     </Container>
   );
 };
