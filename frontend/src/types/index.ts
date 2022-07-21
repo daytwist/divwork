@@ -45,8 +45,6 @@ export type Division = {
 export type newTask = {
   title: string;
   description: string;
-  deadline: string;
-  priority: string;
   is_done: boolean;
 };
 

@@ -1,10 +1,13 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { Button, Container, Grid, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, newTask } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
+import { PriorityTextField } from "../components/PriorityTextField";
+import { DeadlineTextField } from "../components/DeadlineTextField";
 
 const TasksNew: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -13,10 +16,11 @@ const TasksNew: FC = () => {
   const [task, setTask] = useState<newTask>({
     title: "",
     description: "",
-    deadline: "",
-    priority: "",
     is_done: false,
   });
+
+  const [deadline, setDeadline] = useState<Date | null>(new Date());
+  const [priority, setPriority] = useState<string>("low");
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -38,8 +42,8 @@ const TasksNew: FC = () => {
       data: {
         title: task.title,
         description: task.description,
-        deadline: task.deadline,
-        priority: task.priority,
+        deadline,
+        priority,
         is_done: task.is_done,
         user_id: currentUser?.id,
       },
@@ -57,53 +61,52 @@ const TasksNew: FC = () => {
   };
 
   return (
-    <div>
-      <h1>Tasks#New</h1>
-      <div>
-        <label>
-          タイトル
-          <input name="title" value={task.title} onChange={handleInputChange} />
-        </label>
-      </div>
-      <br />
-      <div>
-        <label>
-          詳細
-          <textarea
+    <Container maxWidth="sm">
+      <h1>タスクを作成する</h1>
+      <Grid container direction="column" spacing={3}>
+        <Grid item>
+          <TextField
+            label="タイトル"
+            variant="standard"
+            name="title"
+            value={task.title}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="詳細"
+            variant="standard"
+            multiline
+            rows={3}
             name="description"
             value={task.description}
             onChange={handleInputChange}
           />
-        </label>
-      </div>
-      <br />
-      <div>
-        <label>
-          納期
-          <input
-            type="text"
-            name="deadline"
-            value={task.deadline}
-            onChange={handleInputChange}
+        </Grid>
+        <Grid item>
+          <DeadlineTextField
+            value={deadline}
+            onChange={(newValue) => {
+              setDeadline(newValue);
+            }}
           />
-        </label>
-      </div>
-      <br />
-      <div>
-        <label>
-          優先度
-          <input
-            name="priority"
-            value={task.priority}
-            onChange={handleInputChange}
+        </Grid>
+        <Grid item>
+          <PriorityTextField
+            value={priority}
+            onChange={(event) => {
+              setPriority(event.target.value);
+            }}
           />
-        </label>
-      </div>
-      <br />
-      <button type="submit" onClick={handleTasksCreate}>
-        作成する
-      </button>
-    </div>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" type="submit" onClick={handleTasksCreate}>
+            完了
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
