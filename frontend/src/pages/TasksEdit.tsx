@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useState } from "react";
+import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -8,8 +8,10 @@ import { AuthContext } from "../providers/AuthProvider";
 import { useFetchTask } from "../hooks/useFetchTask";
 
 const TasksEdit: FC = () => {
-  const { currentUser } = useContext(AuthContext);
+  const params = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
+  const data = useFetchTask();
 
   const [task, setTask] = useState<editTask>({
     title: "",
@@ -26,11 +28,6 @@ const TasksEdit: FC = () => {
     const { name, value } = event.target;
     setTask({ ...task, [name]: value });
   };
-
-  const data = useFetchTask();
-  if (data) setTask(data);
-
-  const params = useParams<{ id: string }>();
 
   const handleTasksUpdate = () => {
     const updateOptions: AxiosRequestConfig = {
@@ -55,6 +52,10 @@ const TasksEdit: FC = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    if (data) setTask(data);
+  }, [data]);
 
   return (
     <div>
