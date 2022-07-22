@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import { Button, Container, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, editTask } from "../types";
@@ -58,28 +59,28 @@ const TasksEdit: FC = () => {
   }, [data]);
 
   return (
-    <div>
-      <h1>Tasks#Edit</h1>
+    <Container maxWidth="sm">
+      <h1>タスクを編集する</h1>
       <div>
-        <label>
-          タイトル
-          <input
-            name="title"
-            value={task?.title}
-            onChange={handleInputChange}
-          />
-        </label>
+        <TextField
+          label="タイトル"
+          variant="standard"
+          name="title"
+          value={task?.title}
+          onChange={handleInputChange}
+        />
       </div>
       <br />
       <div>
-        <label>
-          詳細
-          <textarea
-            name="description"
-            value={task?.description}
-            onChange={handleInputChange}
-          />
-        </label>
+        <TextField
+          label="詳細"
+          variant="standard"
+          multiline
+          rows={3}
+          name="description"
+          value={task?.description}
+          onChange={handleInputChange}
+        />
       </div>
       <br />
       <div>
@@ -105,10 +106,10 @@ const TasksEdit: FC = () => {
         </label>
       </div>
       <br />
-      <button type="submit" onClick={handleTasksUpdate}>
-        更新する
-      </button>
-    </div>
+      <Button variant="contained" type="submit" onClick={handleTasksUpdate}>
+        完了
+      </Button>
+    </Container>
   );
 };
 
