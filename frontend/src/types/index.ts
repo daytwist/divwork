@@ -51,8 +51,6 @@ export type newTask = {
 export type editTask = {
   title: string;
   description: string;
-  deadline: string;
-  priority: string;
   is_done: boolean;
   user_id: number;
 };
