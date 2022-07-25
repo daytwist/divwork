@@ -58,7 +58,10 @@ const TasksEdit: FC = () => {
   };
 
   useEffect(() => {
-    if (data) setTask(data);
+    if (data) {
+      setTask(data);
+      setPriority(data.priority);
+    }
   }, [data]);
 
   return (

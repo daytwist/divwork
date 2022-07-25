@@ -71,6 +71,7 @@ const DivisionsNew: FC = () => {
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res.data);
         setTask(res.data.task);
+        setPriority(res.data.task.priority);
       })
       .catch((err) => {
         console.log(err);
