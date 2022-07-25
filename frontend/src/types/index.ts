@@ -59,8 +59,6 @@ export type divisionTask = {
   title: string;
   description: string;
   deadline: string;
-  priority: string;
-  is_done: boolean;
   user_id: number;
   parent_id: number;
 };

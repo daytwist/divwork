@@ -1,10 +1,12 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, TextField } from "@mui/material";
+import { Button, Container, Grid, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { divisionTask, TasksResponse, DivisionsCreateResponse } from "../types";
+import { DeadlineTextField } from "../components/DeadlineTextField";
+import { PriorityTextField } from "../components/PriorityTextField";
 
 const DivisionsNew: FC = () => {
   const params = useParams<{ id: string }>();
@@ -14,11 +16,12 @@ const DivisionsNew: FC = () => {
     title: "",
     description: "",
     deadline: "",
-    priority: "",
-    is_done: false,
     user_id: 0,
     parent_id: 0,
   });
+
+  const [deadline, setDeadline] = useState<Date | null>(new Date());
+  const [priority, setPriority] = useState<string>("low");
 
   const [comment, setComment] = useState<string>("");
 
@@ -77,70 +80,69 @@ const DivisionsNew: FC = () => {
   return (
     <Container maxWidth="sm">
       <h1>タスクを分担する</h1>
-      <div>
-        <TextField
-          label="タイトル"
-          variant="standard"
-          name="title"
-          value={task.title}
-          onChange={handleInputChange}
-        />
-      </div>
-      <br />
-      <div>
-        <TextField
-          label="詳細"
-          variant="standard"
-          multiline
-          rows={3}
-          name="description"
-          value={task.description}
-          onChange={handleInputChange}
-        />
-      </div>
-      <br />
-      <div>
-        <label>
-          納期
-          <input
-            type="text"
-            name="deadline"
-            value={task.deadline}
+      <Grid container direction="column" spacing={3}>
+        <Grid item>
+          <TextField
+            label="タイトル"
+            variant="standard"
+            name="title"
+            value={task.title}
             onChange={handleInputChange}
           />
-        </label>
-      </div>
-      <br />
-      <div>
-        <label>
-          優先度
-          <input
-            name="priority"
-            value={task.priority}
+        </Grid>
+        <Grid item>
+          <TextField
+            label="詳細"
+            variant="standard"
+            multiline
+            rows={3}
+            name="description"
+            value={task.description}
             onChange={handleInputChange}
           />
-        </label>
-      </div>
-      <br />
-      <div>
-        <label>
-          送信先ユーザー
-          <input name="user_id" onChange={handleInputChange} />
-        </label>
-      </div>
-      <br />
-      <div>
-        <TextField
-          label="送信コメント"
-          variant="standard"
-          value={comment}
-          onChange={(event) => setComment(event.target.value)}
-        />
-      </div>
-      <br />
-      <Button variant="contained" type="submit" onClick={handleDivisionsCreate}>
-        送信
-      </Button>
+        </Grid>
+        <Grid item>
+          <DeadlineTextField
+            value={deadline}
+            onChange={(newValue) => {
+              setDeadline(newValue);
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <PriorityTextField
+            value={priority}
+            onChange={(event) => {
+              setPriority(event.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="送信先ユーザー"
+            variant="standard"
+            name="user_id"
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="送信コメント"
+            variant="standard"
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
+          />
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            type="submit"
+            onClick={handleDivisionsCreate}
+          >
+            送信
+          </Button>
+        </Grid>
+      </Grid>
     </Container>
   );
 };
