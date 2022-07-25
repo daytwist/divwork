@@ -15,14 +15,12 @@ const DivisionsNew: FC = () => {
   const [task, setTask] = useState<divisionTask>({
     title: "",
     description: "",
-    deadline: "",
     user_id: 0,
     parent_id: 0,
   });
 
   const [deadline, setDeadline] = useState<Date | null>(new Date());
   const [priority, setPriority] = useState<string>("low");
-
   const [comment, setComment] = useState<string>("");
 
   const handleInputChange = (
@@ -71,6 +69,7 @@ const DivisionsNew: FC = () => {
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res.data);
         setTask(res.data.task);
+        setDeadline(res.data.task.deadline);
         setPriority(res.data.task.priority);
       })
       .catch((err) => {

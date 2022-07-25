@@ -24,7 +24,7 @@ export type Task = {
   id: number;
   title: string;
   description: string;
-  deadline: string;
+  deadline: Date;
   priority: string;
   is_done: boolean;
   user_id: number;
@@ -58,7 +58,6 @@ export type editTask = {
 export type divisionTask = {
   title: string;
   description: string;
-  deadline: string;
   user_id: number;
   parent_id: number;
 };
