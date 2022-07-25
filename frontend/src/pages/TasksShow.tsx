@@ -19,7 +19,7 @@ const TasksShow: FC = () => {
       </div>
       <div>
         <h4>納期</h4>
-        <p>{task?.deadline}</p>
+        <p>{task?.deadline.toString()}</p>
       </div>
       <div>
         <h4>優先度</h4>
