@@ -1,9 +1,10 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { divisionTask, TasksResponse, DivisionsCreateResponse } from "../types";
+import Cookies from "js-cookie";
+import { Button, Container, TextField } from "@mui/material";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
+import { divisionTask, TasksResponse, DivisionsCreateResponse } from "../types";
 
 const DivisionsNew: FC = () => {
   const params = useParams<{ id: string }>();
@@ -74,24 +75,28 @@ const DivisionsNew: FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Divisions#New</h1>
+    <Container maxWidth="sm">
+      <h1>タスクを分担する</h1>
       <div>
-        <label>
-          タイトル
-          <input name="title" value={task.title} onChange={handleInputChange} />
-        </label>
+        <TextField
+          label="タイトル"
+          variant="standard"
+          name="title"
+          value={task.title}
+          onChange={handleInputChange}
+        />
       </div>
       <br />
       <div>
-        <label>
-          詳細
-          <textarea
-            name="description"
-            value={task.description}
-            onChange={handleInputChange}
-          />
-        </label>
+        <TextField
+          label="詳細"
+          variant="standard"
+          multiline
+          rows={3}
+          name="description"
+          value={task.description}
+          onChange={handleInputChange}
+        />
       </div>
       <br />
       <div>
@@ -125,19 +130,18 @@ const DivisionsNew: FC = () => {
       </div>
       <br />
       <div>
-        <label>
-          コメント
-          <input
-            value={comment}
-            onChange={(event) => setComment(event.target.value)}
-          />
-        </label>
+        <TextField
+          label="送信コメント"
+          variant="standard"
+          value={comment}
+          onChange={(event) => setComment(event.target.value)}
+        />
       </div>
       <br />
-      <button type="submit" onClick={handleDivisionsCreate}>
-        分担する
-      </button>
-    </div>
+      <Button variant="contained" type="submit" onClick={handleDivisionsCreate}>
+        送信
+      </Button>
+    </Container>
   );
 };
 
