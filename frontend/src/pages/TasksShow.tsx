@@ -1,5 +1,6 @@
 import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Button, Container } from "@mui/material";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
 
@@ -8,8 +9,8 @@ const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
 
   return (
-    <div>
-      <h1>Tasks#Show</h1>
+    <Container maxWidth="sm">
+      <h1>タスク詳細</h1>
       <div>
         <h2>{task?.title}</h2>
       </div>
@@ -31,18 +32,28 @@ const TasksShow: FC = () => {
       </div>
       {task?.user_id === currentUser?.id && (
         <div>
-          <Link to={`/tasks/${task?.id}/edit`}>
-            <button type="button">編集</button>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={`/tasks/${task?.id}/edit`}
+          >
+            <Button color="secondary" type="button">
+              編集
+            </Button>
           </Link>
         </div>
       )}
       <br />
       <div>
-        <Link to={`/tasks/${task?.id}/divisions/new`}>
-          <button type="button">分担する</button>
+        <Link
+          style={{ textDecoration: "none" }}
+          to={`/tasks/${task?.id}/divisions/new`}
+        >
+          <Button variant="contained" type="button">
+            分担する
+          </Button>
         </Link>
       </div>
-    </div>
+    </Container>
   );
 };
 
