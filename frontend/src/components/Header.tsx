@@ -1,7 +1,8 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 import { FC, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { AppBar } from "@mui/material";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 
@@ -38,21 +39,23 @@ const Header: FC = () => {
   };
 
   return (
-    <div>
-      {isSignedIn && (
-        <div>
-          <h4>{currentUser?.name}</h4>
-          <button type="submit" onClick={onClickSignOut}>
-            サインアウト
-          </button>
-        </div>
-      )}
-      {isSignedIn || (
-        <div>
-          <h4>サインイン</h4>
-        </div>
-      )}
-    </div>
+    <AppBar position="static">
+      <>
+        {isSignedIn && (
+          <div>
+            <h4>{currentUser?.name}</h4>
+            <button type="submit" onClick={onClickSignOut}>
+              サインアウト
+            </button>
+          </div>
+        )}
+        {isSignedIn || (
+          <div>
+            <h4>サインイン</h4>
+          </div>
+        )}
+      </>
+    </AppBar>
   );
 };
 
