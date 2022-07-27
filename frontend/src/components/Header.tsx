@@ -37,20 +37,21 @@ const Header: FC = () => {
       .catch((err) => console.log(err));
   };
 
-  if (isSignedIn === true) {
-    return (
-      <div>
-        <h4>{currentUser?.name}</h4>
-        <button type="submit" onClick={onClickSignOut}>
-          サインアウト
-        </button>
-      </div>
-    );
-  }
-
   return (
     <div>
-      <h4>サインイン</h4>
+      {isSignedIn && (
+        <div>
+          <h4>{currentUser?.name}</h4>
+          <button type="submit" onClick={onClickSignOut}>
+            サインアウト
+          </button>
+        </div>
+      )}
+      {isSignedIn || (
+        <div>
+          <h4>サインイン</h4>
+        </div>
+      )}
     </div>
   );
 };
