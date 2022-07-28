@@ -1,11 +1,13 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Grid } from "@mui/material";
+import { Button, Container, Grid, Typography } from "@mui/material";
 
 const Home: FC = () => {
   return (
     <Container maxWidth="sm">
-      <h1>DivWork</h1>
+      <Typography variant="h2" component="div" gutterBottom>
+        DivWork
+      </Typography>
       <Grid container direction="column" spacing={2}>
         <Grid item>
           <Link style={{ textDecoration: "none" }} to="/sign_up/teams/select">
