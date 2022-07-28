@@ -1,13 +1,20 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 import { FC, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Header: FC = () => {
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
   const onClickSignOut = () => {
@@ -37,21 +44,57 @@ const Header: FC = () => {
       .catch((err) => console.log(err));
   };
 
-  if (isSignedIn === true) {
-    return (
-      <div>
-        <h4>{currentUser?.name}</h4>
-        <button type="submit" onClick={onClickSignOut}>
-          サインアウト
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <h4>サインイン</h4>
-    </div>
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h5"
+            component="a"
+            href="/"
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex" },
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            DivWork
+          </Typography>
+          {isSignedIn && (
+            <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                {currentUser?.name}
+              </Button>
+              <Button
+                type="submit"
+                onClick={onClickSignOut}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                サインアウト
+              </Button>
+            </Box>
+          )}
+          {isSignedIn || (
+            <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/sign_up/teams/select"
+              >
+                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                  サインアップ
+                </Button>
+              </Link>
+              <Link style={{ textDecoration: "none" }} to="/sign_in">
+                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                  サインイン
+                </Button>
+              </Link>
+            </Box>
+          )}
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 
