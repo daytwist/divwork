@@ -1,7 +1,14 @@
 import { FC, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
@@ -39,33 +46,44 @@ const Header: FC = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Typography
-          variant="h5"
-          component="a"
-          href="/"
-          sx={{
-            flexGrow: 1,
-            color: "inherit",
-            textDecoration: "none",
-          }}
-        >
-          DivWork
-        </Typography>
-        {isSignedIn && (
-          <div>
-            <h4>{currentUser?.name}</h4>
-            <button type="submit" onClick={onClickSignOut}>
-              サインアウト
-            </button>
-          </div>
-        )}
-        {isSignedIn || (
-          <div>
-            <h4>サインイン</h4>
-          </div>
-        )}
-      </Toolbar>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h5"
+            component="a"
+            href="/"
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex" },
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            DivWork
+          </Typography>
+          {isSignedIn && (
+            <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                {currentUser?.name}
+              </Button>
+              <Button
+                type="submit"
+                onClick={onClickSignOut}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                サインアウト
+              </Button>
+            </Box>
+          )}
+          {isSignedIn || (
+            <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                サインイン
+              </Button>
+            </Box>
+          )}
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 };
