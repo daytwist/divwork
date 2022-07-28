@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { css, Global } from "@emotion/react";
 import { AuthProvider } from "./providers/AuthProvider";
 import Home from "./pages/Home";
 import Header from "./components/Header";
@@ -13,8 +14,15 @@ import DivisionsNew from "./pages/DivisionsNew";
 import TasksEdit from "./pages/TasksEdit";
 
 const App: React.FC = () => {
+  const global = css`
+    * {
+      margin: 0;
+    }
+  `;
+
   return (
     <BrowserRouter>
+      <Global styles={global} />
       <AuthProvider>
         <Header />
         <Routes>
