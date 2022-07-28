@@ -1,14 +1,13 @@
 import { FC, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { AppBar } from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Header: FC = () => {
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
   const onClickSignOut = () => {
@@ -40,7 +39,19 @@ const Header: FC = () => {
 
   return (
     <AppBar position="static">
-      <>
+      <Toolbar>
+        <Typography
+          variant="h5"
+          component="a"
+          href="/"
+          sx={{
+            flexGrow: 1,
+            color: "inherit",
+            textDecoration: "none",
+          }}
+        >
+          DivWork
+        </Typography>
         {isSignedIn && (
           <div>
             <h4>{currentUser?.name}</h4>
@@ -54,7 +65,7 @@ const Header: FC = () => {
             <h4>サインイン</h4>
           </div>
         )}
-      </>
+      </Toolbar>
     </AppBar>
   );
 };
