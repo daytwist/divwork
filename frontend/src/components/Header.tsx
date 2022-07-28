@@ -77,6 +77,14 @@ const Header: FC = () => {
           )}
           {isSignedIn || (
             <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/sign_up/teams/select"
+              >
+                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                  サインアップ
+                </Button>
+              </Link>
               <Link style={{ textDecoration: "none" }} to="/sign_in">
                 <Button sx={{ my: 2, color: "white", display: "block" }}>
                   サインイン
