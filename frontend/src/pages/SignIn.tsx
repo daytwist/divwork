@@ -1,10 +1,11 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { AuthResponse } from "../types";
-import { axiosInstance } from "../utils/axios";
 
 const SignIn: FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -38,26 +39,38 @@ const SignIn: FC = () => {
   };
 
   return (
-    <div>
-      <h1>Sign In</h1>
-      <div>
-        <input
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      <div>
-        <button type="submit" onClick={onClickSignIn}>
-          サインイン
-        </button>
-      </div>
-    </div>
+    <Container maxWidth="sm">
+      <Grid container direction="column" spacing={3}>
+        <Grid item>
+          <Typography variant="h4" component="div">
+            サインイン
+          </Typography>
+        </Grid>
+        <Grid item>
+          <TextField
+            label="メールアドレス"
+            variant="standard"
+            sx={{ width: "30ch" }}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="パスワード"
+            variant="standard"
+            sx={{ width: "30ch" }}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </Grid>
+        <Grid item>
+          <Button variant="contained" type="submit" onClick={onClickSignIn}>
+            サインイン
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
