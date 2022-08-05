@@ -1,8 +1,9 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Team, TeamsSelectResponse } from "../types";
+import { Container, Typography } from "@mui/material";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
+import { Team, TeamsSelectResponse } from "../types";
 
 const TeamsSelect: FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
@@ -24,18 +25,28 @@ const TeamsSelect: FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Teams#Select</h1>
+    <Container>
+      <Typography variant="h4" component="div" gutterBottom>
+        所属チームの選択
+      </Typography>
+      <Typography variant="subtitle1" component="div">
+        選択したチームのユーザーを作成します。
+      </Typography>
       <div>
         <ul>
           {teams?.map((team) => (
-            <Link to="/sign_up" key={team.id} state={{ selectTeam: team }}>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/sign_up"
+              key={team.id}
+              state={{ selectTeam: team }}
+            >
               <li>{team.name}</li>
             </Link>
           ))}
         </ul>
       </div>
-    </div>
+    </Container>
   );
 };
 
