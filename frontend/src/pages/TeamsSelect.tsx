@@ -1,12 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Container, Typography } from "@mui/material";
+import { Container, MenuItem, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsSelectResponse } from "../types";
 
 const TeamsSelect: FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
+  const [value, setValue] = useState<string>("");
 
   const options: AxiosRequestConfig = {
     url: "/teams/select",
@@ -33,19 +34,29 @@ const TeamsSelect: FC = () => {
         選択したチームのユーザーを作成します。
       </Typography>
       <div>
-        <ul>
+        <TextField
+          select
+          label="チーム"
+          sx={{ width: "25ch" }}
+          name="team"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+        >
           {teams?.map((team) => (
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/sign_up"
-              key={team.id}
-              state={{ selectTeam: team }}
-            >
-              <li>{team.name}</li>
-            </Link>
+            <MenuItem key={team.id} value={team.id}>
+              {team.name}
+            </MenuItem>
           ))}
-        </ul>
+        </TextField>
       </div>
+      <Link
+        style={{ textDecoration: "none" }}
+        to="/sign_up"
+        key={value}
+        state={{ selectTeam: value }}
+      >
+        次へ
+      </Link>
     </Container>
   );
 };
