@@ -14,7 +14,7 @@ import { Team, TeamsSelectResponse } from "../types";
 
 const TeamsSelect: FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
-  const [value, setValue] = useState<string>("");
+  const [teamId, setTeamId] = useState<string>();
 
   const options: AxiosRequestConfig = {
     url: "/teams/select",
@@ -49,8 +49,10 @@ const TeamsSelect: FC = () => {
             label="チーム"
             sx={{ width: "25ch" }}
             name="team"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
+            value={teamId}
+            onChange={(event) => {
+              setTeamId(event.target.value);
+            }}
           >
             {teams?.map((team) => (
               <MenuItem key={team.id} value={team.id}>
@@ -63,8 +65,8 @@ const TeamsSelect: FC = () => {
           <Link
             style={{ textDecoration: "none" }}
             to="/sign_up"
-            key={value}
-            state={{ selectTeam: value }}
+            key={teamId}
+            state={{ selectTeamId: teamId }}
           >
             <Button variant="contained" type="button">
               次へ

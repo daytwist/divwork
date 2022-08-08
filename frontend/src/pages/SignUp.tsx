@@ -1,12 +1,13 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 import { FC, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AuthResponse, Team } from "../types/index";
+import Cookies from "js-cookie";
+import { Container } from "@mui/material";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
+import { AuthResponse } from "../types/index";
 
 type State = {
-  selectTeam: Team;
+  selectTeamId: number;
 };
 
 const SignUp: FC = () => {
@@ -17,7 +18,7 @@ const SignUp: FC = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const { selectTeam } = location.state as State;
+  const { selectTeamId } = location.state as State;
 
   const onClickSignUp = () => {
     const options: AxiosRequestConfig = {
@@ -27,7 +28,7 @@ const SignUp: FC = () => {
         name,
         email,
         password,
-        team_id: selectTeam.id,
+        team_id: selectTeamId,
       },
     };
 
@@ -47,9 +48,11 @@ const SignUp: FC = () => {
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <div>{selectTeam.name}</div>
+    <Container maxWidth="sm">
+      <h1>
+        サインアップ
+      </h1>
+      <div>{selectTeamId}</div>
       <div>
         <input value={name} onChange={(event) => setName(event.target.value)} />
       </div>
@@ -70,7 +73,7 @@ const SignUp: FC = () => {
           サインアップ
         </button>
       </div>
-    </div>
+      </Container>
   );
 };
 
