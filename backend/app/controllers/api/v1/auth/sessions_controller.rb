@@ -8,4 +8,10 @@ class Api::V1::Auth::SessionsController < ApplicationController
              status: :ok
     end
   end
+
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    render json: { user: }, status: :ok
+  end
 end
