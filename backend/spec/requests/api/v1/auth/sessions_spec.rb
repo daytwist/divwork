@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Auth::Sessions", type: :request do
-  describe "GET /index" do
-    let(:json) { JSON.parse(response.body) }
+  let(:json) { JSON.parse(response.body) }
 
+  describe "GET /index" do
     context "ユーザーがログインしていない時" do
       before do
         get "/api/v1/auth/sessions"
@@ -36,6 +36,14 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
       it "サインインユーザー情報を取得出来ること" do
         expect(json["current_user"]).to eq user.as_json
       end
+    end
+  end
+
+  describe "POST /guest_sign_in" do
+    it "ゲストログインに成功すること" do
+      post "/api/v1/auth/sessions/guest_sign_in"
+      expect(response).to have_http_status(:ok)
+      expect(json["user"]["email"]).to eq "guest@example.com"
     end
   end
 end
