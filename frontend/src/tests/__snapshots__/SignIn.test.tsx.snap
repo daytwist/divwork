@@ -1,29 +1,116 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SignIn スナップショット 1`] = `
-<div>
-  <h1>
-    Sign In
-  </h1>
-  <div>
-    <input
-      onChange={[Function]}
-      value=""
-    />
-  </div>
-  <div>
-    <input
-      onChange={[Function]}
-      value=""
-    />
-  </div>
-  <div>
-    <button
-      onClick={[Function]}
-      type="submit"
+<div
+  className="MuiContainer-root MuiContainer-maxWidthSm css-cuefkz-MuiContainer-root"
+>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column css-32q0xd-MuiGrid-root"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
     >
-      サインイン
-    </button>
+      <div
+        className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
+      >
+        サインイン
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <div
+        className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
+      >
+        <label
+          className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
+          data-shrink={false}
+          htmlFor=":r0:"
+          id=":r0:-label"
+        >
+          メールアドレス
+        </label>
+        <div
+          className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInput-input MuiInputBase-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+            disabled={false}
+            id=":r0:"
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="email"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <div
+        className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
+      >
+        <label
+          className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
+          data-shrink={false}
+          htmlFor=":r1:"
+          id=":r1:-label"
+        >
+          パスワード
+        </label>
+        <div
+          className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInput-input MuiInputBase-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+            disabled={false}
+            id=":r1:"
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <button
+        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-sghohy-MuiButtonBase-root-MuiButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="submit"
+      >
+        サインイン
+      </button>
+    </div>
   </div>
 </div>
 `;

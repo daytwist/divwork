@@ -1,12 +1,14 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 import { FC, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AuthResponse, Team } from "../types/index";
+import Cookies from "js-cookie";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
+import { AuthResponse } from "../types/index";
 
 type State = {
-  selectTeam: Team;
+  teamId: number;
+  teamName: string;
 };
 
 const SignUp: FC = () => {
@@ -17,7 +19,7 @@ const SignUp: FC = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const { selectTeam } = location.state as State;
+  const { teamId, teamName } = location.state as State;
 
   const onClickSignUp = () => {
     const options: AxiosRequestConfig = {
@@ -27,7 +29,7 @@ const SignUp: FC = () => {
         name,
         email,
         password,
-        team_id: selectTeam.id,
+        team_id: teamId,
       },
     };
 
@@ -47,30 +49,55 @@ const SignUp: FC = () => {
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <div>{selectTeam.name}</div>
-      <div>
-        <input value={name} onChange={(event) => setName(event.target.value)} />
-      </div>
-      <div>
-        <input
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      <div>
-        <button type="submit" onClick={onClickSignUp}>
-          サインアップ
-        </button>
-      </div>
-    </div>
+    <Container maxWidth="sm">
+      <Grid container direction="column" spacing={3}>
+        <Grid item>
+          <Typography variant="h4" component="div">
+            サインアップ
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h6" component="div">
+            {teamName}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <TextField
+            type="text"
+            label="ユーザー名"
+            variant="standard"
+            sx={{ width: "30ch" }}
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            type="email"
+            label="メールアドレス"
+            variant="standard"
+            sx={{ width: "30ch" }}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            type="password"
+            label="パスワード"
+            variant="standard"
+            sx={{ width: "30ch" }}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </Grid>
+        <Grid item>
+          <Button variant="contained" type="submit" onClick={onClickSignUp}>
+            サインアップ
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
