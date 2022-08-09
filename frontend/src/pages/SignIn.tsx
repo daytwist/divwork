@@ -48,6 +48,7 @@ const SignIn: FC = () => {
         </Grid>
         <Grid item>
           <TextField
+            type="email"
             label="メールアドレス"
             variant="standard"
             sx={{ width: "30ch" }}
@@ -57,6 +58,7 @@ const SignIn: FC = () => {
         </Grid>
         <Grid item>
           <TextField
+            type="password"
             label="パスワード"
             variant="standard"
             sx={{ width: "30ch" }}
