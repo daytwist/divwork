@@ -7,7 +7,8 @@ import { axiosInstance } from "../utils/axios";
 import { AuthResponse } from "../types/index";
 
 type State = {
-  selectTeamId: number;
+  teamId: number;
+  teamName: string;
 };
 
 const SignUp: FC = () => {
@@ -18,7 +19,7 @@ const SignUp: FC = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const { selectTeamId } = location.state as State;
+  const { teamId, teamName } = location.state as State;
 
   const onClickSignUp = () => {
     const options: AxiosRequestConfig = {
@@ -28,7 +29,7 @@ const SignUp: FC = () => {
         name,
         email,
         password,
-        team_id: selectTeamId,
+        team_id: teamId,
       },
     };
 
@@ -55,7 +56,11 @@ const SignUp: FC = () => {
             サインアップ
           </Typography>
         </Grid>
-        <Grid item>{selectTeamId}</Grid>
+        <Grid item>
+          <Typography variant="h6" component="div">
+            {teamName}
+          </Typography>
+        </Grid>
         <Grid item>
           <TextField
             label="ユーザー名"

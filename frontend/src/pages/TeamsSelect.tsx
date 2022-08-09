@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -14,7 +14,8 @@ import { Team, TeamsSelectResponse } from "../types";
 
 const TeamsSelect: FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
-  const [teamId, setTeamId] = useState<string>();
+  const [teamId, setTeamId] = useState<string>("");
+  const [teamName, setTeamName] = useState<string>("");
 
   const options: AxiosRequestConfig = {
     url: "/teams/select",
@@ -32,6 +33,21 @@ const TeamsSelect: FC = () => {
       });
   }, []);
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setTeamId(value);
+
+    const teamIdNumber = Number(value);
+    const selectTeam: Team | undefined = teams.find(
+      (v) => v.id === teamIdNumber
+    );
+    console.log(selectTeam);
+
+    if (selectTeam) {
+      setTeamName(selectTeam.name);
+    }
+  };
+
   return (
     <Container maxWidth="sm">
       <Grid container direction="column" spacing={3}>
@@ -48,15 +64,14 @@ const TeamsSelect: FC = () => {
             select
             label="チーム"
             sx={{ width: "25ch" }}
-            name="team"
+            name="id"
             value={teamId}
-            onChange={(event) => {
-              setTeamId(event.target.value);
-            }}
+            defaultValue=""
+            onChange={handleChange}
           >
-            {teams?.map((team) => (
-              <MenuItem key={team.id} value={team.id}>
-                {team.name}
+            {teams?.map((menu) => (
+              <MenuItem key={menu.id} value={menu.id}>
+                {menu.name}
               </MenuItem>
             ))}
           </TextField>
@@ -66,7 +81,7 @@ const TeamsSelect: FC = () => {
             style={{ textDecoration: "none" }}
             to="/sign_up"
             key={teamId}
-            state={{ selectTeamId: teamId }}
+            state={{ teamId, teamName }}
           >
             <Button variant="contained" type="button">
               次へ
