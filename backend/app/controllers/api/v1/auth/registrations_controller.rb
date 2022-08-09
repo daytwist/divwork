@@ -1,5 +1,5 @@
 class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
-  before_action :ensure_normal_user, only: [:destroy]
+  before_action :ensure_normal_user, only: [:update, :destroy]
 
   private
 
@@ -13,7 +13,7 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
 
   def ensure_normal_user
     if @resource.email == "guest@example.com"
-      render json: { message: "ゲストユーザーは削除出来ません" }, status: :internal_server_error
+      render json: { message: "ゲストユーザーの更新・削除は出来ません" }, status: :internal_server_error
     end
   end
 end
