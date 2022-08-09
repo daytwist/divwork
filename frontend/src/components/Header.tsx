@@ -61,37 +61,39 @@ const Header: FC = () => {
           >
             DivWork
           </Typography>
-          {isSignedIn && (
-            <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
-                {currentUser?.name}
-              </Button>
-              <Button
-                type="submit"
-                onClick={onClickSignOut}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                サインアウト
-              </Button>
-            </Box>
-          )}
-          {isSignedIn || (
-            <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/sign_up/teams/select"
-              >
+          <>
+            {isSignedIn && (
+              <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
                 <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  サインアップ
+                  {currentUser?.name}
                 </Button>
-              </Link>
-              <Link style={{ textDecoration: "none" }} to="/sign_in">
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  サインイン
+                <Button
+                  type="submit"
+                  onClick={onClickSignOut}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  サインアウト
                 </Button>
-              </Link>
-            </Box>
-          )}
+              </Box>
+            )}
+            {isSignedIn || (
+              <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/sign_up/teams/select"
+                >
+                  <Button sx={{ my: 2, color: "white", display: "block" }}>
+                    サインアップ
+                  </Button>
+                </Link>
+                <Link style={{ textDecoration: "none" }} to="/sign_in">
+                  <Button sx={{ my: 2, color: "white", display: "block" }}>
+                    サインイン
+                  </Button>
+                </Link>
+              </Box>
+            )}
+          </>
         </Toolbar>
       </Container>
     </AppBar>
