@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
   namespace :api, format: "json" do
     namespace :v1 do
-      mount_devise_token_auth_for "User", at: "auth", controllers: { registrations: "api/v1/auth/registrations" }
+      mount_devise_token_auth_for "User", at: "auth", controllers: {
+        registrations: "api/v1/auth/registrations",
+        sessions: "api/v1/auth/sessions"
+      }
 
       namespace :auth do
-        post "sessions/guest_sign_in", to: "sessions#guest_sign_in"
+        devise_scope :api_v1_user do
+          post "guest_sign_in", to: "sessions#guest_sign_in"
+        end
+
         resources :sessions, only: [:index]
       end
 
