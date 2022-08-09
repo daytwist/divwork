@@ -60,7 +60,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
         }
       })
       .catch((err) => console.log(err));
-  }, [setIsSignedIn]);
+  }, [isSignedIn]);
 
   return (
     <AuthContext.Provider value={AuthProviderValue}>
