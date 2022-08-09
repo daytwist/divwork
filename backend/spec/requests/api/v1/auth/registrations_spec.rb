@@ -4,6 +4,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   let(:team) { create(:team) }
   let(:user) { create(:user, team_id: team.id) }
   let(:headers) { user.create_new_auth_token }
+  let(:json) { JSON.parse(response.body) }
 
   describe "POST /api/v1/auth" do
     let(:params) { attributes_for(:user, team_id: team.id) }
@@ -53,6 +54,19 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     it "ログアウトが成功すること" do
       delete "/api/v1/auth/sign_out", headers: headers
       expect(response).to have_http_status(:ok)
+    end
+  end
+
+  describe "before_action :ensure_normal_user" do
+    before do
+      post "/api/v1/auth/guest_sign_in"
+    end
+
+    it "ゲストユーザーは削除出来ないこと" do
+      headers = response.headers
+      delete "/api/v1/auth", headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["message"]).to eq "ゲストユーザーは削除出来ません"
     end
   end
 end
