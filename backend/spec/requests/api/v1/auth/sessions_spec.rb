@@ -40,10 +40,20 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
   end
 
   describe "POST /guest_sign_in" do
+    before do
+      post "/api/v1/auth/guest_sign_in"
+    end
+
     it "ゲストログインに成功すること" do
-      post "/api/v1/auth/sessions/guest_sign_in"
       expect(response).to have_http_status(:ok)
-      expect(json["user"]["email"]).to eq "guest@example.com"
+      expect(json["data"]["email"]).to eq "guest@example.com"
+    end
+
+    it "ヘッダーに必要な情報が格納されていること" do
+      headers = response.headers
+      expect(headers["access-token"]).to be_present
+      expect(headers["client"]).to be_present
+      expect(headers["uid"]).to eq "guest@example.com"
     end
   end
 end
