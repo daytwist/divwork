@@ -45,7 +45,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     let(:params) { { password: "new_password", password_confirmation: "new_password" } }
 
     it "パスワード変更が成功すること" do
-      patch "/api/v1/auth/password", params: params, headers: headers
+      put "/api/v1/auth/password", params: params, headers: headers
       expect(response).to have_http_status(:ok)
     end
   end
