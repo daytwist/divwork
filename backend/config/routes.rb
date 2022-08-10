@@ -9,10 +9,9 @@ Rails.application.routes.draw do
 
       namespace :auth do
         devise_scope :api_v1_user do
+          get "sessions", to: "sessions#index"
           post "guest_sign_in", to: "sessions#guest_sign_in"
         end
-
-        resources :sessions, only: [:index]
       end
 
       get "teams/select", to: "teams#select"
