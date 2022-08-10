@@ -58,13 +58,27 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   end
 
   describe "before_action :ensure_normal_user" do
+    let(:guest_headers) do
+      {
+        "access-token" => response.headers["access-token"],
+        "client" => response.headers["client"],
+        "uid" => response.headers["uid"]
+      }
+    end
+
     before do
       post "/api/v1/auth/guest_sign_in"
     end
 
+    it "ゲストユーザーは更新出来ないこと" do
+      params = { "email" => "guest1@example.com" }
+      put "/api/v1/auth", headers: guest_headers, params: params
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["message"]).to eq "ゲストユーザーの更新・削除は出来ません"
+    end
+
     it "ゲストユーザーは削除出来ないこと" do
-      headers = response.headers
-      delete "/api/v1/auth", headers: headers
+      delete "/api/v1/auth", headers: guest_headers
       expect(response).to have_http_status(:internal_server_error)
       expect(json["message"]).to eq "ゲストユーザーの更新・削除は出来ません"
     end
