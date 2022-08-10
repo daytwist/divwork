@@ -20,7 +20,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     command: bash -c "rm -f /divwork/tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - ./backend:/divwork
@@ -41,7 +41,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     command: ash -c "yarn start-dev"
     volumes:
       - ./frontend:/usr/src/app:delegated
