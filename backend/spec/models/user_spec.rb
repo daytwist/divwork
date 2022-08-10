@@ -70,4 +70,12 @@ RSpec.describe User, type: :model do
       expect(user.tasks_count).to eq [2, 1, 0]
     end
   end
+
+  describe "guest method" do
+    it "ゲストユーザーを作成出来ること" do
+      user = described_class.guest
+      expect(user.name).to eq "ゲスト"
+      expect(user.email).to eq "guest@example.com"
+    end
+  end
 end
