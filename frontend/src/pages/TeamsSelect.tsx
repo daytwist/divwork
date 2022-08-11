@@ -1,5 +1,5 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import {
   Button,
   Container,
@@ -11,11 +11,14 @@ import {
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsSelectResponse } from "../types";
+import { AuthContext } from "../providers/AuthProvider";
 
 const TeamsSelect: FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
   const [teamId, setTeamId] = useState<string>("");
   const [teamName, setTeamName] = useState<string>("");
+
+  const { isSignedIn, currentUser } = useContext(AuthContext);
 
   const options: AxiosRequestConfig = {
     url: "/teams/select",
@@ -50,6 +53,7 @@ const TeamsSelect: FC = () => {
 
   return (
     <Container maxWidth="sm">
+      {isSignedIn && <Navigate to={`/teams/${currentUser?.team_id}`} />}
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div" gutterBottom>
