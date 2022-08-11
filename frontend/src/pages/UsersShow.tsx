@@ -1,5 +1,5 @@
 import { useState, useEffect, FC, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
@@ -10,8 +10,7 @@ const UsersShow: FC = () => {
   const [user, setUser] = useState<User>();
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const { currentUser } = useContext(AuthContext);
-
+  const { isSignedIn, currentUser } = useContext(AuthContext);
   const params = useParams<{ id: string }>();
 
   const options: AxiosRequestConfig = {
@@ -38,6 +37,7 @@ const UsersShow: FC = () => {
 
   return (
     <div>
+      {isSignedIn || <Navigate to="/sign_in" />}
       <h1>Users#Show</h1>
       <h2>{user?.name}</h2>
       {user?.id === currentUser?.id && (
