@@ -14,6 +14,7 @@ module.exports = {
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    "plugin:jest-dom/recommended",
     "prettier",
   ],
   parser: "@typescript-eslint/parser",
@@ -26,7 +27,14 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"],
   },
-  plugins: ["react", "@typescript-eslint", "import", "unused-imports"],
+  plugins: [
+    "react",
+    "@typescript-eslint",
+    "import",
+    "unused-imports",
+    "jest-dom",
+    "testing-library",
+  ],
   ignorePatterns: [".eslintrc.js", "build", "jest.config.js", "setupTests.ts"],
   rules: {
     "arrow-body-style": "off",
@@ -89,4 +97,10 @@ module.exports = {
     },
   },
   root: true,
+  overrides: [
+    {
+      files: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+      extends: ["plugin:testing-library/react"],
+    },
+  ],
 };
