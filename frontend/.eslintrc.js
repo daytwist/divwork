@@ -33,7 +33,6 @@ module.exports = {
     "import",
     "unused-imports",
     "jest-dom",
-    "testing-library",
   ],
   ignorePatterns: [".eslintrc.js", "build", "jest.config.js", "setupTests.ts"],
   rules: {
@@ -97,10 +96,4 @@ module.exports = {
     },
   },
   root: true,
-  overrides: [
-    {
-      files: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
-      extends: ["plugin:testing-library/react"],
-    },
-  ],
 };
