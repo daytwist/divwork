@@ -9,7 +9,6 @@ describe("TeamsSelect", () => {
         <TeamsSelect />
       </BrowserRouter>
     );
-    const team = await screen.findByText(/所属チームの選択/);
-    expect(team).toBeInTheDocument();
+    expect(await screen.findByText("所属チームの選択")).toBeInTheDocument();
   });
 });
