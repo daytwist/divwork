@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import renderer from "react-test-renderer";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import TeamsSelect from "../pages/TeamsSelect";
 
@@ -22,6 +23,8 @@ describe("TeamsSelect", () => {
         <TeamsSelect />
       </BrowserRouter>
     );
-    expect(await screen.findByText("所属チームの選択")).toBeInTheDocument();
+    const teamInput = screen.getByLabelText("チーム");
+    userEvent.click(teamInput);
+    expect(await screen.findByText("愛媛県 ants")).toBeInTheDocument();
   });
 });
