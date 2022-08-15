@@ -4,16 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import Header from "../components/Header";
 
 describe("Header", () => {
-  test("'サインイン'が表示されていること", () => {
-    render(
-      <BrowserRouter>
-        <Header />
-      </BrowserRouter>
-    );
-    const textElement = screen.getByText("サインイン");
-    expect(textElement).toBeInTheDocument();
-  });
-
   test("スナップショット", () => {
     const tree = renderer
       .create(
@@ -23,5 +13,14 @@ describe("Header", () => {
       )
       .toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  test("'サインイン'が表示されていること", () => {
+    render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    );
+    expect(screen.getByText("サインイン")).toBeInTheDocument();
   });
 });
