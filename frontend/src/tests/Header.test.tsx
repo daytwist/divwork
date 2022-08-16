@@ -16,11 +16,7 @@ describe("Header", () => {
   });
 
   test("'サインイン'が表示されていること", () => {
-    render(
-      <BrowserRouter>
-        <Header />
-      </BrowserRouter>
-    );
+    render(<Header />, { wrapper: BrowserRouter });
     expect(screen.getByText("サインイン")).toBeInTheDocument();
   });
 });

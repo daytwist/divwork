@@ -18,11 +18,7 @@ describe("TeamsSelect", () => {
   });
 
   test("チーム一覧の表示", async () => {
-    render(
-      <BrowserRouter>
-        <TeamsSelect />
-      </BrowserRouter>
-    );
+    render(<TeamsSelect />, { wrapper: BrowserRouter });
     const teamInput = screen.getByLabelText("チーム");
     userEvent.click(teamInput);
     expect(await screen.findByText("TEAM_1")).toBeInTheDocument();
