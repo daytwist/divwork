@@ -9,6 +9,7 @@ import SignIn from "./pages/SignIn";
 import TeamsSelect from "./pages/TeamsSelect";
 import TeamsShow from "./pages/TeamsShow";
 import UsersShow from "./pages/UsersShow";
+import UsersEdit from "./pages/UsersEdit";
 import TasksShow from "./pages/TasksShow";
 import TasksNew from "./pages/TasksNew";
 import DivisionsNew from "./pages/DivisionsNew";
@@ -38,6 +39,7 @@ const App: React.FC = () => {
             <Route path="/sign_in" element={<SignIn />} />
             <Route path="/teams/:id" element={<TeamsShow />} />
             <Route path="users/:id" element={<UsersShow />} />
+            <Route path="users/:id/edit" element={<UsersEdit />} />
             <Route path="/tasks/new" element={<TasksNew />} />
             <Route path="/tasks/:id" element={<TasksShow />} />
             <Route path="/tasks/:id/edit" element={<TasksEdit />} />
