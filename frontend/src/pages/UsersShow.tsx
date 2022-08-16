@@ -3,7 +3,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { User, Task, UsersShowResponse } from "../types";
+import { User, Task, UsersResponse } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
 
 const UsersShow: FC = () => {
@@ -25,7 +25,7 @@ const UsersShow: FC = () => {
 
   useEffect(() => {
     axiosInstance(options)
-      .then((res: AxiosResponse<UsersShowResponse>) => {
+      .then((res: AxiosResponse<UsersResponse>) => {
         console.log(res);
         setUser(res.data.user);
         setTasks(res.data.tasks);
