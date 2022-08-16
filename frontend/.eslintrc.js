@@ -14,6 +14,7 @@ module.exports = {
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    "plugin:jest-dom/recommended",
     "prettier",
   ],
   parser: "@typescript-eslint/parser",
@@ -26,7 +27,13 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"],
   },
-  plugins: ["react", "@typescript-eslint", "import", "unused-imports"],
+  plugins: [
+    "react",
+    "@typescript-eslint",
+    "import",
+    "unused-imports",
+    "jest-dom",
+  ],
   ignorePatterns: [".eslintrc.js", "build", "jest.config.js", "setupTests.ts"],
   rules: {
     "arrow-body-style": "off",

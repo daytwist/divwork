@@ -67,7 +67,12 @@ const SignIn: FC = () => {
           />
         </Grid>
         <Grid item>
-          <Button variant="contained" type="submit" onClick={onClickSignIn}>
+          <Button
+            data-testid="sign-in-button"
+            variant="contained"
+            type="submit"
+            onClick={onClickSignIn}
+          >
             サインイン
           </Button>
         </Grid>
