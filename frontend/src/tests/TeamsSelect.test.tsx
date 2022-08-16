@@ -25,6 +25,7 @@ describe("TeamsSelect", () => {
     );
     const teamInput = screen.getByLabelText("チーム");
     userEvent.click(teamInput);
-    expect(await screen.findByText("愛媛県 ants")).toBeInTheDocument();
+    expect(await screen.findByText("TEAM_1")).toBeInTheDocument();
+    expect(await screen.findByText("TEAM_2")).toBeInTheDocument();
   });
 });
