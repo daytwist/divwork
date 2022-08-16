@@ -1,39 +1,11 @@
-import { useState, useEffect, FC, useContext } from "react";
-import { useParams, Link, Navigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { User, Task, UsersResponse } from "../types";
+import { FC, useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { useFetchUser } from "../hooks/useFetchUser";
 
 const UsersShow: FC = () => {
-  const [user, setUser] = useState<User>();
-  const [tasks, setTasks] = useState<Task[]>([]);
-
+  const { user, tasks } = useFetchUser();
   const { isSignedIn, currentUser } = useContext(AuthContext);
-  const params = useParams<{ id: string }>();
-
-  const options: AxiosRequestConfig = {
-    url: `/users/${params.id}`,
-    method: "GET",
-    headers: {
-      "access-token": Cookies.get("_access_token") || "",
-      client: Cookies.get("_client") || "",
-      uid: Cookies.get("_uid") || "",
-    },
-  };
-
-  useEffect(() => {
-    axiosInstance(options)
-      .then((res: AxiosResponse<UsersResponse>) => {
-        console.log(res);
-        setUser(res.data.user);
-        setTasks(res.data.tasks);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <div>
