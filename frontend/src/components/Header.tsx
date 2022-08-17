@@ -64,7 +64,10 @@ const Header: FC = () => {
           <>
             {isSignedIn && (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                <Button
+                  href={`/users/${currentUser?.id}/edit`}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
                   {currentUser?.name}
                 </Button>
                 <Button
