@@ -1,16 +1,15 @@
 import { FC, useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Container } from "@mui/material";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
 
 const TasksShow: FC = () => {
   const task = useFetchTask();
-  const { isSignedIn, currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <Container maxWidth="sm">
-      {isSignedIn || <Navigate to="/sign_in" />}
       <h1>タスク詳細</h1>
       <div>
         <h2>{task?.title}</h2>

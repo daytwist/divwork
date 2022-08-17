@@ -17,6 +17,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import PrivateRoute from "./components/PrivateRoute";
 
 const App: React.FC = () => {
   const global = css`
@@ -36,12 +37,54 @@ const App: React.FC = () => {
             <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
             <Route path="/sign_up" element={<SignUp />} />
             <Route path="/sign_in" element={<SignIn />} />
-            <Route path="/teams/:id" element={<TeamsShow />} />
-            <Route path="users/:id" element={<UsersShow />} />
-            <Route path="/tasks/new" element={<TasksNew />} />
-            <Route path="/tasks/:id" element={<TasksShow />} />
-            <Route path="/tasks/:id/edit" element={<TasksEdit />} />
-            <Route path="/tasks/:id/divisions/new" element={<DivisionsNew />} />
+            <Route
+              path="/teams/:id"
+              element={
+                <PrivateRoute>
+                  <TeamsShow />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="users/:id"
+              element={
+                <PrivateRoute>
+                  <UsersShow />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/tasks/new"
+              element={
+                <PrivateRoute>
+                  <TasksNew />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/tasks/:id"
+              element={
+                <PrivateRoute>
+                  <TasksShow />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/tasks/:id/edit"
+              element={
+                <PrivateRoute>
+                  <TasksEdit />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/tasks/:id/divisions/new"
+              element={
+                <PrivateRoute>
+                  <DivisionsNew />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </Box>
       </AuthProvider>

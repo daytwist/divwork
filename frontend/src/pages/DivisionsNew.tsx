@@ -1,5 +1,5 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { ChangeEvent, FC, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Container, Grid, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -7,12 +7,10 @@ import { axiosInstance } from "../utils/axios";
 import { divisionTask, TasksResponse, DivisionsCreateResponse } from "../types";
 import { DeadlineTextField } from "../components/DeadlineTextField";
 import { PriorityTextField } from "../components/PriorityTextField";
-import { AuthContext } from "../providers/AuthProvider";
 
 const DivisionsNew: FC = () => {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { isSignedIn } = useContext(AuthContext);
 
   const [task, setTask] = useState<divisionTask>({
     title: "",
@@ -81,7 +79,6 @@ const DivisionsNew: FC = () => {
 
   return (
     <Container maxWidth="sm">
-      {isSignedIn || <Navigate to="/sign_in" />}
       <h1>タスクを分担する</h1>
       <Grid container direction="column" spacing={3}>
         <Grid item>
