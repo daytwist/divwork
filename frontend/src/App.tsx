@@ -18,6 +18,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const App: React.FC = () => {
   const global = css`
@@ -33,10 +34,38 @@ const App: React.FC = () => {
         <Header />
         <Box m={2} pt={3}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
-            <Route path="/sign_up" element={<SignUp />} />
-            <Route path="/sign_in" element={<SignIn />} />
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <Home />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/sign_up/teams/select"
+              element={
+                <PublicRoute>
+                  <TeamsSelect />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/sign_up"
+              element={
+                <PublicRoute>
+                  <SignUp />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/sign_in"
+              element={
+                <PublicRoute>
+                  <SignIn />
+                </PublicRoute>
+              }
+            />
             <Route
               path="/teams/:id"
               element={
