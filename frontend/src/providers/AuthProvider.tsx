@@ -18,6 +18,8 @@ type Props = {
 };
 
 type AuthContextValue = {
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   isSignedIn: boolean;
   setIsSignedIn: Dispatch<SetStateAction<boolean>>;
   currentUser: User | undefined;
@@ -29,12 +31,27 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 export const AuthProvider: FC<Props> = ({ children }) => {
+  const [loading, setLoading] = useState<boolean>(true);
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
 
   const AuthProviderValue = useMemo(
-    () => ({ isSignedIn, setIsSignedIn, currentUser, setCurrentUser }),
-    [isSignedIn, setIsSignedIn, currentUser, setCurrentUser]
+    () => ({
+      loading,
+      setLoading,
+      isSignedIn,
+      setIsSignedIn,
+      currentUser,
+      setCurrentUser,
+    }),
+    [
+      loading,
+      setLoading,
+      isSignedIn,
+      setIsSignedIn,
+      currentUser,
+      setCurrentUser,
+    ]
   );
 
   const options: AxiosRequestConfig = {
@@ -55,8 +72,12 @@ export const AuthProvider: FC<Props> = ({ children }) => {
         if (res.data.is_signed_in === true) {
           setIsSignedIn(true);
           setCurrentUser(res.data.current_user);
-        } else {
+          setLoading(false);
+        } else if (res.data.is_signed_in === false) {
           setIsSignedIn(false);
+          setLoading(false);
+        } else {
+          setLoading(true);
         }
       })
       .catch((err) => console.log(err));
