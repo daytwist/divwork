@@ -1,5 +1,5 @@
 import { FC, useContext } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -41,18 +41,18 @@ const Home: FC = () => {
       </Typography>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <Link style={{ textDecoration: "none" }} to="/sign_up/teams/select">
-            <Button variant="contained" type="button">
-              サインアップ
-            </Button>
-          </Link>
+          <Button
+            variant="contained"
+            type="button"
+            href="/sign_up/teams/select"
+          >
+            サインアップ
+          </Button>
         </Grid>
         <Grid item>
-          <Link style={{ textDecoration: "none" }} to="/sign_in">
-            <Button variant="outlined" type="button">
-              サインイン
-            </Button>
-          </Link>
+          <Button variant="outlined" type="button" href="/sign_in">
+            サインイン
+          </Button>
         </Grid>
         <Grid item>
           <Button color="secondary" type="button" onClick={handleGuestSignIn}>

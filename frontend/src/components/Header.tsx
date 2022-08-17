@@ -1,5 +1,5 @@
 import { FC, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   AppBar,
@@ -81,19 +81,18 @@ const Header: FC = () => {
             )}
             {isSignedIn || (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
-                <Link
-                  style={{ textDecoration: "none" }}
-                  to="/sign_up/teams/select"
+                <Button
+                  href="/sign_up/teams/select"
+                  sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  <Button sx={{ my: 2, color: "white", display: "block" }}>
-                    サインアップ
-                  </Button>
-                </Link>
-                <Link style={{ textDecoration: "none" }} to="/sign_in">
-                  <Button sx={{ my: 2, color: "white", display: "block" }}>
-                    サインイン
-                  </Button>
-                </Link>
+                  サインアップ
+                </Button>
+                <Button
+                  href="/sign_in"
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  サインイン
+                </Button>
               </Box>
             )}
           </>
