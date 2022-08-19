@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, memo, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -13,7 +13,8 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 
-const Header: FC = () => {
+// eslint-disable-next-line react/display-name
+const Header: FC = memo(() => {
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -100,6 +101,6 @@ const Header: FC = () => {
       </Container>
     </AppBar>
   );
-};
+});
 
 export default Header;

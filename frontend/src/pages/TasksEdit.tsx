@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Container, Grid, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -13,7 +13,7 @@ import { DeadlineTextField } from "../components/DeadlineTextField";
 const TasksEdit: FC = () => {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { isSignedIn, currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const data = useFetchTask();
 
   const [task, setTask] = useState<editTask>({
@@ -67,7 +67,6 @@ const TasksEdit: FC = () => {
 
   return (
     <Container maxWidth="sm">
-      {isSignedIn || <Navigate to="/sign_in" />}
       <h1>タスクを編集する</h1>
       <Grid container direction="column" spacing={3}>
         <Grid item>

@@ -1,5 +1,5 @@
 import { FC, useContext, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -11,7 +11,7 @@ const SignIn: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
+  const { setIsSignedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const onClickSignIn = () => {
@@ -39,7 +39,6 @@ const SignIn: FC = () => {
 
   return (
     <Container maxWidth="sm">
-      {isSignedIn && <Navigate to={`/teams/${currentUser?.team_id}`} />}
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">

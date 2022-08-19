@@ -18,6 +18,8 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const App: React.FC = () => {
   const global = css`
@@ -33,17 +35,87 @@ const App: React.FC = () => {
         <Header />
         <Box m={2} pt={3}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
-            <Route path="/sign_up" element={<SignUp />} />
-            <Route path="/sign_in" element={<SignIn />} />
-            <Route path="/teams/:id" element={<TeamsShow />} />
-            <Route path="users/:id" element={<UsersShow />} />
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <Home />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/sign_up/teams/select"
+              element={
+                <PublicRoute>
+                  <TeamsSelect />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/sign_up"
+              element={
+                <PublicRoute>
+                  <SignUp />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/sign_in"
+              element={
+                <PublicRoute>
+                  <SignIn />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/teams/:id"
+              element={
+                <PrivateRoute>
+                  <TeamsShow />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="users/:id"
+              element={
+                <PrivateRoute>
+                  <UsersShow />
+                </PrivateRoute>
+              }
+            />
             <Route path="users/:id/edit" element={<UsersEdit />} />
-            <Route path="/tasks/new" element={<TasksNew />} />
-            <Route path="/tasks/:id" element={<TasksShow />} />
-            <Route path="/tasks/:id/edit" element={<TasksEdit />} />
-            <Route path="/tasks/:id/divisions/new" element={<DivisionsNew />} />
+            <Route
+              path="/tasks/new"
+              element={
+                <PrivateRoute>
+                  <TasksNew />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/tasks/:id"
+              element={
+                <PrivateRoute>
+                  <TasksShow />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/tasks/:id/edit"
+              element={
+                <PrivateRoute>
+                  <TasksEdit />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/tasks/:id/divisions/new"
+              element={
+                <PrivateRoute>
+                  <DivisionsNew />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </Box>
       </AuthProvider>

@@ -25,7 +25,7 @@ describe("TeamsSelect", () => {
     // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       userEvent.click(teamInput);
-    })
+    });
 
     expect(await screen.findByText("TEAM_1")).toBeInTheDocument();
     expect(await screen.findByText("TEAM_2")).toBeInTheDocument();

@@ -1,5 +1,5 @@
 import { FC, useContext } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -8,7 +8,7 @@ import { AuthResponse } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Home: FC = () => {
-  const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
+  const { setIsSignedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleGuestSignIn = () => {
@@ -35,7 +35,6 @@ const Home: FC = () => {
 
   return (
     <Container maxWidth="sm">
-      {isSignedIn && <Navigate to={`/teams/${currentUser?.team_id}`} />}
       <Typography variant="h2" component="div" gutterBottom>
         DivWork
       </Typography>
