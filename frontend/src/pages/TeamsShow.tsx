@@ -1,17 +1,15 @@
-import { useState, useEffect, FC, useContext } from "react";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useState, useEffect, FC } from "react";
+import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
-import { AuthContext } from "../providers/AuthProvider";
 
 const TeamsShow: FC = () => {
   const [team, setTeam] = useState<Team>();
   const [users, setUsers] = useState<User[]>();
 
   const params = useParams<{ id: string }>();
-  const { isSignedIn } = useContext(AuthContext);
 
   const options: AxiosRequestConfig = {
     url: `/teams/${params.id}`,
@@ -38,7 +36,6 @@ const TeamsShow: FC = () => {
 
   return (
     <div>
-      {isSignedIn || <Navigate to="/sign_in" />}
       <h1>Teams#Show</h1>
       <h2>{team?.name}</h2>
       <div>
