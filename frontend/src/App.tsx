@@ -83,7 +83,14 @@ const App: React.FC = () => {
                 </PrivateRoute>
               }
             />
-            <Route path="users/:id/edit" element={<UsersEdit />} />
+            <Route
+              path="users/:id/edit"
+              element={
+                <PrivateRoute>
+                  <UsersEdit />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="/tasks/new"
               element={
