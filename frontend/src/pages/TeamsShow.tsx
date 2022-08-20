@@ -1,6 +1,7 @@
 import { useState, useEffect, FC } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import { Button, Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
@@ -35,24 +36,27 @@ const TeamsShow: FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Teams#Show</h1>
-      <h2>{team?.name}</h2>
-      <div>
-        <ul>
+    <Container maxWidth="sm">
+      <Grid container direction="column" spacing={3}>
+        <Grid item>
+          <Typography variant="h4" component="div">
+            {team?.name}のタスク
+          </Typography>
+        </Grid>
+        <Grid item>
           {users?.map((user) => (
-            <div key={user.id}>
-              <Link to={`/users/${user.id}`}>
-                <li>{user.name}</li>
-              </Link>
+            <Grid item key={user.id}>
+              <Button variant="text" size="large" href={`/users/${user.id}`}>
+                {user.name}
+              </Button>
               {user.tasks_count[0]}
               {user.tasks_count[1]}
               {user.tasks_count[2]}
-            </div>
+            </Grid>
           ))}
-        </ul>
-      </div>
-    </div>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
