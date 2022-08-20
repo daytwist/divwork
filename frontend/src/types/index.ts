@@ -20,6 +20,12 @@ export type User = {
   tasks_count: number[];
 };
 
+export type editUser = {
+  team_id: number;
+  name: string;
+  email: string;
+};
+
 export type Task = {
   id: number;
   title: string;
