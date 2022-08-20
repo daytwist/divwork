@@ -40,18 +40,24 @@ const Home: FC = () => {
       </Typography>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <Link style={{ textDecoration: "none" }} to="/sign_up/teams/select">
-            <Button variant="contained" type="button">
-              サインアップ
-            </Button>
-          </Link>
+          <Button
+            variant="contained"
+            type="button"
+            component={Link}
+            to="/sign_up/teams/select"
+          >
+            サインアップ
+          </Button>
         </Grid>
         <Grid item>
-          <Link style={{ textDecoration: "none" }} to="/sign_in">
-            <Button variant="outlined" type="button">
-              サインイン
-            </Button>
-          </Link>
+          <Button
+            variant="outlined"
+            type="button"
+            component={Link}
+            to="/sign_in"
+          >
+            サインイン
+          </Button>
         </Grid>
         <Grid item>
           <Button color="secondary" type="button" onClick={handleGuestSignIn}>

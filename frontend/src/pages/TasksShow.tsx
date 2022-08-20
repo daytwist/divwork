@@ -32,26 +32,26 @@ const TasksShow: FC = () => {
       </div>
       {task?.user_id === currentUser?.id && (
         <div>
-          <Link
-            style={{ textDecoration: "none" }}
+          <Button
+            color="secondary"
+            type="button"
+            component={Link}
             to={`/tasks/${task?.id}/edit`}
           >
-            <Button color="secondary" type="button">
-              編集
-            </Button>
-          </Link>
+            編集
+          </Button>
         </div>
       )}
       <br />
       <div>
-        <Link
-          style={{ textDecoration: "none" }}
+        <Button
+          variant="contained"
+          type="button"
+          component={Link}
           to={`/tasks/${task?.id}/divisions/new`}
         >
-          <Button variant="contained" type="button">
-            分担する
-          </Button>
-        </Link>
+          分担する
+        </Button>
       </div>
     </Container>
   );

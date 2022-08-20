@@ -1,5 +1,5 @@
 import { useState, useEffect, FC } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -46,7 +46,12 @@ const TeamsShow: FC = () => {
         <Grid item>
           {users?.map((user) => (
             <Grid item key={user.id}>
-              <Button variant="text" size="large" href={`/users/${user.id}`}>
+              <Button
+                variant="text"
+                size="large"
+                component={Link}
+                to={`/users/${user.id}`}
+              >
                 {user.name}
               </Button>
               {user.tasks_count[0]}
