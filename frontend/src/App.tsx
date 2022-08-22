@@ -32,7 +32,7 @@ const App: React.FC = () => {
       <Global styles={global} />
       <AuthProvider>
         <Header />
-        <Box m={2} pt={3}>
+        <Box m={2} pt={4}>
           <Routes>
             <Route
               path="/"
