@@ -30,7 +30,7 @@ describe("PrivateRoute", () => {
       </MemoryRouter>
     );
     await waitFor(() => {
-      expect(screen.queryByText("Teams#Show")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("teams-show-h4")).not.toBeInTheDocument();
     });
     expect(await screen.findByLabelText("メールアドレス")).toBeInTheDocument();
   });
