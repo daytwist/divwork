@@ -16,69 +16,71 @@ exports[`Header スナップショット 1`] = `
       >
         DivWork
       </a>
-      <div
-        className="MuiBox-root css-7ln23k"
-      >
-        <a
-          href="/sign_up/teams/select"
-          onClick={[Function]}
-          style={
-            Object {
-              "textDecoration": "none",
-            }
-          }
+      <div>
+        <div
+          className="MuiBox-root css-7ln23k"
         >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1q39md6-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            サインアップ
-          </button>
-        </a>
-        <a
-          href="/sign_in"
-          onClick={[Function]}
-          style={
-            Object {
-              "textDecoration": "none",
+          <a
+            href="/sign_up/teams/select"
+            onClick={[Function]}
+            style={
+              Object {
+                "textDecoration": "none",
+              }
             }
-          }
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1q39md6-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
           >
-            サインイン
-          </button>
-        </a>
+            <button
+              className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1q39md6-MuiButtonBase-root-MuiButton-root"
+              disabled={false}
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
+              type="button"
+            >
+              サインアップ
+            </button>
+          </a>
+          <a
+            href="/sign_in"
+            onClick={[Function]}
+            style={
+              Object {
+                "textDecoration": "none",
+              }
+            }
+          >
+            <button
+              className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1q39md6-MuiButtonBase-root-MuiButton-root"
+              disabled={false}
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
+              type="button"
+            >
+              サインイン
+            </button>
+          </a>
+        </div>
       </div>
     </div>
   </div>

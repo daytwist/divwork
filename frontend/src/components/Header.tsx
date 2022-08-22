@@ -62,8 +62,8 @@ const Header: FC = memo(() => {
           >
             DivWork
           </Typography>
-          <>
-            {isSignedIn && (
+          <div>
+            {isSignedIn ? (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
                 <Button sx={{ my: 2, color: "white", display: "block" }}>
                   {currentUser?.name}
@@ -76,8 +76,7 @@ const Header: FC = memo(() => {
                   サインアウト
                 </Button>
               </Box>
-            )}
-            {isSignedIn || (
+            ) : (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
                 <Link
                   style={{ textDecoration: "none" }}
@@ -94,7 +93,7 @@ const Header: FC = memo(() => {
                 </Link>
               </Box>
             )}
-          </>
+          </div>
         </Toolbar>
       </Container>
     </AppBar>

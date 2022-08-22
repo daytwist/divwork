@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthResponse } from "../types";
@@ -34,24 +34,30 @@ const Home: FC = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <div>
       <Typography variant="h2" component="div" gutterBottom>
         DivWork
       </Typography>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <Link style={{ textDecoration: "none" }} to="/sign_up/teams/select">
-            <Button variant="contained" type="button">
-              サインアップ
-            </Button>
-          </Link>
+          <Button
+            variant="contained"
+            type="button"
+            component={Link}
+            to="/sign_up/teams/select"
+          >
+            サインアップ
+          </Button>
         </Grid>
         <Grid item>
-          <Link style={{ textDecoration: "none" }} to="/sign_in">
-            <Button variant="outlined" type="button">
-              サインイン
-            </Button>
-          </Link>
+          <Button
+            variant="outlined"
+            type="button"
+            component={Link}
+            to="/sign_in"
+          >
+            サインイン
+          </Button>
         </Grid>
         <Grid item>
           <Button color="secondary" type="button" onClick={handleGuestSignIn}>
@@ -59,7 +65,7 @@ const Home: FC = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

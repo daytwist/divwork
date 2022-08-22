@@ -1,3 +1,4 @@
+import { Box, CircularProgress, Container } from "@mui/material";
 import { FC, useContext } from "react";
 import { Navigate, RouteProps } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
@@ -12,7 +13,19 @@ const PrivateRoute: FC<RouteProps> = ({ children }) => {
     return <Navigate to="/sign_in" />;
   }
 
-  return <h5>Loading...</h5>;
+  return (
+    <Container maxWidth="sm">
+      <Box
+        mt={15}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    </Container>
+  );
 };
 
 export default PrivateRoute;

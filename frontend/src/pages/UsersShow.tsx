@@ -1,6 +1,7 @@
 import { useState, useEffect, FC, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { Button, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { User, Task, UsersShowResponse } from "../types";
@@ -37,24 +38,32 @@ const UsersShow: FC = () => {
 
   return (
     <div>
-      <h1>Users#Show</h1>
-      <h2>{user?.name}</h2>
-      {user?.id === currentUser?.id && (
-        <div>
-          <Link to="/tasks/new">
-            <button type="button">新規作成</button>
-          </Link>
-        </div>
-      )}
-      <div>
-        <ul>
+      <Grid container direction="column" spacing={3}>
+        <Grid item>
+          <Typography variant="h4" component="div">
+            {user?.name ? `${user.name}のタスク` : ""}
+          </Typography>
+        </Grid>
+        {user?.id === currentUser?.id && (
+          <Grid item>
+            <Button
+              variant="contained"
+              type="button"
+              component={Link}
+              to="/tasks/new"
+            >
+              新規作成
+            </Button>
+          </Grid>
+        )}
+        <Grid item>
           {tasks?.map((task) => (
-            <Link to={`/tasks/${task.id}`} key={task.id}>
-              <li>{task.title}</li>
-            </Link>
+            <Grid item key={task.id}>
+              <Link to={`/tasks/${task.id}`}>{task.title}</Link>
+            </Grid>
           ))}
-        </ul>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

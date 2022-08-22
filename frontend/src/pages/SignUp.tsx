@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthResponse } from "../types/index";
@@ -49,7 +49,7 @@ const SignUp: FC = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <div>
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">
@@ -97,7 +97,7 @@ const SignUp: FC = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

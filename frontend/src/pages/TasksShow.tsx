@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Button, Container } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
 
@@ -9,51 +9,78 @@ const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
 
   return (
-    <Container maxWidth="sm">
-      <h1>タスク詳細</h1>
-      <div>
-        <h2>{task?.title}</h2>
-      </div>
-      <div>
-        <h4>詳細</h4>
-        <p>{task?.description}</p>
-      </div>
-      <div>
-        <h4>納期</h4>
-        <p>{task?.deadline.toString()}</p>
-      </div>
-      <div>
-        <h4>優先度</h4>
-        <p>{task?.priority}</p>
-      </div>
-      <div>
-        <h4>完了フラグ</h4>
-        <p>{task?.is_done.toString()}</p>
-      </div>
-      {task?.user_id === currentUser?.id && (
-        <div>
-          <Link
-            style={{ textDecoration: "none" }}
-            to={`/tasks/${task?.id}/edit`}
-          >
-            <Button color="secondary" type="button">
+    <div>
+      <Grid container direction="column" spacing={2}>
+        <Grid item>
+          <Typography variant="h4" component="div">
+            タスク詳細
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" component="div">
+            タイトル
+          </Typography>
+          <Typography variant="h6" component="div">
+            {task?.title}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" component="div">
+            詳細
+          </Typography>
+          <Typography variant="body1" component="div">
+            {task?.description}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" component="div">
+            納期
+          </Typography>
+          <Typography variant="body1" component="div">
+            {task?.deadline.toString()}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" component="div">
+            優先度
+          </Typography>
+          <Typography variant="body1" component="div">
+            {task?.priority}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" component="div">
+            完了フラグ
+          </Typography>
+          <Typography variant="body1" component="div">
+            {task?.is_done.toString()}
+          </Typography>
+        </Grid>
+        {task?.user_id === currentUser?.id && (
+          <Grid item>
+            <Button
+              variant="outlined"
+              color="secondary"
+              type="button"
+              component={Link}
+              to={`/tasks/${task?.id}/edit`}
+            >
               編集
             </Button>
-          </Link>
-        </div>
-      )}
-      <br />
-      <div>
-        <Link
-          style={{ textDecoration: "none" }}
-          to={`/tasks/${task?.id}/divisions/new`}
-        >
-          <Button variant="contained" type="button">
+          </Grid>
+        )}
+        <Grid item>
+          <Button
+            variant="contained"
+            type="button"
+            component={Link}
+            to={`/tasks/${task?.id}/divisions/new`}
+          >
             分担する
           </Button>
-        </Link>
-      </div>
-    </Container>
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 

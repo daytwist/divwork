@@ -1,13 +1,6 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import {
-  Button,
-  Container,
-  Grid,
-  MenuItem,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsSelectResponse } from "../types";
@@ -52,7 +45,7 @@ const TeamsSelect: FC = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <div>
       {isSignedIn && <Navigate to={`/teams/${currentUser?.team_id}`} />}
       <Grid container direction="column" spacing={3}>
         <Grid item>
@@ -93,7 +86,7 @@ const TeamsSelect: FC = () => {
           </Link>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 
