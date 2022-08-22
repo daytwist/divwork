@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SignIn スナップショット 1`] = `
-<div
-  className="MuiContainer-root MuiContainer-maxWidthSm css-cuefkz-MuiContainer-root"
->
+<div>
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column css-32q0xd-MuiGrid-root"
   >

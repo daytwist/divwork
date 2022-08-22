@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, newTask } from "../types";
@@ -61,13 +61,18 @@ const TasksNew: FC = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <h1>タスクを作成する</h1>
-      <Grid container direction="column" spacing={3}>
+    <div>
+      <Grid container direction="column" spacing={4}>
+        <Grid item>
+          <Typography variant="h4" component="div">
+            タスクを作成する
+          </Typography>
+        </Grid>
         <Grid item>
           <TextField
             label="タイトル"
             variant="standard"
+            sx={{ width: "30ch" }}
             name="title"
             value={task.title}
             onChange={handleInputChange}
@@ -76,9 +81,10 @@ const TasksNew: FC = () => {
         <Grid item>
           <TextField
             label="詳細"
-            variant="standard"
+            variant="outlined"
             multiline
-            rows={3}
+            rows={4}
+            sx={{ width: "55ch" }}
             name="description"
             value={task.description}
             onChange={handleInputChange}
@@ -106,7 +112,7 @@ const TasksNew: FC = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

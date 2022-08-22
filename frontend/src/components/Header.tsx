@@ -62,8 +62,8 @@ const Header: FC = memo(() => {
           >
             DivWork
           </Typography>
-          <>
-            {isSignedIn && (
+          <div>
+            {isSignedIn ? (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
                 <Button
                   href={`/users/${currentUser?.id}/edit`}
@@ -79,8 +79,7 @@ const Header: FC = memo(() => {
                   サインアウト
                 </Button>
               </Box>
-            )}
-            {isSignedIn || (
+            ) : (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
                 <Button
                   href="/sign_up/teams/select"
@@ -96,7 +95,7 @@ const Header: FC = memo(() => {
                 </Button>
               </Box>
             )}
-          </>
+          </div>
         </Toolbar>
       </Container>
     </AppBar>

@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { divisionTask, TasksResponse, DivisionsCreateResponse } from "../types";
@@ -78,13 +78,18 @@ const DivisionsNew: FC = () => {
   }, []);
 
   return (
-    <Container maxWidth="sm">
-      <h1>タスクを分担する</h1>
-      <Grid container direction="column" spacing={3}>
+    <div>
+      <Grid container direction="column" spacing={2}>
+        <Grid item>
+          <Typography variant="h4" component="div">
+            タスクを分担する
+          </Typography>
+        </Grid>
         <Grid item>
           <TextField
             label="タイトル"
             variant="standard"
+            sx={{ width: "30ch" }}
             name="title"
             value={task.title}
             onChange={handleInputChange}
@@ -93,9 +98,10 @@ const DivisionsNew: FC = () => {
         <Grid item>
           <TextField
             label="詳細"
-            variant="standard"
+            variant="outlined"
             multiline
-            rows={3}
+            rows={4}
+            sx={{ width: "55ch" }}
             name="description"
             value={task.description}
             onChange={handleInputChange}
@@ -129,6 +135,7 @@ const DivisionsNew: FC = () => {
           <TextField
             label="送信コメント"
             variant="standard"
+            sx={{ width: "50ch" }}
             value={comment}
             onChange={(event) => setComment(event.target.value)}
           />
@@ -143,7 +150,7 @@ const DivisionsNew: FC = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

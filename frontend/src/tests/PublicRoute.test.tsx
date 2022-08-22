@@ -64,7 +64,7 @@ describe("PublicRoute", () => {
     await waitFor(() => {
       expect(screen.queryByLabelText("メールアドレス")).not.toBeInTheDocument();
     });
-    expect(await screen.findByText("Teams#Show")).toBeInTheDocument();
+    expect(await screen.findByTestId("teams-show-h4")).toBeInTheDocument();
     expect(await screen.findByText("USER_2")).toBeInTheDocument();
   });
 });
