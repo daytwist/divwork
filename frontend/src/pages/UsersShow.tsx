@@ -41,7 +41,7 @@ const UsersShow: FC = () => {
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">
-            {user?.name}のタスク
+            {user?.name ? `${user.name}のタスク` : ""}
           </Typography>
         </Grid>
         {user?.id === currentUser?.id && (

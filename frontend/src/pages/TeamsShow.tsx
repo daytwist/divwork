@@ -40,7 +40,7 @@ const TeamsShow: FC = () => {
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">
-            {team?.name}のタスク
+            {team?.name ? `${team.name}のタスク` : ""}
           </Typography>
         </Grid>
         <Grid item>
