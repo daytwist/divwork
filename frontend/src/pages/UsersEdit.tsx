@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { useFetchUser } from "../hooks/useFetchUser";
@@ -67,7 +67,7 @@ const UsersEdit: FC = () => {
   }, [userData]);
 
   return (
-    <Container maxWidth="sm">
+    <div>
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">
@@ -106,7 +106,7 @@ const UsersEdit: FC = () => {
           <Button variant="outlined">パスワード変更</Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

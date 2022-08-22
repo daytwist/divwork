@@ -1,5 +1,5 @@
 import { FC, memo, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   AppBar,
@@ -66,7 +66,8 @@ const Header: FC = memo(() => {
             {isSignedIn ? (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
                 <Button
-                  href={`/users/${currentUser?.id}/edit`}
+                  component={Link}
+                  to={`/users/${currentUser?.id}/edit`}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   {currentUser?.name}
@@ -82,13 +83,15 @@ const Header: FC = memo(() => {
             ) : (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
                 <Button
-                  href="/sign_up/teams/select"
+                  component={Link}
+                  to="/sign_up/teams/select"
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   サインアップ
                 </Button>
                 <Button
-                  href="/sign_in"
+                  component={Link}
+                  to="/sign_in"
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   サインイン

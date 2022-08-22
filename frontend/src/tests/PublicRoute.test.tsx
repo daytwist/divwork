@@ -2,8 +2,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from "msw";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import Header from "../components/Header";
 import PrivateRoute from "../components/PrivateRoute";
 import PublicRoute from "../components/PublicRoute";
 import { server } from "../mocks/server";
@@ -38,7 +36,6 @@ describe("PublicRoute", () => {
     render(
       <MemoryRouter initialEntries={["/sign_in"]}>
         <AuthProvider>
-          <Header />
           <Routes>
             <Route
               path="/sign_in"
