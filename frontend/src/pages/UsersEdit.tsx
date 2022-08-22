@@ -1,22 +1,32 @@
+import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { axiosInstance } from "../utils/axios";
 import { useFetchUser } from "../hooks/useFetchUser";
-import { editUser } from "../types";
+import { AuthContext } from "../providers/AuthProvider";
+import { User, UsersResponse } from "../types";
 
 const UsersEdit: FC = () => {
+  const navigate = useNavigate();
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { user: userData } = useFetchUser();
 
-  const [user, setUser] = useState<editUser>({
+  const [user, setUser] = useState<User>({
     team_id: 0,
     name: "",
     email: "",
+    id: 0,
+    provider: "",
+    uid: "",
+    allow_password_change: false,
+    nickname: "",
+    image: "",
+    created_at: new Date(),
+    updated_at: new Date(),
+    tasks_count: [0],
   });
-
-  useEffect(() => {
-    if (userData) {
-      setUser(userData);
-    }
-  }, [userData]);
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,6 +34,37 @@ const UsersEdit: FC = () => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   };
+
+  const handleUsersUpdate = () => {
+    const updateOptions: AxiosRequestConfig = {
+      url: "/auth",
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "access-token": Cookies.get("_access_token") || "",
+        client: Cookies.get("_client") || "",
+        uid: Cookies.get("_uid") || "",
+      },
+      data: user,
+    };
+
+    axiosInstance(updateOptions)
+      .then((res: AxiosResponse<UsersResponse>) => {
+        console.log(res);
+
+        if (res.status === 200) {
+          setCurrentUser(user);
+          navigate(`/users/${currentUser?.id}`, { replace: false });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    if (userData) {
+      setUser(userData);
+    }
+  }, [userData]);
 
   return (
     <Container maxWidth="sm">
@@ -57,7 +98,9 @@ const UsersEdit: FC = () => {
           />
         </Grid>
         <Grid item>
-          <Button variant="contained">更新する</Button>
+          <Button variant="contained" type="submit" onClick={handleUsersUpdate}>
+            更新する
+          </Button>
         </Grid>
         <Grid item>
           <Button variant="outlined">パスワード変更</Button>
