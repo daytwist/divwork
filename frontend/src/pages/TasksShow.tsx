@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
 
@@ -9,7 +9,7 @@ const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
 
   return (
-    <Container maxWidth="sm">
+    <div>
       <Grid container direction="column" spacing={2}>
         <Grid item>
           <Typography variant="h4" component="div">
@@ -80,7 +80,7 @@ const TasksShow: FC = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

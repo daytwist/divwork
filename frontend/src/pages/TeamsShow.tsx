@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
@@ -36,7 +36,7 @@ const TeamsShow: FC = () => {
   }, []);
 
   return (
-    <Container maxWidth="sm">
+    <div>
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">
@@ -61,7 +61,7 @@ const TeamsShow: FC = () => {
           ))}
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

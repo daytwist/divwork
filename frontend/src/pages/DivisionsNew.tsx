@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { divisionTask, TasksResponse, DivisionsCreateResponse } from "../types";
@@ -78,7 +78,7 @@ const DivisionsNew: FC = () => {
   }, []);
 
   return (
-    <Container maxWidth="sm">
+    <div>
       <Grid container direction="column" spacing={2}>
         <Grid item>
           <Typography variant="h4" component="div">
@@ -150,7 +150,7 @@ const DivisionsNew: FC = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

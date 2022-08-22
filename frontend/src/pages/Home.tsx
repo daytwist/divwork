@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthResponse } from "../types";
@@ -34,7 +34,7 @@ const Home: FC = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <div>
       <Typography variant="h2" component="div" gutterBottom>
         DivWork
       </Typography>
@@ -65,7 +65,7 @@ const Home: FC = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

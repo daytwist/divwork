@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { TasksResponse, newTask } from "../types";
@@ -61,7 +61,7 @@ const TasksNew: FC = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <div>
       <Grid container direction="column" spacing={4}>
         <Grid item>
           <Typography variant="h4" component="div">
@@ -112,7 +112,7 @@ const TasksNew: FC = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

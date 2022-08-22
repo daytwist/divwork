@@ -1,9 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { css, Global } from "@emotion/react";
-import { Box } from "@mui/material";
 import { AuthProvider } from "./providers/AuthProvider";
 import Home from "./pages/Home";
-import Header from "./components/Header";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import TeamsSelect from "./pages/TeamsSelect";
@@ -19,20 +16,13 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import CommonLayout from "./components/CommonLayout";
 
 const App: React.FC = () => {
-  const global = css`
-    * {
-      margin: 0;
-    }
-  `;
-
   return (
     <BrowserRouter>
-      <Global styles={global} />
       <AuthProvider>
-        <Header />
-        <Box m={2} pt={4}>
+        <CommonLayout>
           <Routes>
             <Route
               path="/"
@@ -115,7 +105,7 @@ const App: React.FC = () => {
               }
             />
           </Routes>
-        </Box>
+        </CommonLayout>
       </AuthProvider>
     </BrowserRouter>
   );
