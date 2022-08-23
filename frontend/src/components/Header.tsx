@@ -51,8 +51,8 @@ const Header: FC = memo(() => {
         <Toolbar disableGutters>
           <Typography
             variant="h5"
-            component="a"
-            href="/"
+            component={Link}
+            to={isSignedIn ? `/teams/${currentUser?.team_id}` : "/"}
             sx={{
               flexGrow: 1,
               display: { xs: "flex" },
@@ -65,7 +65,11 @@ const Header: FC = memo(() => {
           <div>
             {isSignedIn ? (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                <Button
+                  component={Link}
+                  to={`/users/${currentUser?.id}/edit`}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
                   {currentUser?.name}
                 </Button>
                 <Button
@@ -78,19 +82,20 @@ const Header: FC = memo(() => {
               </Box>
             ) : (
               <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
-                <Link
-                  style={{ textDecoration: "none" }}
+                <Button
+                  component={Link}
                   to="/sign_up/teams/select"
+                  sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  <Button sx={{ my: 2, color: "white", display: "block" }}>
-                    サインアップ
-                  </Button>
-                </Link>
-                <Link style={{ textDecoration: "none" }} to="/sign_in">
-                  <Button sx={{ my: 2, color: "white", display: "block" }}>
-                    サインイン
-                  </Button>
-                </Link>
+                  サインアップ
+                </Button>
+                <Button
+                  component={Link}
+                  to="/sign_in"
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  サインイン
+                </Button>
               </Box>
             )}
           </div>

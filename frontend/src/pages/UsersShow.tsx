@@ -1,46 +1,18 @@
-import { useState, useEffect, FC, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
-import Cookies from "js-cookie";
+import { FC, useContext } from "react";
+import { Link } from "react-router-dom";
 import { Button, Grid, Typography } from "@mui/material";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { User, Task, UsersShowResponse } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
+import { useFetchUser } from "../hooks/useFetchUser";
 
 const UsersShow: FC = () => {
-  const [user, setUser] = useState<User>();
-  const [tasks, setTasks] = useState<Task[]>([]);
-
+  const { user, tasks } = useFetchUser();
   const { currentUser } = useContext(AuthContext);
-  const params = useParams<{ id: string }>();
-
-  const options: AxiosRequestConfig = {
-    url: `/users/${params.id}`,
-    method: "GET",
-    headers: {
-      "access-token": Cookies.get("_access_token") || "",
-      client: Cookies.get("_client") || "",
-      uid: Cookies.get("_uid") || "",
-    },
-  };
-
-  useEffect(() => {
-    axiosInstance(options)
-      .then((res: AxiosResponse<UsersShowResponse>) => {
-        console.log(res);
-        setUser(res.data.user);
-        setTasks(res.data.tasks);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <div>
       <Grid container direction="column" spacing={3}>
         <Grid item>
-          <Typography variant="h4" component="div">
+          <Typography variant="h4" component="div" data-testid="users-show-h4">
             {user?.name ? `${user.name}のタスク` : ""}
           </Typography>
         </Grid>

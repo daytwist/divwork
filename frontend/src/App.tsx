@@ -6,6 +6,7 @@ import SignIn from "./pages/SignIn";
 import TeamsSelect from "./pages/TeamsSelect";
 import TeamsShow from "./pages/TeamsShow";
 import UsersShow from "./pages/UsersShow";
+import UsersEdit from "./pages/UsersEdit";
 import TasksShow from "./pages/TasksShow";
 import TasksNew from "./pages/TasksNew";
 import DivisionsNew from "./pages/DivisionsNew";
@@ -69,6 +70,14 @@ const App: React.FC = () => {
               element={
                 <PrivateRoute>
                   <UsersShow />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="users/:id/edit"
+              element={
+                <PrivateRoute>
+                  <UsersEdit />
                 </PrivateRoute>
               }
             />

@@ -84,7 +84,7 @@ export type TeamsShowResponse = {
   users: User[];
 };
 
-export type UsersShowResponse = {
+export type UsersResponse = {
   user: User;
   tasks: Task[];
 };
