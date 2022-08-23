@@ -51,8 +51,8 @@ const Header: FC = memo(() => {
         <Toolbar disableGutters>
           <Typography
             variant="h5"
-            component="a"
-            href="/"
+            component={Link}
+            to={isSignedIn ? `/teams/${currentUser?.team_id}` : "/"}
             sx={{
               flexGrow: 1,
               display: { xs: "flex" },
