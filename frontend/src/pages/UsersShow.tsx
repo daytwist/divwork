@@ -65,11 +65,13 @@ const UsersShow: FC = () => {
         <Grid item>
           {tasks?.map((task, index) => (
             <Grid item key={task.id}>
-              <Checkbox
-                checked={task.is_done}
-                onChange={() => handleIsDoneUpdate(task.id, index)}
-                inputProps={{ "aria-label": "is_done" }}
-              />
+              {user?.id === currentUser?.id && (
+                <Checkbox
+                  checked={task.is_done}
+                  onChange={() => handleIsDoneUpdate(task.id, index)}
+                  inputProps={{ "aria-label": "is_done" }}
+                />
+              )}
               <Link to={`/tasks/${task.id}`}>{task.title}</Link>
             </Grid>
           ))}
