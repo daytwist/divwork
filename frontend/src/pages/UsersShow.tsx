@@ -12,7 +12,7 @@ const UsersShow: FC = () => {
     <div>
       <Grid container direction="column" spacing={3}>
         <Grid item>
-          <Typography variant="h4" component="div">
+          <Typography variant="h4" component="div" data-testid="users-show-h4">
             {user?.name ? `${user.name}のタスク` : ""}
           </Typography>
         </Grid>
