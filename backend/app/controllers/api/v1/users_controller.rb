@@ -9,7 +9,7 @@ class Api::V1::UsersController < ApplicationController
 
   def finished
     tasks = @user.tasks.finished
-    render json: { tasks: }, status: :ok
+    render json: { user: @user, tasks: }, status: :ok
   end
 
   private
