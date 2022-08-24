@@ -21,11 +21,11 @@ type Props = {
   user: User | undefined;
   tasks: Task[];
   setTasks: Dispatch<SetStateAction<Task[]>>;
-  isUnFinished: boolean;
+  isUnfinished: boolean;
 };
 
 export const TasksTable = (props: Props) => {
-  const { user, tasks, setTasks, isUnFinished } = props;
+  const { user, tasks, setTasks, isUnfinished: isUnFinished } = props;
   const { currentUser } = useContext(AuthContext);
 
   const handleIsDoneUpdate = (id: number, index: number) => {

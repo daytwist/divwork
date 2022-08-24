@@ -6,7 +6,7 @@ import { TasksTable } from "../components/TasksTable";
 import { TasksButtons } from "../components/TasksButtons";
 
 const UsersShow: FC = () => {
-  const { user, tasks: tasksData } = useFetchUser();
+  const { user, unfinishedTasks: tasksData } = useFetchUser();
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const UsersShow: FC = () => {
             user={user}
             tasks={tasks}
             setTasks={setTasks}
-            isUnFinished
+            isUnfinished
           />
         </Grid>
       </Grid>

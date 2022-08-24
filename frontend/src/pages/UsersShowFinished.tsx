@@ -52,7 +52,7 @@ const UsersShowFinished: FC = () => {
             user={user}
             tasks={tasks}
             setTasks={setTasks}
-            isUnFinished={false}
+            isUnfinished={false}
           />
         </Grid>
       </Grid>
