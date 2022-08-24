@@ -1,6 +1,6 @@
-import { useContext, FC, useEffect, useState } from "react";
+import { useContext, FC, useEffect, useState, SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Tab, Tabs, Typography } from "@mui/material";
 import { AuthContext } from "../providers/AuthProvider";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { Task } from "../types";
@@ -13,12 +13,17 @@ const UsersShow: FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isFinished, setIsFinished] = useState<boolean>(false);
 
-  const handleSwitchTasks = (flag: boolean) => {
-    setIsFinished(flag);
-    if (flag) {
+  const [value, setValue] = useState("unfinished");
+
+  const handleSwitchTasks = (event: SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+
+    if (newValue === "finished") {
+      setIsFinished(true);
       setTasks(finishedTasks);
       console.log(isFinished);
     } else {
+      setIsFinished(false);
       setTasks(unfinishedTasks);
       console.log(isFinished);
     }
@@ -41,7 +46,12 @@ const UsersShow: FC = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container direction="row" justifyContent="space-between">
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             {user?.id === currentUser?.id && (
               <Grid item>
                 <Button
@@ -55,8 +65,16 @@ const UsersShow: FC = () => {
               </Grid>
             )}
             <Grid item>
-              <Button onClick={() => handleSwitchTasks(false)}>未了</Button>
-              <Button onClick={() => handleSwitchTasks(true)}>完了済み</Button>
+              <Box sx={{ width: "100%" }}>
+                <Tabs
+                  value={value}
+                  onChange={handleSwitchTasks}
+                  aria-label="tabs"
+                >
+                  <Tab value="unfinished" label="未了" />
+                  <Tab value="finished" label="完了済み" />
+                </Tabs>
+              </Box>
             </Grid>
           </Grid>
         </Grid>
