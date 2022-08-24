@@ -1,12 +1,15 @@
-import { FC, useEffect, useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { useContext, FC, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button, Grid, Typography } from "@mui/material";
+import { AuthContext } from "../providers/AuthProvider";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { Task } from "../types";
 import { TasksTable } from "../components/TasksTable";
-import { TasksButtons } from "../components/TasksButtons";
 
 const UsersShow: FC = () => {
   const { user, unfinishedTasks: tasksData } = useFetchUser();
+  const { currentUser } = useContext(AuthContext);
+
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
@@ -24,7 +27,32 @@ const UsersShow: FC = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <TasksButtons user={user} />
+          <Grid container direction="row" justifyContent="space-between">
+            {user?.id === currentUser?.id && (
+              <Grid item>
+                <Button
+                  variant="contained"
+                  type="button"
+                  component={Link}
+                  to="/tasks/new"
+                >
+                  新規作成
+                </Button>
+              </Grid>
+            )}
+            <Grid item>
+              <Button type="button" component={Link} to={`/users/${user?.id}`}>
+                未了
+              </Button>
+              <Button
+                type="button"
+                component={Link}
+                to={`/users/${user?.id}/finished`}
+              >
+                完了済み
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item>
           <TasksTable

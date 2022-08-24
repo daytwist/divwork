@@ -6,7 +6,6 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Task, User, UsersResponse } from "../types";
 import { TasksTable } from "../components/TasksTable";
-import { TasksButtons } from "../components/TasksButtons";
 
 const UsersShowFinished: FC = () => {
   const params = useParams<{ id: string }>();
@@ -29,7 +28,7 @@ const UsersShowFinished: FC = () => {
       .then((res: AxiosResponse<UsersResponse>) => {
         console.log(res);
         setUser(res?.data.user);
-        setTasks(res?.data.tasks);
+        setTasks(res?.data.finished_tasks);
       })
       .catch((err) => {
         console.log(err);
@@ -43,9 +42,6 @@ const UsersShowFinished: FC = () => {
           <Typography variant="h4" component="div" data-testid="users-show-h4">
             {user?.name ? `${user.name}の完了タスク` : ""}
           </Typography>
-        </Grid>
-        <Grid item>
-          <TasksButtons user={user} />
         </Grid>
         <Grid item>
           <TasksTable
