@@ -1,15 +1,14 @@
-import { FC, useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { AuthContext } from "../providers/AuthProvider";
 import { Task, User, UsersResponse } from "../types";
 import { TasksTable } from "../components/TasksTable";
+import { TasksButtons } from "../components/TasksButtons";
 
 const UsersShowFinished: FC = () => {
-  const { currentUser } = useContext(AuthContext);
   const params = useParams<{ id: string }>();
 
   const [user, setUser] = useState<User>();
@@ -45,18 +44,9 @@ const UsersShowFinished: FC = () => {
             {user?.name ? `${user.name}の完了タスク` : ""}
           </Typography>
         </Grid>
-        {user?.id === currentUser?.id && (
-          <Grid item>
-            <Button
-              variant="contained"
-              type="button"
-              component={Link}
-              to="/tasks/new"
-            >
-              新規作成
-            </Button>
-          </Grid>
-        )}
+        <Grid item>
+          <TasksButtons user={user} />
+        </Grid>
         <Grid item>
           <TasksTable
             user={user}
