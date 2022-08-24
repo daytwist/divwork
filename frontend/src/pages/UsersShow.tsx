@@ -52,7 +52,7 @@ const UsersShow: FC = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            {user?.id === currentUser?.id && (
+            {user?.id === currentUser?.id ? (
               <Grid item>
                 <Button
                   variant="contained"
@@ -63,6 +63,8 @@ const UsersShow: FC = () => {
                   新規作成
                 </Button>
               </Grid>
+            ) : (
+              <br />
             )}
             <Grid item>
               <Box sx={{ width: "100%" }}>

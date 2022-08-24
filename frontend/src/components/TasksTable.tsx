@@ -70,18 +70,20 @@ export const TasksTable = (props: Props) => {
       <Table sx={{ width: 850 }} aria-label="tasks table">
         <TableHead>
           <TableRow>
-            {user?.id === currentUser?.id && <TableCell>完了</TableCell>}
+            {user?.id === currentUser?.id && (
+              <TableCell align="center">完了</TableCell>
+            )}
             <TableCell>タイトル</TableCell>
             <TableCell>納期</TableCell>
-            <TableCell>重要度</TableCell>
-            {!isFinished && <TableCell>分担作成</TableCell>}
+            <TableCell align="center">重要度</TableCell>
+            {!isFinished && <TableCell align="center">分担</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
           {tasks?.map((task, index) => (
             <TableRow key={task.id}>
               {user?.id === currentUser?.id && (
-                <TableCell>
+                <TableCell align="center">
                   <Checkbox
                     checked={task.is_done}
                     onChange={() => handleIsDoneUpdate(task.id, index)}
@@ -95,9 +97,11 @@ export const TasksTable = (props: Props) => {
               <TableCell>
                 {format(new Date(task.deadline), "yyyy/MM/dd HH:mm")}
               </TableCell>
-              <TableCell>{displayLabel(task.priority)}</TableCell>
+              <TableCell align="center">
+                {displayLabel(task.priority)}
+              </TableCell>
               {!isFinished && (
-                <TableCell>
+                <TableCell align="center">
                   <Button>分担する</Button>
                 </TableCell>
               )}
