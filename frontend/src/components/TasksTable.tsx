@@ -53,7 +53,7 @@ export const TasksTable = (props: Props) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <Table sx={{ width: 850 }} aria-label="tasks table">
         <TableHead>
           <TableRow>
             {user?.id === currentUser?.id && <TableCell>完了</TableCell>}
