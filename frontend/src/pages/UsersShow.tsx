@@ -7,16 +7,30 @@ import { Task } from "../types";
 import { TasksTable } from "../components/TasksTable";
 
 const UsersShow: FC = () => {
-  const { user, unfinishedTasks: tasksData } = useFetchUser();
+  const { user, unfinishedTasks, finishedTasks } = useFetchUser();
   const { currentUser } = useContext(AuthContext);
 
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isFinished, setIsFinished] = useState<boolean>(false);
+
+  const handleSwitchTasks = (flag: boolean) => {
+    setIsFinished(flag);
+    if (flag) {
+      setTasks(finishedTasks);
+      console.log(isFinished);
+    } else {
+      setTasks(unfinishedTasks);
+      console.log(isFinished);
+    }
+  };
 
   useEffect(() => {
-    if (tasksData) {
-      setTasks(tasksData);
+    if (isFinished) {
+      setTasks(finishedTasks);
+    } else {
+      setTasks(unfinishedTasks);
     }
-  }, [tasksData]);
+  }, [unfinishedTasks, finishedTasks]);
 
   return (
     <div>
@@ -41,16 +55,8 @@ const UsersShow: FC = () => {
               </Grid>
             )}
             <Grid item>
-              <Button type="button" component={Link} to={`/users/${user?.id}`}>
-                未了
-              </Button>
-              <Button
-                type="button"
-                component={Link}
-                to={`/users/${user?.id}/finished`}
-              >
-                完了済み
-              </Button>
+              <Button onClick={() => handleSwitchTasks(false)}>未了</Button>
+              <Button onClick={() => handleSwitchTasks(true)}>完了済み</Button>
             </Grid>
           </Grid>
         </Grid>
@@ -59,7 +65,7 @@ const UsersShow: FC = () => {
             user={user}
             tasks={tasks}
             setTasks={setTasks}
-            isUnfinished
+            isFinished={isFinished}
           />
         </Grid>
       </Grid>
