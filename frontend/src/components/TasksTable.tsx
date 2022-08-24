@@ -21,10 +21,11 @@ type Props = {
   user: User | undefined;
   tasks: Task[];
   setTasks: Dispatch<SetStateAction<Task[]>>;
+  isUnFinished: boolean;
 };
 
 export const TasksTable = (props: Props) => {
-  const { user, tasks, setTasks } = props;
+  const { user, tasks, setTasks, isUnFinished } = props;
   const { currentUser } = useContext(AuthContext);
 
   const handleIsDoneUpdate = (id: number, index: number) => {
@@ -59,7 +60,7 @@ export const TasksTable = (props: Props) => {
             <TableCell>タイトル</TableCell>
             <TableCell>納期</TableCell>
             <TableCell>重要度</TableCell>
-            <TableCell>分担作成</TableCell>
+            {isUnFinished && <TableCell>分担作成</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -79,9 +80,11 @@ export const TasksTable = (props: Props) => {
               </TableCell>
               <TableCell>{task.deadline.toString()}</TableCell>
               <TableCell>{task.priority}</TableCell>
-              <TableCell>
-                <Button>分担する</Button>
-              </TableCell>
+              {isUnFinished && (
+                <TableCell>
+                  <Button>分担する</Button>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

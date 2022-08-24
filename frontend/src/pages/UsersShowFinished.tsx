@@ -58,7 +58,12 @@ const UsersShowFinished: FC = () => {
           </Grid>
         )}
         <Grid item>
-          <TasksTable user={user} tasks={tasks} setTasks={setTasks} />
+          <TasksTable
+            user={user}
+            tasks={tasks}
+            setTasks={setTasks}
+            isUnFinished={false}
+          />
         </Grid>
       </Grid>
     </div>
