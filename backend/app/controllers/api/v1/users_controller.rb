@@ -1,15 +1,11 @@
 class Api::V1::UsersController < ApplicationController
   before_action :authenticate_api_v1_user!
-  before_action :set_user, only: [:show, :finished]
+  before_action :set_user, only: [:show]
 
   def show
-    tasks = @user.tasks.unfinished
-    render json: { user: @user, tasks: }, status: :ok
-  end
-
-  def finished
-    tasks = @user.tasks.finished
-    render json: { user: @user, tasks: }, status: :ok
+    unfinished_tasks = @user.tasks.unfinished
+    finished_tasks = @user.tasks.finished
+    render json: { user: @user, unfinished_tasks:, finished_tasks: }, status: :ok
   end
 
   private
