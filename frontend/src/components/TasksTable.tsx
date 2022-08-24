@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { format } from "date-fns";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Task, User, TasksResponse } from "../types";
@@ -27,6 +28,19 @@ type Props = {
 export const TasksTable = (props: Props) => {
   const { user, tasks, setTasks, isFinished } = props;
   const { currentUser } = useContext(AuthContext);
+
+  const displayLabel = (value: string) => {
+    switch (value) {
+      case "high":
+        return "高";
+      case "medium":
+        return "中";
+      case "low":
+        return "低";
+      default:
+        return "";
+    }
+  };
 
   const handleIsDoneUpdate = (id: number, index: number) => {
     const isDone = tasks[index].is_done;
@@ -78,8 +92,10 @@ export const TasksTable = (props: Props) => {
               <TableCell>
                 <Link to={`/tasks/${task.id}`}>{task.title}</Link>
               </TableCell>
-              <TableCell>{task.deadline.toString()}</TableCell>
-              <TableCell>{task.priority}</TableCell>
+              <TableCell>
+                {format(new Date(task.deadline), "yyyy/MM/dd HH:mm")}
+              </TableCell>
+              <TableCell>{displayLabel(task.priority)}</TableCell>
               {!isFinished && (
                 <TableCell>
                   <Button>分担する</Button>
