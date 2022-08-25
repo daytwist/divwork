@@ -102,7 +102,12 @@ export const TasksTable = (props: Props) => {
               </TableCell>
               {!isFinished && (
                 <TableCell align="center">
-                  <Button>分担する</Button>
+                  <Button
+                    component={Link}
+                    to={`/tasks/${task.id}/divisions/new`}
+                  >
+                    分担する
+                  </Button>
                 </TableCell>
               )}
             </TableRow>
