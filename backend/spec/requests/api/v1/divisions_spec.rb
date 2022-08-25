@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Api::V1::Divisions", type: :request do
   let(:team) { create(:team) }
   let(:user_a) { create(:user, team:) }
+  let!(:user_b) { create(:user, team:) }
   let(:task) { create(:task, user: user_a) }
   let(:headers) { user_a.create_new_auth_token }
   let(:json) { JSON.parse(response.body) }
@@ -20,10 +21,13 @@ RSpec.describe "Api::V1::Divisions", type: :request do
     it "元のタスクIDが紐付いていること" do
       expect(json["task"]["parent_id"]).to eq task.id
     end
+
+    it "チームメンバーがuser_bであること" do
+      expect(json["team_members"][0]["id"]).to eq user_b.id
+    end
   end
 
   describe "POST /" do
-    let(:user_b) { create(:user, team:) }
     let(:task_params) { attributes_for(:task, user_id: user_b.id, parent_id: task.id) }
     let(:division_params) { attributes_for(:division) }
 
