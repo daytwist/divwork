@@ -1,10 +1,15 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { divisionTask, TasksResponse, DivisionsCreateResponse } from "../types";
+import {
+  divisionTask,
+  DivisionsCreateResponse,
+  DivisionsNewResponse,
+  User,
+} from "../types";
 import { DeadlineTextField } from "../components/DeadlineTextField";
 import { PriorityTextField } from "../components/PriorityTextField";
 
@@ -15,13 +20,14 @@ const DivisionsNew: FC = () => {
   const [task, setTask] = useState<divisionTask>({
     title: "",
     description: "",
-    user_id: 0,
     parent_id: 0,
   });
 
   const [deadline, setDeadline] = useState<Date | null>(new Date());
   const [priority, setPriority] = useState<string>("low");
   const [comment, setComment] = useState<string>("");
+  const [teamMembers, setTeamMembers] = useState<User[]>([]);
+  const [teamMemberValue, setteamMemberValue] = useState<string>("");
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,7 +46,17 @@ const DivisionsNew: FC = () => {
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
       },
-      data: { task, division: { comment } },
+      data: {
+        task: {
+          title: task.title,
+          description: task.description,
+          deadline,
+          priority,
+          user_id: Number(teamMemberValue),
+          parent_id: task.parent_id,
+        },
+        division: { comment },
+      },
     };
 
     axiosInstance(options)
@@ -66,11 +82,12 @@ const DivisionsNew: FC = () => {
 
   useEffect(() => {
     axiosInstance(options)
-      .then((res: AxiosResponse<TasksResponse>) => {
+      .then((res: AxiosResponse<DivisionsNewResponse>) => {
         console.log(res.data);
         setTask(res.data.task);
         setDeadline(res.data.task.deadline);
         setPriority(res.data.task.priority);
+        setTeamMembers(res.data.team_members);
       })
       .catch((err) => {
         console.log(err);
@@ -125,11 +142,19 @@ const DivisionsNew: FC = () => {
         </Grid>
         <Grid item>
           <TextField
+            select
             label="送信先ユーザー"
-            variant="standard"
+            sx={{ width: "20ch" }}
             name="user_id"
-            onChange={handleInputChange}
-          />
+            value={teamMemberValue}
+            onChange={(event) => setteamMemberValue(event.target.value)}
+          >
+            {teamMembers.map((member) => (
+              <MenuItem key={member.id} value={member.id.toString()}>
+                {member.name}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
         <Grid item>
           <TextField

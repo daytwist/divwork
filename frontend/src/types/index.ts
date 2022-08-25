@@ -58,7 +58,6 @@ export type editTask = {
 export type divisionTask = {
   title: string;
   description: string;
-  user_id: number;
   parent_id: number;
 };
 
@@ -92,6 +91,11 @@ export type UsersResponse = {
 
 export type TasksResponse = {
   task: Task;
+};
+
+export type DivisionsNewResponse = {
+  task: Task;
+  team_members: User[];
 };
 
 export type DivisionsCreateResponse = {
