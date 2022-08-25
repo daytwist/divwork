@@ -167,6 +167,7 @@ const DivisionsNew: FC = () => {
         </Grid>
         <Grid item>
           <Button
+            data-testid="send-button"
             variant="contained"
             type="submit"
             onClick={handleDivisionsCreate}
