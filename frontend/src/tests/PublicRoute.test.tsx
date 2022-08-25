@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from "@testing-library/react";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from "msw";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import PrivateRoute from "../components/PrivateRoute";

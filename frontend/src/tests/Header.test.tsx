@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import renderer from "react-test-renderer"; // eslint-disable-line import/no-extraneous-dependencies
+import renderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
 import Header from "../components/Header";

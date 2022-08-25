@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from "msw";
 import { mockSignIn, mockAuthSessions } from "./mockAuth";
 import { mockTeam } from "./mockTeam";
