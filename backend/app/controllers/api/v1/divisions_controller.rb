@@ -5,7 +5,8 @@ class Api::V1::DivisionsController < ApplicationController
     task = Task.find(params[:task_id])
     new_task = task.dup
     new_task.parent = task
-    render json: { task: new_task }, status: :ok
+    team_members = task.user.team_members
+    render json: { task: new_task, team_members: }, status: :ok
   end
 
   def create

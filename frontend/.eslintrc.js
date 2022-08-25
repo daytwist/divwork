@@ -42,6 +42,12 @@ module.exports = {
       "ignorePackages",
       { js: "never", jsx: "never", ts: "never", tsx: "never" },
     ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: ["**/tests/**", "**/mocks/**"],
+      },
+    ],
     "import/prefer-default-export": "off",
     "jsx-a11y/label-has-associated-control": [
       "error",

@@ -1,4 +1,4 @@
-import renderer from "react-test-renderer"; // eslint-disable-line import/no-extraneous-dependencies
+import renderer from "react-test-renderer";
 import { BrowserRouter } from "react-router-dom";
 import SignIn from "../pages/SignIn";
 

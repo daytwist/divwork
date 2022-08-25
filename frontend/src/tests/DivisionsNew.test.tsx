@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
@@ -5,11 +6,12 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import Header from "../components/Header";
 import { server } from "../mocks/server";
-import UsersShow from "../pages/UsersShow";
 import { AuthProvider } from "../providers/AuthProvider";
+import DivisionsNew from "../pages/DivisionsNew";
+import UsersShow from "../pages/UsersShow";
 
-describe("UsersShow", () => {
-  test("ユーザーのタスク一覧ページ", async () => {
+describe("DivisionsNew", () => {
+  test("分担作成ページ", async () => {
     server.use(
       rest.get("/auth/sessions", (req, res, ctx) => {
         return res(
@@ -33,31 +35,37 @@ describe("UsersShow", () => {
     );
 
     render(
-      <MemoryRouter initialEntries={["/users/1"]}>
+      <MemoryRouter initialEntries={["/tasks/1/divisions/new"]}>
         <AuthProvider>
           <Header />
           <Routes>
             <Route path="/users/:id" element={<UsersShow />} />
+            <Route path="/tasks/:id/divisions/new" element={<DivisionsNew />} />
           </Routes>
         </AuthProvider>
       </MemoryRouter>
     );
 
-    // 未完了タスクのみ表示される
-    expect(await screen.findByText("UNFINISHED_TASK_1")).toBeInTheDocument();
+    // タスクが表示される
+    expect(await screen.findByDisplayValue("TASK_3")).toBeInTheDocument();
     await waitFor(() => {
-      expect(screen.queryByText("FINISHED_TASK_2")).not.toBeInTheDocument();
+      expect(screen.queryByText("USER_2")).not.toBeInTheDocument();
     });
 
-    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
-      userEvent.click(screen.getByText("完了済み"));
+      userEvent.click(screen.getByLabelText("送信先ユーザー"));
     });
 
-    // 完了タスクのみ表示される
-    expect(await screen.findByText("FINISHED_TASK_2")).toBeInTheDocument();
-    await waitFor(() => {
-      expect(screen.queryByText("UNFINISHED_TASK_1")).not.toBeInTheDocument();
+    // チームメンバーが表示される
+    expect(await screen.findByText("USER_2")).toBeInTheDocument();
+
+    act(() => {
+      userEvent.click(screen.getByText("USER_2"));
+      userEvent.type(screen.getByLabelText("送信コメント"), "Thank you");
+      userEvent.click(screen.getByTestId("send-button"));
     });
+
+    // UsersShowページに遷移する
+    expect(await screen.findByTestId("users-show-h4")).toBeInTheDocument();
   });
 });

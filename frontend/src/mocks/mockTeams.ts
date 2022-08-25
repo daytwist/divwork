@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { MockedRequest, ResponseResolver, restContext } from "msw";
 
 export const mockTeams: ResponseResolver<MockedRequest, typeof restContext> = (
