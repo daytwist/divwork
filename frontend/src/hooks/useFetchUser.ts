@@ -7,7 +7,8 @@ import { axiosInstance } from "../utils/axios";
 
 export const useFetchUser = () => {
   const [user, setUser] = useState<User>();
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [unfinishedTasks, setUnfinishedTasks] = useState<Task[]>([]);
+  const [finishedTasks, setFinishedTasks] = useState<Task[]>([]);
   const params = useParams<{ id: string }>();
 
   const options: AxiosRequestConfig = {
@@ -25,12 +26,13 @@ export const useFetchUser = () => {
       .then((res: AxiosResponse<UsersResponse>) => {
         console.log(res);
         setUser(res?.data.user);
-        setTasks(res?.data.tasks);
+        setUnfinishedTasks(res?.data.unfinished_tasks);
+        setFinishedTasks(res?.data.finished_tasks);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  return { user, tasks };
+  return { user, unfinishedTasks, finishedTasks };
 };

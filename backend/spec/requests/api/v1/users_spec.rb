@@ -6,34 +6,24 @@ RSpec.describe "Api::V1::Users", type: :request do
   let!(:unfinished_task) { create(:task, is_done: false, user:) }
   let!(:finished_task) { create(:task, is_done: true, user:) }
   let(:headers) { user.create_new_auth_token }
+  let(:json) { JSON.parse(response.body) }
 
   describe "GET /" do
     before do
       get "/api/v1/users/#{user.id}", headers:
     end
 
-    it "ユーザーの未了タスクの情報取得に成功すること" do
+    it "ユーザーの情報取得に成功すること" do
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include(unfinished_task.to_json)
+      expect(json["user"]["id"]).to eq user.id
     end
 
-    it "完了済みタスクが含まれていないこと" do
-      expect(response.body).not_to include(finished_task.to_json)
-    end
-  end
-
-  describe "GET /finished" do
-    before do
-      get "/api/v1/users/#{user.id}/finished", headers:
+    it "ユーザーの未了タスクの情報取得に成功すること" do
+      expect(json["unfinished_tasks"][0]["id"]).to eq unfinished_task.id
     end
 
     it "ユーザーの完了済みタスクの情報取得に成功すること" do
-      expect(response).to have_http_status(:ok)
-      expect(response.body).to include(finished_task.to_json)
-    end
-
-    it "未了のタスクが含まれていないこと" do
-      expect(response.body).not_to include(unfinished_task.to_json)
+      expect(json["finished_tasks"][0]["id"]).to eq finished_task.id
     end
   end
 end

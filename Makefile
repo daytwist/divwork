@@ -14,7 +14,7 @@ restart:
 	docker-compose restart
 
 front:
-	docker-compose exec frontend ash
+	docker-compose exec frontend bash
 
 back:
 	docker-compose exec backend bash

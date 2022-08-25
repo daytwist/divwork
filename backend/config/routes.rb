@@ -18,7 +18,6 @@ Rails.application.routes.draw do
       resources :teams, only: [:create, :show, :update, :destroy]
 
       resources :users, only: [:show]
-      get "users/:id/finished", to: "users#finished"
 
       resources :tasks, only: [:create, :show, :update, :destroy] do
         resources :divisions, only: [:new, :create]

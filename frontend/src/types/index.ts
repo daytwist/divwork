@@ -86,7 +86,8 @@ export type TeamsShowResponse = {
 
 export type UsersResponse = {
   user: User;
-  tasks: Task[];
+  unfinished_tasks: Task[];
+  finished_tasks: Task[];
 };
 
 export type TasksResponse = {

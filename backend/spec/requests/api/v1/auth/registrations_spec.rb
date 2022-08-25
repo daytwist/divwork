@@ -45,7 +45,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     let(:params) { { password: "new_password", password_confirmation: "new_password" } }
 
     it "パスワード変更が成功すること" do
-      put "/api/v1/auth/password", params: params, headers: headers
+      patch "/api/v1/auth/password", params: params, headers: headers
       expect(response).to have_http_status(:ok)
     end
   end
@@ -72,7 +72,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
 
     it "ゲストユーザーは更新出来ないこと" do
       params = { "email" => "guest1@example.com" }
-      put "/api/v1/auth", headers: guest_headers, params: params
+      patch "/api/v1/auth", headers: guest_headers, params: params
       expect(response).to have_http_status(:internal_server_error)
       expect(json["message"]).to eq "ゲストユーザーの更新・削除は出来ません"
     end
