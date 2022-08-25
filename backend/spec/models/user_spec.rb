@@ -78,4 +78,17 @@ RSpec.describe User, type: :model do
       expect(user.email).to eq "guest@example.com"
     end
   end
+
+  describe "team_members method" do
+    let!(:user_a) { create(:user, team:) }
+    let!(:user_b) { create(:user, team:) }
+
+    it "チームメンバーはuser_bであること" do
+      expect(user_a.team_members.first).to eq user_b
+    end
+
+    it "チームメンバーにuser_aが含まれないこと" do
+      expect(user_a.team_members).not_to include(user_a)
+    end
+  end
 end

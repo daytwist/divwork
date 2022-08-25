@@ -28,4 +28,8 @@ class User < ApplicationRecord
       user.team_id = 1
     end
   end
+
+  def team_members
+    team.users.where.not(id:)
+  end
 end
