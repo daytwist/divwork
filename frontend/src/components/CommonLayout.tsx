@@ -3,6 +3,7 @@ import { Box, Container, Grid } from "@mui/material";
 import { FC } from "react";
 import { RouteProps } from "react-router-dom";
 import Header from "./Header";
+import { AlertSnackbar } from "./AlertSnackbar";
 
 const CommonLayout: FC<RouteProps> = ({ children }) => {
   const global = css`
@@ -13,11 +14,12 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
 
   return (
     <div>
+      <Global styles={global} />
       <header>
         <Header />
       </header>
       <main>
-        <Global styles={global} />
+        <AlertSnackbar />
         <Box m={2} pt={4}>
           <Container maxWidth="lg">
             <Grid container justifyContent="center">
