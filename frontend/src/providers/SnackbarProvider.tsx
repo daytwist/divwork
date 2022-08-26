@@ -22,6 +22,7 @@ type State = {
 type SnackbarState = {
   snackbarState: State;
   setSnackbarState: Dispatch<SetStateAction<State>>;
+  handleSetSnackbar: ({ open, type, message }: State) => void;
 };
 
 export const SnackbarContext = createContext<SnackbarState>(
@@ -35,9 +36,13 @@ export const SnackbarProvider: FC<Props> = ({ children }) => {
     message: "",
   });
 
+  const handleSetSnackbar = ({ open, type, message }: State) => {
+    setSnackbarState({ open, type, message });
+  };
+
   const SnackbarStateValue = useMemo(
-    () => ({ snackbarState, setSnackbarState }),
-    [snackbarState, setSnackbarState]
+    () => ({ snackbarState, setSnackbarState, handleSetSnackbar }),
+    [snackbarState, setSnackbarState, handleSetSnackbar]
   );
 
   return (
