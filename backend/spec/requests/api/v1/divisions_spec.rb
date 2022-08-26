@@ -29,6 +29,7 @@ RSpec.describe "Api::V1::Divisions", type: :request do
 
   describe "POST /" do
     let(:task_params) { attributes_for(:task, user_id: user_b.id, parent_id: task.id) }
+    let(:task_params_blank) { attributes_for(:task, parent_id: task.id) }
     let(:division_params) { attributes_for(:division) }
 
     before do
@@ -51,6 +52,14 @@ RSpec.describe "Api::V1::Divisions", type: :request do
            params: { task: task_params, division: division_params }.to_json,
            headers: headers
       expect(json["division"]["comment"]).to eq division_params[:comment]
+    end
+
+    it "ユーザーを入力しないとエラーメッセージが返ってくること" do
+      post "/api/v1/tasks/#{task.id}/divisions",
+           params: { task: task_params_blank, division: division_params }.to_json,
+           headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"][0]).to eq "ユーザーを入力してください"
     end
   end
 end
