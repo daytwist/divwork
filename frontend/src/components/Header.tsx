@@ -12,10 +12,12 @@ import {
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 
 // eslint-disable-next-line react/display-name
 const Header: FC = memo(() => {
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
+  const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
   const onClickSignOut = () => {
@@ -37,12 +39,24 @@ const Header: FC = memo(() => {
           Cookies.remove("_access_token");
           Cookies.remove("_client");
           Cookies.remove("_uid");
-
           setIsSignedIn(false);
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: "ログアウトしました",
+          });
           navigate("/", { replace: true });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          message: `${err.response.data.errors[0]}`,
+        });
+      });
   };
 
   return (
