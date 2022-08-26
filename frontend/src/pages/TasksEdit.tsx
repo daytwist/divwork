@@ -9,11 +9,13 @@ import { AuthContext } from "../providers/AuthProvider";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { PriorityTextField } from "../components/PriorityTextField";
 import { DeadlineTextField } from "../components/DeadlineTextField";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 
 const TasksEdit: FC = () => {
-  const params = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
+  const { handleSetSnackbar } = useContext(SnackbarContext);
+  const navigate = useNavigate();
+  const params = useParams<{ id: string }>();
   const data = useFetchTask();
 
   const [task, setTask] = useState<editTask>({
@@ -51,10 +53,23 @@ const TasksEdit: FC = () => {
         console.log(res);
 
         if (res.status === 200) {
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: "タスクを更新しました",
+          });
           navigate(`/users/${currentUser?.id}`, { replace: false });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+          message: `${err.response.data.messages.join("。")}`,
+        });
+      });
   };
 
   useEffect(() => {
