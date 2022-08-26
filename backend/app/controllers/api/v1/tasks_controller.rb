@@ -8,7 +8,7 @@ class Api::V1::TasksController < ApplicationController
     if task.save
       render json: { task: }, status: :created
     else
-      render json: { message: "Failed to create task" }, status: :internal_server_error
+      render json: { messages: error_messages(task) }, status: :internal_server_error
     end
   end
 
@@ -20,7 +20,7 @@ class Api::V1::TasksController < ApplicationController
     if @task.update(task_params)
       render json: { task: @task }, status: :ok
     else
-      render json: { message: "Failed to update task" }, status: :internal_server_error
+      render json: { messages: error_messages(@task) }, status: :internal_server_error
     end
   end
 
@@ -28,7 +28,7 @@ class Api::V1::TasksController < ApplicationController
     if @task.destroy
       render json: { task: @task }, status: :ok
     else
-      render json: { message: "Failed to destroy task" }, status: :internal_server_error
+      render json: { messages: error_messages(@task) }, status: :internal_server_error
     end
   end
 
@@ -40,7 +40,7 @@ class Api::V1::TasksController < ApplicationController
 
   def ensure_correct_user
     if @task.user != current_api_v1_user
-      render json: { message: "User is wrong" }, status: :internal_server_error
+      render json: { messages: "この操作は出来ません" }, status: :internal_server_error
     end
   end
 
