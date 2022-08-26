@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
@@ -12,8 +12,10 @@ import {
 } from "../types";
 import { DeadlineTextField } from "../components/DeadlineTextField";
 import { PriorityTextField } from "../components/PriorityTextField";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 
 const DivisionsNew: FC = () => {
+  const { handleSetSnackbar } = useContext(SnackbarContext);
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -64,10 +66,23 @@ const DivisionsNew: FC = () => {
         console.log(res);
 
         if (res.status === 200) {
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: "分担タスクを送信しました",
+          });
           navigate(`/users/${res.data.division.user_id}`, { replace: false });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+          message: `${err.response.data.messages.join("。")}`,
+        });
+      });
   };
 
   const options: AxiosRequestConfig = {
