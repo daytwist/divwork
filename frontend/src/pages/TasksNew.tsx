@@ -8,9 +8,11 @@ import { TasksResponse, newTask } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
 import { PriorityTextField } from "../components/PriorityTextField";
 import { DeadlineTextField } from "../components/DeadlineTextField";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 
 const TasksNew: FC = () => {
   const { currentUser } = useContext(AuthContext);
+  const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
   const [task, setTask] = useState<newTask>({
@@ -54,10 +56,23 @@ const TasksNew: FC = () => {
         console.log(res);
 
         if (res.status === 201) {
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: "タスクを作成しました",
+          });
           navigate(`/users/${currentUser?.id}`, { replace: false });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+          message: `${err.response.data.messages.join("。")}`,
+        });
+      });
   };
 
   return (
