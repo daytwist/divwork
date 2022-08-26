@@ -22,7 +22,7 @@ class Api::V1::DivisionsController < ApplicationController
 
     render json: { task: new_task, division: }, status: :ok
   rescue StandardError => e
-    render json: { error: e, message: "Failed to divide task" }, status: :internal_server_error
+    render json: { error: e, messages: error_messages(new_task) }, status: :internal_server_error
   end
 
   private
