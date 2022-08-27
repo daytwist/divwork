@@ -83,6 +83,7 @@ const Header: FC = memo(() => {
                   component={Link}
                   to={`/users/${currentUser?.id}/edit`}
                   sx={{ my: 2, color: "white", display: "block" }}
+                  data-testid="current-user-name"
                 >
                   {currentUser?.name}
                 </Button>
