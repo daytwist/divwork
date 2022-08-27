@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/await-thenable */
+/* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import Header from "../components/Header";
+import CommonLayout from "../components/CommonLayout";
 import { server } from "../mocks/server";
 import UsersEdit from "../pages/UsersEdit";
 import UsersShow from "../pages/UsersShow";
 import { AuthProvider } from "../providers/AuthProvider";
+import { SnackbarProvider } from "../providers/SnackbarProvider";
 
 describe("UsersEdit", () => {
   test("ユーザー情報編集ページ", async () => {
@@ -36,11 +39,14 @@ describe("UsersEdit", () => {
     render(
       <MemoryRouter initialEntries={["/users/1/edit"]}>
         <AuthProvider>
-          <Header />
-          <Routes>
-            <Route path="/users/:id" element={<UsersShow />} />
-            <Route path="/users/:id/edit" element={<UsersEdit />} />
-          </Routes>
+          <SnackbarProvider>
+            <CommonLayout>
+              <Routes>
+                <Route path="/users/:id" element={<UsersShow />} />
+                <Route path="/users/:id/edit" element={<UsersEdit />} />
+              </Routes>
+            </CommonLayout>
+          </SnackbarProvider>
         </AuthProvider>
       </MemoryRouter>
     );
@@ -51,18 +57,19 @@ describe("UsersEdit", () => {
       await screen.findByDisplayValue("test@example.com")
     ).toBeInTheDocument();
 
-    const nameInput = screen.getByLabelText("ユーザー名");
-    const emailInput = screen.getByLabelText("メールアドレス");
-    const updateButton = screen.getByText("更新する");
-
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => {
-      userEvent.type(nameInput, "USER_UPDATE");
-      userEvent.type(emailInput, "update@example.com");
-      userEvent.click(updateButton);
+    await act(() => {
+      userEvent.type(screen.getByLabelText("ユーザー名"), "USER_UPDATE");
+      userEvent.type(
+        screen.getByLabelText("メールアドレス"),
+        "update@example.com"
+      );
+      userEvent.click(screen.getByText("更新する"));
     });
 
     // 更新するとUsersShowページへ遷移する
     expect(await screen.findByTestId("users-show-h4")).toBeInTheDocument();
+    expect(
+      await screen.findByText("ユーザー情報を更新しました")
+    ).toBeInTheDocument();
   });
 });
