@@ -1,10 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthResponse } from "../types/index";
+import { AuthContext } from "../providers/AuthProvider";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 
 type State = {
   teamId: number;
@@ -12,14 +14,16 @@ type State = {
 };
 
 const SignUp: FC = () => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
+  const { setIsSignedIn } = useContext(AuthContext);
+  const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
   const location = useLocation();
   const { teamId, teamName } = location.state as State;
+
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const onClickSignUp = () => {
     const options: AxiosRequestConfig = {
@@ -41,11 +45,24 @@ const SignUp: FC = () => {
           Cookies.set("_access_token", res.headers["access-token"]);
           Cookies.set("_client", res.headers.client);
           Cookies.set("_uid", res.headers.uid);
-
+          setIsSignedIn(true);
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: "ユーザー登録しました",
+          });
           navigate(`/teams/${res.data.data.team_id}`, { replace: false });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+          message: `${err.response.data.errors.full_messages.join("。")}`,
+        });
+      });
   };
 
   return (

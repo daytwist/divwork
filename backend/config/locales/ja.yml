@@ -16,5 +16,6 @@ ja:
         deadline: 納期
         priority: 優先度
         is_done: 完了済み
+        user: ユーザー
       division:
         comment: コメント

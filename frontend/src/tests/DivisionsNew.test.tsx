@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/await-thenable */
 /* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import Header from "../components/Header";
 import { server } from "../mocks/server";
 import { AuthProvider } from "../providers/AuthProvider";
 import DivisionsNew from "../pages/DivisionsNew";
 import UsersShow from "../pages/UsersShow";
+import { SnackbarProvider } from "../providers/SnackbarProvider";
+import CommonLayout from "../components/CommonLayout";
 
 describe("DivisionsNew", () => {
   test("分担作成ページ", async () => {
@@ -37,11 +39,17 @@ describe("DivisionsNew", () => {
     render(
       <MemoryRouter initialEntries={["/tasks/1/divisions/new"]}>
         <AuthProvider>
-          <Header />
-          <Routes>
-            <Route path="/users/:id" element={<UsersShow />} />
-            <Route path="/tasks/:id/divisions/new" element={<DivisionsNew />} />
-          </Routes>
+          <SnackbarProvider>
+            <CommonLayout>
+              <Routes>
+                <Route path="/users/:id" element={<UsersShow />} />
+                <Route
+                  path="/tasks/:id/divisions/new"
+                  element={<DivisionsNew />}
+                />
+              </Routes>
+            </CommonLayout>
+          </SnackbarProvider>
         </AuthProvider>
       </MemoryRouter>
     );
@@ -59,7 +67,7 @@ describe("DivisionsNew", () => {
     // チームメンバーが表示される
     expect(await screen.findByText("USER_2")).toBeInTheDocument();
 
-    act(() => {
+    await act(() => {
       userEvent.click(screen.getByText("USER_2"));
       userEvent.type(screen.getByLabelText("送信コメント"), "Thank you");
       userEvent.click(screen.getByTestId("send-button"));
@@ -67,5 +75,8 @@ describe("DivisionsNew", () => {
 
     // UsersShowページに遷移する
     expect(await screen.findByTestId("users-show-h4")).toBeInTheDocument();
+    expect(
+      await screen.findByText("分担タスクを送信しました")
+    ).toBeInTheDocument();
   });
 });

@@ -18,103 +18,106 @@ import "@fontsource/roboto/700.css";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import CommonLayout from "./components/CommonLayout";
+import { SnackbarProvider } from "./providers/SnackbarProvider";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <CommonLayout>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <PublicRoute>
-                  <Home />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path="/sign_up/teams/select"
-              element={
-                <PublicRoute>
-                  <TeamsSelect />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path="/sign_up"
-              element={
-                <PublicRoute>
-                  <SignUp />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path="/sign_in"
-              element={
-                <PublicRoute>
-                  <SignIn />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path="/teams/:id"
-              element={
-                <PrivateRoute>
-                  <TeamsShow />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="users/:id"
-              element={
-                <PrivateRoute>
-                  <UsersShow />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="users/:id/edit"
-              element={
-                <PrivateRoute>
-                  <UsersEdit />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/tasks/new"
-              element={
-                <PrivateRoute>
-                  <TasksNew />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/tasks/:id"
-              element={
-                <PrivateRoute>
-                  <TasksShow />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/tasks/:id/edit"
-              element={
-                <PrivateRoute>
-                  <TasksEdit />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/tasks/:id/divisions/new"
-              element={
-                <PrivateRoute>
-                  <DivisionsNew />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </CommonLayout>
+        <SnackbarProvider>
+          <CommonLayout>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <PublicRoute>
+                    <Home />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/sign_up/teams/select"
+                element={
+                  <PublicRoute>
+                    <TeamsSelect />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/sign_up"
+                element={
+                  <PublicRoute>
+                    <SignUp />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/sign_in"
+                element={
+                  <PublicRoute>
+                    <SignIn />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/teams/:id"
+                element={
+                  <PrivateRoute>
+                    <TeamsShow />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="users/:id"
+                element={
+                  <PrivateRoute>
+                    <UsersShow />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="users/:id/edit"
+                element={
+                  <PrivateRoute>
+                    <UsersEdit />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/tasks/new"
+                element={
+                  <PrivateRoute>
+                    <TasksNew />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/tasks/:id"
+                element={
+                  <PrivateRoute>
+                    <TasksShow />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/tasks/:id/edit"
+                element={
+                  <PrivateRoute>
+                    <TasksEdit />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/tasks/:id/divisions/new"
+                element={
+                  <PrivateRoute>
+                    <DivisionsNew />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </CommonLayout>
+        </SnackbarProvider>
       </AuthProvider>
     </BrowserRouter>
   );

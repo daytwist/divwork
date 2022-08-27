@@ -7,10 +7,12 @@ import { axiosInstance } from "../utils/axios";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { AuthContext } from "../providers/AuthProvider";
 import { User, UsersResponse } from "../types";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 
 const UsersEdit: FC = () => {
-  const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { handleSetSnackbar } = useContext(SnackbarContext);
+  const navigate = useNavigate();
   const { user: userData } = useFetchUser();
 
   const [user, setUser] = useState<User>({
@@ -54,10 +56,23 @@ const UsersEdit: FC = () => {
 
         if (res.status === 200) {
           setCurrentUser(user);
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: "ユーザー情報を更新しました",
+          });
           navigate(`/users/${currentUser?.id}`, { replace: false });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+          message: `${err.response.data.errors.full_messages.join("。")}`,
+        });
+      });
   };
 
   useEffect(() => {
