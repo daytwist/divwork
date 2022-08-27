@@ -92,7 +92,7 @@ const Header: FC = memo(() => {
                   onClick={onClickSignOut}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  サインアウト
+                  ログアウト
                 </Button>
               </Box>
             ) : (
@@ -102,14 +102,14 @@ const Header: FC = memo(() => {
                   to="/sign_up/teams/select"
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  サインアップ
+                  ユーザー登録
                 </Button>
                 <Button
                   component={Link}
                   to="/sign_in"
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  サインイン
+                  ログイン
                 </Button>
               </Box>
             )}

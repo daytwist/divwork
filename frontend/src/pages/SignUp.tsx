@@ -70,7 +70,7 @@ const SignUp: FC = () => {
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">
-            サインアップ
+            ユーザー登録
           </Typography>
         </Grid>
         <Grid item>
@@ -110,7 +110,7 @@ const SignUp: FC = () => {
         </Grid>
         <Grid item>
           <Button variant="contained" type="submit" onClick={onClickSignUp}>
-            サインアップ
+            登録する
           </Button>
         </Grid>
       </Grid>

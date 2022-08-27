@@ -46,7 +46,7 @@ const Home: FC = () => {
             component={Link}
             to="/sign_up/teams/select"
           >
-            サインアップ
+            ユーザー登録
           </Button>
         </Grid>
         <Grid item>
@@ -56,7 +56,7 @@ const Home: FC = () => {
             component={Link}
             to="/sign_in"
           >
-            サインイン
+            ログイン
           </Button>
         </Grid>
         <Grid item>
