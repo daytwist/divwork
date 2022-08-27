@@ -6,9 +6,11 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthResponse } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 
 const Home: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
+  const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
   const handleGuestSignIn = () => {
@@ -25,12 +27,24 @@ const Home: FC = () => {
           Cookies.set("_access_token", res.headers["access-token"]);
           Cookies.set("_client", res.headers.client);
           Cookies.set("_uid", res.headers.uid);
-
           setIsSignedIn(true);
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: "ゲストログインしました",
+          });
           navigate(`/teams/${res.data.data.team_id}`, { replace: false });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          message: `${err.response.data.errors}`,
+        });
+      });
   };
 
   return (
