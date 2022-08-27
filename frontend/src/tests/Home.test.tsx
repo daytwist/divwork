@@ -21,15 +21,15 @@ describe("Home", () => {
     expect(textElement).toBeInTheDocument();
   });
 
-  test("'サインアップ'が表示されていること", () => {
+  test("'ユーザー登録'が表示されていること", () => {
     render(<Home />, { wrapper: BrowserRouter });
-    const textElement = screen.getByText("サインアップ");
+    const textElement = screen.getByText("ユーザー登録");
     expect(textElement).toBeInTheDocument();
   });
 
-  test("'サインイン'が表示されていること", () => {
+  test("'ログイン'が表示されていること", () => {
     render(<Home />, { wrapper: BrowserRouter });
-    const textElement = screen.getByText("サインイン");
+    const textElement = screen.getByText("ログイン");
     expect(textElement).toBeInTheDocument();
   });
 });
