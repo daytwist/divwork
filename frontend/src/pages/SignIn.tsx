@@ -46,7 +46,7 @@ const SignIn: FC = () => {
           open: true,
           type: "error",
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          message: `${err.response.data.errors[0]}`,
+          message: `${err.response.data.errors}`,
         });
       });
   };

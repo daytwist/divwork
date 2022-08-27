@@ -39,6 +39,17 @@ describe("SignIn", () => {
       </MemoryRouter>
     );
 
+    // email, passwordを入力しない時
+    act(() => {
+      userEvent.click(screen.getByTestId("sign-in-button"));
+    });
+    expect(
+      await screen.findByText(
+        "ログイン用の認証情報が正しくありません。再度お試しください。"
+      )
+    ).toBeInTheDocument();
+
+    // email, passwordを入力した時
     await act(() => {
       userEvent.type(
         screen.getByLabelText("メールアドレス"),
@@ -50,7 +61,6 @@ describe("SignIn", () => {
 
     // Headerにログインユーザー名が表示される
     expect(await screen.findByTestId("current-user-name")).toBeInTheDocument();
-    // "ログインしました"メッセージが表示される
     expect(await screen.findByText("ログインしました")).toBeInTheDocument();
   });
 });

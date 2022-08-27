@@ -29,7 +29,13 @@ export const mockSignIn: ResponseResolver<MockedRequest, typeof restContext> = (
       })
     );
   }
-  return res(ctx.status(401));
+  return res(
+    ctx.status(401),
+    ctx.json({
+      success: false,
+      errors: ["ログイン用の認証情報が正しくありません。再度お試しください。"],
+    })
+  );
 };
 
 export const mockAuthSessions: ResponseResolver<
