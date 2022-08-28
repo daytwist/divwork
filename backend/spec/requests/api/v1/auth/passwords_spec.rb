@@ -23,7 +23,7 @@ RSpec.describe "Api::V1::Auth::Passwords", type: :request do
       }
       patch "/api/v1/auth/password", headers: guest_headers, params: params
       expect(response).to have_http_status(:internal_server_error)
-      expect(json["message"]).to eq "ゲストユーザーのパスワード変更は出来ません"
+      expect(json["messages"]).to eq "ゲストユーザーのパスワード変更は出来ません"
     end
   end
 end

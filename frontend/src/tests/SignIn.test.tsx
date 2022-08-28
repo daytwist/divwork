@@ -23,7 +23,7 @@ describe("SignIn", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test("サインイン後の表示", async () => {
+  test("ログイン後の表示", async () => {
     render(
       <MemoryRouter initialEntries={["/sign_in"]}>
         <AuthProvider>

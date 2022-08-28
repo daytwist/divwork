@@ -1,7 +1,16 @@
+/* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import renderer from "react-test-renderer";
-import { BrowserRouter } from "react-router-dom";
+import { act } from "react-dom/test-utils";
+import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
+import { rest } from "msw";
 import Home from "../pages/Home";
+import { AuthProvider } from "../providers/AuthProvider";
+import { SnackbarProvider } from "../providers/SnackbarProvider";
+import CommonLayout from "../components/CommonLayout";
+import TeamsShow from "../pages/TeamsShow";
+import { server } from "../mocks/server";
 
 describe("Home", () => {
   test("スナップショット", () => {
@@ -15,21 +24,55 @@ describe("Home", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test("'DivWork'が表示されていること", () => {
-    render(<Home />, { wrapper: BrowserRouter });
-    const textElement = screen.getByText("DivWork");
-    expect(textElement).toBeInTheDocument();
-  });
+  test("ゲストログイン", async () => {
+    server.use(
+      rest.get("/auth/sessions", (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.json({
+            is_signed_in: true,
+            current_user: {
+              email: "guest@example.com",
+              uid: "guest@example.com",
+              id: 3,
+              provider: "email",
+              allow_password_change: false,
+              name: "ゲスト",
+              nickname: null,
+              image: null,
+              team_id: 1,
+            },
+          })
+        );
+      })
+    );
 
-  test("'サインアップ'が表示されていること", () => {
-    render(<Home />, { wrapper: BrowserRouter });
-    const textElement = screen.getByText("サインアップ");
-    expect(textElement).toBeInTheDocument();
-  });
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <AuthProvider>
+          <SnackbarProvider>
+            <CommonLayout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/teams/:id" element={<TeamsShow />} />
+              </Routes>
+            </CommonLayout>
+          </SnackbarProvider>
+        </AuthProvider>
+      </MemoryRouter>
+    );
 
-  test("'サインイン'が表示されていること", () => {
-    render(<Home />, { wrapper: BrowserRouter });
-    const textElement = screen.getByText("サインイン");
-    expect(textElement).toBeInTheDocument();
+    // eslint-disable-next-line @typescript-eslint/await-thenable
+    await act(() => {
+      userEvent.click(
+        screen.getByRole("button", { name: "ゲストユーザーでログイン" })
+      );
+    });
+
+    // チーム一覧ページに遷移する
+    expect(await screen.findByTestId("teams-show-h4")).toBeInTheDocument();
+    expect(
+      await screen.findByText("ゲストログインしました")
+    ).toBeInTheDocument();
   });
 });

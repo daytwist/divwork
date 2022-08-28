@@ -11,7 +11,7 @@ exports[`SignIn スナップショット 1`] = `
       <div
         className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
       >
-        サインイン
+        ログイン
       </div>
     </div>
     <div
@@ -107,7 +107,7 @@ exports[`SignIn スナップショット 1`] = `
         tabIndex={0}
         type="submit"
       >
-        サインイン
+        ログイン
       </button>
     </div>
   </div>

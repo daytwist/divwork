@@ -14,7 +14,7 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
         expect(json["is_signed_in"]).to be false
       end
 
-      it "サインインユーザーが空欄であること" do
+      it "ログインユーザーが空欄であること" do
         expect(json["current_user"]).to eq ""
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
         expect(json["is_signed_in"]).to be true
       end
 
-      it "サインインユーザー情報を取得出来ること" do
+      it "ログインユーザー情報を取得出来ること" do
         expect(json["current_user"]).to eq user.as_json
       end
     end

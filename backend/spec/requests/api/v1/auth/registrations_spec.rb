@@ -74,13 +74,13 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
       params = { "email" => "guest1@example.com" }
       patch "/api/v1/auth", headers: guest_headers, params: params
       expect(response).to have_http_status(:internal_server_error)
-      expect(json["message"]).to eq "ゲストユーザーの更新・削除は出来ません"
+      expect(json["messages"]).to eq "ゲストユーザーの更新・削除は出来ません"
     end
 
     it "ゲストユーザーは削除出来ないこと" do
       delete "/api/v1/auth", headers: guest_headers
       expect(response).to have_http_status(:internal_server_error)
-      expect(json["message"]).to eq "ゲストユーザーの更新・削除は出来ません"
+      expect(json["messages"]).to eq "ゲストユーザーの更新・削除は出来ません"
     end
   end
 end
