@@ -75,7 +75,7 @@ const Home: FC = () => {
         </Grid>
         <Grid item>
           <Button color="secondary" type="button" onClick={handleGuestSignIn}>
-            ゲストユーザーとしてログイン
+            ゲストユーザーでログイン
           </Button>
         </Grid>
       </Grid>
