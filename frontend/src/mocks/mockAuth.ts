@@ -69,3 +69,28 @@ export const mockAuthSessions: ResponseResolver<
     })
   );
 };
+
+export const mockGuestSignIn: ResponseResolver<
+  MockedRequest,
+  typeof restContext
+> = (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      data: {
+        is_signed_in: true,
+        current_user: {
+          email: "guest@example.com",
+          uid: "guest@example.com",
+          id: 3,
+          provider: "email",
+          allow_password_change: false,
+          name: "ゲスト",
+          nickname: null,
+          image: null,
+          team_id: 1,
+        },
+      },
+    })
+  );
+};

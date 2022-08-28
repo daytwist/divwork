@@ -82,7 +82,7 @@ exports[`Home スナップショット 1`] = `
         tabIndex={0}
         type="button"
       >
-        ゲストユーザーとしてログイン
+        ゲストユーザーでログイン
       </button>
     </div>
   </div>
