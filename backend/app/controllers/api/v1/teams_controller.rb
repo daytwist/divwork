@@ -13,7 +13,7 @@ class Api::V1::TeamsController < ApplicationController
     if team.save
       render json: { team: }, status: :created
     else
-      render json: { message: "Failed to create team" }, status: :internal_server_error
+      render json: { messages: error_messages(team) }, status: :internal_server_error
     end
   end
 
@@ -27,7 +27,7 @@ class Api::V1::TeamsController < ApplicationController
     if @team.update(team_params)
       render json: { team: @team }, status: :ok
     else
-      render json: { message: "Failed to update team" }, status: :internal_server_error
+      render json: { messages: error_messages(@team) }, status: :internal_server_error
     end
   end
 
@@ -35,7 +35,7 @@ class Api::V1::TeamsController < ApplicationController
     if @team.destroy
       render json: { team: @team }, status: :ok
     else
-      render json: { message: "Failed to destroy team" }, status: :internal_server_error
+      render json: { messages: error_messages(@team) }, status: :internal_server_error
     end
   end
 
@@ -47,7 +47,7 @@ class Api::V1::TeamsController < ApplicationController
 
   def ensure_correct_user
     if @team.users.exclude? current_api_v1_user
-      render json: { message: "User is wrong" }, status: :internal_server_error
+      render json: { messages: "この操作は出来ません" }, status: :internal_server_error
     end
   end
 
