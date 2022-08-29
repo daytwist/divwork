@@ -5,6 +5,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
+import { TasksBarChart } from "../components/TasksBarChart";
 
 const TeamsShow: FC = () => {
   const [team, setTeam] = useState<Team>();
@@ -59,6 +60,9 @@ const TeamsShow: FC = () => {
               {user.unfinished_tasks_count[2]}
             </Grid>
           ))}
+        </Grid>
+        <Grid item>
+          <TasksBarChart users={users} />
         </Grid>
       </Grid>
     </div>
