@@ -59,15 +59,15 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "tasks_count method" do
+  describe "unfinished_tasks_count method" do
     let(:user) { create(:user, team:) }
     let!(:task_a) { create(:task, user:, priority: 0) }
     let!(:task_b) { create(:task, user:, priority: 0) }
     let!(:task_c) { create(:task, user:, priority: 1) }
-    # priority:0が2個、priority:1が1個、priority:2が0個
+    let!(:task_d) { create(:task, is_done: true, user:, priority: 2) }
 
-    it "タスクの優先度毎にカウント出来ること" do
-      expect(user.tasks_count).to eq [2, 1, 0]
+    it "未完了タスクのみ優先度毎にカウント出来ること" do
+      expect(user.unfinished_tasks_count).to eq [2, 1, 0]
     end
   end
 

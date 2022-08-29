@@ -14,10 +14,10 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 10 }
 
-  def tasks_count
-    low    = tasks.where(priority: 0).size
-    medium = tasks.where(priority: 1).size
-    high   = tasks.where(priority: 2).size
+  def unfinished_tasks_count
+    low    = tasks.unfinished.where(priority: 0).size
+    medium = tasks.unfinished.where(priority: 1).size
+    high   = tasks.unfinished.where(priority: 2).size
     [low, medium, high]
   end
 
