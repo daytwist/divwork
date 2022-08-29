@@ -17,10 +17,13 @@ export const TasksBarChart = (props: Props) => {
     };
   });
 
+  const hight: number = users !== undefined ? users.length * 80 : 100;
+
   return (
     <BarChart
-      width={600}
-      height={500}
+      width={800}
+      height={hight}
+      barSize={20}
       layout="vertical"
       data={data}
       margin={{
@@ -31,12 +34,12 @@ export const TasksBarChart = (props: Props) => {
       }}
     >
       <XAxis type="number" />
-      <YAxis dataKey="name" type="category" />
+      <YAxis dataKey="name" type="category" width={100} />
       <Tooltip />
       <Legend />
-      <Bar dataKey="high" stackId="a" fill="red" />
-      <Bar dataKey="medium" stackId="a" fill="orange" />
-      <Bar dataKey="low" stackId="a" fill="green" />
+      <Bar dataKey="high" stackId="a" fill="#ef5350" />
+      <Bar dataKey="medium" stackId="a" fill="#ff9800" />
+      <Bar dataKey="low" stackId="a" fill="#4caf50" />
     </BarChart>
   );
 };
