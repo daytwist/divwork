@@ -5,7 +5,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
-import { TasksBarChart } from "../components/TasksBarChart";
+import { TasksBar } from "../components/TasksBar";
 
 const TeamsShow: FC = () => {
   const [team, setTeam] = useState<Team>();
@@ -27,7 +27,6 @@ const TeamsShow: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<TeamsShowResponse>) => {
         console.log(res);
-
         setTeam(res.data.team);
         setUsers(res.data.users);
       })
@@ -35,6 +34,19 @@ const TeamsShow: FC = () => {
         console.log(err);
       });
   }, []);
+
+  const totals: number[] = [];
+  // eslint-disable-next-line array-callback-return
+  users?.map((user) => {
+    const total = user.unfinished_tasks_count.reduce(
+      (sum: number, element: number) => {
+        return sum + element;
+      },
+      0
+    );
+    totals.push(total);
+  });
+  const maxCount: number = Math.max(...totals);
 
   return (
     <div>
@@ -55,14 +67,9 @@ const TeamsShow: FC = () => {
               >
                 {user.name}
               </Button>
-              {user.unfinished_tasks_count[0]}
-              {user.unfinished_tasks_count[1]}
-              {user.unfinished_tasks_count[2]}
+              <TasksBar user={user} maxCount={maxCount} />
             </Grid>
           ))}
-        </Grid>
-        <Grid item>
-          <TasksBarChart users={users} />
         </Grid>
       </Grid>
     </div>
