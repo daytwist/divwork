@@ -54,9 +54,9 @@ const TeamsShow: FC = () => {
               >
                 {user.name}
               </Button>
-              {user.tasks_count[0]}
-              {user.tasks_count[1]}
-              {user.tasks_count[2]}
+              {user.unfinished_tasks_count[0]}
+              {user.unfinished_tasks_count[1]}
+              {user.unfinished_tasks_count[2]}
             </Grid>
           ))}
         </Grid>
