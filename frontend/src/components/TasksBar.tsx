@@ -28,7 +28,7 @@ export const TasksBar = (props: Props) => {
     >
       <XAxis type="number" hide domain={[0, maxCount]} />
       <YAxis dataKey="name" type="category" hide />
-      <Tooltip />
+      <Tooltip wrapperStyle={{ zIndex: 10 }} />
       <Bar dataKey="高" stackId="a" fill="#ff0000">
         <LabelList dataKey="高" position="top" />
       </Bar>

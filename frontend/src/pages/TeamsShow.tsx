@@ -58,16 +58,25 @@ const TeamsShow: FC = () => {
         </Grid>
         <Grid item>
           {users?.map((user) => (
-            <Grid item key={user.id}>
-              <Button
-                variant="text"
-                size="large"
-                component={Link}
-                to={`/users/${user.id}`}
-              >
-                {user.name}
-              </Button>
-              <TasksBar user={user} maxCount={maxCount} />
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              key={user.id}
+            >
+              <Grid item>
+                <Button
+                  variant="text"
+                  size="large"
+                  component={Link}
+                  to={`/users/${user.id}`}
+                >
+                  {user.name}
+                </Button>
+              </Grid>
+              <Grid item>
+                <TasksBar user={user} maxCount={maxCount} />
+              </Grid>
             </Grid>
           ))}
         </Grid>
