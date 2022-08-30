@@ -20,7 +20,7 @@ export const mockUser: ResponseResolver<MockedRequest, typeof restContext> = (
         team_id: 1,
         created_at: "2022-06-05T10:16:09.882+09:00",
         updated_at: "2022-06-05T10:16:09.882+09:00",
-        tasks_count: [1, 2, 3],
+        unfinished_tasks_count: [1, 2, 3],
       },
       unfinished_tasks: [
         {
@@ -74,7 +74,7 @@ export const mockUserEdit: ResponseResolver<
         team_id: 1,
         created_at: "2022-06-05T10:16:09.882+09:00",
         updated_at: "2022-06-05T10:16:09.882+09:00",
-        tasks_count: [1, 2, 3],
+        unfinished_tasks_count: [1, 2, 3],
       },
     })
   );

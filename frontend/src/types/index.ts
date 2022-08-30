@@ -17,7 +17,7 @@ export type User = {
   team_id: number;
   created_at: Date;
   updated_at: Date;
-  tasks_count: number[];
+  unfinished_tasks_count: number[];
 };
 
 export type Task = {

@@ -27,7 +27,7 @@ const UsersEdit: FC = () => {
     image: "",
     created_at: new Date(),
     updated_at: new Date(),
-    tasks_count: [0],
+    unfinished_tasks_count: [0],
   });
 
   const handleInputChange = (

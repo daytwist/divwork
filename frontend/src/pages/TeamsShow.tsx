@@ -5,6 +5,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
+import { TasksBar } from "../components/TasksBar";
 
 const TeamsShow: FC = () => {
   const [team, setTeam] = useState<Team>();
@@ -26,7 +27,6 @@ const TeamsShow: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<TeamsShowResponse>) => {
         console.log(res);
-
         setTeam(res.data.team);
         setUsers(res.data.users);
       })
@@ -34,6 +34,19 @@ const TeamsShow: FC = () => {
         console.log(err);
       });
   }, []);
+
+  const totals: number[] = [];
+  // eslint-disable-next-line array-callback-return
+  users?.map((user) => {
+    const total = user.unfinished_tasks_count.reduce(
+      (sum: number, element: number) => {
+        return sum + element;
+      },
+      0
+    );
+    totals.push(total);
+  });
+  const maxCount: number = Math.max(...totals);
 
   return (
     <div>
@@ -45,18 +58,25 @@ const TeamsShow: FC = () => {
         </Grid>
         <Grid item>
           {users?.map((user) => (
-            <Grid item key={user.id}>
-              <Button
-                variant="text"
-                size="large"
-                component={Link}
-                to={`/users/${user.id}`}
-              >
-                {user.name}
-              </Button>
-              {user.tasks_count[0]}
-              {user.tasks_count[1]}
-              {user.tasks_count[2]}
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              key={user.id}
+            >
+              <Grid item>
+                <Button
+                  variant="text"
+                  size="large"
+                  component={Link}
+                  to={`/users/${user.id}`}
+                >
+                  {user.name}
+                </Button>
+              </Grid>
+              <Grid item>
+                <TasksBar user={user} maxCount={maxCount} />
+              </Grid>
             </Grid>
           ))}
         </Grid>

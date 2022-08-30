@@ -9,7 +9,8 @@ module.exports = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
-  "setupFilesAfterEnv": [
-    "<rootDir>/src/setupTests.ts"
-  ],
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
+  moduleNameMapper: {
+    "^d3-(.*)$": `<rootDir>/node_modules/d3-$1/dist/d3-$1`,
+  },
 };
