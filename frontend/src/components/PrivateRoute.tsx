@@ -1,7 +1,7 @@
-import { Box, CircularProgress, Container } from "@mui/material";
 import { FC, useContext } from "react";
 import { Navigate, RouteProps } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 const PrivateRoute: FC<RouteProps> = ({ children }) => {
   const { loading, isSignedIn } = useContext(AuthContext);
@@ -13,19 +13,7 @@ const PrivateRoute: FC<RouteProps> = ({ children }) => {
     return <Navigate to="/sign_in" />;
   }
 
-  return (
-    <Container maxWidth="sm">
-      <Box
-        mt={15}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    </Container>
-  );
+  return <LoadingSpinner />;
 };
 
 export default PrivateRoute;
