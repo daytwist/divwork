@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Divider, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
@@ -56,14 +56,9 @@ const TeamsShow: FC = () => {
             {team?.name ? `${team.name}のタスク` : ""}
           </Typography>
         </Grid>
-        <Grid item>
-          {users?.map((user) => (
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              key={user.id}
-            >
+        {users?.map((user) => (
+          <Grid item key={user.id}>
+            <Grid container direction="row" justifyContent="space-between">
               <Grid item>
                 <Button
                   variant="text"
@@ -78,8 +73,9 @@ const TeamsShow: FC = () => {
                 <TasksBar user={user} maxCount={maxCount} />
               </Grid>
             </Grid>
-          ))}
-        </Grid>
+            <Divider />
+          </Grid>
+        ))}
       </Grid>
     </div>
   );
