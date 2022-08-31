@@ -1,4 +1,11 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  FormEvent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Grid, TextField, Typography } from "@mui/material";
@@ -28,6 +35,12 @@ const UsersEdit: FC = () => {
     created_at: new Date(),
     updated_at: new Date(),
     unfinished_tasks_count: [0],
+    avatar: "",
+  });
+
+  const [image, setImage] = useState({
+    data: "",
+    filename: "",
   });
 
   const handleInputChange = (
@@ -47,7 +60,11 @@ const UsersEdit: FC = () => {
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
       },
-      data: user,
+      data: {
+        name: user.name,
+        email: user.email,
+        avatar: image,
+      },
     };
 
     axiosInstance(updateOptions)
@@ -70,9 +87,23 @@ const UsersEdit: FC = () => {
           open: true,
           type: "error",
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.errors.full_messages.join("。")}`,
+          message: `${err.response.data.errors}`,
         });
       });
+  };
+
+  const handleImageSelect = (event: FormEvent) => {
+    const reader = new FileReader();
+    const { files } = event.target as HTMLInputElement;
+    if (files) {
+      reader.onload = () => {
+        setImage({
+          data: reader.result as string,
+          filename: files[0] ? files[0].name : "unknownfile",
+        });
+      };
+      reader.readAsDataURL(files[0]);
+    }
   };
 
   useEffect(() => {
@@ -119,6 +150,27 @@ const UsersEdit: FC = () => {
         </Grid>
         <Grid item>
           <Button variant="outlined">パスワード変更</Button>
+        </Grid>
+        {image ? (
+          <Grid item>
+            <p>{image.filename}</p>
+          </Grid>
+        ) : null}
+        {user.avatar ? (
+          <Grid item>
+            <img src={user.avatar} alt="avatar" />
+          </Grid>
+        ) : null}
+        <Grid item>
+          <Button variant="contained" component="label">
+            Upload
+            <input
+              hidden
+              accept="image/*"
+              type="file"
+              onChange={handleImageSelect}
+            />
+          </Button>
         </Grid>
       </Grid>
     </div>
