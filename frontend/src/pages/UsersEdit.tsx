@@ -1,7 +1,15 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  FormEvent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { useFetchUser } from "../hooks/useFetchUser";
@@ -13,7 +21,7 @@ const UsersEdit: FC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const { user: userData } = useFetchUser();
+  const { user: userData, avatar } = useFetchUser();
 
   const [user, setUser] = useState<User>({
     team_id: 0,
@@ -28,6 +36,11 @@ const UsersEdit: FC = () => {
     created_at: new Date(),
     updated_at: new Date(),
     unfinished_tasks_count: [0],
+  });
+
+  const [image, setImage] = useState({
+    data: "",
+    filename: "",
   });
 
   const handleInputChange = (
@@ -47,7 +60,11 @@ const UsersEdit: FC = () => {
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
       },
-      data: user,
+      data: {
+        name: user.name,
+        email: user.email,
+        avatar: image,
+      },
     };
 
     axiosInstance(updateOptions)
@@ -70,9 +87,23 @@ const UsersEdit: FC = () => {
           open: true,
           type: "error",
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.errors.full_messages.join("。")}`,
+          message: `${err.response.data.errors}`,
         });
       });
+  };
+
+  const handleImageSelect = (event: FormEvent) => {
+    const reader = new FileReader();
+    const { files } = event.target as HTMLInputElement;
+    if (files) {
+      reader.onload = () => {
+        setImage({
+          data: reader.result as string,
+          filename: files[0] ? files[0].name : "unknownfile",
+        });
+      };
+      reader.readAsDataURL(files[0]);
+    }
   };
 
   useEffect(() => {
@@ -88,6 +119,53 @@ const UsersEdit: FC = () => {
           <Typography variant="h4" component="div">
             ユーザー設定
           </Typography>
+        </Grid>
+        <Grid item>
+          <Grid container direction="column" spacing={1} alignContent="center">
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Grid item>
+                  <Typography variant="subtitle1" component="div">
+                    アイコン画像
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="label"
+                  >
+                    <input
+                      hidden
+                      accept="image/*"
+                      type="file"
+                      onChange={handleImageSelect}
+                    />
+                    <PhotoCamera />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              {avatar ? (
+                <img src={avatar} alt="avatar" width={300} height="auto" />
+              ) : (
+                <Typography variant="body1" component="div">
+                  設定されていません
+                </Typography>
+              )}
+            </Grid>
+            {image ? (
+              <Typography variant="body1" component="div">
+                {image.filename}
+              </Typography>
+            ) : null}
+          </Grid>
         </Grid>
         <Grid item>
           <Typography>{user?.team_id}</Typography>

@@ -67,3 +67,6 @@ Metrics/MethodLength:
 
 RSpec/ExampleLength:
   Enabled: false
+
+Metrics/AbcSize:
+  Max: 25

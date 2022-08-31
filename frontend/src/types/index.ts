@@ -42,6 +42,25 @@ export type Division = {
   comment: string;
 };
 
+export type editUser = {
+  id: number;
+  provider: string;
+  uid: string;
+  allow_password_change: boolean;
+  name: string;
+  nickname: string;
+  image: string;
+  email: string;
+  team_id: number;
+  created_at: Date;
+  updated_at: Date;
+  unfinished_tasks_count: number[];
+  avatar: {
+    data: string;
+    filename: string;
+  };
+};
+
 export type newTask = {
   title: string;
   description: string;
@@ -87,6 +106,7 @@ export type UsersResponse = {
   user: User;
   unfinished_tasks: Task[];
   finished_tasks: Task[];
+  avatar: string;
 };
 
 export type TasksResponse = {

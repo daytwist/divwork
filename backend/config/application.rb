@@ -48,5 +48,7 @@ module Divwork
                        helper_specs: false,
                        routing_specs: false
     end
+
+    config.active_storage.routes_prefix = "/api/v1"
   end
 end
