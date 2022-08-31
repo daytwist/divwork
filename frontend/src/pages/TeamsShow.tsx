@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Divider, Grid, Typography } from "@mui/material";
+import { Avatar, Button, Divider, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
@@ -58,16 +58,30 @@ const TeamsShow: FC = () => {
         </Grid>
         {users?.map((user) => (
           <Grid item key={user.id}>
-            <Grid container direction="row" justifyContent="space-between">
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Grid item>
-                <Button
-                  variant="text"
-                  size="large"
-                  component={Link}
-                  to={`/users/${user.id}`}
+                <Grid
+                  container
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{ width: 100, height: 120, mr: 2 }}
                 >
-                  {user.name}
-                </Button>
+                  <Avatar sx={{ width: 56, height: 56 }} />
+                  <Button
+                    variant="text"
+                    size="large"
+                    component={Link}
+                    to={`/users/${user.id}`}
+                  >
+                    {user.name}
+                  </Button>
+                </Grid>
               </Grid>
               <Grid item>
                 <TasksBar user={user} maxCount={maxCount} />
