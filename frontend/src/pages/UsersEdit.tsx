@@ -20,7 +20,7 @@ const UsersEdit: FC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const { user: userData } = useFetchUser();
+  const { user: userData, avatar } = useFetchUser();
 
   const [user, setUser] = useState<User>({
     team_id: 0,
@@ -35,7 +35,6 @@ const UsersEdit: FC = () => {
     created_at: new Date(),
     updated_at: new Date(),
     unfinished_tasks_count: [0],
-    avatar: "",
   });
 
   const [image, setImage] = useState({
@@ -156,9 +155,9 @@ const UsersEdit: FC = () => {
             <p>{image.filename}</p>
           </Grid>
         ) : null}
-        {user.avatar ? (
+        {avatar ? (
           <Grid item>
-            <img src={user.avatar} alt="avatar" />
+            <img src={avatar} alt="avatar" />
           </Grid>
         ) : null}
         <Grid item>

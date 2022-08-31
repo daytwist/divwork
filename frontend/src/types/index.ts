@@ -18,7 +18,6 @@ export type User = {
   created_at: Date;
   updated_at: Date;
   unfinished_tasks_count: number[];
-  avatar: string;
 };
 
 export type Task = {
@@ -107,6 +106,7 @@ export type UsersResponse = {
   user: User;
   unfinished_tasks: Task[];
   finished_tasks: Task[];
+  avatar: string;
 };
 
 export type TasksResponse = {
