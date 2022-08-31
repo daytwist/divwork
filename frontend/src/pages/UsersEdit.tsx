@@ -8,7 +8,8 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { useFetchUser } from "../hooks/useFetchUser";
@@ -120,6 +121,53 @@ const UsersEdit: FC = () => {
           </Typography>
         </Grid>
         <Grid item>
+          <Grid container direction="column" spacing={1} alignContent="center">
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Grid item>
+                  <Typography variant="subtitle1" component="div">
+                    アイコン画像
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="label"
+                  >
+                    <input
+                      hidden
+                      accept="image/*"
+                      type="file"
+                      onChange={handleImageSelect}
+                    />
+                    <PhotoCamera />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              {avatar ? (
+                <img src={avatar} alt="avatar" width={300} height="auto" />
+              ) : (
+                <Typography variant="body1" component="div">
+                  設定されていません
+                </Typography>
+              )}
+            </Grid>
+            {image ? (
+              <Typography variant="body1" component="div">
+                {image.filename}
+              </Typography>
+            ) : null}
+          </Grid>
+        </Grid>
+        <Grid item>
           <Typography>{user?.team_id}</Typography>
         </Grid>
         <Grid item>
@@ -149,27 +197,6 @@ const UsersEdit: FC = () => {
         </Grid>
         <Grid item>
           <Button variant="outlined">パスワード変更</Button>
-        </Grid>
-        {image ? (
-          <Grid item>
-            <p>{image.filename}</p>
-          </Grid>
-        ) : null}
-        {avatar ? (
-          <Grid item>
-            <img src={avatar} alt="avatar" />
-          </Grid>
-        ) : null}
-        <Grid item>
-          <Button variant="contained" component="label">
-            Upload
-            <input
-              hidden
-              accept="image/*"
-              type="file"
-              onChange={handleImageSelect}
-            />
-          </Button>
         </Grid>
       </Grid>
     </div>
