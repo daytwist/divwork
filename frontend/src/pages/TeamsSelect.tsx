@@ -74,16 +74,41 @@ const TeamsSelect: FC = () => {
           </TextField>
         </Grid>
         <Grid item>
-          <Link
-            style={{ textDecoration: "none" }}
-            to="/sign_up"
-            key={teamId}
-            state={{ teamId, teamName }}
-          >
-            <Button variant="contained" type="button">
+          <Button variant="contained" type="button">
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/sign_up"
+              key={teamId}
+              state={{ teamId, teamName }}
+            >
               次へ
-            </Button>
-          </Link>
+            </Link>
+          </Button>
+        </Grid>
+        <Grid item>
+          <Typography
+            variant="subtitle1"
+            component="div"
+            sx={{ my: 2, ml: 13 }}
+          >
+            または
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h4" component="div" gutterBottom>
+            新規チーム作成
+          </Typography>
+          <Typography variant="subtitle1" component="div">
+            ユーザーはこのチームの管理者となります。
+          </Typography>
+        </Grid>
+        <Grid item>
+          <TextField type="text" label="新規チーム名" sx={{ width: "25ch" }} />
+        </Grid>
+        <Grid item>
+          <Button variant="contained" type="button">
+            作成
+          </Button>
         </Grid>
       </Grid>
     </div>
