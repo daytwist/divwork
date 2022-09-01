@@ -7,18 +7,16 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   let(:json) { JSON.parse(response.body) }
 
   describe "POST /api/v1/auth" do
-    let(:params) { attributes_for(:user, team_id: team.id) }
-
     it "ユーザー登録が成功すること" do
+      params = attributes_for(:user, team_id: team.id)
       post "/api/v1/auth", params: params
       expect(response).to have_http_status(:ok)
     end
   end
 
   describe "POST /api/v1/auth/sign_in" do
-    let(:params) { { email: user.email, password: user.password } }
-
     it "ログインが成功すること" do
+      params = { email: user.email, password: user.password }
       post "/api/v1/auth/sign_in", params: params
       expect(response).to have_http_status(:ok)
     end
@@ -42,9 +40,8 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   end
 
   describe "PATCH /api/v1/auth/password" do
-    let(:params) { { password: "new_password", password_confirmation: "new_password" } }
-
     it "パスワード変更が成功すること" do
+      params = { password: "new_password", password_confirmation: "new_password" }
       patch "/api/v1/auth/password", params: params, headers: headers
       expect(response).to have_http_status(:ok)
     end
@@ -81,6 +78,18 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
       delete "/api/v1/auth", headers: guest_headers
       expect(response).to have_http_status(:internal_server_error)
       expect(json["messages"]).to eq "ゲストユーザーの更新・削除は出来ません"
+    end
+  end
+
+  describe "ensure_max_num_of_users" do
+    let(:team_filled) { create(:team, max_num_of_users: 1) }
+    let!(:user) { create(:user, team: team_filled) }
+    let(:params) { attributes_for(:user, team_id: team_filled.id) }
+
+    it "選択したチームが上限人数に達していた場合、エラーが発生すること" do
+      post "/api/v1/auth", params: params
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"]).to eq "このチームは上限人数に達しています"
     end
   end
 end
