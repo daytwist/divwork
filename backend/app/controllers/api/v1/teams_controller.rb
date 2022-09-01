@@ -2,6 +2,7 @@ class Api::V1::TeamsController < ApplicationController
   before_action :authenticate_api_v1_user!, except: [:select, :create, :destroy]
   before_action :set_team, only: [:show, :update, :destroy, :ensure_correct_user]
   before_action :ensure_correct_user, except: [:select, :create, :destroy]
+  before_action :ensure_admin_user, only: [:update, :destroy]
 
   def select
     teams = Team.all
@@ -49,13 +50,19 @@ class Api::V1::TeamsController < ApplicationController
     @team = Team.find(params[:id])
   end
 
+  def team_params
+    params.require(:team).permit(:name)
+  end
+
   def ensure_correct_user
     if @team.users.exclude? current_api_v1_user
       render json: { messages: "この操作は出来ません" }, status: :internal_server_error
     end
   end
 
-  def team_params
-    params.require(:team).permit(:name)
+  def ensure_admin_user
+    if @team.admin_users.exclude? current_api_v1_user
+      render json: { messages: "管理者権限が必要です" }, status: :internal_server_error
+    end
   end
 end

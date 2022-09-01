@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { TasksResponse, newTask } from "../types";
+import { TasksResponse, NewTask } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
 import { PriorityTextField } from "../components/PriorityTextField";
 import { DeadlineTextField } from "../components/DeadlineTextField";
@@ -15,7 +15,7 @@ const TasksNew: FC = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
-  const [task, setTask] = useState<newTask>({
+  const [task, setTask] = useState<NewTask>({
     title: "",
     description: "",
     is_done: false,

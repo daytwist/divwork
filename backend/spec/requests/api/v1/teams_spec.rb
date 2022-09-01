@@ -22,17 +22,10 @@ RSpec.describe "Api::V1::Teams", type: :request do
     end
   end
 
-  describe "DELETE /:id" do
-    it "チームの削除に成功すること" do
-      delete "/api/v1/teams/#{team.id}"
-      expect(response).to have_http_status(:ok)
-    end
-  end
-
-  context "チームのユーザーがログインしている時" do
-    let(:user) { create(:user, team:) }
-    let!(:task) { create(:task, user:, priority: 0) }
-    let(:headers) { user.create_new_auth_token }
+  context "チームの管理者ユーザーがログインしている時" do
+    let(:user_admin) { create(:user, team:, admin: true) }
+    let!(:task) { create(:task, user: user_admin, priority: 0) }
+    let(:headers) { user_admin.create_new_auth_token }
 
     describe "GET /:id" do
       before do
@@ -45,7 +38,7 @@ RSpec.describe "Api::V1::Teams", type: :request do
       end
 
       it "チームに所属するユーザーの情報を取得出来ること" do
-        expect(json["users"][0]["id"]).to eq user.id
+        expect(json["users"][0]["id"]).to eq user_admin.id
       end
 
       it "ユーザーの未完了タスク数を取得出来ること" do
@@ -69,22 +62,34 @@ RSpec.describe "Api::V1::Teams", type: :request do
     end
   end
 
-  context "別のチームのユーザーがログインしている時" do
+  describe "ensure_admin_user" do
+    let(:user_normal) { create(:user, team:) }
+    let(:headers) { user_normal.create_new_auth_token }
+
+    it "一般ユーザーがチームの情報更新しようとするとエラーが発生すること" do
+      params = { name: "team_update" }
+      headers["Content-Type"] = "application/json"
+      patch "/api/v1/teams/#{team.id}", params: params.to_json, headers: headers
+
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"]).to eq "管理者権限が必要です"
+    end
+  end
+
+  describe "ensure_correct_user" do
     let(:another_team) { create(:team) }
     let(:another_user) { create(:user, team: another_team) }
     let(:headers) { another_user.create_new_auth_token }
 
-    describe "ensure_correct_user" do
-      it "他ユーザーのチームを参照しようとするとエラーが発生すること" do
-        get "/api/v1/teams/#{team.id}", headers: headers
-        expect(response).to have_http_status(:internal_server_error)
-      end
+    it "他ユーザーのチームを参照しようとするとエラーが発生すること" do
+      get "/api/v1/teams/#{team.id}", headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+    end
 
-      it "他ユーザーのタスクを更新しようとするとエラーが発生すること" do
-        params = { name: "team_update2" }
-        patch "/api/v1/teams/#{team.id}", params: params.to_json, headers: headers
-        expect(response).to have_http_status(:internal_server_error)
-      end
+    it "他ユーザーのタスクを更新しようとするとエラーが発生すること" do
+      params = { name: "team_update2" }
+      patch "/api/v1/teams/#{team.id}", params: params.to_json, headers: headers
+      expect(response).to have_http_status(:internal_server_error)
     end
   end
 end

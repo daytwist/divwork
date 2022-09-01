@@ -19,6 +19,7 @@ export type User = {
   updated_at: Date;
   unfinished_tasks_count: number[];
   avatar: string;
+  admin: boolean;
 };
 
 export type Task = {
@@ -43,45 +44,26 @@ export type Division = {
   comment: string;
 };
 
-export type editUser = {
-  id: number;
-  provider: string;
-  uid: string;
-  allow_password_change: boolean;
-  name: string;
-  nickname: string;
-  image: string;
-  email: string;
-  team_id: number;
-  created_at: Date;
-  updated_at: Date;
-  unfinished_tasks_count: number[];
-  avatar: {
-    data: string;
-    filename: string;
-  };
-};
-
-export type newTask = {
+export type NewTask = {
   title: string;
   description: string;
   is_done: boolean;
 };
 
-export type editTask = {
+export type EditTask = {
   title: string;
   description: string;
   is_done: boolean;
   user_id: number;
 };
 
-export type divisionTask = {
+export type DivisionTask = {
   title: string;
   description: string;
   parent_id: number;
 };
 
-export type newDivision = {
+export type NewDivision = {
   comment: string;
 };
 
