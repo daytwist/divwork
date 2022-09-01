@@ -72,7 +72,15 @@ const TeamsShow: FC = () => {
                   alignItems="center"
                   sx={{ width: 100, height: 120, mr: 2 }}
                 >
-                  <Avatar sx={{ width: 56, height: 56 }} />
+                  {user.avatar ? (
+                    <Avatar
+                      src={user.avatar}
+                      alt="avatar"
+                      sx={{ width: 60, height: 60 }}
+                    />
+                  ) : (
+                    <Avatar sx={{ width: 60, height: 60 }} />
+                  )}
                   <Button
                     variant="text"
                     size="large"
