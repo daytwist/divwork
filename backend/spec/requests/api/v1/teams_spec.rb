@@ -8,7 +8,7 @@ RSpec.describe "Api::V1::Teams", type: :request do
     it "チームの情報取得に成功すること" do
       get "/api/v1/teams/select"
       expect(response).to have_http_status(:ok)
-      expect(json["teams"][-1]).to include("id" => team.id)
+      expect(json["teams"][-1]["id"]).to eq team.id
     end
   end
 
@@ -31,6 +31,7 @@ RSpec.describe "Api::V1::Teams", type: :request do
 
   context "チームのユーザーがログインしている時" do
     let(:user) { create(:user, team:) }
+    let!(:task) { create(:task, user:, priority: 0) }
     let(:headers) { user.create_new_auth_token }
 
     describe "GET /:id" do
@@ -43,9 +44,16 @@ RSpec.describe "Api::V1::Teams", type: :request do
         expect(json["team"]["id"]).to eq team.id
       end
 
-      it "チームに所属するユーザーの情報取得に成功すること" do
-        get "/api/v1/teams/#{team.id}", headers: headers
-        expect(json["users"][0]).to include("id" => user.id)
+      it "チームに所属するユーザーの情報を取得出来ること" do
+        expect(json["users"][0]["id"]).to eq user.id
+      end
+
+      it "ユーザーの未完了タスク数を取得出来ること" do
+        expect(json["users"][0]["unfinished_tasks_count"]).to eq [1, 0, 0]
+      end
+
+      it "ユーザーのアバター情報が含まれること" do
+        expect(json["users"][0]["avatar"]).to eq ""
       end
     end
 

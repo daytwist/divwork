@@ -25,5 +25,9 @@ RSpec.describe "Api::V1::Users", type: :request do
     it "ユーザーの完了済みタスクの情報取得に成功すること" do
       expect(json["finished_tasks"][0]["id"]).to eq finished_task.id
     end
+
+    it "ユーザーのアバター情報を取得出来ること" do
+      expect(json["avatar"]).to eq ""
+    end
   end
 end
