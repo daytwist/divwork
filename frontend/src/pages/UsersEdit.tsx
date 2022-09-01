@@ -37,6 +37,7 @@ const UsersEdit: FC = () => {
     updated_at: new Date(),
     unfinished_tasks_count: [0],
     avatar: "",
+    admin: false,
   });
 
   const [image, setImage] = useState({

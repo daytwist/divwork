@@ -21,6 +21,8 @@ export const mockUser: ResponseResolver<MockedRequest, typeof restContext> = (
         created_at: "2022-06-05T10:16:09.882+09:00",
         updated_at: "2022-06-05T10:16:09.882+09:00",
         unfinished_tasks_count: [1, 2, 3],
+        avatar: "",
+        admin: false,
       },
       unfinished_tasks: [
         {
@@ -75,6 +77,8 @@ export const mockUserEdit: ResponseResolver<
         created_at: "2022-06-05T10:16:09.882+09:00",
         updated_at: "2022-06-05T10:16:09.882+09:00",
         unfinished_tasks_count: [1, 2, 3],
+        avatar: "",
+        admin: false,
       },
     })
   );

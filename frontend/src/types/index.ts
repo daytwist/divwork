@@ -19,6 +19,7 @@ export type User = {
   updated_at: Date;
   unfinished_tasks_count: number[];
   avatar: string;
+  admin: boolean;
 };
 
 export type Task = {
@@ -41,25 +42,6 @@ export type Division = {
   created_at: Date;
   updated_at: Date;
   comment: string;
-};
-
-export type editUser = {
-  id: number;
-  provider: string;
-  uid: string;
-  allow_password_change: boolean;
-  name: string;
-  nickname: string;
-  image: string;
-  email: string;
-  team_id: number;
-  created_at: Date;
-  updated_at: Date;
-  unfinished_tasks_count: number[];
-  avatar: {
-    data: string;
-    filename: string;
-  };
 };
 
 export type newTask = {
