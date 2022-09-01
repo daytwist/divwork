@@ -11,7 +11,6 @@ export const useFetchUser = () => {
   const [user, setUser] = useState<User>();
   const [unfinishedTasks, setUnfinishedTasks] = useState<Task[]>([]);
   const [finishedTasks, setFinishedTasks] = useState<Task[]>([]);
-  const [avatar, setAvatar] = useState<string>("");
 
   const options: AxiosRequestConfig = {
     url: `/users/${params.id}`,
@@ -30,12 +29,11 @@ export const useFetchUser = () => {
         setUser(res?.data.user);
         setUnfinishedTasks(res?.data.unfinished_tasks);
         setFinishedTasks(res?.data.finished_tasks);
-        setAvatar(res?.data.avatar);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  return { user, unfinishedTasks, finishedTasks, avatar };
+  return { user, unfinishedTasks, finishedTasks };
 };
