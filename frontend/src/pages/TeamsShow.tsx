@@ -50,9 +50,14 @@ const TeamsShow: FC = () => {
 
   return (
     <div>
-      <Grid container direction="column" spacing={3}>
+      <Grid container direction="column" spacing={2}>
         <Grid item>
-          <Typography variant="h4" component="div" data-testid="teams-show-h4">
+          <Typography
+            gutterBottom
+            variant="h4"
+            component="div"
+            data-testid="teams-show-h4"
+          >
             {team?.name ? `${team.name}のタスク` : ""}
           </Typography>
         </Grid>

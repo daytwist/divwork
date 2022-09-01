@@ -20,7 +20,7 @@ export const TasksBar = (props: Props) => {
 
   return (
     <BarChart
-      width={500}
+      width={600}
       height={70}
       barSize={16}
       layout="vertical"
