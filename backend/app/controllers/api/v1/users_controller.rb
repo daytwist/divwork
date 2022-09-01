@@ -6,14 +6,8 @@ class Api::V1::UsersController < ApplicationController
     unfinished_tasks = @user.tasks.unfinished
     finished_tasks = @user.tasks.finished
 
-    avatar_url = if @user.avatar.attached?
-                   url_for(@user.avatar)
-                 else
-                   ""
-                 end
-
     render json: {
-      user: @user, unfinished_tasks:, finished_tasks:, avatar: avatar_url
+      user: @user, unfinished_tasks:, finished_tasks:, avatar: avatar_url(@user)
     }, status: :ok
   end
 
