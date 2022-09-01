@@ -3,7 +3,7 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
 
   def update
     if @resource
-      if params[:avatar]
+      if params[:avatar][:data].present?
         blob = ActiveStorage::Blob.create_after_upload!(
           io: StringIO.new("#{decode(params[:avatar][:data])}\n"),
           filename: params[:avatar][:filename]
