@@ -19,8 +19,12 @@ class Api::V1::TeamsController < ApplicationController
 
   def show
     users = @team.users
-    render json: { team: @team, users: users.as_json(methods: :unfinished_tasks_count) },
-           status: :ok
+    users = users.map do |user|
+      user.as_json(methods: :unfinished_tasks_count)
+          .merge(avatar: avatar_url(user))
+    end
+
+    render json: { team: @team, users: }, status: :ok
   end
 
   def update

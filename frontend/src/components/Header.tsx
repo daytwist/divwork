@@ -82,7 +82,7 @@ const Header: FC = memo(() => {
                 <Button
                   component={Link}
                   to={`/users/${currentUser?.id}/edit`}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "white", display: "flex" }}
                   data-testid="current-user-name"
                 >
                   {currentUser?.name}
@@ -90,7 +90,7 @@ const Header: FC = memo(() => {
                 <Button
                   type="submit"
                   onClick={onClickSignOut}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "white", display: "flex" }}
                 >
                   ログアウト
                 </Button>
@@ -100,14 +100,14 @@ const Header: FC = memo(() => {
                 <Button
                   component={Link}
                   to="/sign_up/teams/select"
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "white", display: "flex" }}
                 >
                   ユーザー登録
                 </Button>
                 <Button
                   component={Link}
                   to="/sign_in"
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "white", display: "flex" }}
                 >
                   ログイン
                 </Button>

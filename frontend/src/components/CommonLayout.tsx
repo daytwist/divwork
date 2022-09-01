@@ -20,7 +20,7 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
       </header>
       <main>
         <AlertSnackbar />
-        <Box m={2} pt={4}>
+        <Box m={2} py={4}>
           <Container maxWidth="lg">
             <Grid container justifyContent="center">
               <Grid item>{children}</Grid>

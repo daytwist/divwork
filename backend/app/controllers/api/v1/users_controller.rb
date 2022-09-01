@@ -5,16 +5,9 @@ class Api::V1::UsersController < ApplicationController
   def show
     unfinished_tasks = @user.tasks.unfinished
     finished_tasks = @user.tasks.finished
+    @user = @user.as_json.merge(avatar: avatar_url(@user))
 
-    avatar_url = if @user.avatar.attached?
-                   url_for(@user.avatar)
-                 else
-                   ""
-                 end
-
-    render json: {
-      user: @user, unfinished_tasks:, finished_tasks:, avatar: avatar_url
-    }, status: :ok
+    render json: { user: @user, unfinished_tasks:, finished_tasks: }, status: :ok
   end
 
   private

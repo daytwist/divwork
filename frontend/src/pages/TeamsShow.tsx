@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, Typography } from "@mui/material";
+import { Avatar, Button, Divider, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
@@ -50,36 +50,59 @@ const TeamsShow: FC = () => {
 
   return (
     <div>
-      <Grid container direction="column" spacing={3}>
+      <Grid container direction="column" spacing={2}>
         <Grid item>
-          <Typography variant="h4" component="div" data-testid="teams-show-h4">
+          <Typography
+            gutterBottom
+            variant="h4"
+            component="div"
+            data-testid="teams-show-h4"
+          >
             {team?.name ? `${team.name}のタスク` : ""}
           </Typography>
         </Grid>
-        <Grid item>
-          {users?.map((user) => (
+        {users?.map((user) => (
+          <Grid item key={user.id}>
             <Grid
               container
               direction="row"
               justifyContent="space-between"
-              key={user.id}
+              alignItems="center"
             >
               <Grid item>
-                <Button
-                  variant="text"
-                  size="large"
-                  component={Link}
-                  to={`/users/${user.id}`}
+                <Grid
+                  container
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{ width: 100, height: 120, mr: 2 }}
                 >
-                  {user.name}
-                </Button>
+                  {user.avatar ? (
+                    <Avatar
+                      src={user.avatar}
+                      alt="avatar"
+                      sx={{ width: 60, height: 60 }}
+                    />
+                  ) : (
+                    <Avatar sx={{ width: 60, height: 60 }} />
+                  )}
+                  <Button
+                    variant="text"
+                    size="large"
+                    component={Link}
+                    to={`/users/${user.id}`}
+                  >
+                    {user.name}
+                  </Button>
+                </Grid>
               </Grid>
               <Grid item>
                 <TasksBar user={user} maxCount={maxCount} />
               </Grid>
             </Grid>
-          ))}
-        </Grid>
+            <Divider />
+          </Grid>
+        ))}
       </Grid>
     </div>
   );

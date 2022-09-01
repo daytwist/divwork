@@ -18,6 +18,7 @@ export type User = {
   created_at: Date;
   updated_at: Date;
   unfinished_tasks_count: number[];
+  avatar: string;
 };
 
 export type Task = {
