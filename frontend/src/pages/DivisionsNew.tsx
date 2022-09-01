@@ -5,7 +5,7 @@ import { Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import {
-  divisionTask,
+  DivisionTask,
   DivisionsCreateResponse,
   DivisionsNewResponse,
   User,
@@ -19,7 +19,7 @@ const DivisionsNew: FC = () => {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [task, setTask] = useState<divisionTask>({
+  const [task, setTask] = useState<DivisionTask>({
     title: "",
     description: "",
     parent_id: 0,

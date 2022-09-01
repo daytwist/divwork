@@ -44,26 +44,26 @@ export type Division = {
   comment: string;
 };
 
-export type newTask = {
+export type NewTask = {
   title: string;
   description: string;
   is_done: boolean;
 };
 
-export type editTask = {
+export type EditTask = {
   title: string;
   description: string;
   is_done: boolean;
   user_id: number;
 };
 
-export type divisionTask = {
+export type DivisionTask = {
   title: string;
   description: string;
   parent_id: number;
 };
 
-export type newDivision = {
+export type NewDivision = {
   comment: string;
 };
 

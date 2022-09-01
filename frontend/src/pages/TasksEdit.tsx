@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { TasksResponse, editTask } from "../types";
+import { TasksResponse, EditTask } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { PriorityTextField } from "../components/PriorityTextField";
@@ -18,7 +18,7 @@ const TasksEdit: FC = () => {
   const params = useParams<{ id: string }>();
   const data = useFetchTask();
 
-  const [task, setTask] = useState<editTask>({
+  const [task, setTask] = useState<EditTask>({
     title: "",
     description: "",
     is_done: false,
