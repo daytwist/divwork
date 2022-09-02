@@ -56,6 +56,7 @@ const TeamsSelect: FC = () => {
             state: {
               teamId: res.data.team.id,
               teamName: res.data.team.name,
+              isAdmin: true,
             },
           });
         }
@@ -122,7 +123,7 @@ const TeamsSelect: FC = () => {
               style={{ textDecoration: "none", color: "white" }}
               to="/sign_up"
               key={teamId}
-              state={{ teamId, teamName }}
+              state={{ teamId, teamName, isAdmin: false }}
             >
               次へ
             </Link>
