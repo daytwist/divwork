@@ -11,6 +11,7 @@ import { SnackbarContext } from "../providers/SnackbarProvider";
 type State = {
   teamId: number;
   teamName: string;
+  isAdmin: boolean;
 };
 
 const SignUp: FC = () => {
@@ -19,7 +20,7 @@ const SignUp: FC = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const { teamId, teamName } = location.state as State;
+  const { teamId, teamName, isAdmin } = location.state as State;
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -34,6 +35,7 @@ const SignUp: FC = () => {
         email,
         password,
         team_id: teamId,
+        admin: isAdmin,
       },
     };
 

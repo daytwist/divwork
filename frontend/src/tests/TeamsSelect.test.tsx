@@ -1,9 +1,14 @@
+/* eslint-disable testing-library/no-unnecessary-act */
 import renderer from "react-test-renderer";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
 import TeamsSelect from "../pages/TeamsSelect";
+import { SnackbarProvider } from "../providers/SnackbarProvider";
+import SignUp from "../pages/SignUp";
+import { AuthProvider } from "../providers/AuthProvider";
+import CommonLayout from "../components/CommonLayout";
 
 describe("TeamsSelect", () => {
   test("スナップショット", () => {
@@ -19,14 +24,33 @@ describe("TeamsSelect", () => {
 
   test("チーム一覧の表示", async () => {
     render(<TeamsSelect />, { wrapper: BrowserRouter });
-    const teamInput = screen.getByLabelText("チーム");
-
-    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
-      userEvent.click(teamInput);
+      userEvent.click(screen.getByLabelText("チーム"));
     });
-
     expect(await screen.findByText("TEAM_1")).toBeInTheDocument();
     expect(await screen.findByText("TEAM_2")).toBeInTheDocument();
+  });
+
+  test("新規チーム作成", async () => {
+    render(
+      <MemoryRouter initialEntries={["/sign_up/teams/select"]}>
+        <AuthProvider>
+          <SnackbarProvider>
+            <CommonLayout>
+              <Routes>
+                <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
+                <Route path="/sign_up" element={<SignUp />} />
+              </Routes>
+            </CommonLayout>
+          </SnackbarProvider>
+        </AuthProvider>
+      </MemoryRouter>
+    );
+
+    act(() => {
+      userEvent.type(screen.getByLabelText("新規チーム名"), "TEAM_NEW");
+      userEvent.click(screen.getByRole("button", { name: "作成" }));
+    });
+    expect(await screen.findByText("TEAM_NEW")).toBeInTheDocument();
   });
 });

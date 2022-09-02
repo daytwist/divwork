@@ -3,6 +3,7 @@ export type Team = {
   name: string;
   created_at: Date;
   updated_at: Date;
+  max_num_of_users: number;
 };
 
 export type User = {
@@ -78,6 +79,10 @@ export type AuthResponse = {
 
 export type TeamsSelectResponse = {
   teams: Team[];
+};
+
+export type TeamsCreateResponse = {
+  team: Team;
 };
 
 export type TeamsShowResponse = {

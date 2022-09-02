@@ -1,5 +1,6 @@
 class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
   before_action :ensure_normal_user, only: [:update, :destroy]
+  before_action :ensure_max_num_of_users, only: [:create]
 
   def update
     if @resource
@@ -31,13 +32,21 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
     params.permit(:name, :email, :password, :team_id, :admin, :avatar)
   end
 
+  def decode(str)
+    Base64.decode64(str.split(",").last)
+  end
+
   def ensure_normal_user
     if @resource.email == "guest@example.com"
       render json: { messages: "ゲストユーザーの更新・削除は出来ません" }, status: :internal_server_error
     end
   end
 
-  def decode(str)
-    Base64.decode64(str.split(",").last)
+  def ensure_max_num_of_users
+    team = Team.find(params["team_id"])
+    if team.users.size == team.max_num_of_users
+      render json: { messages: "このチームは上限人数に達しています" },
+             status: :internal_server_error
+    end
   end
 end
