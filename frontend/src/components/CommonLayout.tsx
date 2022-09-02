@@ -57,7 +57,12 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
         </header>
         <main>
           <AlertSnackbar />
-          <Box m={2} py={4}>
+          <Box
+            sx={{
+              m: { xs: 1, sm: 2 },
+              py: { xs: 3, sm: 4 },
+            }}
+          >
             <Container>
               <Grid container justifyContent="center">
                 <Grid item>{children}</Grid>
