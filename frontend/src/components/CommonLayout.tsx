@@ -4,6 +4,7 @@ import {
   Container,
   createTheme,
   Grid,
+  responsiveFontSizes,
   ThemeProvider,
 } from "@mui/material";
 import { FC } from "react";
@@ -16,7 +17,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 const CommonLayout: FC<RouteProps> = ({ children }) => {
-  const theme = createTheme({
+  let theme = createTheme({
     palette: {
       primary: {
         main: "#1de9b6",
@@ -29,7 +30,17 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
         dark: "#002884",
       },
     },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 768,
+        lg: 1025,
+        xl: 1536,
+      },
+    },
   });
+  theme = responsiveFontSizes(theme);
 
   const global = css`
     * {
@@ -47,7 +58,7 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
         <main>
           <AlertSnackbar />
           <Box m={2} py={4}>
-            <Container maxWidth="lg">
+            <Container>
               <Grid container justifyContent="center">
                 <Grid item>{children}</Grid>
               </Grid>
