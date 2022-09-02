@@ -28,15 +28,27 @@ export const TasksBar = (props: Props) => {
     >
       <XAxis type="number" hide domain={[0, maxCount]} />
       <YAxis dataKey="name" type="category" hide />
-      <Tooltip wrapperStyle={{ zIndex: 10 }} />
-      <Bar dataKey="高" stackId="a" fill="#ff0000">
-        <LabelList dataKey="高" position="top" />
+      <Tooltip wrapperStyle={{ zIndex: 10, fontFamily: "roboto" }} />
+      <Bar dataKey="高" stackId="a" fill="#ff5252">
+        <LabelList
+          dataKey="高"
+          position="top"
+          style={{ fontFamily: "roboto" }}
+        />
       </Bar>
-      <Bar dataKey="中" stackId="a" fill="#FFF500">
-        <LabelList dataKey="中" position="top" />
+      <Bar dataKey="中" stackId="a" fill="#ffd600">
+        <LabelList
+          dataKey="中"
+          position="top"
+          style={{ fontFamily: "roboto" }}
+        />
       </Bar>
-      <Bar dataKey="低" stackId="a" fill="#05FF00">
-        <LabelList dataKey="低" position="top" />
+      <Bar dataKey="低" stackId="a" fill="#00c853">
+        <LabelList
+          dataKey="低"
+          position="top"
+          style={{ fontFamily: "roboto" }}
+        />
       </Bar>
     </BarChart>
   );
