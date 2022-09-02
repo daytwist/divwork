@@ -1,12 +1,13 @@
 import { rest } from "msw";
 import { mockSignIn, mockAuthSessions, mockGuestSignIn } from "./mockAuth";
 import { mockDivisionCreate, mockDivisionNew } from "./mockDivision";
-import { mockTeam } from "./mockTeam";
+import { mockTeam, mockTeamCreate } from "./mockTeam";
 import { mockTeams } from "./mockTeams";
 import { mockUser, mockUserEdit } from "./mockUser";
 
 export const handlers = [
   rest.get("/teams/select", mockTeams),
+  rest.post("/teams", mockTeamCreate),
   rest.post("/auth/sign_in", mockSignIn),
   rest.get("/auth/sessions", mockAuthSessions),
   rest.post("/auth/guest_sign_in", mockGuestSignIn),

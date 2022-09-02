@@ -14,12 +14,14 @@ export const mockTeams: ResponseResolver<MockedRequest, typeof restContext> = (
           name: "TEAM_1",
           created_at: "2022-06-05T10:16:09.882+09:00",
           updated_at: "2022-06-05T10:16:09.882+09:00",
+          max_num_of_users: 10,
         },
         {
           id: 2,
           name: "TEAM_2",
           created_at: "2022-06-05T10:16:11.169+09:00",
           updated_at: "2022-06-05T10:16:11.169+09:00",
+          max_num_of_users: 10,
         },
       ],
     })
