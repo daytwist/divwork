@@ -19,14 +19,14 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#69f0ae",
-        light: "#9fffe0",
-        dark: "#2bbd7e",
+        main: "#1de9b6",
+        light: "#6effe8",
+        dark: "#00b686",
       },
       secondary: {
-        main: "#5a6abf",
-        light: "#8d98f2",
-        dark: "#23408e",
+        main: "#3f50b5",
+        light: "#757ce8",
+        dark: "#002884",
       },
     },
   });
