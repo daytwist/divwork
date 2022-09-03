@@ -1,57 +1,12 @@
 import { FC, memo, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
 import { HeaderMenuButton } from "./HeaderMenuButton";
 
 // eslint-disable-next-line react/display-name
 const Header: FC = memo(() => {
-  const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-
-  const onClickSignOut = () => {
-    const options: AxiosRequestConfig = {
-      url: "/auth/sign_out",
-      method: "DELETE",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-    };
-
-    axiosInstance(options)
-      .then((res: AxiosResponse) => {
-        console.log(res);
-
-        if (res.status === 200) {
-          Cookies.remove("_access_token");
-          Cookies.remove("_client");
-          Cookies.remove("_uid");
-          setIsSignedIn(false);
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "ログアウトしました",
-          });
-          navigate("/", { replace: true });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          message: `${err.response.data.errors[0]}`,
-        });
-      });
-  };
+  const { isSignedIn, currentUser } = useContext(AuthContext);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -74,13 +29,6 @@ const Header: FC = memo(() => {
             {isSignedIn ? (
               <Box sx={{ flexGrow: 0, display: "flex" }}>
                 <HeaderMenuButton />
-                <Button
-                  type="submit"
-                  onClick={onClickSignOut}
-                  sx={{ my: 2, color: "black", display: "flex" }}
-                >
-                  ログアウト
-                </Button>
               </Box>
             ) : (
               <Box sx={{ flexGrow: 0, display: "flex" }}>
