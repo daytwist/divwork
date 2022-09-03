@@ -26,7 +26,7 @@ const SignUp: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const onClickSignUp = () => {
+  const handleSignUp = () => {
     const options: AxiosRequestConfig = {
       url: "/auth",
       method: "POST",
@@ -111,7 +111,7 @@ const SignUp: FC = () => {
           />
         </Grid>
         <Grid item>
-          <Button variant="contained" type="submit" onClick={onClickSignUp}>
+          <Button variant="contained" type="submit" onClick={handleSignUp}>
             登録する
           </Button>
         </Grid>
