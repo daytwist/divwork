@@ -1,5 +1,7 @@
 import { FC, MouseEvent, useContext, useState } from "react";
-import { Box, Button, Menu, MenuItem } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Box, Button, Divider, Menu, MenuItem } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AuthContext } from "../providers/AuthProvider";
 
 export const HeaderMenuButton: FC = () => {
@@ -28,6 +30,7 @@ export const HeaderMenuButton: FC = () => {
         data-testid="current-user-name"
       >
         {currentUser?.name}
+        <ArrowDropDownIcon fontSize="small" />
       </Button>
       <Menu
         id="header-menu"
@@ -37,10 +40,29 @@ export const HeaderMenuButton: FC = () => {
         MenuListProps={{
           "aria-labelledby": "header-menu-button",
         }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem
+          component={Link}
+          to={`/teams/${currentUser?.team_id}`}
+          onClick={handleClose}
+        >
+          チームタスク一覧
+        </MenuItem>
+        <MenuItem
+          component={Link}
+          to={`/users/${currentUser?.id}`}
+          onClick={handleClose}
+        >{`${currentUser?.name}のタスク一覧`}</MenuItem>
+        <Divider />
+        <MenuItem
+          component={Link}
+          to={`/users/${currentUser?.id}/edit`}
+          onClick={handleClose}
+        >
+          ユーザー設定
+        </MenuItem>
       </Menu>
     </Box>
   );
