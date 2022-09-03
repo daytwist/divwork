@@ -6,6 +6,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
+import { HeaderMenuButton } from "./HeaderMenuButton";
 
 // eslint-disable-next-line react/display-name
 const Header: FC = memo(() => {
@@ -72,18 +73,19 @@ const Header: FC = memo(() => {
           <div>
             {isSignedIn ? (
               <Box sx={{ flexGrow: 0, display: "flex" }}>
-                <Button
+                <HeaderMenuButton />
+                {/* <Button
                   component={Link}
                   to={`/users/${currentUser?.id}/edit`}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "black", display: "flex" }}
                   data-testid="current-user-name"
                 >
                   {currentUser?.name}
-                </Button>
+                </Button> */}
                 <Button
                   type="submit"
                   onClick={onClickSignOut}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "black", display: "flex" }}
                 >
                   ログアウト
                 </Button>
@@ -93,14 +95,14 @@ const Header: FC = memo(() => {
                 <Button
                   component={Link}
                   to="/sign_up/teams/select"
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "black", display: "flex" }}
                 >
                   ユーザー登録
                 </Button>
                 <Button
                   component={Link}
                   to="/sign_in"
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "black", display: "flex" }}
                 >
                   ログイン
                 </Button>
