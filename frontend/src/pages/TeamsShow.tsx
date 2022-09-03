@@ -100,10 +100,13 @@ const TeamsShow: FC = () => {
                   )}
                   <Button
                     variant="text"
-                    size="large"
                     component={Link}
                     to={`/users/${user.id}`}
-                    sx={{ p: { xs: 0.5 } }}
+                    sx={{
+                      color: "black",
+                      p: { xs: 0.5 },
+                      mt: { xs: 0, sm: 1 },
+                    }}
                   >
                     {user.name}
                   </Button>

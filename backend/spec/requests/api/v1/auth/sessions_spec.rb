@@ -34,7 +34,11 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
       end
 
       it "ログインユーザー情報を取得出来ること" do
-        expect(json["current_user"]).to eq user.as_json
+        expect(json["current_user"]["id"]).to eq user.id
+      end
+
+      it "ログインユーザーのアバター情報を取得出来ること" do
+        expect(json["current_user"]["avatar"]).to eq ""
       end
     end
   end

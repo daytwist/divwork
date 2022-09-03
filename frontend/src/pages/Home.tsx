@@ -65,7 +65,8 @@ const Home: FC = () => {
         </Grid>
         <Grid item>
           <Button
-            variant="outlined"
+            color="secondary"
+            variant="contained"
             type="button"
             component={Link}
             to="/sign_in"

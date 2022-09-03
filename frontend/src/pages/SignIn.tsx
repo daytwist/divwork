@@ -16,7 +16,7 @@ const SignIn: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const onClickSignIn = () => {
+  const handleSignIn = () => {
     const options: AxiosRequestConfig = {
       url: "/auth/sign_in",
       method: "POST",
@@ -84,7 +84,7 @@ const SignIn: FC = () => {
             data-testid="sign-in-button"
             variant="contained"
             type="submit"
-            onClick={onClickSignIn}
+            onClick={handleSignIn}
           >
             ログイン
           </Button>
