@@ -1,7 +1,10 @@
 class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
   def index
     if current_api_v1_user.present?
-      render json: { is_signed_in: true, current_user: current_api_v1_user },
+      user = current_api_v1_user
+      user = user.as_json.merge(avatar: avatar_url(user))
+
+      render json: { is_signed_in: true, current_user: user },
              status: :ok
     else
       render json: { is_signed_in: false, current_user: "" },
