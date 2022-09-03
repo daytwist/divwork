@@ -11,10 +11,6 @@ import { FC } from "react";
 import { RouteProps } from "react-router-dom";
 import Header from "./Header";
 import { AlertSnackbar } from "./AlertSnackbar";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
 
 const CommonLayout: FC<RouteProps> = ({ children }) => {
   let theme = createTheme({

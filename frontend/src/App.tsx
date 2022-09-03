@@ -15,6 +15,10 @@ import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import CommonLayout from "./components/CommonLayout";
 import { SnackbarProvider } from "./providers/SnackbarProvider";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 const App: React.FC = () => {
   return (
