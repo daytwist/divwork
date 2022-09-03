@@ -1,6 +1,6 @@
 import { FC, MouseEvent, useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, Button, Divider, Menu, MenuItem } from "@mui/material";
+import { Avatar, Box, Button, Divider, Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AuthContext } from "../providers/AuthProvider";
 
@@ -29,6 +29,11 @@ export const HeaderMenuButton: FC = () => {
         sx={{ color: "black" }}
         data-testid="current-user-name"
       >
+        {currentUser?.avatar ? (
+          <Avatar src={currentUser.avatar} alt="avatar" sx={{ mr: 1 }} />
+        ) : (
+          <Avatar sx={{ mr: 1 }} />
+        )}
         {currentUser?.name}
         <ArrowDropDownIcon fontSize="small" />
       </Button>

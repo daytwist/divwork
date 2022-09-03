@@ -74,14 +74,6 @@ const Header: FC = memo(() => {
             {isSignedIn ? (
               <Box sx={{ flexGrow: 0, display: "flex" }}>
                 <HeaderMenuButton />
-                {/* <Button
-                  component={Link}
-                  to={`/users/${currentUser?.id}/edit`}
-                  sx={{ my: 2, color: "black", display: "flex" }}
-                  data-testid="current-user-name"
-                >
-                  {currentUser?.name}
-                </Button> */}
                 <Button
                   type="submit"
                   onClick={onClickSignOut}
