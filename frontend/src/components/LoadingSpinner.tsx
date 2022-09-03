@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
-import { Hearts } from "react-loader-spinner";
+import { RotatingTriangles } from "react-loader-spinner";
 
 export const LoadingSpinner: FC = () => {
   return (
@@ -11,14 +11,13 @@ export const LoadingSpinner: FC = () => {
         justifyContent: "center",
       }}
     >
-      <Hearts
+      <RotatingTriangles
+        visible
         height="80"
         width="80"
-        color="#4fa94d"
-        ariaLabel="hearts-loading"
+        ariaLabel="rotating-triangels-loading"
         wrapperStyle={{}}
-        wrapperClass=""
-        visible
+        wrapperClass="rotating-triangels-wrapper"
       />
     </Box>
   );

@@ -75,22 +75,35 @@ const TeamsShow: FC = () => {
                   direction="column"
                   justifyContent="center"
                   alignItems="center"
-                  sx={{ width: 100, height: 120, mr: 2 }}
+                  sx={{
+                    width: { xs: 80, sm: 100 },
+                    height: { xs: 80, sm: 120 },
+                    mr: { xs: 1, sm: 2 },
+                  }}
                 >
                   {user.avatar ? (
                     <Avatar
                       src={user.avatar}
                       alt="avatar"
-                      sx={{ width: 60, height: 60 }}
+                      sx={{
+                        width: { sm: 60 },
+                        height: { sm: 60 },
+                      }}
                     />
                   ) : (
-                    <Avatar sx={{ width: 60, height: 60 }} />
+                    <Avatar
+                      sx={{
+                        width: { sm: 60 },
+                        height: { sm: 60 },
+                      }}
+                    />
                   )}
                   <Button
                     variant="text"
                     size="large"
                     component={Link}
                     to={`/users/${user.id}`}
+                    sx={{ p: { xs: 0.5 } }}
                   >
                     {user.name}
                   </Button>
