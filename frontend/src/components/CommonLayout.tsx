@@ -21,9 +21,9 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
         dark: "#00b686",
       },
       secondary: {
-        main: "#3f50b5",
-        light: "#757ce8",
-        dark: "#002884",
+        main: "#5a6abf",
+        light: "#8d98f2",
+        dark: "#23408e",
       },
     },
     breakpoints: {
