@@ -4,6 +4,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
 import { PriorityLabel } from "../components/PriorityLabel";
+import { DeadlineFormat } from "../components/DeadlineFormat";
 
 const TasksShow: FC = () => {
   const task = useFetchTask();
@@ -38,7 +39,7 @@ const TasksShow: FC = () => {
             納期
           </Typography>
           <Typography variant="body1" component="div">
-            {task?.deadline.toString()}
+            {DeadlineFormat(task?.deadline)}
           </Typography>
         </Grid>
         <Grid item>

@@ -12,12 +12,12 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { format } from "date-fns";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Task, User, TasksResponse } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
 import { PriorityLabel } from "./PriorityLabel";
+import { DeadlineFormat } from "./DeadlineFormat";
 
 type Props = {
   user: User | undefined;
@@ -82,9 +82,7 @@ export const TasksTable = (props: Props) => {
               <TableCell>
                 <Link to={`/tasks/${task.id}`}>{task.title}</Link>
               </TableCell>
-              <TableCell>
-                {format(new Date(task.deadline), "yyyy/MM/dd HH:mm")}
-              </TableCell>
+              <TableCell>{DeadlineFormat(task.deadline)}</TableCell>
               <TableCell align="center">
                 {PriorityLabel(task.priority)}
               </TableCell>
