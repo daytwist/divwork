@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -18,10 +18,21 @@ import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
 import { PriorityLabel } from "../components/PriorityLabel";
 import { DeadlineFormat } from "../components/DeadlineFormat";
+import { AlertDialog } from "../components/AlertDialog";
 
 const TasksShow: FC = () => {
-  const task = useFetchTask();
   const { currentUser } = useContext(AuthContext);
+  const task = useFetchTask();
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div>
@@ -47,10 +58,11 @@ const TasksShow: FC = () => {
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="削除" placement="top" arrow>
-                      <IconButton>
+                      <IconButton onClick={handleClickOpen}>
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
+                    <AlertDialog open={open} handleClose={handleClose} />
                   </Stack>
                 )
               }
