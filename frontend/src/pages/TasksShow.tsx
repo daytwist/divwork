@@ -26,36 +26,56 @@ const TasksShow: FC = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Card sx={{ width: 700, p: 1 }}>
+          <Card sx={{ width: 700, p: 2 }}>
             <CardContent>
-              <Typography variant="subtitle1" component="div">
+              <Typography
+                variant="subtitle1"
+                component="div"
+                color="text.secondary"
+              >
                 タイトル
               </Typography>
-              <Typography variant="h6" component="div" sx={{ mb: 1.5 }}>
+              <Typography variant="h5" component="div" sx={{ mb: 2 }}>
                 {task?.title}
               </Typography>
-              <Typography variant="subtitle1" component="div">
+              <Typography
+                variant="subtitle1"
+                component="div"
+                color="text.secondary"
+              >
                 詳細
               </Typography>
-              <Typography variant="body1" component="div" sx={{ mb: 1.5 }}>
+              <Typography variant="body1" component="div" sx={{ mb: 2 }}>
                 {task?.description}
               </Typography>
-              <Typography variant="subtitle1" component="div">
+              <Typography
+                variant="subtitle1"
+                component="div"
+                color="text.secondary"
+              >
                 納期
               </Typography>
-              <Typography variant="body1" component="div" sx={{ mb: 1.5 }}>
+              <Typography variant="body1" component="div" sx={{ mb: 2 }}>
                 {DeadlineFormat(task?.deadline)}
               </Typography>
-              <Typography variant="subtitle1" component="div">
+              <Typography
+                variant="subtitle1"
+                component="div"
+                color="text.secondary"
+              >
                 優先度
               </Typography>
-              <Typography variant="body1" component="div" sx={{ mb: 1.5 }}>
+              <Typography variant="body1" component="div" sx={{ mb: 2 }}>
                 {PriorityLabel(task?.priority)}
               </Typography>
-              <Typography variant="subtitle1" component="div">
+              <Typography
+                variant="subtitle1"
+                component="div"
+                color="text.secondary"
+              >
                 完了フラグ
               </Typography>
-              <Typography variant="body1" component="div" sx={{ mb: 1.5 }}>
+              <Typography variant="body1" component="div" sx={{ mb: 2 }}>
                 {task?.is_done.toString()}
               </Typography>
               {task?.user_id === currentUser?.id && (
