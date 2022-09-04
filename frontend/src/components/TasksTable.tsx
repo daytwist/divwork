@@ -17,6 +17,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Task, User, TasksResponse } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
+import { PriorityLabel } from "./PriorityLabel";
 
 type Props = {
   user: User | undefined;
@@ -28,19 +29,6 @@ type Props = {
 export const TasksTable = (props: Props) => {
   const { user, tasks, setTasks, isFinished } = props;
   const { currentUser } = useContext(AuthContext);
-
-  const displayLabel = (value: string) => {
-    switch (value) {
-      case "high":
-        return "高";
-      case "medium":
-        return "中";
-      case "low":
-        return "低";
-      default:
-        return "";
-    }
-  };
 
   const handleIsDoneUpdate = (id: number, index: number) => {
     const isDone = tasks[index].is_done;
@@ -98,7 +86,7 @@ export const TasksTable = (props: Props) => {
                 {format(new Date(task.deadline), "yyyy/MM/dd HH:mm")}
               </TableCell>
               <TableCell align="center">
-                {displayLabel(task.priority)}
+                {PriorityLabel(task.priority)}
               </TableCell>
               {!isFinished && (
                 <TableCell align="center">

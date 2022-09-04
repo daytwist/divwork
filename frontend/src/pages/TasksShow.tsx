@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Grid, Typography } from "@mui/material";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
+import { PriorityLabel } from "../components/PriorityLabel";
 
 const TasksShow: FC = () => {
   const task = useFetchTask();
@@ -45,7 +46,7 @@ const TasksShow: FC = () => {
             優先度
           </Typography>
           <Typography variant="body1" component="div">
-            {task?.priority}
+            {PriorityLabel(task?.priority)}
           </Typography>
         </Grid>
         <Grid item>
