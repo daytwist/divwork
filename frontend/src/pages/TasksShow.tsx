@@ -5,9 +5,15 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardHeader,
   Grid,
+  IconButton,
+  Stack,
+  Tooltip,
   Typography,
 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
 import { PriorityLabel } from "../components/PriorityLabel";
@@ -26,18 +32,30 @@ const TasksShow: FC = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Card sx={{ width: 700, p: 2 }}>
+          <Card sx={{ minWidth: 500, p: 2 }}>
+            <CardHeader
+              title={task?.title}
+              action={
+                task?.user_id === currentUser?.id && (
+                  <Stack direction="row" spacing={1}>
+                    <Tooltip title="編集" placement="top" arrow>
+                      <IconButton
+                        component={Link}
+                        to={`/tasks/${task?.id}/edit`}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="削除" placement="top" arrow>
+                      <IconButton>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Stack>
+                )
+              }
+            />
             <CardContent>
-              <Typography
-                variant="subtitle1"
-                component="div"
-                color="text.secondary"
-              >
-                タイトル
-              </Typography>
-              <Typography variant="h5" component="div" sx={{ mb: 2 }}>
-                {task?.title}
-              </Typography>
               <Typography
                 variant="subtitle1"
                 component="div"
@@ -78,17 +96,6 @@ const TasksShow: FC = () => {
               <Typography variant="body1" component="div" sx={{ mb: 2 }}>
                 {task?.is_done.toString()}
               </Typography>
-              {task?.user_id === currentUser?.id && (
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  type="button"
-                  component={Link}
-                  to={`/tasks/${task?.id}/edit`}
-                >
-                  編集
-                </Button>
-              )}
             </CardContent>
             <CardActions>
               <Button
