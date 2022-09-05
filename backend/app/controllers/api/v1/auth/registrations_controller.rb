@@ -22,6 +22,16 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
     end
   end
 
+  protected
+
+  def render_update_success
+    data = resource_data.as_json.merge(avatar: avatar_url(@resource))
+    render json: {
+      status: "success",
+      data:
+    }
+  end
+
   private
 
   def sign_up_params
