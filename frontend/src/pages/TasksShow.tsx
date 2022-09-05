@@ -1,5 +1,6 @@
 import { FC, useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 import {
   Button,
   Card,
@@ -14,14 +15,20 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { axiosInstance } from "../utils/axios";
 import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 import { PriorityLabel } from "../components/PriorityLabel";
 import { DeadlineFormat } from "../components/DeadlineFormat";
 import { AlertDialog } from "../components/AlertDialog";
 
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
+  const { handleSetSnackbar } = useContext(SnackbarContext);
+  const navigate = useNavigate();
+  const params = useParams<{ id: string }>();
   const task = useFetchTask();
 
   const [open, setOpen] = useState(false);
@@ -32,6 +39,41 @@ const TasksShow: FC = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleTasksDelete = () => {
+    const options: AxiosRequestConfig = {
+      url: `/tasks/${params.id}`,
+      method: "DELETE",
+      headers: {
+        "access-token": Cookies.get("_access_token") || "",
+        client: Cookies.get("_client") || "",
+        uid: Cookies.get("_uid") || "",
+      },
+    };
+
+    axiosInstance(options)
+      .then((res: AxiosResponse) => {
+        console.log(res);
+
+        if (res.status === 200) {
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: "タスクを削除しました",
+          });
+          navigate(`/users/${currentUser?.id}`, { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+          message: err.response.data.errors,
+        });
+      });
   };
 
   return (
@@ -66,7 +108,12 @@ const TasksShow: FC = () => {
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
-                    <AlertDialog open={open} handleClose={handleClose} />
+                    <AlertDialog
+                      open={open}
+                      handleClose={handleClose}
+                      objectName="タスク"
+                      onClick={handleTasksDelete}
+                    />
                   </Stack>
                 )
               }
