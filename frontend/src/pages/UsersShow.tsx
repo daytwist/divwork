@@ -69,6 +69,7 @@ const UsersShow: FC = () => {
             <Grid item>
               <Box sx={{ width: "100%" }}>
                 <Tabs
+                  textColor="inherit"
                   value={value}
                   onChange={handleSwitchTasks}
                   aria-label="tabs"

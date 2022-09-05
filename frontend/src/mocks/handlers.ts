@@ -1,6 +1,7 @@
 import { rest } from "msw";
 import { mockSignIn, mockAuthSessions, mockGuestSignIn } from "./mockAuth";
 import { mockDivisionCreate, mockDivisionNew } from "./mockDivision";
+import { mockTask } from "./mockTask";
 import { mockTeam, mockTeamCreate } from "./mockTeam";
 import { mockTeams } from "./mockTeams";
 import { mockUser, mockUserEdit } from "./mockUser";
@@ -16,4 +17,6 @@ export const handlers = [
   rest.patch("/auth", mockUserEdit),
   rest.get("/tasks/:id/divisions/new", mockDivisionNew),
   rest.post("/tasks/:id/divisions", mockDivisionCreate),
+  rest.get("/tasks/:id", mockTask),
+  rest.delete("/tasks/:id", mockTask),
 ];
