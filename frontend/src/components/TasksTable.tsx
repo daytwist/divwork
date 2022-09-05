@@ -2,8 +2,8 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
-  Button,
   Checkbox,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -11,7 +11,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Task, User, TasksResponse } from "../types";
@@ -55,7 +57,10 @@ export const TasksTable = (props: Props) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ width: 850 }} aria-label="tasks table">
+      <Table
+        sx={{ width: { xs: 200, sm: 500, md: 700, lg: 900 } }}
+        aria-label="tasks table"
+      >
         <TableHead>
           <TableRow>
             {user?.id === currentUser?.id && (
@@ -88,12 +93,19 @@ export const TasksTable = (props: Props) => {
               </TableCell>
               {!isFinished && (
                 <TableCell align="center">
-                  <Button
-                    component={Link}
-                    to={`/tasks/${task.id}/divisions/new`}
+                  <Tooltip
+                    color="secondary"
+                    title="分担する"
+                    placement="top"
+                    arrow
                   >
-                    分担する
-                  </Button>
+                    <IconButton
+                      component={Link}
+                      to={`/tasks/${task.id}/divisions/new`}
+                    >
+                      <SendIcon />
+                    </IconButton>
+                  </Tooltip>
                 </TableCell>
               )}
             </TableRow>
