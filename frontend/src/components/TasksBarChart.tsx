@@ -21,9 +21,9 @@ export const TasksBar = (props: Props) => {
   const data = [
     {
       name: user.name,
-      高: user.unfinished_tasks_count[0],
+      高: user.unfinished_tasks_count[2],
       中: user.unfinished_tasks_count[1],
-      低: user.unfinished_tasks_count[2],
+      低: user.unfinished_tasks_count[0],
     },
   ];
 

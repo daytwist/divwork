@@ -5,7 +5,7 @@ import { Avatar, Button, Divider, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Team, TeamsShowResponse, User } from "../types";
-import { TasksBar } from "../components/TasksBar";
+import { TasksBar } from "../components/TasksBarChart";
 
 const TeamsShow: FC = () => {
   const [team, setTeam] = useState<Team>();
