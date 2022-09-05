@@ -8,13 +8,20 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  IconButton,
+  TextField,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { AuthContext } from "../providers/AuthProvider";
-import { User, UsersResponse } from "../types";
+import { User, UsersEditResponse } from "../types";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 
 const UsersEdit: FC = () => {
@@ -70,11 +77,11 @@ const UsersEdit: FC = () => {
     };
 
     axiosInstance(updateOptions)
-      .then((res: AxiosResponse<UsersResponse>) => {
+      .then((res: AxiosResponse<UsersEditResponse>) => {
         console.log(res);
 
         if (res.status === 200) {
-          setCurrentUser(user);
+          setCurrentUser(res.data.data);
           handleSetSnackbar({
             open: true,
             type: "success",
@@ -123,7 +130,7 @@ const UsersEdit: FC = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container direction="column" spacing={1} alignContent="center">
+          <Grid container direction="column" spacing={1}>
             <Grid item>
               <Grid
                 container
@@ -137,19 +144,17 @@ const UsersEdit: FC = () => {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="label"
-                  >
-                    <input
-                      hidden
-                      accept="image/*"
-                      type="file"
-                      onChange={handleImageSelect}
-                    />
-                    <PhotoCamera />
-                  </IconButton>
+                  <Tooltip title="ファイル選択" placement="top" arrow>
+                    <IconButton component="label">
+                      <input
+                        hidden
+                        accept="image/*"
+                        type="file"
+                        onChange={handleImageSelect}
+                      />
+                      <PhotoCamera />
+                    </IconButton>
+                  </Tooltip>
                 </Grid>
               </Grid>
             </Grid>
@@ -158,19 +163,18 @@ const UsersEdit: FC = () => {
                 <img src={user.avatar} alt="avatar" width={300} height="auto" />
               ) : (
                 <Typography variant="body1" component="div">
-                  設定されていません
+                  未設定
                 </Typography>
               )}
             </Grid>
-            {image ? (
-              <Typography variant="body1" component="div">
-                {image.filename}
-              </Typography>
-            ) : null}
+            <Grid item>
+              {image ? (
+                <Typography variant="body1" component="div">
+                  選択中のファイル：{image.filename}
+                </Typography>
+              ) : null}
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid item>
-          <Typography>{user?.team_id}</Typography>
         </Grid>
         <Grid item>
           <TextField
@@ -198,7 +202,14 @@ const UsersEdit: FC = () => {
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="outlined">パスワード変更</Button>
+          <Button color="secondary" variant="contained">
+            パスワード変更
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button color="error" variant="outlined">
+            アカウント削除
+          </Button>
         </Grid>
       </Grid>
     </div>
