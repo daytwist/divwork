@@ -23,9 +23,11 @@ import { useFetchUser } from "../hooks/useFetchUser";
 import { AuthContext } from "../providers/AuthProvider";
 import { User, UsersEditResponse } from "../types";
 import { SnackbarContext } from "../providers/SnackbarProvider";
+import { AlertDialog } from "../components/AlertDialog";
 
 const UsersEdit: FC = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { setIsSignedIn, currentUser, setCurrentUser } =
+    useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const { user: userData } = useFetchUser();
@@ -52,11 +54,35 @@ const UsersEdit: FC = () => {
     filename: "",
   });
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
+  };
+
+  const handleImageSelect = (event: FormEvent) => {
+    const reader = new FileReader();
+    const { files } = event.target as HTMLInputElement;
+    if (files) {
+      reader.onload = () => {
+        setImage({
+          data: reader.result as string,
+          filename: files[0] ? files[0].name : "unknownfile",
+        });
+      };
+      reader.readAsDataURL(files[0]);
+    }
   };
 
   const handleUsersUpdate = () => {
@@ -95,24 +121,47 @@ const UsersEdit: FC = () => {
         handleSetSnackbar({
           open: true,
           type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.errors}`,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
+          message: err.response.data.errors.full_messages.join("。"),
         });
       });
   };
 
-  const handleImageSelect = (event: FormEvent) => {
-    const reader = new FileReader();
-    const { files } = event.target as HTMLInputElement;
-    if (files) {
-      reader.onload = () => {
-        setImage({
-          data: reader.result as string,
-          filename: files[0] ? files[0].name : "unknownfile",
+  const handleUsersDelete = () => {
+    const options: AxiosRequestConfig = {
+      url: "/auth",
+      method: "DELETE",
+      headers: {
+        "access-token": Cookies.get("_access_token") || "",
+        client: Cookies.get("_client") || "",
+        uid: Cookies.get("_uid") || "",
+      },
+    };
+
+    axiosInstance(options)
+      .then((res: AxiosResponse) => {
+        console.log(res);
+
+        if (res.status === 200) {
+          setIsSignedIn(false);
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message:
+              "アカウントを削除しました。またのご利用をお待ちしております。",
+          });
+          navigate("/", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+          message: err.response.data.error,
         });
-      };
-      reader.readAsDataURL(files[0]);
-    }
+      });
   };
 
   useEffect(() => {
@@ -207,9 +256,15 @@ const UsersEdit: FC = () => {
           </Button>
         </Grid>
         <Grid item>
-          <Button color="error" variant="outlined">
+          <Button color="error" variant="outlined" onClick={handleClickOpen}>
             アカウント削除
           </Button>
+          <AlertDialog
+            open={open}
+            handleClose={handleClose}
+            objectName="アカウント"
+            onClick={handleUsersDelete}
+          />
         </Grid>
       </Grid>
     </div>
