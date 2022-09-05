@@ -47,7 +47,8 @@ const TasksShow: FC = () => {
             <CardHeader
               title={task?.title}
               action={
-                task?.user_id === currentUser?.id && (
+                task?.user_id === currentUser?.id &&
+                task?.is_done === false && (
                   <Stack direction="row" spacing={1}>
                     <Tooltip title="編集" placement="top" arrow>
                       <IconButton
@@ -113,14 +114,16 @@ const TasksShow: FC = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button
-                variant="contained"
-                type="button"
-                component={Link}
-                to={`/tasks/${task?.id}/divisions/new`}
-              >
-                分担する
-              </Button>
+              {task?.is_done === false && (
+                <Button
+                  variant="contained"
+                  type="button"
+                  component={Link}
+                  to={`/tasks/${task?.id}/divisions/new`}
+                >
+                  分担する
+                </Button>
+              )}
             </CardActions>
           </Card>
         </Grid>
