@@ -97,6 +97,11 @@ export type UsersResponse = {
   avatar: string;
 };
 
+export type UsersEditResponse = {
+  status: string;
+  data: User;
+};
+
 export type TasksResponse = {
   task: Task;
 };
