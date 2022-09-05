@@ -58,7 +58,10 @@ const TasksShow: FC = () => {
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="削除" placement="top" arrow>
-                      <IconButton onClick={handleClickOpen}>
+                      <IconButton
+                        onClick={handleClickOpen}
+                        data-testid="delete-button"
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
