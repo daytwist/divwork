@@ -1,6 +1,6 @@
 import { MockedRequest, ResponseResolver, restContext } from "msw";
 
-export const mockDivisionNew: ResponseResolver<
+export const mockDivisionsNew: ResponseResolver<
   MockedRequest,
   typeof restContext
 > = (req, res, ctx) => {
@@ -38,7 +38,7 @@ export const mockDivisionNew: ResponseResolver<
   );
 };
 
-export const mockDivisionCreate: ResponseResolver<
+export const mockDivisionsCreate: ResponseResolver<
   MockedRequest,
   typeof restContext
 > = (req, res, ctx) => {

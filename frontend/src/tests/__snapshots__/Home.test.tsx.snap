@@ -4,6 +4,7 @@ exports[`Home スナップショット 1`] = `
 <div>
   <div
     className="MuiTypography-root MuiTypography-h2 MuiTypography-gutterBottom css-i1hrn3-MuiTypography-root"
+    data-testid="home-title"
   >
     DivWork
   </div>
