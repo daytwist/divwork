@@ -96,7 +96,7 @@ export const UsersEditPassword = () => {
           variant="contained"
           onClick={handlePasswordUpdate}
         >
-          パスワード変更
+          更新する
         </Button>
       </Grid>
     </Grid>
