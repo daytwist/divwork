@@ -1,11 +1,10 @@
-import { FC, memo, useContext } from "react";
+import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import { AuthContext } from "../providers/AuthProvider";
 import { HeaderMenuButton } from "./HeaderMenuButton";
 
-// eslint-disable-next-line react/display-name
-const Header: FC = memo(() => {
+const Header: FC = () => {
   const { isSignedIn, currentUser } = useContext(AuthContext);
 
   return (
@@ -53,6 +52,6 @@ const Header: FC = memo(() => {
       </AppBar>
     </Box>
   );
-});
+};
 
 export default Header;

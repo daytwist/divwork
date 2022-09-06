@@ -8,17 +8,26 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  IconButton,
+  TextField,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { AuthContext } from "../providers/AuthProvider";
-import { User, UsersResponse } from "../types";
+import { User, UsersEditResponse } from "../types";
 import { SnackbarContext } from "../providers/SnackbarProvider";
+import { AlertDialog } from "../components/AlertDialog";
 
 const UsersEdit: FC = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { setIsSignedIn, currentUser, setCurrentUser } =
+    useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const { user: userData } = useFetchUser();
@@ -45,11 +54,35 @@ const UsersEdit: FC = () => {
     filename: "",
   });
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
+  };
+
+  const handleImageSelect = (event: FormEvent) => {
+    const reader = new FileReader();
+    const { files } = event.target as HTMLInputElement;
+    if (files) {
+      reader.onload = () => {
+        setImage({
+          data: reader.result as string,
+          filename: files[0] ? files[0].name : "unknownfile",
+        });
+      };
+      reader.readAsDataURL(files[0]);
+    }
   };
 
   const handleUsersUpdate = () => {
@@ -70,11 +103,11 @@ const UsersEdit: FC = () => {
     };
 
     axiosInstance(updateOptions)
-      .then((res: AxiosResponse<UsersResponse>) => {
+      .then((res: AxiosResponse<UsersEditResponse>) => {
         console.log(res);
 
         if (res.status === 200) {
-          setCurrentUser(user);
+          setCurrentUser(res.data.data);
           handleSetSnackbar({
             open: true,
             type: "success",
@@ -88,24 +121,47 @@ const UsersEdit: FC = () => {
         handleSetSnackbar({
           open: true,
           type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.errors}`,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
+          message: err.response.data.errors.full_messages.join("。"),
         });
       });
   };
 
-  const handleImageSelect = (event: FormEvent) => {
-    const reader = new FileReader();
-    const { files } = event.target as HTMLInputElement;
-    if (files) {
-      reader.onload = () => {
-        setImage({
-          data: reader.result as string,
-          filename: files[0] ? files[0].name : "unknownfile",
+  const handleUsersDelete = () => {
+    const options: AxiosRequestConfig = {
+      url: "/auth",
+      method: "DELETE",
+      headers: {
+        "access-token": Cookies.get("_access_token") || "",
+        client: Cookies.get("_client") || "",
+        uid: Cookies.get("_uid") || "",
+      },
+    };
+
+    axiosInstance(options)
+      .then((res: AxiosResponse) => {
+        console.log(res);
+
+        if (res.status === 200) {
+          setIsSignedIn(false);
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message:
+              "アカウントを削除しました。またのご利用をお待ちしております。",
+          });
+          navigate("/", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+          message: err.response.data.error,
         });
-      };
-      reader.readAsDataURL(files[0]);
-    }
+      });
   };
 
   useEffect(() => {
@@ -119,11 +175,11 @@ const UsersEdit: FC = () => {
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">
-            ユーザー設定
+            アカウント設定
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container direction="column" spacing={1} alignContent="center">
+          <Grid container direction="column" spacing={1}>
             <Grid item>
               <Grid
                 container
@@ -137,19 +193,17 @@ const UsersEdit: FC = () => {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="label"
-                  >
-                    <input
-                      hidden
-                      accept="image/*"
-                      type="file"
-                      onChange={handleImageSelect}
-                    />
-                    <PhotoCamera />
-                  </IconButton>
+                  <Tooltip title="ファイル選択" placement="top" arrow>
+                    <IconButton component="label">
+                      <input
+                        hidden
+                        accept="image/*"
+                        type="file"
+                        onChange={handleImageSelect}
+                      />
+                      <PhotoCamera />
+                    </IconButton>
+                  </Tooltip>
                 </Grid>
               </Grid>
             </Grid>
@@ -158,19 +212,18 @@ const UsersEdit: FC = () => {
                 <img src={user.avatar} alt="avatar" width={300} height="auto" />
               ) : (
                 <Typography variant="body1" component="div">
-                  設定されていません
+                  未設定
                 </Typography>
               )}
             </Grid>
-            {image ? (
-              <Typography variant="body1" component="div">
-                {image.filename}
-              </Typography>
-            ) : null}
+            <Grid item>
+              {image ? (
+                <Typography variant="body1" component="div">
+                  選択中のファイル：{image.filename}
+                </Typography>
+              ) : null}
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid item>
-          <Typography>{user?.team_id}</Typography>
         </Grid>
         <Grid item>
           <TextField
@@ -198,7 +251,20 @@ const UsersEdit: FC = () => {
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="outlined">パスワード変更</Button>
+          <Button color="secondary" variant="contained">
+            パスワード変更
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button color="error" variant="outlined" onClick={handleClickOpen}>
+            アカウント削除
+          </Button>
+          <AlertDialog
+            open={open}
+            handleClose={handleClose}
+            objectName="アカウント"
+            onClick={handleUsersDelete}
+          />
         </Grid>
       </Grid>
     </div>

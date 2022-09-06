@@ -1,10 +1,9 @@
 import { MockedRequest, ResponseResolver, restContext } from "msw";
 
-export const mockTask: ResponseResolver<MockedRequest, typeof restContext> = (
-  req,
-  res,
-  ctx
-) => {
+export const mockTasksShow: ResponseResolver<
+  MockedRequest,
+  typeof restContext
+> = (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({

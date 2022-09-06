@@ -1,22 +1,28 @@
 import { rest } from "msw";
-import { mockSignIn, mockAuthSessions, mockGuestSignIn } from "./mockAuth";
-import { mockDivisionCreate, mockDivisionNew } from "./mockDivision";
-import { mockTask } from "./mockTask";
-import { mockTeam, mockTeamCreate } from "./mockTeam";
-import { mockTeams } from "./mockTeams";
-import { mockUser, mockUserEdit } from "./mockUser";
+import {
+  mockSignIn,
+  mockAuthSessions,
+  mockGuestSignIn,
+  mockAuthDelete,
+  mockAuthUpdate,
+} from "./mockAuth";
+import { mockDivisionsCreate, mockDivisionsNew } from "./mockDivisions";
+import { mockTasksShow } from "./mockTasks";
+import { mockTeamsCreate, mockTeamsSelect, mockTeamsShow } from "./mockTeams";
+import { mockUsersShow } from "./mockUsers";
 
 export const handlers = [
-  rest.get("/teams/select", mockTeams),
-  rest.post("/teams", mockTeamCreate),
-  rest.post("/auth/sign_in", mockSignIn),
   rest.get("/auth/sessions", mockAuthSessions),
+  rest.post("/auth/sign_in", mockSignIn),
   rest.post("/auth/guest_sign_in", mockGuestSignIn),
-  rest.get("/teams/:id", mockTeam),
-  rest.get("/users/:id", mockUser),
-  rest.patch("/auth", mockUserEdit),
-  rest.get("/tasks/:id/divisions/new", mockDivisionNew),
-  rest.post("/tasks/:id/divisions", mockDivisionCreate),
-  rest.get("/tasks/:id", mockTask),
-  rest.delete("/tasks/:id", mockTask),
+  rest.patch("/auth", mockAuthUpdate),
+  rest.delete("/auth", mockAuthDelete),
+  rest.get("/teams/select", mockTeamsSelect),
+  rest.get("/teams/:id", mockTeamsShow),
+  rest.post("/teams", mockTeamsCreate),
+  rest.get("/users/:id", mockUsersShow),
+  rest.get("/tasks/:id/divisions/new", mockDivisionsNew),
+  rest.post("/tasks/:id/divisions", mockDivisionsCreate),
+  rest.get("/tasks/:id", mockTasksShow),
+  rest.delete("/tasks/:id", mockTasksShow),
 ];

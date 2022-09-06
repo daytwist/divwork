@@ -120,7 +120,7 @@ const TeamsSelect: FC = () => {
         <Grid item>
           <Button variant="contained" type="button">
             <Link
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "none", color: "black" }}
               to="/sign_up"
               key={teamId}
               state={{ teamId, teamName, isAdmin: false }}

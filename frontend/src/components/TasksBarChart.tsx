@@ -21,14 +21,14 @@ export const TasksBar = (props: Props) => {
   const data = [
     {
       name: user.name,
-      高: user.unfinished_tasks_count[0],
+      高: user.unfinished_tasks_count[2],
       中: user.unfinished_tasks_count[1],
-      低: user.unfinished_tasks_count[2],
+      低: user.unfinished_tasks_count[0],
     },
   ];
 
   return (
-    <Box sx={{ width: { xs: 200, sm: 350, md: 500 ,lg: 600 } }}>
+    <Box sx={{ width: { xs: 200, sm: 350, md: 500, lg: 600 } }}>
       <ResponsiveContainer width="100%" height={70}>
         <BarChart barSize={16} layout="vertical" data={data}>
           <XAxis type="number" hide domain={[0, maxCount]} />

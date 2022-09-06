@@ -121,7 +121,7 @@ exports[`TeamsSelect スナップショット 1`] = `
           onClick={[Function]}
           style={
             Object {
-              "color": "white",
+              "color": "black",
               "textDecoration": "none",
             }
           }

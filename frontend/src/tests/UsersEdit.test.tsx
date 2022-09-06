@@ -7,13 +7,14 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import CommonLayout from "../components/CommonLayout";
 import { server } from "../mocks/server";
+import Home from "../pages/Home";
 import UsersEdit from "../pages/UsersEdit";
 import UsersShow from "../pages/UsersShow";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 
 describe("UsersEdit", () => {
-  test("ユーザー情報編集ページ", async () => {
+  test("ユーザー情報更新", async () => {
     server.use(
       rest.get("/auth/sessions", (req, res, ctx) => {
         return res(
@@ -71,5 +72,69 @@ describe("UsersEdit", () => {
     expect(
       await screen.findByText("ユーザー情報を更新しました")
     ).toBeInTheDocument();
+  });
+
+  test("アカウント削除", async () => {
+    server.use(
+      rest.get("/auth/sessions", (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.json({
+            is_signed_in: true,
+            current_user: {
+              email: "test@example.com",
+              uid: "test@example.com",
+              id: 1,
+              provider: "email",
+              allow_password_change: false,
+              name: "USER_1",
+              nickname: null,
+              image: null,
+              team_id: 1,
+            },
+          })
+        );
+      })
+    );
+
+    render(
+      <MemoryRouter initialEntries={["/users/1/edit"]}>
+        <AuthProvider>
+          <SnackbarProvider>
+            <CommonLayout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/users/:id/edit" element={<UsersEdit />} />
+              </Routes>
+            </CommonLayout>
+          </SnackbarProvider>
+        </AuthProvider>
+      </MemoryRouter>
+    );
+
+    // ユーザー情報が表示されている
+    expect(await screen.findByDisplayValue("USER_1")).toBeInTheDocument();
+
+    await act(() => {
+      userEvent.click(screen.getByRole("button", { name: "アカウント削除" }));
+    });
+
+    // 削除確認ダイアログが開く
+    expect(
+      await screen.findByText("アカウントを削除しますか？")
+    ).toBeInTheDocument();
+
+    await act(() => {
+      userEvent.click(screen.getByRole("button", { name: "削除する" }));
+    });
+
+    expect(
+      await screen.findByText(
+        "アカウントを削除しました。またのご利用をお待ちしております。"
+      )
+    ).toBeInTheDocument();
+
+    // ホームに遷移する
+    expect(await screen.findByTestId("home-title")).toBeInTheDocument();
   });
 });

@@ -111,7 +111,7 @@ export const HeaderMenuButton: FC = () => {
           to={`/users/${currentUser?.id}/edit`}
           onClick={handleClose}
         >
-          ユーザー設定
+          アカウント設定
         </MenuItem>
         <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
       </Menu>

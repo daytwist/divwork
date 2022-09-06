@@ -31,11 +31,15 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
 
     it "名前の変更に成功すること" do
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include("new_name")
+      expect(json["data"]["name"]).to eq params[:name]
     end
 
     it "画像のアップロードに成功すること" do
       expect(user.avatar.attached?).to be true
+    end
+
+    it "アバター情報がレスポンスデータに含まれていること" do
+      expect(json["data"]["avatar"]).not_to eq ""
     end
   end
 
