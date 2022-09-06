@@ -13,7 +13,7 @@ import {
   TableRow,
   Tooltip,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { Task, User, TasksResponse } from "../types";
@@ -103,7 +103,7 @@ export const TasksTable = (props: Props) => {
                       component={Link}
                       to={`/tasks/${task.id}/divisions/new`}
                     >
-                      <SendIcon />
+                      <ConnectWithoutContactIcon />
                     </IconButton>
                   </Tooltip>
                 </TableCell>
