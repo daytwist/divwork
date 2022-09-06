@@ -54,6 +54,11 @@ const UsersEdit: FC = () => {
     filename: "",
   });
 
+  const [newPasswords, setNewPasswords] = useState({
+    password: "",
+    passwordConfirmation: "",
+  });
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -64,11 +69,18 @@ const UsersEdit: FC = () => {
     setOpen(false);
   };
 
-  const handleInputChange = (
+  const handleInputChangeUsers = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
+  };
+
+  const handleInputChangePasswords = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setNewPasswords({ ...newPasswords, [name]: value });
   };
 
   const handleImageSelect = (event: FormEvent) => {
@@ -232,7 +244,7 @@ const UsersEdit: FC = () => {
             sx={{ width: "30ch" }}
             name="name"
             value={user?.name}
-            onChange={handleInputChange}
+            onChange={handleInputChangeUsers}
           />
         </Grid>
         <Grid item>
@@ -242,13 +254,35 @@ const UsersEdit: FC = () => {
             sx={{ width: "30ch" }}
             name="email"
             value={user?.email}
-            onChange={handleInputChange}
+            onChange={handleInputChangeUsers}
           />
         </Grid>
         <Grid item>
           <Button variant="contained" type="submit" onClick={handleUsersUpdate}>
             更新する
           </Button>
+        </Grid>
+        <Grid item>
+          <TextField
+            type="password"
+            label="新しいパスワード"
+            variant="standard"
+            sx={{ width: "30ch" }}
+            name="password"
+            value={newPasswords.password}
+            onChange={handleInputChangePasswords}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            type="password"
+            label="新しいパスワード(確認用)"
+            variant="standard"
+            sx={{ width: "30ch" }}
+            name="passwordConfirmation"
+            value={newPasswords.passwordConfirmation}
+            onChange={handleInputChangePasswords}
+          />
         </Grid>
         <Grid item>
           <Button color="secondary" variant="contained">
