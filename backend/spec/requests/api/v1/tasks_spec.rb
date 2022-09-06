@@ -31,10 +31,23 @@ RSpec.describe "Api::V1::Tasks", type: :request do
     end
 
     describe "GET /:id" do
+      let(:another_user) { create(:user, team:) }
+      let(:child_task) { create(:task, user: another_user, parent_id: task.id) }
+      let!(:division) { create(:division, user:, task: child_task) }
+
+      before do
+        get "/api/v1/tasks/#{task.id}", headers:
+      end
+
       it "タスクの情報取得に成功すること" do
-        get "/api/v1/tasks/#{task.id}", headers: headers
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include(task.to_json)
+        expect(json["task"]["id"]).to eq task.id
+      end
+
+      it "chilren_tasks, divisionが取得出来ること" do
+        expect(json["children_tasks"][0]["id"]).to eq child_task.id
+        expect(json["children_tasks"][0]["division"]["id"]).to eq division.id
+        expect(json["division"]).to be_nil
       end
     end
 
