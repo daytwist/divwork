@@ -27,11 +27,10 @@ export const mockTeamsSelect: ResponseResolver<
   );
 };
 
-export const mockTeamsShow: ResponseResolver<MockedRequest, typeof restContext> = (
-  req,
-  res,
-  ctx
-) => {
+export const mockTeamsShow: ResponseResolver<
+  MockedRequest,
+  typeof restContext
+> = (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({

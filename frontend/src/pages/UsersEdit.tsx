@@ -175,7 +175,7 @@ const UsersEdit: FC = () => {
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">
-            ユーザー設定
+            アカウント設定
           </Typography>
         </Grid>
         <Grid item>

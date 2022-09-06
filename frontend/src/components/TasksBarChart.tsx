@@ -28,7 +28,7 @@ export const TasksBar = (props: Props) => {
   ];
 
   return (
-    <Box sx={{ width: { xs: 200, sm: 350, md: 500 ,lg: 600 } }}>
+    <Box sx={{ width: { xs: 200, sm: 350, md: 500, lg: 600 } }}>
       <ResponsiveContainer width="100%" height={70}>
         <BarChart barSize={16} layout="vertical" data={data}>
           <XAxis type="number" hide domain={[0, maxCount]} />
