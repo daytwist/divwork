@@ -14,29 +14,29 @@ import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 
 describe("UsersEdit", () => {
-  test("ユーザー情報更新", async () => {
-    server.use(
-      rest.get("/auth/sessions", (req, res, ctx) => {
-        return res(
-          ctx.status(200),
-          ctx.json({
-            is_signed_in: true,
-            current_user: {
-              email: "test@example.com",
-              uid: "test@example.com",
-              id: 1,
-              provider: "email",
-              allow_password_change: false,
-              name: "USER_1",
-              nickname: null,
-              image: null,
-              team_id: 1,
-            },
-          })
-        );
-      })
-    );
+  server.use(
+    rest.get("/auth/sessions", (req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          is_signed_in: true,
+          current_user: {
+            email: "test@example.com",
+            uid: "test@example.com",
+            id: 1,
+            provider: "email",
+            allow_password_change: false,
+            name: "USER_1",
+            nickname: null,
+            image: null,
+            team_id: 1,
+          },
+        })
+      );
+    })
+  );
 
+  test("ユーザー情報更新", async () => {
     render(
       <MemoryRouter initialEntries={["/users/1/edit"]}>
         <AuthProvider>
@@ -74,29 +74,51 @@ describe("UsersEdit", () => {
     ).toBeInTheDocument();
   });
 
-  test("アカウント削除", async () => {
-    server.use(
-      rest.get("/auth/sessions", (req, res, ctx) => {
-        return res(
-          ctx.status(200),
-          ctx.json({
-            is_signed_in: true,
-            current_user: {
-              email: "test@example.com",
-              uid: "test@example.com",
-              id: 1,
-              provider: "email",
-              allow_password_change: false,
-              name: "USER_1",
-              nickname: null,
-              image: null,
-              team_id: 1,
-            },
-          })
-        );
-      })
+  test("パスワード更新", async () => {
+    render(
+      <MemoryRouter initialEntries={["/users/1/edit"]}>
+        <AuthProvider>
+          <SnackbarProvider>
+            <CommonLayout>
+              <Routes>
+                <Route path="/users/:id" element={<UsersShow />} />
+                <Route path="/users/:id/edit" element={<UsersEdit />} />
+              </Routes>
+            </CommonLayout>
+          </SnackbarProvider>
+        </AuthProvider>
+      </MemoryRouter>
     );
 
+    // ユーザー情報が表示されている
+    expect(await screen.findByDisplayValue("USER_1")).toBeInTheDocument();
+
+    await act(() => {
+      userEvent.click(screen.getByText("パスワード再設定"));
+    });
+
+    const updateButton = await screen.findByRole("button", {
+      name: "更新する",
+    });
+    expect(updateButton).toBeInTheDocument();
+
+    await act(() => {
+      userEvent.type(screen.getByLabelText("新しいパスワード"), "newpassword");
+      userEvent.type(
+        screen.getByLabelText("新しいパスワード(確認用)"),
+        "newpassword"
+      );
+      userEvent.click(updateButton);
+    });
+
+    // 更新するとUsersShowページへ遷移する
+    expect(await screen.findByTestId("users-show-h4")).toBeInTheDocument();
+    expect(
+      await screen.findByText("パスワードを更新しました")
+    ).toBeInTheDocument();
+  });
+
+  test("アカウント削除", async () => {
     render(
       <MemoryRouter initialEntries={["/users/1/edit"]}>
         <AuthProvider>
@@ -114,6 +136,14 @@ describe("UsersEdit", () => {
 
     // ユーザー情報が表示されている
     expect(await screen.findByDisplayValue("USER_1")).toBeInTheDocument();
+
+    await act(() => {
+      userEvent.click(screen.getByText("その他"));
+    });
+
+    expect(
+      await screen.findByRole("button", { name: "アカウント削除" })
+    ).toBeInTheDocument();
 
     await act(() => {
       userEvent.click(screen.getByRole("button", { name: "アカウント削除" }));

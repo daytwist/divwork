@@ -1,33 +1,20 @@
-import {
-  ChangeEvent,
-  FC,
-  FormEvent,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import {
-  Button,
-  Grid,
-  IconButton,
-  TextField,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import { Box, Button, Grid, Tab, Typography } from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
+import { User } from "../types";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { AuthContext } from "../providers/AuthProvider";
-import { User, UsersEditResponse } from "../types";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 import { AlertDialog } from "../components/AlertDialog";
+import { UsersEditProfile } from "./UsersEditProfile";
+import { UsersEditPassword } from "./UsersEditPassword";
 
 const UsersEdit: FC = () => {
-  const { setIsSignedIn, currentUser, setCurrentUser } =
-    useContext(AuthContext);
+  const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const { user: userData } = useFetchUser();
@@ -49,10 +36,11 @@ const UsersEdit: FC = () => {
     admin: false,
   });
 
-  const [image, setImage] = useState({
-    data: "",
-    filename: "",
-  });
+  const [value, setValue] = useState("1");
+
+  const handleChange = (event: SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -62,69 +50,6 @@ const UsersEdit: FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.target;
-    setUser({ ...user, [name]: value });
-  };
-
-  const handleImageSelect = (event: FormEvent) => {
-    const reader = new FileReader();
-    const { files } = event.target as HTMLInputElement;
-    if (files) {
-      reader.onload = () => {
-        setImage({
-          data: reader.result as string,
-          filename: files[0] ? files[0].name : "unknownfile",
-        });
-      };
-      reader.readAsDataURL(files[0]);
-    }
-  };
-
-  const handleUsersUpdate = () => {
-    const updateOptions: AxiosRequestConfig = {
-      url: "/auth",
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-      data: {
-        name: user.name,
-        email: user.email,
-        avatar: image,
-      },
-    };
-
-    axiosInstance(updateOptions)
-      .then((res: AxiosResponse<UsersEditResponse>) => {
-        console.log(res);
-
-        if (res.status === 200) {
-          setCurrentUser(res.data.data);
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "ユーザー情報を更新しました",
-          });
-          navigate(`/users/${currentUser?.id}`, { replace: false });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
-          message: err.response.data.errors.full_messages.join("。"),
-        });
-      });
   };
 
   const handleUsersDelete = () => {
@@ -172,99 +97,61 @@ const UsersEdit: FC = () => {
 
   return (
     <div>
-      <Grid container direction="column" spacing={3}>
+      <Grid container direction="column" spacing={2}>
         <Grid item>
           <Typography variant="h4" component="div">
             アカウント設定
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container direction="column" spacing={1}>
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Grid item>
-                  <Typography variant="subtitle1" component="div">
-                    アイコン画像
-                  </Typography>
+          <Box sx={{ width: 400 }}>
+            <TabContext value={value}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <TabList
+                  onChange={handleChange}
+                  textColor="secondary"
+                  indicatorColor="secondary"
+                >
+                  <Tab label="プロフィール" value="1" />
+                  <Tab label="パスワード再設定" value="2" />
+                  <Tab label="その他" value="3" />
+                </TabList>
+              </Box>
+              <TabPanel value="1">
+                <Grid container justifyContent="center">
+                  <Grid item>
+                    <UsersEditProfile user={user} setUser={setUser} />
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Tooltip title="ファイル選択" placement="top" arrow>
-                    <IconButton component="label">
-                      <input
-                        hidden
-                        accept="image/*"
-                        type="file"
-                        onChange={handleImageSelect}
-                      />
-                      <PhotoCamera />
-                    </IconButton>
-                  </Tooltip>
+              </TabPanel>
+              <TabPanel value="2">
+                <Grid container justifyContent="center">
+                  <Grid item>
+                    <UsersEditPassword />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              {user.avatar ? (
-                <img src={user.avatar} alt="avatar" width={300} height="auto" />
-              ) : (
-                <Typography variant="body1" component="div">
-                  未設定
-                </Typography>
-              )}
-            </Grid>
-            <Grid item>
-              {image ? (
-                <Typography variant="body1" component="div">
-                  選択中のファイル：{image.filename}
-                </Typography>
-              ) : null}
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <TextField
-            label="ユーザー名"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            name="name"
-            value={user?.name}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            label="メールアドレス"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            name="email"
-            value={user?.email}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item>
-          <Button variant="contained" type="submit" onClick={handleUsersUpdate}>
-            更新する
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button color="secondary" variant="contained">
-            パスワード変更
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button color="error" variant="outlined" onClick={handleClickOpen}>
-            アカウント削除
-          </Button>
-          <AlertDialog
-            open={open}
-            handleClose={handleClose}
-            objectName="アカウント"
-            onClick={handleUsersDelete}
-          />
+              </TabPanel>
+              <TabPanel value="3">
+                <Grid container justifyContent="center">
+                  <Grid item>
+                    <Button
+                      color="error"
+                      variant="outlined"
+                      onClick={handleClickOpen}
+                    >
+                      アカウント削除
+                    </Button>
+                    <AlertDialog
+                      open={open}
+                      handleClose={handleClose}
+                      objectName="アカウント"
+                      onClick={handleUsersDelete}
+                    />
+                  </Grid>
+                </Grid>
+              </TabPanel>
+            </TabContext>
+          </Box>
         </Grid>
       </Grid>
     </div>
