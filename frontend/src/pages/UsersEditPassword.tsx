@@ -73,6 +73,7 @@ export const UsersEditPassword = () => {
           type="password"
           label="新しいパスワード"
           variant="standard"
+          color="secondary"
           sx={{ width: "30ch" }}
           name="password"
           value={newPasswords.password}
@@ -84,6 +85,7 @@ export const UsersEditPassword = () => {
           type="password"
           label="新しいパスワード(確認用)"
           variant="standard"
+          color="secondary"
           sx={{ width: "30ch" }}
           name="passwordConfirmation"
           value={newPasswords.passwordConfirmation}

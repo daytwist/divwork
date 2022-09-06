@@ -165,6 +165,7 @@ export const UsersEditProfile = (props: Props) => {
             <TextField
               label="ユーザー名"
               variant="standard"
+              color="secondary"
               sx={{ width: "30ch" }}
               name="name"
               value={user?.name}
@@ -175,6 +176,7 @@ export const UsersEditProfile = (props: Props) => {
             <TextField
               label="メールアドレス"
               variant="standard"
+              color="secondary"
               sx={{ width: "30ch" }}
               name="email"
               value={user?.email}
@@ -184,6 +186,7 @@ export const UsersEditProfile = (props: Props) => {
           <Grid item>
             <Button
               variant="contained"
+              color="secondary"
               type="submit"
               onClick={handleUsersUpdate}
             >
