@@ -36,6 +36,20 @@ export type Task = {
   parent_id: number;
 };
 
+export type ChildrenTask = {
+  id: number;
+  title: string;
+  description: string;
+  deadline: Date;
+  priority: string;
+  is_done: boolean;
+  user_id: number;
+  created_at: Date;
+  updated_at: Date;
+  parent_id: number;
+  division: Division;
+};
+
 export type Division = {
   id: number;
   user_id: number;
@@ -110,6 +124,12 @@ export type UsersEditResponse = {
 
 export type TasksResponse = {
   task: Task;
+};
+
+export type TasksShowResponse = {
+  task: Task;
+  children_tasks: ChildrenTask[];
+  division: Division | undefined;
 };
 
 export type DivisionsNewResponse = {

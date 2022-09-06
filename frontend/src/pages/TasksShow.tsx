@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PeopleIcon from "@mui/icons-material/People";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { useFetchTask } from "../hooks/useFetchTask";
@@ -29,9 +30,11 @@ const TasksShow: FC = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const params = useParams<{ id: string }>();
-  const task = useFetchTask();
+  const { task, childrenTasks, division } = useFetchTask();
 
   const [open, setOpen] = useState(false);
+
+  const childrenTasksCount = childrenTasks.length;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -87,7 +90,51 @@ const TasksShow: FC = () => {
         <Grid item>
           <Card sx={{ minWidth: 500, p: 2 }}>
             <CardHeader
-              title={task?.title}
+              title={
+                <Typography variant="h5" component="div">
+                  {task?.title}
+                </Typography>
+              }
+              subheader={
+                <div>
+                  {childrenTasksCount ? (
+                    <Stack direction="row" mt={1}>
+                      <PeopleIcon
+                        sx={{
+                          width: 18,
+                          height: 18,
+                          mr: 1,
+                        }}
+                      />
+                      <Typography
+                        color="text.secondary"
+                        variant="body2"
+                        component="div"
+                      >
+                        このタスクは分担されました (親タスク)
+                      </Typography>
+                    </Stack>
+                  ) : null}
+                  {division ? (
+                    <Stack direction="row" mt={1}>
+                      <PeopleIcon
+                        sx={{
+                          width: 18,
+                          height: 18,
+                          mr: 1,
+                        }}
+                      />
+                      <Typography
+                        color="text.secondary"
+                        variant="body2"
+                        component="div"
+                      >
+                        このタスクは分担されました (子タスク)
+                      </Typography>
+                    </Stack>
+                  ) : null}
+                </div>
+              }
               action={
                 task?.user_id === currentUser?.id &&
                 task?.is_done === false && (
