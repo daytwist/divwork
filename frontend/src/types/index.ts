@@ -77,6 +77,12 @@ export type AuthResponse = {
   data: User;
 };
 
+export type AuthPasswordResponse = {
+  success: boolean;
+  data: User;
+  message: string;
+};
+
 export type TeamsSelectResponse = {
   teams: Team[];
 };
