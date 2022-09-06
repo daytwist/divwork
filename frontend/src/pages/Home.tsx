@@ -49,7 +49,12 @@ const Home: FC = () => {
 
   return (
     <div>
-      <Typography variant="h2" component="div" gutterBottom>
+      <Typography
+        variant="h2"
+        component="div"
+        gutterBottom
+        data-testid="home-title"
+      >
         DivWork
       </Typography>
       <Grid container direction="column" spacing={2}>

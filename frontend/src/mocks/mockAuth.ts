@@ -94,3 +94,16 @@ export const mockGuestSignIn: ResponseResolver<
     })
   );
 };
+
+export const mockAuthDelete: ResponseResolver<
+  MockedRequest,
+  typeof restContext
+> = (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      status: "success",
+      message: "'test@example.com'のアカウントは削除されました",
+    })
+  );
+};
