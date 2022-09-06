@@ -1,6 +1,21 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Auth::Passwords", type: :request do
+  let(:json) { JSON.parse(response.body) }
+
+  describe "PATCH /password" do
+    let(:team) { create(:team) }
+    let(:user) { create(:user, team_id: team.id) }
+    let(:headers) { user.create_new_auth_token }
+    let(:params) { { password: "new_password", password_confirmation: "new_password" } }
+
+    it "レスポンスデータにアバター情報が含まれていること" do
+      patch "/api/v1/auth/password", headers: headers, params: params
+      expect(response).to have_http_status(:ok)
+      expect(json["data"]["avatar"]).to eq ""
+    end
+  end
+
   describe "before_action :ensure_normal_user" do
     let(:guest_headers) do
       {
@@ -9,7 +24,6 @@ RSpec.describe "Api::V1::Auth::Passwords", type: :request do
         "uid" => response.headers["uid"]
       }
     end
-    let(:json) { JSON.parse(response.body) }
 
     before do
       post "/api/v1/auth/guest_sign_in"
