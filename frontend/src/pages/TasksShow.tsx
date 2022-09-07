@@ -7,6 +7,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Divider,
   Grid,
   IconButton,
   Stack,
@@ -219,6 +220,55 @@ const TasksShow: FC = () => {
                 </Button>
               )}
             </CardActions>
+          </Card>
+        </Grid>
+        <Grid item>
+          <Card sx={{ minWidth: 500, p: 2 }}>
+            <CardHeader title="分担履歴" />
+            <CardContent>
+              <Divider sx={{ mb: 2 }} />
+              {childrenTasks?.map((childTask) => (
+                <div key={childTask.id}>
+                  <Stack direction="row" alignItems="center" mb={1}>
+                    <Typography
+                      variant="subtitle1"
+                      component="div"
+                      color="text.secondary"
+                      sx={{ mr: 1 }}
+                    >
+                      作成者：
+                    </Typography>
+                    <Typography variant="body1" component="div">
+                      {childTask.division.user.name}
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" alignItems="center" mb={1}>
+                    <Typography
+                      variant="subtitle1"
+                      component="div"
+                      color="text.secondary"
+                      sx={{ mr: 1 }}
+                    >
+                      送信先：
+                    </Typography>
+                    <Typography variant="body1" component="div">
+                      {childTask.user.name}
+                    </Typography>
+                  </Stack>
+                  <Typography
+                    variant="subtitle1"
+                    component="div"
+                    color="text.secondary"
+                  >
+                    コメント：
+                  </Typography>
+                  <Typography variant="body1" component="div" sx={{ mb: 1 }}>
+                    {childTask.division.comment}
+                  </Typography>
+                  <Divider sx={{ mb: 2 }} />
+                </div>
+              ))}
+            </CardContent>
           </Card>
         </Grid>
       </Grid>

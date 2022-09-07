@@ -47,16 +47,27 @@ export type ChildrenTask = {
   created_at: Date;
   updated_at: Date;
   parent_id: number;
-  division: Division;
+  user: { name: string };
+  division: DivisionIncludeUserName;
 };
 
 export type Division = {
   id: number;
-  user_id: number;
+  user_id: number | undefined;
   task_id: number;
   created_at: Date;
   updated_at: Date;
   comment: string;
+};
+
+export type DivisionIncludeUserName = {
+  id: number;
+  user_id: number | undefined;
+  task_id: number;
+  created_at: Date;
+  updated_at: Date;
+  comment: string;
+  user: { name: string };
 };
 
 export type NewTask = {
@@ -129,7 +140,7 @@ export type TasksResponse = {
 export type TasksShowResponse = {
   task: Task;
   children_tasks: ChildrenTask[];
-  division: Division | undefined;
+  division: DivisionIncludeUserName | undefined;
 };
 
 export type DivisionsNewResponse = {
