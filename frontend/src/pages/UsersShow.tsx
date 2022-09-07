@@ -1,10 +1,12 @@
 import { useContext, FC, useEffect, useState, SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
 import { Box, Button, Grid, Tab, Tabs, Typography } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { AuthContext } from "../providers/AuthProvider";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { Task } from "../types";
-import { TasksTable } from "../components/TasksTable";
+import { DeadlineFormat } from "../components/DeadlineFormat";
+import { PriorityLabel } from "../components/PriorityLabel";
 
 const UsersShow: FC = () => {
   const { user, unfinishedTasks, finishedTasks } = useFetchUser();
@@ -14,6 +16,19 @@ const UsersShow: FC = () => {
   const [isFinished, setIsFinished] = useState<boolean>(false);
 
   const [value, setValue] = useState("unfinished");
+
+  const columns: GridColDef[] = [
+    { field: "title", headerName: "タイトル", width: 200 },
+    { field: "deadline", headerName: "納期", width: 150 },
+    { field: "priority", headerName: "重要度", width: 100 },
+  ];
+
+  const rows = tasks.map((task) => ({
+    id: task.id,
+    title: task.title,
+    deadline: DeadlineFormat(task.deadline),
+    priority: PriorityLabel(task.priority),
+  }));
 
   const handleSwitchTasks = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -81,13 +96,16 @@ const UsersShow: FC = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
-          <TasksTable
-            user={user}
-            tasks={tasks}
-            setTasks={setTasks}
-            isFinished={isFinished}
-          />
+        <Grid item sx={{ width: { xs: 200, sm: 500, md: 700, lg: 900 } }}>
+          <div style={{ height: 400, width: "100%" }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              pageSize={10}
+              rowsPerPageOptions={[10]}
+              checkboxSelection
+            />
+          </div>
         </Grid>
       </Grid>
     </div>
