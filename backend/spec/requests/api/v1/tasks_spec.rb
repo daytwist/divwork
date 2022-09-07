@@ -31,10 +31,32 @@ RSpec.describe "Api::V1::Tasks", type: :request do
     end
 
     describe "GET /:id" do
+      let(:task) { create(:task, user:, parent_id: parent_task.id) }
+      let(:another_user) { create(:user, team:) }
+      let(:child_task) { create(:task, user: another_user, parent_id: task.id) }
+      let!(:division_a) { create(:division, user:, task: child_task) }
+      let(:parent_task) { create(:task, user: another_user) }
+      let!(:division_b) { create(:division, user: another_user, task:) }
+
+      before do
+        get "/api/v1/tasks/#{task.id}", headers:
+      end
+
       it "タスクの情報取得に成功すること" do
-        get "/api/v1/tasks/#{task.id}", headers: headers
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include(task.to_json)
+        expect(json["task"]["id"]).to eq task.id
+      end
+
+      it "children_tasks, divisionが取得出来ること" do
+        expect(json["children_tasks"][0]["id"]).to eq child_task.id
+        expect(json["children_tasks"][0]["division"]["id"]).to eq division_a.id
+        expect(json["division"]["id"]).to eq division_b.id
+      end
+
+      it "children_tasks, divisionのuser nameを取得出来ること" do
+        expect(json["children_tasks"][0]["user"]["name"]).to eq another_user.name
+        expect(json["children_tasks"][0]["division"]["user"]["name"]).to eq user.name
+        expect(json["division"]["user"]["name"]).to eq another_user.name
       end
     end
 

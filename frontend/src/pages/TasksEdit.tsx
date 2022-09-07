@@ -16,7 +16,7 @@ const TasksEdit: FC = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const params = useParams<{ id: string }>();
-  const data = useFetchTask();
+  const { task: taskData } = useFetchTask();
 
   const [task, setTask] = useState<EditTask>({
     title: "",
@@ -73,12 +73,12 @@ const TasksEdit: FC = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      setTask(data);
-      setDeadline(data.deadline);
-      setPriority(data.priority);
+    if (taskData) {
+      setTask(taskData);
+      setDeadline(taskData.deadline);
+      setPriority(taskData.priority);
     }
-  }, [data]);
+  }, [taskData]);
 
   return (
     <div>

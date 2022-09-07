@@ -52,7 +52,12 @@ describe("TasksShow", () => {
     );
 
     // タスクのタイトルが表示されている
-    expect(await screen.findByText("TASK_1")).toBeInTheDocument();
+    expect(await screen.findByText("TASK_2")).toBeInTheDocument();
+
+    // 分担ユーザーが表示されている
+    expect(await screen.findByText("USER_2")).toBeInTheDocument();
+    expect(await screen.findByText("USER_3")).toBeInTheDocument();
+    expect(await screen.findByText("USER_4")).toBeInTheDocument();
 
     await act(() => {
       userEvent.click(screen.getByTestId("delete-button"));
@@ -74,7 +79,7 @@ describe("TasksShow", () => {
 
     // 削除したタスクは表示されていない
     await waitFor(() => {
-      expect(screen.queryByText("TASK_1")).not.toBeInTheDocument();
+      expect(screen.queryByText("TASK_2")).not.toBeInTheDocument();
     });
   });
 });

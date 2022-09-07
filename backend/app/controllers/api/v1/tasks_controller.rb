@@ -13,7 +13,12 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def show
-    render json: { task: @task }, status: :ok
+    children_tasks = @task.children.as_json(
+      include: [{ user: { only: :name } },
+                { division: { include: { user: { only: :name } } } }]
+    )
+    division = @task.division.as_json(include: { user: { only: :name } })
+    render json: { task: @task, children_tasks:, division: }, status: :ok
   end
 
   def update
