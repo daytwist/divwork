@@ -17,6 +17,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PeopleIcon from "@mui/icons-material/People";
+import LinkIcon from "@mui/icons-material/Link";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { useFetchTask } from "../hooks/useFetchTask";
@@ -233,7 +234,7 @@ const TasksShow: FC = () => {
                     variant="subtitle1"
                     component="div"
                     color="text.secondary"
-                    sx={{ mr: 1 }}
+                    sx={{ textAlign: "end", width: 85, mr: 1 }}
                   >
                     From:
                   </Typography>
@@ -241,17 +242,34 @@ const TasksShow: FC = () => {
                     {division.user.name}
                   </Typography>
                 </Stack>
-                <Typography
-                  variant="subtitle1"
-                  component="div"
-                  color="text.secondary"
-                >
-                  コメント：
-                </Typography>
-                <Typography variant="body1" component="div">
-                  {division.comment}
-                </Typography>
-                <Link to={`/tasks/${task?.parent_id}`}>参照リンク</Link>
+                {division.comment ? (
+                  <Stack direction="row" alignItems="center">
+                    <Typography
+                      variant="subtitle1"
+                      component="div"
+                      color="text.secondary"
+                      sx={{ textAlign: "end", width: 85, mr: 1 }}
+                    >
+                      コメント：
+                    </Typography>
+                    <Typography variant="body1" component="div">
+                      {division.comment}
+                    </Typography>
+                  </Stack>
+                ) : null}
+                <Stack direction="row" alignItems="center">
+                  <Typography
+                    variant="subtitle1"
+                    component="div"
+                    color="text.secondary"
+                    sx={{ textAlign: "end", width: 85, mr: 1 }}
+                  >
+                    参照リンク:
+                  </Typography>
+                  <IconButton component={Link} to={`/tasks/${task?.parent_id}`}>
+                    <LinkIcon />
+                  </IconButton>
+                </Stack>
               </CardContent>
             </Card>
           </Grid>
@@ -269,7 +287,7 @@ const TasksShow: FC = () => {
                         variant="subtitle1"
                         component="div"
                         color="text.secondary"
-                        sx={{ mr: 1 }}
+                        sx={{ textAlign: "end", width: 85, mr: 1 }}
                       >
                         From:
                       </Typography>
@@ -282,7 +300,7 @@ const TasksShow: FC = () => {
                         variant="subtitle1"
                         component="div"
                         color="text.secondary"
-                        sx={{ mr: 1 }}
+                        sx={{ textAlign: "end", width: 85, mr: 1 }}
                       >
                         To:
                       </Typography>
@@ -290,19 +308,37 @@ const TasksShow: FC = () => {
                         {childTask.user.name}
                       </Typography>
                     </Stack>
+                    {childTask.division.comment ? (
+                      <Stack direction="row" alignItems="center">
+                        <Typography
+                          variant="subtitle1"
+                          component="div"
+                          color="text.secondary"
+                          sx={{ textAlign: "end", width: 85, mr: 1 }}
+                        >
+                          コメント:
+                        </Typography>
+                        <Typography variant="body1" component="div">
+                          {childTask.division.comment}
+                        </Typography>
+                      </Stack>
+                    ) : null}
                     <Stack direction="row" alignItems="center">
                       <Typography
                         variant="subtitle1"
                         component="div"
                         color="text.secondary"
+                        sx={{ textAlign: "end", width: 85, mr: 1 }}
                       >
-                        コメント：
+                        参照リンク:
                       </Typography>
-                      <Typography variant="body1" component="div">
-                        {childTask.division.comment}
-                      </Typography>
+                      <IconButton
+                        component={Link}
+                        to={`/tasks/${childTask.id}`}
+                      >
+                        <LinkIcon />
+                      </IconButton>
                     </Stack>
-                    <Link to={`/tasks/${childTask.id}`}>参照リンク</Link>
                     <Divider sx={{ my: 2 }} />
                   </div>
                 ))}
