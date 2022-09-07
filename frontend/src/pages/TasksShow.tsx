@@ -33,9 +33,9 @@ const TasksShow: FC = () => {
   const params = useParams<{ id: string }>();
   const { task, childrenTasks, division } = useFetchTask();
 
-  const [open, setOpen] = useState(false);
-
   const childrenTasksCount = childrenTasks.length;
+
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -98,24 +98,6 @@ const TasksShow: FC = () => {
               }
               subheader={
                 <div>
-                  {childrenTasksCount ? (
-                    <Stack direction="row" mt={1}>
-                      <PeopleIcon
-                        sx={{
-                          width: 18,
-                          height: 18,
-                          mr: 1,
-                        }}
-                      />
-                      <Typography
-                        color="text.secondary"
-                        variant="body2"
-                        component="div"
-                      >
-                        このタスクは分担されました (親タスク)
-                      </Typography>
-                    </Stack>
-                  ) : null}
                   {division ? (
                     <Stack direction="row" mt={1}>
                       <PeopleIcon
@@ -130,7 +112,25 @@ const TasksShow: FC = () => {
                         variant="body2"
                         component="div"
                       >
-                        このタスクは分担されました (子タスク)
+                        親タスクから分担されました
+                      </Typography>
+                    </Stack>
+                  ) : null}
+                  {childrenTasksCount ? (
+                    <Stack direction="row" mt={1}>
+                      <PeopleIcon
+                        sx={{
+                          width: 18,
+                          height: 18,
+                          mr: 1,
+                        }}
+                      />
+                      <Typography
+                        color="text.secondary"
+                        variant="body2"
+                        component="div"
+                      >
+                        子タスクへ分担されました
                       </Typography>
                     </Stack>
                   ) : null}
@@ -222,55 +222,94 @@ const TasksShow: FC = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item>
-          <Card sx={{ minWidth: 500, p: 2 }}>
-            <CardHeader title="分担履歴" />
-            <CardContent>
-              <Divider sx={{ mb: 2 }} />
-              {childrenTasks?.map((childTask) => (
-                <div key={childTask.id}>
-                  <Stack direction="row" alignItems="center" mb={1}>
-                    <Typography
-                      variant="subtitle1"
-                      component="div"
-                      color="text.secondary"
-                      sx={{ mr: 1 }}
-                    >
-                      作成者：
-                    </Typography>
-                    <Typography variant="body1" component="div">
-                      {childTask.division.user.name}
-                    </Typography>
-                  </Stack>
-                  <Stack direction="row" alignItems="center" mb={1}>
-                    <Typography
-                      variant="subtitle1"
-                      component="div"
-                      color="text.secondary"
-                      sx={{ mr: 1 }}
-                    >
-                      送信先：
-                    </Typography>
-                    <Typography variant="body1" component="div">
-                      {childTask.user.name}
-                    </Typography>
-                  </Stack>
+        {division ? (
+          <Grid item>
+            <Card sx={{ minWidth: 500, p: 2 }}>
+              <CardHeader title="親タスク情報" />
+              <CardContent>
+                <Divider sx={{ mb: 2 }} />
+                <Stack direction="row" alignItems="center">
                   <Typography
                     variant="subtitle1"
                     component="div"
                     color="text.secondary"
+                    sx={{ mr: 1 }}
                   >
-                    コメント：
+                    From:
                   </Typography>
-                  <Typography variant="body1" component="div" sx={{ mb: 1 }}>
-                    {childTask.division.comment}
+                  <Typography variant="body1" component="div">
+                    {division.user.name}
                   </Typography>
-                  <Divider sx={{ mb: 2 }} />
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </Grid>
+                </Stack>
+                <Typography
+                  variant="subtitle1"
+                  component="div"
+                  color="text.secondary"
+                >
+                  コメント：
+                </Typography>
+                <Typography variant="body1" component="div">
+                  {division.comment}
+                </Typography>
+                <Link to={`/tasks/${task?.parent_id}`}>参照リンク</Link>
+              </CardContent>
+            </Card>
+          </Grid>
+        ) : null}
+        {childrenTasksCount ? (
+          <Grid item>
+            <Card sx={{ minWidth: 500, p: 2 }}>
+              <CardHeader title="子タスク情報" />
+              <CardContent>
+                <Divider sx={{ mb: 2 }} />
+                {childrenTasks?.map((childTask) => (
+                  <div key={childTask.id}>
+                    <Stack direction="row" alignItems="center">
+                      <Typography
+                        variant="subtitle1"
+                        component="div"
+                        color="text.secondary"
+                        sx={{ mr: 1 }}
+                      >
+                        From:
+                      </Typography>
+                      <Typography variant="body1" component="div">
+                        {childTask.division.user.name}
+                      </Typography>
+                    </Stack>
+                    <Stack direction="row" alignItems="center">
+                      <Typography
+                        variant="subtitle1"
+                        component="div"
+                        color="text.secondary"
+                        sx={{ mr: 1 }}
+                      >
+                        To:
+                      </Typography>
+                      <Typography variant="body1" component="div">
+                        {childTask.user.name}
+                      </Typography>
+                    </Stack>
+                    <Stack direction="row" alignItems="center">
+                      <Typography
+                        variant="subtitle1"
+                        component="div"
+                        color="text.secondary"
+                      >
+                        コメント：
+                      </Typography>
+                      <Typography variant="body1" component="div">
+                        {childTask.division.comment}
+                      </Typography>
+                    </Stack>
+                    <Link to={`/tasks/${childTask.id}`}>参照リンク</Link>
+                    <Divider sx={{ my: 2 }} />
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </Grid>
+        ) : null}
       </Grid>
     </div>
   );

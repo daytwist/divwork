@@ -2,7 +2,12 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ChildrenTask, Division, Task, TasksShowResponse } from "../types";
+import {
+  ChildrenTask,
+  DivisionIncludeUserName,
+  Task,
+  TasksShowResponse,
+} from "../types";
 import { axiosInstance } from "../utils/axios";
 
 export const useFetchTask = () => {
@@ -10,7 +15,7 @@ export const useFetchTask = () => {
 
   const [task, setTask] = useState<Task>();
   const [childrenTasks, setChildrenTasks] = useState<ChildrenTask[]>([]);
-  const [division, setDivision] = useState<Division>();
+  const [division, setDivision] = useState<DivisionIncludeUserName>();
 
   const options: AxiosRequestConfig = {
     url: `/tasks/${params.id}`,
@@ -33,7 +38,7 @@ export const useFetchTask = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [params]);
 
   return { task, childrenTasks, division };
 };
