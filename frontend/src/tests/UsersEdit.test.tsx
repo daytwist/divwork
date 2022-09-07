@@ -90,17 +90,9 @@ describe("UsersEdit", () => {
       </MemoryRouter>
     );
 
-    // ユーザー情報が表示されている
-    expect(await screen.findByDisplayValue("USER_1")).toBeInTheDocument();
-
-    await act(() => {
+    act(() => {
       userEvent.click(screen.getByText("パスワード再設定"));
     });
-
-    const updateButton = await screen.findByRole("button", {
-      name: "更新する",
-    });
-    expect(updateButton).toBeInTheDocument();
 
     await act(() => {
       userEvent.type(screen.getByLabelText("新しいパスワード"), "newpassword");
@@ -108,7 +100,7 @@ describe("UsersEdit", () => {
         screen.getByLabelText("新しいパスワード(確認用)"),
         "newpassword"
       );
-      userEvent.click(updateButton);
+      userEvent.click(screen.getByRole("button", { name: "更新する" }));
     });
 
     // 更新するとUsersShowページへ遷移する
@@ -134,18 +126,9 @@ describe("UsersEdit", () => {
       </MemoryRouter>
     );
 
-    // ユーザー情報が表示されている
-    expect(await screen.findByDisplayValue("USER_1")).toBeInTheDocument();
+    act(() => { userEvent.click(screen.getByText("その他")) });
 
-    await act(() => {
-      userEvent.click(screen.getByText("その他"));
-    });
-
-    expect(
-      await screen.findByRole("button", { name: "アカウント削除" })
-    ).toBeInTheDocument();
-
-    await act(() => {
+    act(() => {
       userEvent.click(screen.getByRole("button", { name: "アカウント削除" }));
     });
 
