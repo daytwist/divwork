@@ -250,7 +250,7 @@ const TasksShow: FC = () => {
                       color="text.secondary"
                       sx={{ textAlign: "end", width: 85, mr: 1 }}
                     >
-                      コメント：
+                      コメント:
                     </Typography>
                     <Typography variant="body1" component="div">
                       {division.comment}
