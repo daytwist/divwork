@@ -1,39 +1,41 @@
 import { useContext, FC, useEffect, useState, SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import { Box, Button, Grid, Tab, Tabs, Typography } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { useFetchUser } from "../hooks/useFetchUser";
-import { Task } from "../types";
+import { Task, TasksResponse } from "../types";
 import { DeadlineFormat } from "../components/DeadlineFormat";
 import { PriorityLabel } from "../components/PriorityLabel";
 
 const UsersShow: FC = () => {
-  const { user, unfinishedTasks, finishedTasks } = useFetchUser();
-  const { currentUser } = useContext(AuthContext);
-
-  const [tasks, setTasks] = useState<Task[]>([]);
   const [isFinished, setIsFinished] = useState<boolean>(false);
-
-  const [value, setValue] = useState("unfinished");
+  const { user, unfinishedTasks, finishedTasks } = useFetchUser(isFinished);
+  const { currentUser } = useContext(AuthContext);
+  const [tasks, setTasks] = useState<Task[]>(unfinishedTasks);
+  const [tabValue, setTabValue] = useState("1");
+  const [selectionModel, setSelectionModel] = useState<GridRowId[]>();
 
   const columns: GridColDef[] = [
     { field: "title", headerName: "タイトル", width: 200 },
-    { field: "deadline", headerName: "納期", width: 150 },
     { field: "priority", headerName: "重要度", width: 100 },
+    { field: "deadline", headerName: "納期", width: 150 },
   ];
 
   const rows = tasks.map((task) => ({
     id: task.id,
     title: task.title,
-    deadline: DeadlineFormat(task.deadline),
     priority: PriorityLabel(task.priority),
+    deadline: DeadlineFormat(task.deadline),
   }));
 
   const handleSwitchTasks = (event: SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+    setTabValue(newValue);
 
-    if (newValue === "finished") {
+    if (newValue === "2") {
       setIsFinished(true);
       setTasks(finishedTasks);
       console.log(isFinished);
@@ -42,6 +44,29 @@ const UsersShow: FC = () => {
       setTasks(unfinishedTasks);
       console.log(isFinished);
     }
+  };
+
+  const handleIsDoneUpdate = () => {
+    // eslint-disable-next-line array-callback-return
+    selectionModel?.map((id) => {
+      const options: AxiosRequestConfig = {
+        url: `/tasks/${id}`,
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": Cookies.get("_access_token") || "",
+          client: Cookies.get("_client") || "",
+          uid: Cookies.get("_uid") || "",
+        },
+        data: { is_done: !isFinished },
+      };
+
+      axiosInstance(options)
+        .then((res: AxiosResponse<TasksResponse>) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    });
   };
 
   useEffect(() => {
@@ -81,16 +106,16 @@ const UsersShow: FC = () => {
             ) : (
               <br />
             )}
+            <Button onClick={handleIsDoneUpdate}>完了にする</Button>
             <Grid item>
               <Box sx={{ width: "100%" }}>
                 <Tabs
                   textColor="inherit"
-                  value={value}
+                  value={tabValue}
                   onChange={handleSwitchTasks}
-                  aria-label="tabs"
                 >
-                  <Tab value="unfinished" label="未了" />
-                  <Tab value="finished" label="完了済み" />
+                  <Tab value="1" label="未了" />
+                  <Tab value="2" label="完了済み" />
                 </Tabs>
               </Box>
             </Grid>
@@ -104,6 +129,11 @@ const UsersShow: FC = () => {
               pageSize={10}
               rowsPerPageOptions={[10]}
               checkboxSelection
+              disableSelectionOnClick
+              selectionModel={selectionModel}
+              onSelectionModelChange={(newSelectionModel) =>
+                setSelectionModel(newSelectionModel)
+              }
             />
           </div>
         </Grid>

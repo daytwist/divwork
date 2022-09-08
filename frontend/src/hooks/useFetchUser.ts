@@ -1,11 +1,11 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Task, User, UsersResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
-export const useFetchUser = () => {
+export const useFetchUser = (isFinished: boolean | undefined) => {
   const params = useParams<{ id: string }>();
 
   const [user, setUser] = useState<User>();
@@ -33,7 +33,7 @@ export const useFetchUser = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [isFinished]);
 
   return { user, unfinishedTasks, finishedTasks };
 };

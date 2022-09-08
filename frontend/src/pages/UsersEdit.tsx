@@ -17,7 +17,7 @@ const UsersEdit: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const { user: userData } = useFetchUser();
+  const { user: userData } = useFetchUser(undefined);
 
   const [user, setUser] = useState<User>({
     team_id: 0,
