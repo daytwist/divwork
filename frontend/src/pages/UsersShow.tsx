@@ -20,7 +20,16 @@ const UsersShow: FC = () => {
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>();
 
   const columns: GridColDef[] = [
-    { field: "title", headerName: "タイトル", width: 200 },
+    {
+      field: "title",
+      headerName: "タイトル",
+      width: 200,
+      renderCell: (params) => (
+        <Link to={`/tasks/${params.id}`} style={{ color: "black" }}>
+          {params.value}
+        </Link>
+      ),
+    },
     { field: "priority", headerName: "重要度", width: 100 },
     { field: "deadline", headerName: "納期", width: 150 },
   ];
