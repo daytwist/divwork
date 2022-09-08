@@ -1,7 +1,7 @@
 import { useContext, FC, useState, SyntheticEvent, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Box, Button, Grid, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
@@ -109,7 +109,7 @@ const UsersShow: FC = () => {
             alignItems="center"
           >
             {user?.id === currentUser?.id ? (
-              <Grid item>
+              <Stack direction="row" spacing={2}>
                 <Button
                   variant="contained"
                   type="button"
@@ -118,11 +118,19 @@ const UsersShow: FC = () => {
                 >
                   新規作成
                 </Button>
-              </Grid>
+                {selectionModel?.length ? (
+                  <Button
+                    color="success"
+                    variant="outlined"
+                    onClick={handleIsDoneUpdate}
+                  >
+                    {isFinished ? "未了" : "完了済み"}にする
+                  </Button>
+                ) : null}
+              </Stack>
             ) : (
               <br />
             )}
-            <Button onClick={handleIsDoneUpdate}>完了にする</Button>
             <Grid item>
               <Box sx={{ width: "100%" }}>
                 <Tabs
