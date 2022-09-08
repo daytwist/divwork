@@ -1,4 +1,4 @@
-import { useContext, FC, useEffect, useState, SyntheticEvent } from "react";
+import { useContext, FC, useState, SyntheticEvent, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Box, Button, Grid, Tab, Tabs, Typography } from "@mui/material";
@@ -12,9 +12,13 @@ import { DeadlineFormat } from "../components/DeadlineFormat";
 import { PriorityLabel } from "../components/PriorityLabel";
 
 const UsersShow: FC = () => {
-  const [isFinished, setIsFinished] = useState<boolean>(false);
-  const { user, unfinishedTasks, finishedTasks } = useFetchUser(isFinished);
+  const [flag, setFlag] = useState<boolean>(false);
+  const { user, unfinishedTasks, finishedTasks } = useFetchUser({
+    action: "show",
+    flag,
+  });
   const { currentUser } = useContext(AuthContext);
+  const [isFinished, setIsFinished] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>(unfinishedTasks);
   const [tabValue, setTabValue] = useState("1");
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>();
@@ -47,10 +51,12 @@ const UsersShow: FC = () => {
     if (newValue === "2") {
       setIsFinished(true);
       setTasks(finishedTasks);
+      setSelectionModel([]);
       console.log(isFinished);
     } else {
       setIsFinished(false);
       setTasks(unfinishedTasks);
+      setSelectionModel([]);
       console.log(isFinished);
     }
   };
@@ -73,16 +79,17 @@ const UsersShow: FC = () => {
       axiosInstance(options)
         .then((res: AxiosResponse<TasksResponse>) => {
           console.log(res);
+          setFlag(!flag);
         })
         .catch((err) => console.log(err));
     });
   };
 
   useEffect(() => {
-    if (isFinished) {
-      setTasks(finishedTasks);
-    } else {
+    if (unfinishedTasks && !isFinished) {
       setTasks(unfinishedTasks);
+    } else if (finishedTasks && isFinished) {
+      setTasks(finishedTasks);
     }
   }, [unfinishedTasks, finishedTasks]);
 
