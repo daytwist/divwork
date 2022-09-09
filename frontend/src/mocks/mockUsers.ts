@@ -27,7 +27,7 @@ export const mockUsersShow: ResponseResolver<
         {
           id: 1,
           title: "UNFINISHED_TASK_1",
-          description: "UNFINISHED",
+          description: "UNFINISHED_DESCRIPTION",
           deadline: "2022-06-12T13:16:00.000+09:00",
           priority: "low",
           is_done: false,
@@ -41,7 +41,7 @@ export const mockUsersShow: ResponseResolver<
         {
           id: 2,
           title: "FINISHED_TASK_2",
-          description: "FINISHED",
+          description: "FINISHED_DESCRIPTION",
           deadline: "2022-06-12T13:16:00.000+09:00",
           priority: "high",
           is_done: true,
