@@ -2,10 +2,10 @@ import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { Team, TeamsCreateResponse, TeamsSelectResponse } from "../types";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { axiosInstance } from "../../utils/axios";
+import { Team, TeamsCreateResponse, TeamsSelectResponse } from "../../types";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 const TeamsSelect: FC = () => {
   const { isSignedIn, currentUser } = useContext(AuthContext);

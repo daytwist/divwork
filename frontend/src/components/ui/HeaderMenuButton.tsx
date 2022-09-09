@@ -4,9 +4,9 @@ import Cookies from "js-cookie";
 import { Avatar, Box, Button, Divider, Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { axiosInstance } from "../../utils/axios";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 export const HeaderMenuButton: FC = () => {
   const { setIsSignedIn, currentUser } = useContext(AuthContext);

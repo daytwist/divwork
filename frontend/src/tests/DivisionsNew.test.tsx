@@ -7,10 +7,10 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { server } from "../mocks/server";
 import { AuthProvider } from "../providers/AuthProvider";
-import DivisionsNew from "../pages/DivisionsNew";
-import UsersShow from "../pages/UsersShow";
+import DivisionsNew from "../components/pages/DivisionsNew";
+import UsersShow from "../components/pages/UsersShow";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import CommonLayout from "../components/CommonLayout";
+import CommonLayout from "../components/ui/CommonLayout";
 
 describe("DivisionsNew", () => {
   test("分担作成ページ", async () => {

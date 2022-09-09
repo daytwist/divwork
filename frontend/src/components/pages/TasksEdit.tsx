@@ -1,24 +1,28 @@
-import { ChangeEvent, FC, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { TasksResponse, NewTask } from "../types";
-import { AuthContext } from "../providers/AuthProvider";
-import { PriorityTextField } from "../components/PriorityTextField";
-import { DeadlineTextField } from "../components/DeadlineTextField";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { axiosInstance } from "../../utils/axios";
+import { TasksResponse, EditTask } from "../../types";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useFetchTask } from "../../hooks/useFetchTask";
+import { PriorityTextField } from "../model/task/PriorityTextField";
+import { DeadlineTextField } from "../model/task/DeadlineTextField";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
-const TasksNew: FC = () => {
+const TasksEdit: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
+  const params = useParams<{ id: string }>();
+  const { task: taskData } = useFetchTask();
 
-  const [task, setTask] = useState<NewTask>({
+  const [task, setTask] = useState<EditTask>({
     title: "",
     description: "",
     is_done: false,
+    user_id: 0,
   });
 
   const [deadline, setDeadline] = useState<Date | null>(new Date());
@@ -31,35 +35,28 @@ const TasksNew: FC = () => {
     setTask({ ...task, [name]: value });
   };
 
-  const handleTasksCreate = () => {
-    const options: AxiosRequestConfig = {
-      url: "/tasks",
-      method: "POST",
+  const handleTasksUpdate = () => {
+    const updateOptions: AxiosRequestConfig = {
+      url: `/tasks/${params.id}`,
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
       },
-      data: {
-        title: task.title,
-        description: task.description,
-        deadline,
-        priority,
-        is_done: task.is_done,
-        user_id: currentUser?.id,
-      },
+      data: task,
     };
 
-    axiosInstance(options)
+    axiosInstance(updateOptions)
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
 
-        if (res.status === 201) {
+        if (res.status === 200) {
           handleSetSnackbar({
             open: true,
             type: "success",
-            message: "タスクを作成しました",
+            message: "タスクを更新しました",
           });
           navigate(`/users/${currentUser?.id}`, { replace: false });
         }
@@ -75,12 +72,20 @@ const TasksNew: FC = () => {
       });
   };
 
+  useEffect(() => {
+    if (taskData) {
+      setTask(taskData);
+      setDeadline(taskData.deadline);
+      setPriority(taskData.priority);
+    }
+  }, [taskData]);
+
   return (
     <div>
       <Grid container direction="column" spacing={4}>
         <Grid item>
           <Typography variant="h4" component="div">
-            タスクを作成する
+            タスクを編集する
           </Typography>
         </Grid>
         <Grid item>
@@ -89,7 +94,7 @@ const TasksNew: FC = () => {
             variant="standard"
             sx={{ width: "30ch" }}
             name="title"
-            value={task.title}
+            value={task?.title}
             onChange={handleInputChange}
           />
         </Grid>
@@ -101,7 +106,7 @@ const TasksNew: FC = () => {
             rows={4}
             sx={{ width: "55ch" }}
             name="description"
-            value={task.description}
+            value={task?.description}
             onChange={handleInputChange}
           />
         </Grid>
@@ -122,7 +127,7 @@ const TasksNew: FC = () => {
           />
         </Grid>
         <Grid item>
-          <Button variant="contained" type="submit" onClick={handleTasksCreate}>
+          <Button variant="contained" type="submit" onClick={handleTasksUpdate}>
             完了
           </Button>
         </Grid>
@@ -131,4 +136,4 @@ const TasksNew: FC = () => {
   );
 };
 
-export default TasksNew;
+export default TasksEdit;

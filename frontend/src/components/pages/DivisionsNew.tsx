@@ -3,16 +3,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
+import { axiosInstance } from "../../utils/axios";
 import {
   DivisionTask,
   DivisionsCreateResponse,
   DivisionsNewResponse,
   User,
-} from "../types";
-import { DeadlineTextField } from "../components/DeadlineTextField";
-import { PriorityTextField } from "../components/PriorityTextField";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+} from "../../types";
+import { DeadlineTextField } from "../model/task/DeadlineTextField";
+import { PriorityTextField } from "../model/task/PriorityTextField";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 const DivisionsNew: FC = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);

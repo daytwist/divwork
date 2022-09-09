@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import PrivateRoute from "../components/PrivateRoute";
-import PublicRoute from "../components/PublicRoute";
-import SignIn from "../pages/SignIn";
-import TeamsShow from "../pages/TeamsShow";
+import PrivateRoute from "../components/functional/PrivateRoute";
+import PublicRoute from "../components/functional/PublicRoute";
+import SignIn from "../components/pages/SignIn";
+import TeamsShow from "../components/pages/TeamsShow";
 
 describe("PrivateRoute", () => {
   test("ログインしていない状態でPrivateRouteにアクセスしない", async () => {

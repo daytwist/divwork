@@ -17,7 +17,8 @@ Rails.application.routes.draw do
       get "teams/select", to: "teams#select"
       resources :teams, only: [:create, :show, :update, :destroy]
 
-      resources :users, only: [:show]
+      get "users/:id/finished", to: "users#finished"
+      resources :users, only: [:show, :edit]
 
       resources :tasks, only: [:create, :show, :update, :destroy] do
         resources :divisions, only: [:new, :create]

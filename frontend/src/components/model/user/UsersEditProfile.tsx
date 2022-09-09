@@ -19,10 +19,10 @@ import {
   Typography,
 } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { User, UsersEditResponse } from "../types";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { axiosInstance } from "../../../utils/axios";
+import { User, UsersUpdateResponse } from "../../../types";
+import { AuthContext } from "../../../providers/AuthProvider";
+import { SnackbarContext } from "../../../providers/SnackbarProvider";
 
 type Props = {
   user: User;
@@ -79,7 +79,7 @@ export const UsersEditProfile = (props: Props) => {
     };
 
     axiosInstance(updateOptions)
-      .then((res: AxiosResponse<UsersEditResponse>) => {
+      .then((res: AxiosResponse<UsersUpdateResponse>) => {
         console.log(res);
 
         if (res.status === 200) {

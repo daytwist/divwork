@@ -5,11 +5,11 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import CommonLayout from "../components/CommonLayout";
+import CommonLayout from "../components/ui/CommonLayout";
 import { server } from "../mocks/server";
-import Home from "../pages/Home";
-import UsersEdit from "../pages/UsersEdit";
-import UsersShow from "../pages/UsersShow";
+import Home from "../components/pages/Home";
+import UsersEdit from "../components/pages/UsersEdit";
+import UsersShow from "../components/pages/UsersShow";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 
@@ -126,7 +126,9 @@ describe("UsersEdit", () => {
       </MemoryRouter>
     );
 
-    act(() => { userEvent.click(screen.getByText("その他")) });
+    act(() => {
+      userEvent.click(screen.getByText("その他"));
+    });
 
     act(() => {
       userEvent.click(screen.getByRole("button", { name: "アカウント削除" }));

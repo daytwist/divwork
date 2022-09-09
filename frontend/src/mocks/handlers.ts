@@ -10,7 +10,7 @@ import {
 import { mockDivisionsCreate, mockDivisionsNew } from "./mockDivisions";
 import { mockTasksShow } from "./mockTasks";
 import { mockTeamsCreate, mockTeamsSelect, mockTeamsShow } from "./mockTeams";
-import { mockUsersShow } from "./mockUsers";
+import { mockUsersEdit, mockUsersShow } from "./mockUsers";
 
 export const handlers = [
   rest.get("/auth/sessions", mockAuthSessions),
@@ -22,6 +22,7 @@ export const handlers = [
   rest.get("/teams/select", mockTeamsSelect),
   rest.get("/teams/:id", mockTeamsShow),
   rest.post("/teams", mockTeamsCreate),
+  rest.get("/users/:id/edit", mockUsersEdit),
   rest.get("/users/:id", mockUsersShow),
   rest.get("/tasks/:id/divisions/new", mockDivisionsNew),
   rest.post("/tasks/:id/divisions", mockDivisionsCreate),

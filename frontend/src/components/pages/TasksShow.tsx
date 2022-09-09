@@ -1,6 +1,5 @@
-import { FC, useContext, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie";
+import { FC, useContext } from "react";
+import { Link, useParams } from "react-router-dom";
 import {
   Button,
   Card,
@@ -15,71 +14,18 @@ import {
   Typography,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import PeopleIcon from "@mui/icons-material/People";
 import LinkIcon from "@mui/icons-material/Link";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { useFetchTask } from "../hooks/useFetchTask";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
-import { PriorityLabel } from "../components/PriorityLabel";
-import { DeadlineFormat } from "../components/DeadlineFormat";
-import { AlertDialog } from "../components/AlertDialog";
+import { useFetchTask } from "../../hooks/useFetchTask";
+import { AuthContext } from "../../providers/AuthProvider";
+import { PriorityLabel } from "../model/task/PriorityLabel";
+import { DatetimeFormat } from "../ui/DatetimeFormat";
+import { TasksDeleteIconButton } from "../model/task/TasksDeleteIconButton";
 
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-  const params = useParams<{ id: string }>();
   const { task, childrenTasks, division } = useFetchTask();
-
-  const childrenTasksCount = childrenTasks.length;
-
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleTasksDelete = () => {
-    const options: AxiosRequestConfig = {
-      url: `/tasks/${params.id}`,
-      method: "DELETE",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-    };
-
-    axiosInstance(options)
-      .then((res: AxiosResponse) => {
-        console.log(res);
-
-        if (res.status === 200) {
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "タスクを削除しました",
-          });
-          navigate(`/users/${currentUser?.id}`, { replace: true });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-          message: err.response.data.errors,
-        });
-      });
-  };
+  const params = useParams<{ id: string }>();
 
   return (
     <div>
@@ -117,7 +63,7 @@ const TasksShow: FC = () => {
                       </Typography>
                     </Stack>
                   ) : null}
-                  {childrenTasksCount ? (
+                  {childrenTasks.length ? (
                     <Stack direction="row" mt={1}>
                       <PeopleIcon
                         sx={{
@@ -149,20 +95,7 @@ const TasksShow: FC = () => {
                         <EditIcon />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="削除" placement="top" arrow>
-                      <IconButton
-                        onClick={handleClickOpen}
-                        data-testid="delete-button"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <AlertDialog
-                      open={open}
-                      handleClose={handleClose}
-                      objectName="タスク"
-                      onClick={handleTasksDelete}
-                    />
+                    <TasksDeleteIconButton taskId={params.id} />
                   </Stack>
                 )
               }
@@ -186,7 +119,7 @@ const TasksShow: FC = () => {
                 納期
               </Typography>
               <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                {DeadlineFormat(task?.deadline)}
+                {DatetimeFormat(task?.deadline)}
               </Typography>
               <Typography
                 variant="subtitle1"
@@ -250,7 +183,7 @@ const TasksShow: FC = () => {
                       color="text.secondary"
                       sx={{ textAlign: "end", width: 85, mr: 1 }}
                     >
-                      コメント：
+                      コメント:
                     </Typography>
                     <Typography variant="body1" component="div">
                       {division.comment}
@@ -274,7 +207,7 @@ const TasksShow: FC = () => {
             </Card>
           </Grid>
         ) : null}
-        {childrenTasksCount ? (
+        {childrenTasks.length ? (
           <Grid item>
             <Card sx={{ minWidth: 500, p: 2 }}>
               <CardHeader title="子タスク情報" />

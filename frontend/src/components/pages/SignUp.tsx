@@ -1,26 +1,42 @@
 import { FC, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { AuthContext } from "../providers/AuthProvider";
-import { AuthResponse } from "../types";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { axiosInstance } from "../../utils/axios";
+import { AuthResponse } from "../../types/index";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
-const SignIn: FC = () => {
+type State = {
+  teamId: number;
+  teamName: string;
+  isAdmin: boolean;
+};
+
+const SignUp: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const { teamId, teamName, isAdmin } = location.state as State;
+
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSignIn = () => {
+  const handleSignUp = () => {
     const options: AxiosRequestConfig = {
-      url: "/auth/sign_in",
+      url: "/auth",
       method: "POST",
-      params: { email, password },
+      params: {
+        name,
+        email,
+        password,
+        team_id: teamId,
+        admin: isAdmin,
+      },
     };
 
     axiosInstance(options)
@@ -35,7 +51,7 @@ const SignIn: FC = () => {
           handleSetSnackbar({
             open: true,
             type: "success",
-            message: "ログインしました",
+            message: "ユーザー登録しました",
           });
           navigate(`/teams/${res.data.data.team_id}`, { replace: false });
         }
@@ -45,8 +61,8 @@ const SignIn: FC = () => {
         handleSetSnackbar({
           open: true,
           type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          message: `${err.response.data.errors}`,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+          message: `${err.response.data.errors.full_messages.join("。")}`,
         });
       });
   };
@@ -56,8 +72,23 @@ const SignIn: FC = () => {
       <Grid container direction="column" spacing={3}>
         <Grid item>
           <Typography variant="h4" component="div">
-            ログイン
+            ユーザー登録
           </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h6" component="div">
+            {teamName}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <TextField
+            type="text"
+            label="ユーザー名"
+            variant="standard"
+            sx={{ width: "30ch" }}
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
         </Grid>
         <Grid item>
           <TextField
@@ -80,13 +111,8 @@ const SignIn: FC = () => {
           />
         </Grid>
         <Grid item>
-          <Button
-            data-testid="sign-in-button"
-            variant="contained"
-            type="submit"
-            onClick={handleSignIn}
-          >
-            ログイン
+          <Button variant="contained" type="submit" onClick={handleSignUp}>
+            登録する
           </Button>
         </Grid>
       </Grid>
@@ -94,4 +120,4 @@ const SignIn: FC = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

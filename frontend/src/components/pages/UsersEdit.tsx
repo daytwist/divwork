@@ -4,20 +4,23 @@ import Cookies from "js-cookie";
 import { Box, Button, Grid, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { User } from "../types";
-import { useFetchUser } from "../hooks/useFetchUser";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
-import { AlertDialog } from "../components/AlertDialog";
-import { UsersEditProfile } from "./UsersEditProfile";
-import { UsersEditPassword } from "./UsersEditPassword";
+import { axiosInstance } from "../../utils/axios";
+import { User } from "../../types";
+import { useFetchUser } from "../../hooks/useFetchUser";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { AlertDialog } from "../ui/AlertDialog";
+import { UsersEditProfile } from "../model/user/UsersEditProfile";
+import { UsersEditPassword } from "../model/user/UsersEditPassword";
 
 const UsersEdit: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const { user: userData } = useFetchUser();
+  const { user: userData } = useFetchUser({
+    action: "edit",
+    flag: undefined,
+  });
 
   const [user, setUser] = useState<User>({
     team_id: 0,

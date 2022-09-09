@@ -1,19 +1,32 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Task, User, UsersResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
-export const useFetchUser = () => {
+type Props = {
+  action: string;
+  flag: boolean | undefined;
+};
+
+export const useFetchUser = (props: Props) => {
+  const { action, flag } = props;
   const params = useParams<{ id: string }>();
 
   const [user, setUser] = useState<User>();
-  const [unfinishedTasks, setUnfinishedTasks] = useState<Task[]>([]);
-  const [finishedTasks, setFinishedTasks] = useState<Task[]>([]);
+  const [unfinishedTasks, setunfinishedTasks] = useState<Task[]>([]);
+  const [finishedTasks, setfinishedTasks] = useState<Task[]>([]);
+
+  let url = "";
+  if (action === "edit") {
+    url = `/users/${params.id}/edit`;
+  } else {
+    url = `/users/${params.id}`;
+  }
 
   const options: AxiosRequestConfig = {
-    url: `/users/${params.id}`,
+    url,
     method: "GET",
     headers: {
       "access-token": Cookies.get("_access_token") || "",
@@ -27,13 +40,13 @@ export const useFetchUser = () => {
       .then((res: AxiosResponse<UsersResponse>) => {
         console.log(res);
         setUser(res?.data.user);
-        setUnfinishedTasks(res?.data.unfinished_tasks);
-        setFinishedTasks(res?.data.finished_tasks);
+        setunfinishedTasks(res?.data.unfinished_tasks);
+        setfinishedTasks(res?.data.finished_tasks);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [params, action, flag]);
 
   return { user, unfinishedTasks, finishedTasks };
 };

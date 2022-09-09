@@ -125,10 +125,9 @@ export type UsersResponse = {
   user: User;
   unfinished_tasks: Task[];
   finished_tasks: Task[];
-  avatar: string;
 };
 
-export type UsersEditResponse = {
+export type UsersUpdateResponse = {
   status: string;
   data: User;
 };

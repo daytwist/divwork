@@ -1,12 +1,14 @@
+/* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import Header from "../components/Header";
 import { server } from "../mocks/server";
-import UsersShow from "../pages/UsersShow";
+import UsersShow from "../components/pages/UsersShow";
 import { AuthProvider } from "../providers/AuthProvider";
+import { SnackbarProvider } from "../providers/SnackbarProvider";
+import CommonLayout from "../components/ui/CommonLayout";
 
 describe("UsersShow", () => {
   test("ユーザーのタスク一覧ページ", async () => {
@@ -35,10 +37,13 @@ describe("UsersShow", () => {
     render(
       <MemoryRouter initialEntries={["/users/1"]}>
         <AuthProvider>
-          <Header />
-          <Routes>
-            <Route path="/users/:id" element={<UsersShow />} />
-          </Routes>
+          <SnackbarProvider>
+            <CommonLayout>
+              <Routes>
+                <Route path="/users/:id" element={<UsersShow />} />
+              </Routes>
+            </CommonLayout>
+          </SnackbarProvider>
         </AuthProvider>
       </MemoryRouter>
     );
@@ -49,7 +54,17 @@ describe("UsersShow", () => {
       expect(screen.queryByText("FINISHED_TASK_2")).not.toBeInTheDocument();
     });
 
-    // eslint-disable-next-line testing-library/no-unnecessary-act
+    const finishButton = screen.getByRole("button", { name: "完了済みにする" });
+    const deleteButton = screen.getByRole("button", { name: "削除する" });
+    expect(finishButton).toBeDisabled();
+    expect(deleteButton).toBeDisabled();
+
+    act(() => {
+      userEvent.click(screen.getByText("UNFINISHED_DESCRIPTION"));
+    });
+    expect(finishButton).toBeEnabled();
+    expect(deleteButton).toBeEnabled();
+
     act(() => {
       userEvent.click(screen.getByText("完了済み"));
     });

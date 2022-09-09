@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 import { HeaderMenuButton } from "./HeaderMenuButton";
 
 const Header: FC = () => {
