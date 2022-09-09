@@ -6,7 +6,7 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   Box,
@@ -72,6 +72,7 @@ const UsersShow: FC = () => {
   });
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
+  const urlParams = useParams<{ id: string }>();
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>(unfinishedTasks);
   const [tabValue, setTabValue] = useState("unfinished");
@@ -264,7 +265,14 @@ const UsersShow: FC = () => {
       setTasks(finishedTasks);
       setColumns(finishedColumns);
     }
-  }, [unfinishedTasks, finishedTasks]);
+  }, [unfinishedTasks, finishedTasks, urlParams]);
+
+  useEffect(() => {
+    if (urlParams) {
+      setTabValue("unfinished");
+      setIsFinished(false);
+    }
+  }, [urlParams]);
 
   return (
     <div>
