@@ -6,7 +6,7 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   Box,
@@ -41,6 +41,7 @@ import { DatetimeFormat } from "../components/DatetimeFormat";
 import { PriorityLabel } from "../components/PriorityLabel";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 import { TasksDeleteIconButton } from "../components/TasksDeleteIconButton";
+import { AlertDialog } from "../components/AlertDialog";
 
 const getChipProps = (params: GridRenderCellParams): ChipProps => {
   if (params.value === "高") {
@@ -73,11 +74,21 @@ const UsersShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const urlParams = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>(unfinishedTasks);
   const [tabValue, setTabValue] = useState("unfinished");
   const [columns, setColumns] = useState<GridColDef[]>([]);
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>();
+  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const unfinishedColumns: GridColDef[] = [
     {
@@ -257,6 +268,46 @@ const UsersShow: FC = () => {
     });
   };
 
+  const handleMultiTasksDelete = () => {
+    // eslint-disable-next-line array-callback-return
+    selectionModel?.map((id) => {
+      const options: AxiosRequestConfig = {
+        url: `/tasks/${id}`,
+        method: "DELETE",
+        headers: {
+          "access-token": Cookies.get("_access_token") || "",
+          client: Cookies.get("_client") || "",
+          uid: Cookies.get("_uid") || "",
+        },
+      };
+
+      axiosInstance(options)
+        .then((res: AxiosResponse) => {
+          console.log(res);
+          setFlag(!flag);
+
+          if (res.status === 200) {
+            handleSetSnackbar({
+              open: true,
+              type: "success",
+              message: "タスクを削除しました",
+            });
+            handleClose();
+            navigate(`/users/${currentUser?.id}`, { replace: true });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          handleSetSnackbar({
+            open: true,
+            type: "error",
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+            message: err.response.data.errors,
+          });
+        });
+    });
+  };
+
   useEffect(() => {
     if (unfinishedTasks && !isFinished) {
       setTasks(unfinishedTasks);
@@ -299,15 +350,28 @@ const UsersShow: FC = () => {
                 >
                   新規作成
                 </Button>
-                {selectionModel?.length ? (
-                  <Button
-                    color="secondary"
-                    variant="contained"
-                    onClick={handleIsDoneUpdate}
-                  >
-                    {isFinished ? "未了" : "完了済み"}にする
-                  </Button>
-                ) : null}
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  onClick={handleIsDoneUpdate}
+                  disabled={selectionModel?.length === 0}
+                >
+                  {isFinished ? "未了" : "完了済み"}にする
+                </Button>
+                <Button
+                  color="error"
+                  variant="outlined"
+                  onClick={handleClickOpen}
+                  disabled={selectionModel?.length === 0}
+                >
+                  削除する
+                </Button>
+                <AlertDialog
+                  open={open}
+                  handleClose={handleClose}
+                  objectName="タスク"
+                  onClick={handleMultiTasksDelete}
+                />
               </Stack>
             ) : (
               <br />
