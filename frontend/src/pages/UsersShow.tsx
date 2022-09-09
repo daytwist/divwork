@@ -1,8 +1,19 @@
 import { useContext, FC, useState, SyntheticEvent, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  Stack,
+  Tab,
+  Tabs,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
@@ -36,6 +47,26 @@ const UsersShow: FC = () => {
     },
     { field: "priority", headerName: "重要度", width: 100 },
     { field: "deadline", headerName: "納期", width: 150 },
+    {
+      field: "division",
+      headerName: "",
+      width: 60,
+      renderCell: (params) => (
+        <Tooltip title="分担する" placement="top" arrow>
+          <IconButton
+            color="secondary"
+            component={Link}
+            to={`/tasks/${params.id}/divisions/new`}
+          >
+            <ConnectWithoutContactIcon />
+          </IconButton>
+        </Tooltip>
+      ),
+      sortable: false,
+      disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
+    },
   ];
 
   const rows = tasks.map((task) => ({
