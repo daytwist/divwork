@@ -1,4 +1,11 @@
-import { useContext, FC, useState, SyntheticEvent, useEffect } from "react";
+import {
+  useContext,
+  FC,
+  useState,
+  SyntheticEvent,
+  useEffect,
+  useCallback,
+} from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -24,6 +31,7 @@ import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import LowPriorityIcon from "@mui/icons-material/LowPriority";
+import EditIcon from "@mui/icons-material/Edit";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
@@ -32,6 +40,7 @@ import { Task, TasksResponse } from "../types";
 import { DatetimeFormat } from "../components/DatetimeFormat";
 import { PriorityLabel } from "../components/PriorityLabel";
 import { SnackbarContext } from "../providers/SnackbarProvider";
+import { TasksDeleteIconButton } from "../components/TasksDeleteIconButton";
 
 const getChipProps = (params: GridRenderCellParams): ChipProps => {
   if (params.value === "高") {
@@ -96,20 +105,29 @@ const UsersShow: FC = () => {
     },
     { field: "deadline", headerName: "納期", width: 150 },
     {
-      field: "division",
+      field: "actions",
       headerName: "",
-      width: 60,
-      renderCell: (params) => (
-        <Tooltip title="分担する" placement="top" arrow>
-          <IconButton
-            color="secondary"
-            component={Link}
-            to={`/tasks/${params.id}/divisions/new`}
-          >
-            <ConnectWithoutContactIcon />
-          </IconButton>
-        </Tooltip>
-      ),
+      width: 150,
+      renderCell: (params) =>
+        user?.id === currentUser?.id ? (
+          <Stack direction="row" spacing={1}>
+            <Tooltip title="分担する" placement="top" arrow>
+              <IconButton
+                color="secondary"
+                component={Link}
+                to={`/tasks/${params.id}/divisions/new`}
+              >
+                <ConnectWithoutContactIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="編集" placement="top" arrow>
+              <IconButton component={Link} to={`/tasks/${params.id}/edit`}>
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+            <TasksDeleteIconButton taskId={params.id} />
+          </Stack>
+        ) : null,
       sortable: false,
       disableColumnMenu: true,
       headerAlign: "center",
@@ -144,6 +162,26 @@ const UsersShow: FC = () => {
     },
     { field: "deadline", headerName: "納期", width: 150 },
     { field: "updated_at", headerName: "完了日", width: 150 },
+    {
+      field: "actions",
+      headerName: "",
+      width: 100,
+      renderCell: (params) =>
+        user?.id === currentUser?.id ? (
+          <Stack direction="row" spacing={1}>
+            <Tooltip title="編集" placement="top" arrow>
+              <IconButton component={Link} to={`/tasks/${params.id}/edit`}>
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+            <TasksDeleteIconButton taskId={params.id} />
+          </Stack>
+        ) : null,
+      sortable: false,
+      disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
+    },
   ];
 
   const rows = tasks.map((task) => ({
@@ -155,23 +193,26 @@ const UsersShow: FC = () => {
     updated_at: DatetimeFormat(task.updated_at),
   }));
 
-  const handleSwitchTasks = (event: SyntheticEvent, newValue: string) => {
-    setTabValue(newValue);
+  const handleSwitchTasks = useCallback(
+    (event: SyntheticEvent, newValue: string) => {
+      setTabValue(newValue);
 
-    if (newValue === "finished") {
-      setIsFinished(true);
-      setTasks(finishedTasks);
-      setColumns(finishedColumns);
-      setSelectionModel([]);
-      console.log(isFinished);
-    } else {
-      setIsFinished(false);
-      setTasks(unfinishedTasks);
-      setColumns(unfinishedColumns);
-      setSelectionModel([]);
-      console.log(isFinished);
-    }
-  };
+      if (newValue === "unfinished") {
+        setIsFinished(false);
+        setTasks(unfinishedTasks);
+        setColumns(unfinishedColumns);
+        setSelectionModel([]);
+        console.log(isFinished);
+      } else {
+        setIsFinished(true);
+        setTasks(finishedTasks);
+        setColumns(finishedColumns);
+        setSelectionModel([]);
+        console.log(isFinished);
+      }
+    },
+    [tasks]
+  );
 
   const handleIsDoneUpdate = () => {
     // eslint-disable-next-line array-callback-return
@@ -277,7 +318,7 @@ const UsersShow: FC = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item sx={{ width: { xs: 200, sm: 500, md: 700, lg: 900 } }}>
+        <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 974 } }}>
           <div style={{ height: 400, width: "100%" }}>
             {user?.id === currentUser?.id ? (
               <DataGrid
