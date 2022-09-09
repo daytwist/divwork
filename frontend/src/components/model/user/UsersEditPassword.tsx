@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Grid, TextField } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { AuthPasswordResponse } from "../types";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { axiosInstance } from "../../../utils/axios";
+import { AuthPasswordResponse } from "../../../types";
+import { AuthContext } from "../../../providers/AuthProvider";
+import { SnackbarContext } from "../../../providers/SnackbarProvider";
 
 export const UsersEditPassword = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);

@@ -3,9 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Avatar, Button, Divider, Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { Team, TeamsShowResponse, User } from "../types";
-import { TasksBar } from "../components/TasksBarChart";
+import { axiosInstance } from "../../utils/axios";
+import { Team, TeamsShowResponse, User } from "../../types";
+import { TasksBarChart } from "../model/task/TasksBarChart";
 
 const TeamsShow: FC = () => {
   const [team, setTeam] = useState<Team>();
@@ -113,7 +113,7 @@ const TeamsShow: FC = () => {
                 </Grid>
               </Grid>
               <Grid item>
-                <TasksBar user={user} maxCount={maxCount} />
+                <TasksBarChart user={user} maxCount={maxCount} />
               </Grid>
             </Grid>
             <Divider />

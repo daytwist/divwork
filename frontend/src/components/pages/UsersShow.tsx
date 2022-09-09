@@ -24,16 +24,16 @@ import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import EditIcon from "@mui/icons-material/Edit";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
-import { AuthContext } from "../providers/AuthProvider";
-import { useFetchUser } from "../hooks/useFetchUser";
-import { Task, TasksResponse } from "../types";
-import { DatetimeFormat } from "../components/DatetimeFormat";
-import { PriorityLabel } from "../components/PriorityLabel";
-import { SnackbarContext } from "../providers/SnackbarProvider";
-import { TasksDeleteIconButton } from "../components/TasksDeleteIconButton";
-import { AlertDialog } from "../components/AlertDialog";
-import { GetChipProps } from "../components/GetChipProps";
+import { axiosInstance } from "../../utils/axios";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useFetchUser } from "../../hooks/useFetchUser";
+import { Task, TasksResponse } from "../../types";
+import { DatetimeFormat } from "../ui/DatetimeFormat";
+import { PriorityLabel } from "../model/task/PriorityLabel";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { TasksDeleteIconButton } from "../model/task/TasksDeleteIconButton";
+import { AlertDialog } from "../ui/AlertDialog";
+import { GetChipProps } from "../model/task/GetChipProps";
 
 const UsersShow: FC = () => {
   const [flag, setFlag] = useState<boolean>(false);

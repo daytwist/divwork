@@ -16,11 +16,11 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import PeopleIcon from "@mui/icons-material/People";
 import LinkIcon from "@mui/icons-material/Link";
-import { useFetchTask } from "../hooks/useFetchTask";
-import { AuthContext } from "../providers/AuthProvider";
-import { PriorityLabel } from "../components/PriorityLabel";
-import { DatetimeFormat } from "../components/DatetimeFormat";
-import { TasksDeleteIconButton } from "../components/TasksDeleteIconButton";
+import { useFetchTask } from "../../hooks/useFetchTask";
+import { AuthContext } from "../../providers/AuthProvider";
+import { PriorityLabel } from "../model/task/PriorityLabel";
+import { DatetimeFormat } from "../ui/DatetimeFormat";
+import { TasksDeleteIconButton } from "../model/task/TasksDeleteIconButton";
 
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);

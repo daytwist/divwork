@@ -8,14 +8,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { User } from "../types";
+import { User } from "../../../types";
 
 type Props = {
   user: User;
   maxCount: number;
 };
 
-export const TasksBar = (props: Props) => {
+export const TasksBarChart = (props: Props) => {
   const { user, maxCount } = props;
 
   const data = [

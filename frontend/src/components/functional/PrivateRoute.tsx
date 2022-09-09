@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Navigate, RouteProps } from "react-router-dom";
-import { AuthContext } from "../providers/AuthProvider";
-import { LoadingSpinner } from "./LoadingSpinner";
+import { AuthContext } from "../../providers/AuthProvider";
+import { LoadingSpinner } from "../ui/LoadingSpinner";
 
 const PrivateRoute: FC<RouteProps> = ({ children }) => {
   const { loading, isSignedIn } = useContext(AuthContext);

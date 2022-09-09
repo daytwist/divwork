@@ -5,10 +5,10 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import CommonLayout from "../components/CommonLayout";
+import CommonLayout from "../components/ui/CommonLayout";
 import { server } from "../mocks/server";
-import TasksShow from "../pages/TasksShow";
-import UsersShow from "../pages/UsersShow";
+import TasksShow from "../components/pages/TasksShow";
+import UsersShow from "../components/pages/UsersShow";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 

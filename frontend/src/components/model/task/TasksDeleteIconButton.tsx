@@ -2,8 +2,8 @@ import { useCallback, useState } from "react";
 import { IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { GridRowId } from "@mui/x-data-grid";
-import { AlertDialog } from "./AlertDialog";
-import { useTasksDelete } from "../hooks/useTasksDelete";
+import { AlertDialog } from "../../ui/AlertDialog";
+import { useTasksDelete } from "../../../hooks/useTasksDelete";
 
 type Props = {
   taskId: string | GridRowId | undefined;

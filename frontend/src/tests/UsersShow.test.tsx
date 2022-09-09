@@ -3,9 +3,9 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import Header from "../components/Header";
+import Header from "../components/ui/Header";
 import { server } from "../mocks/server";
-import UsersShow from "../pages/UsersShow";
+import UsersShow from "../components/pages/UsersShow";
 import { AuthProvider } from "../providers/AuthProvider";
 
 describe("UsersShow", () => {

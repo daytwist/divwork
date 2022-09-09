@@ -1,6 +1,6 @@
 import { SyntheticEvent, useContext } from "react";
 import { Alert, Snackbar, Stack } from "@mui/material";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 export const AlertSnackbar = () => {
   const { snackbarState, setSnackbarState } = useContext(SnackbarContext);

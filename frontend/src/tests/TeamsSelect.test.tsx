@@ -4,11 +4,11 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
-import TeamsSelect from "../pages/TeamsSelect";
+import TeamsSelect from "../components/pages/TeamsSelect";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import SignUp from "../pages/SignUp";
+import SignUp from "../components/pages/SignUp";
 import { AuthProvider } from "../providers/AuthProvider";
-import CommonLayout from "../components/CommonLayout";
+import CommonLayout from "../components/ui/CommonLayout";
 
 describe("TeamsSelect", () => {
   test("スナップショット", () => {
