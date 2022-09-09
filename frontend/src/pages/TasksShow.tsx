@@ -24,7 +24,7 @@ import { useFetchTask } from "../hooks/useFetchTask";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 import { PriorityLabel } from "../components/PriorityLabel";
-import { DeadlineFormat } from "../components/DeadlineFormat";
+import { DatetimeFormat } from "../components/DatetimeFormat";
 import { AlertDialog } from "../components/AlertDialog";
 
 const TasksShow: FC = () => {
@@ -186,7 +186,7 @@ const TasksShow: FC = () => {
                 納期
               </Typography>
               <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                {DeadlineFormat(task?.deadline)}
+                {DatetimeFormat(task?.deadline)}
               </Typography>
               <Typography
                 variant="subtitle1"

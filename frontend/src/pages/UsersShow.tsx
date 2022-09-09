@@ -19,7 +19,7 @@ import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { Task, TasksResponse } from "../types";
-import { DeadlineFormat } from "../components/DeadlineFormat";
+import { DatetimeFormat } from "../components/DatetimeFormat";
 import { PriorityLabel } from "../components/PriorityLabel";
 
 const UsersShow: FC = () => {
@@ -31,10 +31,11 @@ const UsersShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>(unfinishedTasks);
-  const [tabValue, setTabValue] = useState("1");
+  const [tabValue, setTabValue] = useState("unfinished");
+  const [columns, setColumns] = useState<GridColDef[]>([]);
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>();
 
-  const columns: GridColDef[] = [
+  const unfinishedColumns: GridColDef[] = [
     {
       field: "title",
       headerName: "タイトル",
@@ -45,6 +46,7 @@ const UsersShow: FC = () => {
         </Link>
       ),
     },
+    { field: "description", headerName: "詳細", width: 200 },
     { field: "priority", headerName: "重要度", width: 100 },
     { field: "deadline", headerName: "納期", width: 150 },
     {
@@ -69,24 +71,45 @@ const UsersShow: FC = () => {
     },
   ];
 
+  const finishedColumns: GridColDef[] = [
+    {
+      field: "title",
+      headerName: "タイトル",
+      width: 200,
+      renderCell: (params) => (
+        <Link to={`/tasks/${params.id}`} style={{ color: "black" }}>
+          {params.value}
+        </Link>
+      ),
+    },
+    { field: "description", headerName: "詳細", width: 200 },
+    { field: "priority", headerName: "重要度", width: 100 },
+    { field: "deadline", headerName: "納期", width: 150 },
+    { field: "updated_at", headerName: "完了日", width: 150 },
+  ];
+
   const rows = tasks.map((task) => ({
     id: task.id,
     title: task.title,
+    description: task.description,
     priority: PriorityLabel(task.priority),
-    deadline: DeadlineFormat(task.deadline),
+    deadline: DatetimeFormat(task.deadline),
+    updated_at: DatetimeFormat(task.updated_at),
   }));
 
   const handleSwitchTasks = (event: SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
 
-    if (newValue === "2") {
+    if (newValue === "finished") {
       setIsFinished(true);
       setTasks(finishedTasks);
+      setColumns(finishedColumns);
       setSelectionModel([]);
       console.log(isFinished);
     } else {
       setIsFinished(false);
       setTasks(unfinishedTasks);
+      setColumns(unfinishedColumns);
       setSelectionModel([]);
       console.log(isFinished);
     }
@@ -119,8 +142,10 @@ const UsersShow: FC = () => {
   useEffect(() => {
     if (unfinishedTasks && !isFinished) {
       setTasks(unfinishedTasks);
+      setColumns(unfinishedColumns);
     } else if (finishedTasks && isFinished) {
       setTasks(finishedTasks);
+      setColumns(finishedColumns);
     }
   }, [unfinishedTasks, finishedTasks]);
 
@@ -151,8 +176,8 @@ const UsersShow: FC = () => {
                 </Button>
                 {selectionModel?.length ? (
                   <Button
-                    color="success"
-                    variant="outlined"
+                    color="secondary"
+                    variant="contained"
                     onClick={handleIsDoneUpdate}
                   >
                     {isFinished ? "未了" : "完了済み"}にする
@@ -169,8 +194,8 @@ const UsersShow: FC = () => {
                   value={tabValue}
                   onChange={handleSwitchTasks}
                 >
-                  <Tab value="1" label="未了" />
-                  <Tab value="2" label="完了済み" />
+                  <Tab value="unfinished" label="未了" />
+                  <Tab value="finished" label="完了済み" />
                 </Tabs>
               </Box>
             </Grid>
@@ -178,18 +203,27 @@ const UsersShow: FC = () => {
         </Grid>
         <Grid item sx={{ width: { xs: 200, sm: 500, md: 700, lg: 900 } }}>
           <div style={{ height: 400, width: "100%" }}>
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              pageSize={10}
-              rowsPerPageOptions={[10]}
-              checkboxSelection
-              disableSelectionOnClick
-              selectionModel={selectionModel}
-              onSelectionModelChange={(newSelectionModel) =>
-                setSelectionModel(newSelectionModel)
-              }
-            />
+            {user?.id === currentUser?.id ? (
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                checkboxSelection
+                selectionModel={selectionModel}
+                onSelectionModelChange={(newSelectionModel) =>
+                  setSelectionModel(newSelectionModel)
+                }
+              />
+            ) : (
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                disableSelectionOnClick
+              />
+            )}
           </div>
         </Grid>
       </Grid>

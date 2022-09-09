@@ -19,7 +19,7 @@ import { axiosInstance } from "../utils/axios";
 import { Task, User, TasksResponse } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
 import { PriorityLabel } from "./PriorityLabel";
-import { DeadlineFormat } from "./DeadlineFormat";
+import { DatetimeFormat } from "./DatetimeFormat";
 
 type Props = {
   user: User | undefined;
@@ -87,7 +87,7 @@ export const TasksTable = (props: Props) => {
               <TableCell>
                 <Link to={`/tasks/${task.id}`}>{task.title}</Link>
               </TableCell>
-              <TableCell>{DeadlineFormat(task.deadline)}</TableCell>
+              <TableCell>{DatetimeFormat(task.deadline)}</TableCell>
               <TableCell align="center">
                 {PriorityLabel(task.priority)}
               </TableCell>
