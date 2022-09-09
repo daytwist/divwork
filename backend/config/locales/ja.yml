@@ -15,7 +15,7 @@ ja:
         description: 詳細
         deadline: 納期
         priority: 優先度
-        is_done: 完了済み
+        is_done: 完了済みフラグ
         user: ユーザー
       division:
         comment: コメント

@@ -31,6 +31,7 @@ import { useFetchUser } from "../hooks/useFetchUser";
 import { Task, TasksResponse } from "../types";
 import { DatetimeFormat } from "../components/DatetimeFormat";
 import { PriorityLabel } from "../components/PriorityLabel";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 
 const getChipProps = (params: GridRenderCellParams): ChipProps => {
   if (params.value === "高") {
@@ -61,6 +62,7 @@ const UsersShow: FC = () => {
     flag,
   });
   const { currentUser } = useContext(AuthContext);
+  const { handleSetSnackbar } = useContext(SnackbarContext);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>(unfinishedTasks);
   const [tabValue, setTabValue] = useState("unfinished");
@@ -190,8 +192,26 @@ const UsersShow: FC = () => {
         .then((res: AxiosResponse<TasksResponse>) => {
           console.log(res);
           setFlag(!flag);
+
+          if (res.status === 200) {
+            handleSetSnackbar({
+              open: true,
+              type: "success",
+              message: isFinished
+                ? "タスクを未了にしました"
+                : "タスクを完了済みにしました",
+            });
+          }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          handleSetSnackbar({
+            open: true,
+            type: "error",
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+            message: `${err.response.data.messages.join("。")}`,
+          });
+        });
     });
   };
 
