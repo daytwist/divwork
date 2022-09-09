@@ -33,6 +33,7 @@ RSpec.describe "Api::V1::Users", type: :request do
 
   describe "GET /edit" do
     it "ユーザーの情報取得に成功すること" do
+      get "/api/v1/users/#{user.id}/edit", headers: headers
       expect(response).to have_http_status(:ok)
       expect(json["user"]["id"]).to eq user.id
     end
