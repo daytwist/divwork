@@ -126,7 +126,9 @@ describe("UsersEdit", () => {
       </MemoryRouter>
     );
 
-    act(() => { userEvent.click(screen.getByText("その他")) });
+    act(() => {
+      userEvent.click(screen.getByText("その他"));
+    });
 
     act(() => {
       userEvent.click(screen.getByRole("button", { name: "アカウント削除" }));

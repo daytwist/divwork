@@ -54,3 +54,30 @@ export const mockUsersShow: ResponseResolver<
     })
   );
 };
+
+export const mockUsersEdit: ResponseResolver<
+  MockedRequest,
+  typeof restContext
+> = (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      user: {
+        id: 1,
+        provider: "email",
+        uid: "test@example.com",
+        allow_password_change: false,
+        name: "USER_1",
+        nickname: null,
+        image: null,
+        email: "test@example.com",
+        team_id: 1,
+        created_at: "2022-06-05T10:16:09.882+09:00",
+        updated_at: "2022-06-05T10:16:09.882+09:00",
+        unfinished_tasks_count: [1, 2, 3],
+        avatar: "",
+        admin: false,
+      },
+    })
+  );
+};
