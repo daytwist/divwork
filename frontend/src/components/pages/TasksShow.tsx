@@ -17,6 +17,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import PeopleIcon from "@mui/icons-material/People";
 import LinkIcon from "@mui/icons-material/Link";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { useFetchTask } from "../../hooks/useFetchTask";
@@ -138,8 +139,7 @@ const TasksShow: FC = () => {
                 </div>
               }
               action={
-                task?.user_id === currentUser?.id &&
-                task?.is_done === false && (
+                task?.user_id === currentUser?.id && (
                   <Stack direction="row" spacing={1}>
                     <Tooltip title="編集" placement="top" arrow>
                       <IconButton
@@ -190,10 +190,10 @@ const TasksShow: FC = () => {
                 component="div"
                 color="text.secondary"
               >
-                完了フラグ
+                ステータス
               </Typography>
               <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                {task?.is_done.toString()}
+                {task?.is_done ? "完了済み" : "未了"}
               </Typography>
             </CardContent>
             <CardActions>
@@ -209,6 +209,7 @@ const TasksShow: FC = () => {
                     type="button"
                     component={Link}
                     to={`/tasks/${task?.id}/divisions/new`}
+                    startIcon={<ConnectWithoutContactIcon />}
                   >
                     分担する
                   </Button>

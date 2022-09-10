@@ -23,6 +23,7 @@ import {
 import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -325,6 +326,7 @@ const UsersShow: FC = () => {
                   variant="outlined"
                   onClick={handleClickOpen}
                   disabled={selectionModel?.length === 0}
+                  startIcon={<DeleteIcon />}
                 >
                   削除する
                 </Button>
