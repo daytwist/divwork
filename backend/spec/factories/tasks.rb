@@ -5,5 +5,6 @@ FactoryBot.define do
     deadline { Faker::Time.between(from: DateTime.now, to: DateTime.now + 7, format: :long) }
     priority { rand(0..2) }
     is_done { false }
+    rate_of_progress { 0 }
   end
 end

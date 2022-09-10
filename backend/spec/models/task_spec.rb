@@ -49,6 +49,24 @@ RSpec.describe Task, type: :model do
       end
     end
 
+    it "進捗率が0より小さいとバリデーションエラーが発生すること" do
+      task = build(:task, rate_of_progress: -1, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:rate_of_progress, :greater_than_or_equal_to)
+    end
+
+    it "進捗率が100より大きいとバリデーションエラーが発生すること" do
+      task = build(:task, rate_of_progress: 101, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:rate_of_progress, :less_than_or_equal_to)
+    end
+
+    it "進捗率が小数だとバリデーションエラーが発生すること" do
+      task = build(:task, rate_of_progress: 50.5, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:rate_of_progress, :not_an_integer)
+    end
+
     context "ユーザーと紐付いていない時" do
       let(:task) { build(:task) }
 
