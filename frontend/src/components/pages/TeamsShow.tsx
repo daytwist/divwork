@@ -1,7 +1,14 @@
 import { useState, useEffect, FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Avatar, Divider, Grid, Typography, Stack, Button } from "@mui/material";
+import {
+  Avatar,
+  Divider,
+  Grid,
+  Typography,
+  Stack,
+  Button,
+} from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { Team, TeamsShowResponse, User } from "../../types";

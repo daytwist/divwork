@@ -78,5 +78,5 @@ describe("DivisionsNew", () => {
     expect(
       await screen.findByText("分担タスクを送信しました")
     ).toBeInTheDocument();
-  });
+  }, 8000);
 });

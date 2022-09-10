@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-import AddTaskIcon from '@mui/icons-material/AddTask';
+import AddTaskIcon from "@mui/icons-material/AddTask";
 
 export const TasksNewButton = () => {
   return (
@@ -9,7 +9,7 @@ export const TasksNewButton = () => {
       type="button"
       component={Link}
       to="/tasks/new"
-      startIcon={<AddTaskIcon/>}
+      startIcon={<AddTaskIcon />}
     >
       新規作成
     </Button>

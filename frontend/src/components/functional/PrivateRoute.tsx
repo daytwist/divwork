@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Navigate, RouteProps } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
-import { LoadingColorRing } from '../ui/LoadingColorRing';
+import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 const PrivateRoute: FC<RouteProps> = ({ children }) => {
   const { loading, isSignedIn } = useContext(AuthContext);
