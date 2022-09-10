@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Avatar, Divider, Grid, Typography, Stack } from "@mui/material";
+import { Avatar, Divider, Grid, Typography, Stack, Button } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { Team, TeamsShowResponse, User } from "../../types";
@@ -78,9 +78,10 @@ const TeamsShow: FC = () => {
                   <Grid item>
                     <Link
                       to={`/users/${user.id}`}
-                      style={{ textDecoration: "none", color: "inherit" }}
+                      style={{ textDecoration: "none" }}
                     >
                       <Stack
+                        component={Button}
                         direction="column"
                         justifyContent="center"
                         alignItems="center"
@@ -110,6 +111,7 @@ const TeamsShow: FC = () => {
                         <Typography
                           variant="button"
                           sx={{
+                            color: "black",
                             mt: { xs: 0, sm: 1 },
                           }}
                         >
