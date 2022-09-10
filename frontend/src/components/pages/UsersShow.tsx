@@ -34,6 +34,7 @@ import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { AlertDialog } from "../ui/AlertDialog";
 import { GetChipProps } from "../models/task/GetChipProps";
+import { TasksNewButton } from "../models/task/TasksNewButton";
 
 const UsersShow: FC = () => {
   const [flag, setFlag] = useState<boolean>(false);
@@ -312,14 +313,7 @@ const UsersShow: FC = () => {
           >
             {user?.id === currentUser?.id ? (
               <Stack direction="row" spacing={2}>
-                <Button
-                  variant="contained"
-                  type="button"
-                  component={Link}
-                  to="/tasks/new"
-                >
-                  新規作成
-                </Button>
+                <TasksNewButton />
                 <Button
                   color="secondary"
                   variant="contained"

@@ -6,6 +6,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { Team, TeamsShowResponse, User } from "../../types";
 import { TasksBarChart } from "../models/task/TasksBarChart";
+import { TasksNewButton } from "../models/task/TasksNewButton";
 
 const TeamsShow: FC = () => {
   const [team, setTeam] = useState<Team>();
@@ -60,6 +61,9 @@ const TeamsShow: FC = () => {
           >
             {team?.name ? `${team.name}のタスク` : ""}
           </Typography>
+        </Grid>
+        <Grid item>
+          <TasksNewButton />
         </Grid>
         {users?.map((user) => (
           <Grid item key={user.id}>
