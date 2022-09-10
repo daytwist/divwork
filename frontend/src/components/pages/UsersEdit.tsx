@@ -10,8 +10,8 @@ import { useFetchUser } from "../../hooks/useFetchUser";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { AlertDialog } from "../ui/AlertDialog";
-import { UsersEditProfile } from "../model/user/UsersEditProfile";
-import { UsersEditPassword } from "../model/user/UsersEditPassword";
+import { UsersEditProfile } from "../models/user/UsersEditProfile";
+import { UsersEditPassword } from "../models/user/UsersEditPassword";
 
 const UsersEdit: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);

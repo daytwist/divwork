@@ -6,8 +6,8 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { TasksResponse, NewTask } from "../../types";
 import { AuthContext } from "../../providers/AuthProvider";
-import { PriorityTextField } from "../model/task/PriorityTextField";
-import { DeadlineTextField } from "../model/task/DeadlineTextField";
+import { PriorityTextField } from "../models/task/PriorityTextField";
+import { DeadlineTextField } from "../models/task/DeadlineTextField";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 const TasksNew: FC = () => {

@@ -18,9 +18,9 @@ import PeopleIcon from "@mui/icons-material/People";
 import LinkIcon from "@mui/icons-material/Link";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { AuthContext } from "../../providers/AuthProvider";
-import { PriorityLabel } from "../model/task/PriorityLabel";
+import { PriorityLabel } from "../models/task/PriorityLabel";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
-import { TasksDeleteIconButton } from "../model/task/TasksDeleteIconButton";
+import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);

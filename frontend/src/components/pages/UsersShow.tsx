@@ -29,11 +29,11 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { Task, TasksResponse } from "../../types";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
-import { PriorityLabel } from "../model/task/PriorityLabel";
+import { PriorityLabel } from "../models/task/PriorityLabel";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
-import { TasksDeleteIconButton } from "../model/task/TasksDeleteIconButton";
+import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { AlertDialog } from "../ui/AlertDialog";
-import { GetChipProps } from "../model/task/GetChipProps";
+import { GetChipProps } from "../models/task/GetChipProps";
 
 const UsersShow: FC = () => {
   const [flag, setFlag] = useState<boolean>(false);
