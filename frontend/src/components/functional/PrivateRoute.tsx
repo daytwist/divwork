@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Navigate, RouteProps } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
-import { LoadingSpinner } from "../ui/LoadingSpinner";
+import { LoadingColorRing } from '../ui/LoadingColorRing';
 
 const PrivateRoute: FC<RouteProps> = ({ children }) => {
   const { loading, isSignedIn } = useContext(AuthContext);
@@ -13,7 +13,7 @@ const PrivateRoute: FC<RouteProps> = ({ children }) => {
     return <Navigate to="/sign_in" />;
   }
 
-  return <LoadingSpinner />;
+  return <LoadingColorRing />;
 };
 
 export default PrivateRoute;

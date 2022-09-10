@@ -7,6 +7,7 @@ import { axiosInstance } from "../../utils/axios";
 import { Team, TeamsShowResponse, User } from "../../types";
 import { TasksBarChart } from "../models/task/TasksBarChart";
 import { TasksNewButton } from "../models/task/TasksNewButton";
+import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 const TeamsShow: FC = () => {
   const params = useParams<{ id: string }>();
@@ -50,79 +51,85 @@ const TeamsShow: FC = () => {
 
   return (
     <div>
-      <Grid container direction="column" spacing={2}>
-        <Grid item>
-          <Typography
-            gutterBottom
-            variant="h4"
-            component="div"
-            data-testid="teams-show-h4"
-          >
-            {team?.name ? `${team.name}のタスク` : ""}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <TasksNewButton />
-        </Grid>
-        {users?.map((user) => (
-          <Grid item key={user.id}>
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Grid item>
-                <Link
-                  to={`/users/${user.id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <Stack
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    sx={{
-                      width: { xs: 80, sm: 100 },
-                      height: { xs: 80, sm: 120 },
-                      mr: { xs: 1, sm: 2 },
-                    }}
-                  >
-                    {user.avatar ? (
-                      <Avatar
-                        src={user.avatar}
-                        alt="avatar"
-                        sx={{
-                          width: { sm: 60 },
-                          height: { sm: 60 },
-                        }}
-                      />
-                    ) : (
-                      <Avatar
-                        sx={{
-                          width: { sm: 60 },
-                          height: { sm: 60 },
-                        }}
-                      />
-                    )}
-                    <Typography
-                      variant="button"
-                      sx={{
-                        mt: { xs: 0, sm: 1 },
-                      }}
-                    >
-                      {user.name}
-                    </Typography>
-                  </Stack>
-                </Link>
-              </Grid>
-              <Grid item>
-                <TasksBarChart user={user} maxCount={maxCount} />
-              </Grid>
+      {team ? (
+        <div>
+          <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <Typography
+                gutterBottom
+                variant="h4"
+                component="div"
+                data-testid="teams-show-h4"
+              >
+                {team.name}のタスク
+              </Typography>
             </Grid>
-            <Divider />
+            <Grid item>
+              <TasksNewButton />
+            </Grid>
+            {users?.map((user) => (
+              <Grid item key={user.id}>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <Link
+                      to={`/users/${user.id}`}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <Stack
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{
+                          width: { xs: 80, sm: 100 },
+                          height: { xs: 80, sm: 120 },
+                          mr: { xs: 1, sm: 2 },
+                        }}
+                      >
+                        {user.avatar ? (
+                          <Avatar
+                            src={user.avatar}
+                            alt="avatar"
+                            sx={{
+                              width: { sm: 60 },
+                              height: { sm: 60 },
+                            }}
+                          />
+                        ) : (
+                          <Avatar
+                            sx={{
+                              width: { sm: 60 },
+                              height: { sm: 60 },
+                            }}
+                          />
+                        )}
+                        <Typography
+                          variant="button"
+                          sx={{
+                            mt: { xs: 0, sm: 1 },
+                          }}
+                        >
+                          {user.name}
+                        </Typography>
+                      </Stack>
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <TasksBarChart user={user} maxCount={maxCount} />
+                  </Grid>
+                </Grid>
+                <Divider />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        </div>
+      ) : (
+        <LoadingColorRing />
+      )}
     </div>
   );
 };
