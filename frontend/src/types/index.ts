@@ -30,6 +30,7 @@ export type Task = {
   deadline: Date;
   priority: string;
   is_done: boolean;
+  rate_of_progress: number;
   user_id: number;
   created_at: Date;
   updated_at: Date;
@@ -43,6 +44,7 @@ export type ChildrenTask = {
   deadline: Date;
   priority: string;
   is_done: boolean;
+  rate_of_progress: number;
   user_id: number;
   created_at: Date;
   updated_at: Date;

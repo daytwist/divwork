@@ -89,6 +89,7 @@ const UsersShow: FC = () => {
       ),
     },
     { field: "deadline", headerName: "納期", width: 150 },
+    { field: "rateOfProgress", headerName: "進捗率", width: 100 },
     {
       field: "actions",
       headerName: "",
@@ -175,6 +176,7 @@ const UsersShow: FC = () => {
     description: task.description,
     priority: PriorityLabel(task.priority),
     deadline: DatetimeFormat(task.deadline),
+    rateOfProgress: `${task.rate_of_progress}%`,
     updated_at: DatetimeFormat(task.updated_at),
   }));
 

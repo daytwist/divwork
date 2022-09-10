@@ -173,6 +173,16 @@ const TasksShow: FC = () => {
                     component="div"
                     color="text.secondary"
                   >
+                    優先度
+                  </Typography>
+                  <Typography variant="body1" component="div" sx={{ mb: 2 }}>
+                    {PriorityLabel(task?.priority)}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    component="div"
+                    color="text.secondary"
+                  >
                     納期
                   </Typography>
                   <Typography variant="body1" component="div" sx={{ mb: 2 }}>
@@ -183,10 +193,10 @@ const TasksShow: FC = () => {
                     component="div"
                     color="text.secondary"
                   >
-                    優先度
+                    進捗率
                   </Typography>
                   <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                    {PriorityLabel(task?.priority)}
+                    {task?.rate_of_progress}%
                   </Typography>
                   <Typography
                     variant="subtitle1"
