@@ -35,6 +35,7 @@ import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { AlertDialog } from "../ui/AlertDialog";
 import { GetChipProps } from "../models/task/GetChipProps";
 import { TasksNewButton } from "../models/task/TasksNewButton";
+import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
 
 const UsersShow: FC = () => {
   const [flag, setFlag] = useState<boolean>(false);
@@ -197,7 +198,7 @@ const UsersShow: FC = () => {
     [tasks]
   );
 
-  const handleIsDoneUpdate = () => {
+  const handleMultiIsDoneUpdate = () => {
     // eslint-disable-next-line array-callback-return
     selectionModel?.map((id) => {
       const options: AxiosRequestConfig = {
@@ -314,14 +315,11 @@ const UsersShow: FC = () => {
             {user?.id === currentUser?.id ? (
               <Stack direction="row" spacing={2}>
                 <TasksNewButton />
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  onClick={handleIsDoneUpdate}
+                <IsDoneUpdateButton
+                  onClick={handleMultiIsDoneUpdate}
                   disabled={selectionModel?.length === 0}
-                >
-                  {isFinished ? "未了" : "完了済み"}にする
-                </Button>
+                  isFinished={isFinished}
+                />
                 <Button
                   color="error"
                   variant="outlined"
