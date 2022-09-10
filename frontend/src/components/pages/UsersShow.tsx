@@ -23,17 +23,20 @@ import {
 import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { Task, TasksResponse } from "../../types";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
-import { PriorityLabel } from "../model/task/PriorityLabel";
+import { PriorityLabel } from "../models/task/PriorityLabel";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
-import { TasksDeleteIconButton } from "../model/task/TasksDeleteIconButton";
+import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { AlertDialog } from "../ui/AlertDialog";
-import { GetChipProps } from "../model/task/GetChipProps";
+import { GetChipProps } from "../models/task/GetChipProps";
+import { TasksNewButton } from "../models/task/TasksNewButton";
+import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
 
 const UsersShow: FC = () => {
   const [flag, setFlag] = useState<boolean>(false);
@@ -196,7 +199,7 @@ const UsersShow: FC = () => {
     [tasks]
   );
 
-  const handleIsDoneUpdate = () => {
+  const handleMultiIsDoneUpdate = () => {
     // eslint-disable-next-line array-callback-return
     selectionModel?.map((id) => {
       const options: AxiosRequestConfig = {
@@ -312,27 +315,18 @@ const UsersShow: FC = () => {
           >
             {user?.id === currentUser?.id ? (
               <Stack direction="row" spacing={2}>
-                <Button
-                  variant="contained"
-                  type="button"
-                  component={Link}
-                  to="/tasks/new"
-                >
-                  新規作成
-                </Button>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  onClick={handleIsDoneUpdate}
+                <TasksNewButton />
+                <IsDoneUpdateButton
+                  onClick={handleMultiIsDoneUpdate}
                   disabled={selectionModel?.length === 0}
-                >
-                  {isFinished ? "未了" : "完了済み"}にする
-                </Button>
+                  isFinished={isFinished}
+                />
                 <Button
                   color="error"
                   variant="outlined"
                   onClick={handleClickOpen}
                   disabled={selectionModel?.length === 0}
+                  startIcon={<DeleteIcon />}
                 >
                   削除する
                 </Button>
