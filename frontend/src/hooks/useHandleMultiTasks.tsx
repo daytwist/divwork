@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { GridRowId } from "@mui/x-data-grid";
@@ -22,7 +22,7 @@ export const useHandleMultiTasks = (props: Props) => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
-  const handleMultiIsDoneUpdate = () => {
+  const handleMultiIsDoneUpdate = useCallback(() => {
     // eslint-disable-next-line array-callback-return
     selectionModel?.map((id) => {
       const options: AxiosRequestConfig = {
@@ -34,7 +34,14 @@ export const useHandleMultiTasks = (props: Props) => {
           client: Cookies.get("_client") || "",
           uid: Cookies.get("_uid") || "",
         },
-        data: { is_done: !isFinished },
+        data: !isFinished
+          ? {
+              is_done: !isFinished,
+              rate_of_progress: 100,
+            }
+          : {
+              is_done: !isFinished,
+            },
       };
 
       axiosInstance(options)
@@ -62,9 +69,9 @@ export const useHandleMultiTasks = (props: Props) => {
           });
         });
     });
-  };
+  }, [selectionModel, isFinished, flag, setFlag, handleClose]);
 
-  const handleMultiTasksDelete = () => {
+  const handleMultiTasksDelete = useCallback(() => {
     // eslint-disable-next-line array-callback-return
     selectionModel?.map((id) => {
       const options: AxiosRequestConfig = {
@@ -102,7 +109,7 @@ export const useHandleMultiTasks = (props: Props) => {
           });
         });
     });
-  };
+  }, [selectionModel, isFinished, flag, setFlag, handleClose]);
 
   return { handleMultiIsDoneUpdate, handleMultiTasksDelete };
 };

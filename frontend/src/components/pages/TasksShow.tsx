@@ -48,7 +48,14 @@ const TasksShow: FC = () => {
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
       },
-      data: { is_done: !task?.is_done },
+      data: !task?.is_done
+        ? {
+            is_done: !task?.is_done,
+            rate_of_progress: 100,
+          }
+        : {
+            is_done: !task?.is_done,
+          },
     };
 
     axiosInstance(options)
