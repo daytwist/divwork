@@ -1,7 +1,17 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { TasksResponse, EditTask } from "../../types";
@@ -21,7 +31,7 @@ const TasksEdit: FC = () => {
   const [task, setTask] = useState<EditTask>({
     title: "",
     description: "",
-    is_done: false,
+    rate_of_progress: 0,
     user_id: 0,
   });
 
@@ -91,10 +101,10 @@ const TasksEdit: FC = () => {
         <Grid item>
           <TextField
             label="タイトル"
-            variant="standard"
-            sx={{ width: "30ch" }}
+            variant="outlined"
+            sx={{ width: "50ch" }}
             name="title"
-            value={task?.title}
+            value={task.title}
             onChange={handleInputChange}
           />
         </Grid>
@@ -104,27 +114,42 @@ const TasksEdit: FC = () => {
             variant="outlined"
             multiline
             rows={4}
-            sx={{ width: "55ch" }}
+            sx={{ width: "50ch" }}
             name="description"
-            value={task?.description}
+            value={task.description}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
-          <DeadlineTextField
-            value={deadline}
-            onChange={(newValue) => {
-              setDeadline(newValue);
-            }}
-          />
+          <Stack direction="row" spacing={5}>
+            <PriorityTextField
+              value={priority}
+              onChange={(event) => {
+                setPriority(event.target.value);
+              }}
+            />
+            <DeadlineTextField
+              value={deadline}
+              onChange={(newValue) => {
+                setDeadline(newValue);
+              }}
+            />
+          </Stack>
         </Grid>
         <Grid item>
-          <PriorityTextField
-            value={priority}
-            onChange={(event) => {
-              setPriority(event.target.value);
-            }}
-          />
+          <FormControl sx={{ width: "10ch" }}>
+            <InputLabel htmlFor="rate-of-progress">進捗率</InputLabel>
+            <OutlinedInput
+              id="rate-of-progress"
+              label="進捗率"
+              type="number"
+              name="rate_of_progress"
+              value={task.rate_of_progress}
+              onChange={handleInputChange}
+              endAdornment={<InputAdornment position="end">%</InputAdornment>}
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            />
+          </FormControl>
         </Grid>
         <Grid item>
           <Button variant="contained" type="submit" onClick={handleTasksUpdate}>

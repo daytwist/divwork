@@ -81,7 +81,7 @@ export type NewTask = {
 export type EditTask = {
   title: string;
   description: string;
-  is_done: boolean;
+  rate_of_progress: number;
   user_id: number;
 };
 
