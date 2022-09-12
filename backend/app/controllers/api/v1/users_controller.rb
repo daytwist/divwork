@@ -6,7 +6,10 @@ class Api::V1::UsersController < ApplicationController
     user = @user.as_json.merge(avatar: avatar_url(@user))
     unfinished_tasks = @user.tasks.unfinished
     finished_tasks = @user.tasks.finished
-    render json: { user:, unfinished_tasks:, finished_tasks: }, status: :ok
+    divisions = @user.divisions.as_json(methods: :details)
+    render json: {
+      user:, unfinished_tasks:, finished_tasks:, divisions:
+    }, status: :ok
   end
 
   def edit
