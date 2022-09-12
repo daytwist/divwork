@@ -72,15 +72,10 @@ export type DivisionIncludeUserName = {
   user: { name: string };
 };
 
-export type NewTask = {
-  title: string;
-  description: string;
-  is_done: boolean;
-};
-
 export type EditTask = {
   title: string;
   description: string;
+  priority: string;
   rate_of_progress: number;
   user_id: number;
 };
