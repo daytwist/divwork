@@ -1,12 +1,29 @@
 require "rails_helper"
 
 RSpec.describe Team, type: :model do
-  context "チーム名を指定しない時" do
-    let(:team) { build(:team, name: nil) }
-
-    it "バリデーションエラーが発生すること" do
+  describe "validation" do
+    it "チーム名を入力しないとバリデーションエラーが発生すること" do
+      team = build(:team, name: nil)
       team.valid?
       expect(team.errors).to be_of_kind(:name, :blank)
+    end
+
+    it "上限人数が1より小さいとバリデーションエラーが発生すること" do
+      team = build(:team, max_num_of_users: 0)
+      team.valid?
+      expect(team.errors).to be_of_kind(:max_num_of_users, :greater_than_or_equal_to)
+    end
+
+    it "上限人数が20より大きいとバリデーションエラーが発生すること" do
+      team = build(:team, max_num_of_users: 21)
+      team.valid?
+      expect(team.errors).to be_of_kind(:max_num_of_users, :less_than_or_equal_to)
+    end
+
+    it "上限人数が小数だとバリデーションエラーが発生すること" do
+      team = build(:team, max_num_of_users: 10.5)
+      team.valid?
+      expect(team.errors).to be_of_kind(:max_num_of_users, :not_an_integer)
     end
   end
 

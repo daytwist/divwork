@@ -12,6 +12,9 @@ class Task < ApplicationRecord
   validates :deadline, presence: true
   validates :priority, inclusion: { in: Task.priorities.keys }
   validates :is_done, inclusion: { in: [true, false] }
+  validates :rate_of_progress, numericality: {
+    only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100
+  }
 
   scope :unfinished, -> { where(is_done: false) }
   scope :finished, -> { where(is_done: true) }

@@ -35,7 +35,7 @@
     "start-dev": "dotenv -e .env react-scripts start",
     "start": "dotenv -e .env.prod react-scripts start",
     "build": "dotenv -e .env.prod react-scripts build",
-    "test": "jest --silent",
+    "test": "jest --silent --runInBand",
     "eject": "react-scripts eject",
     "lint": "eslint --ext 'src/**/*.{jsx,js,tsx,ts}'",
     "format": "eslint --cache --fix --resolve-plugins-relative-to . 'src/**/*.{jsx,js,tsx,ts}' && prettier --write 'src/**/*.{jsx,js,tsx,ts}'"

@@ -5,57 +5,57 @@ RSpec.describe Task, type: :model do
   let(:user) { create(:user, team:) }
 
   describe "validation" do
-    context "全てのカラムを適切に入力した時" do
-      let(:task) { build(:task, user:) }
-
-      it "バリデーションエラーが発生しないこと" do
-        expect(task).to be_valid
-      end
+    it "全てのカラムを入力するとバリデーションエラーが発生しないこと" do
+      task = build(:task, user:)
+      expect(task).to be_valid
     end
 
-    context "タイトルを入力しない時" do
-      let(:task) { build(:task, title: nil, user:) }
-
-      it "バリデーションエラーが発生すること" do
-        task.valid?
-        expect(task.errors).to be_of_kind(:title, :blank)
-      end
+    it "タイトルを入力しないとバリデーションエラーが発生すること" do
+      task = build(:task, title: nil, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:title, :blank)
     end
 
-    context "納期を入力しない時" do
-      let(:task) { build(:task, deadline: nil, user:) }
-
-      it "バリデーションエラーが発生すること" do
-        task.valid?
-        expect(task.errors).to be_of_kind(:deadline, :blank)
-      end
+    it "納期を入力しないとバリデーションエラーが発生すること" do
+      task = build(:task, deadline: nil, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:deadline, :blank)
     end
 
-    context "優先度を入力しない時" do
-      let(:task) { build(:task, priority: nil, user:) }
-
-      it "バリデーションエラーが発生すること" do
-        task.valid?
-        expect(task.errors).to be_of_kind(:priority, :inclusion)
-      end
+    it "優先度を入力しないとバリデーションエラーが発生すること" do
+      task = build(:task, priority: nil, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:priority, :inclusion)
     end
 
-    context "完了済みフラグを入力しない時" do
-      let(:task) { build(:task, is_done: nil, user:) }
-
-      it "バリデーションエラーが発生すること" do
-        task.valid?
-        expect(task.errors).to be_of_kind(:is_done, :inclusion)
-      end
+    it "完了済みフラグを入力しないとバリデーションエラーが発生すること" do
+      task = build(:task, is_done: nil, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:is_done, :inclusion)
     end
 
-    context "ユーザーと紐付いていない時" do
-      let(:task) { build(:task) }
+    it "進捗率が0より小さいとバリデーションエラーが発生すること" do
+      task = build(:task, rate_of_progress: -1, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:rate_of_progress, :greater_than_or_equal_to)
+    end
 
-      it "バリデーションエラーが発生すること" do
-        task.valid?
-        expect(task.errors).to be_of_kind(:user, :blank)
-      end
+    it "進捗率が100より大きいとバリデーションエラーが発生すること" do
+      task = build(:task, rate_of_progress: 101, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:rate_of_progress, :less_than_or_equal_to)
+    end
+
+    it "進捗率が小数だとバリデーションエラーが発生すること" do
+      task = build(:task, rate_of_progress: 50.5, user:)
+      task.valid?
+      expect(task.errors).to be_of_kind(:rate_of_progress, :not_an_integer)
+    end
+
+    it "ユーザーと紐付いていないとバリデーションエラーが発生すること" do
+      task = build(:task)
+      task.valid?
+      expect(task.errors).to be_of_kind(:user, :blank)
     end
   end
 

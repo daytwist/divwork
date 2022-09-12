@@ -6,8 +6,7 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Link, useParams } from "react-router-dom";
 import {
   Box,
   Button,
@@ -24,19 +23,17 @@ import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchUser } from "../../hooks/useFetchUser";
-import { Task, TasksResponse } from "../../types";
+import { Task } from "../../types";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
 import { PriorityLabel } from "../models/task/PriorityLabel";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { AlertDialog } from "../ui/AlertDialog";
 import { GetChipProps } from "../models/task/GetChipProps";
 import { TasksNewButton } from "../models/task/TasksNewButton";
 import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
+import { useHandleMultiTasks } from "../../hooks/useHandleMultiTasks";
 
 const UsersShow: FC = () => {
   const [flag, setFlag] = useState<boolean>(false);
@@ -45,9 +42,7 @@ const UsersShow: FC = () => {
     flag,
   });
   const { currentUser } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
   const urlParams = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>(unfinishedTasks);
   const [tabValue, setTabValue] = useState("unfinished");
@@ -62,6 +57,15 @@ const UsersShow: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const { handleMultiIsDoneUpdate, handleMultiTasksDelete } =
+    useHandleMultiTasks({
+      selectionModel,
+      isFinished,
+      flag,
+      setFlag,
+      handleClose,
+    });
 
   const unfinishedColumns: GridColDef[] = [
     {
@@ -89,6 +93,7 @@ const UsersShow: FC = () => {
       ),
     },
     { field: "deadline", headerName: "納期", width: 150 },
+    { field: "rateOfProgress", headerName: "進捗率", width: 100 },
     {
       field: "actions",
       headerName: "",
@@ -175,6 +180,7 @@ const UsersShow: FC = () => {
     description: task.description,
     priority: PriorityLabel(task.priority),
     deadline: DatetimeFormat(task.deadline),
+    rateOfProgress: `${task.rate_of_progress}%`,
     updated_at: DatetimeFormat(task.updated_at),
   }));
 
@@ -198,88 +204,6 @@ const UsersShow: FC = () => {
     },
     [tasks]
   );
-
-  const handleMultiIsDoneUpdate = () => {
-    // eslint-disable-next-line array-callback-return
-    selectionModel?.map((id) => {
-      const options: AxiosRequestConfig = {
-        url: `/tasks/${id}`,
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "access-token": Cookies.get("_access_token") || "",
-          client: Cookies.get("_client") || "",
-          uid: Cookies.get("_uid") || "",
-        },
-        data: { is_done: !isFinished },
-      };
-
-      axiosInstance(options)
-        .then((res: AxiosResponse<TasksResponse>) => {
-          console.log(res);
-          setFlag(!flag);
-
-          if (res.status === 200) {
-            handleSetSnackbar({
-              open: true,
-              type: "success",
-              message: isFinished
-                ? "タスクを未了にしました"
-                : "タスクを完了済みにしました",
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          handleSetSnackbar({
-            open: true,
-            type: "error",
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-            message: `${err.response.data.messages.join("。")}`,
-          });
-        });
-    });
-  };
-
-  const handleMultiTasksDelete = () => {
-    // eslint-disable-next-line array-callback-return
-    selectionModel?.map((id) => {
-      const options: AxiosRequestConfig = {
-        url: `/tasks/${id}`,
-        method: "DELETE",
-        headers: {
-          "access-token": Cookies.get("_access_token") || "",
-          client: Cookies.get("_client") || "",
-          uid: Cookies.get("_uid") || "",
-        },
-      };
-
-      axiosInstance(options)
-        .then((res: AxiosResponse) => {
-          console.log(res);
-          setFlag(!flag);
-
-          if (res.status === 200) {
-            handleSetSnackbar({
-              open: true,
-              type: "success",
-              message: "タスクを削除しました",
-            });
-            handleClose();
-            navigate(`/users/${currentUser?.id}`, { replace: true });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          handleSetSnackbar({
-            open: true,
-            type: "error",
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-            message: err.response.data.errors,
-          });
-        });
-    });
-  };
 
   useEffect(() => {
     if (unfinishedTasks && !isFinished) {

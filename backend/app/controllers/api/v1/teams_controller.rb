@@ -51,7 +51,7 @@ class Api::V1::TeamsController < ApplicationController
   end
 
   def team_params
-    params.require(:team).permit(:name)
+    params.require(:team).permit(:name, :max_num_of_users)
   end
 
   def ensure_correct_user

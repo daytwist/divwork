@@ -1,15 +1,14 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { TasksResponse, EditTask } from "../../types";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchTask } from "../../hooks/useFetchTask";
-import { PriorityTextField } from "../models/task/PriorityTextField";
-import { DeadlineTextField } from "../models/task/DeadlineTextField";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { TasksForm } from "../models/task/TasksForm";
 
 const TasksEdit: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -21,18 +20,21 @@ const TasksEdit: FC = () => {
   const [task, setTask] = useState<EditTask>({
     title: "",
     description: "",
-    is_done: false,
+    priority: "",
+    rate_of_progress: 0,
     user_id: 0,
   });
-
   const [deadline, setDeadline] = useState<Date | null>(new Date());
-  const [priority, setPriority] = useState<string>("low");
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setTask({ ...task, [name]: value });
+  };
+
+  const handleDeadlineChange = (newValue: Date | null) => {
+    setDeadline(newValue);
   };
 
   const handleTasksUpdate = () => {
@@ -76,7 +78,6 @@ const TasksEdit: FC = () => {
     if (taskData) {
       setTask(taskData);
       setDeadline(taskData.deadline);
-      setPriority(taskData.priority);
     }
   }, [taskData]);
 
@@ -89,47 +90,14 @@ const TasksEdit: FC = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <TextField
-            label="タイトル"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            name="title"
-            value={task?.title}
+          <TasksForm
+            action="edit"
+            task={task}
             onChange={handleInputChange}
+            deadline={deadline}
+            onChangeDeadline={handleDeadlineChange}
+            onClick={handleTasksUpdate}
           />
-        </Grid>
-        <Grid item>
-          <TextField
-            label="詳細"
-            variant="outlined"
-            multiline
-            rows={4}
-            sx={{ width: "55ch" }}
-            name="description"
-            value={task?.description}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item>
-          <DeadlineTextField
-            value={deadline}
-            onChange={(newValue) => {
-              setDeadline(newValue);
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <PriorityTextField
-            value={priority}
-            onChange={(event) => {
-              setPriority(event.target.value);
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <Button variant="contained" type="submit" onClick={handleTasksUpdate}>
-            完了
-          </Button>
         </Grid>
       </Grid>
     </div>

@@ -48,7 +48,14 @@ const TasksShow: FC = () => {
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
       },
-      data: { is_done: !task?.is_done },
+      data: !task?.is_done
+        ? {
+            is_done: !task?.is_done,
+            rate_of_progress: 100,
+          }
+        : {
+            is_done: !task?.is_done,
+          },
     };
 
     axiosInstance(options)
@@ -173,6 +180,16 @@ const TasksShow: FC = () => {
                     component="div"
                     color="text.secondary"
                   >
+                    優先度
+                  </Typography>
+                  <Typography variant="body1" component="div" sx={{ mb: 2 }}>
+                    {PriorityLabel(task?.priority)}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    component="div"
+                    color="text.secondary"
+                  >
                     納期
                   </Typography>
                   <Typography variant="body1" component="div" sx={{ mb: 2 }}>
@@ -183,10 +200,10 @@ const TasksShow: FC = () => {
                     component="div"
                     color="text.secondary"
                   >
-                    優先度
+                    進捗率
                   </Typography>
                   <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                    {PriorityLabel(task?.priority)}
+                    {task?.rate_of_progress}%
                   </Typography>
                   <Typography
                     variant="subtitle1"
