@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
   useContext,
   FC,
@@ -5,50 +6,62 @@ import {
   SyntheticEvent,
   useEffect,
   useCallback,
+  ReactNode,
 } from "react";
-import { Link, useParams } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Chip,
-  Grid,
-  IconButton,
-  Stack,
-  Tab,
-  Tabs,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
-import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
-import EditIcon from "@mui/icons-material/Edit";
+import { useParams } from "react-router-dom";
+import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { GridRowId } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchUser } from "../../hooks/useFetchUser";
-import { Task } from "../../types";
-import { DatetimeFormat } from "../ui/DatetimeFormat";
-import { PriorityLabel } from "../models/task/PriorityLabel";
-import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { AlertDialog } from "../ui/AlertDialog";
-import { GetChipProps } from "../models/task/GetChipProps";
 import { TasksNewButton } from "../models/task/TasksNewButton";
 import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
 import { useHandleMultiTasks } from "../../hooks/useHandleMultiTasks";
+import { TasksDataGrid } from "../models/user/TasksDataGrid";
+import { DivisionsDataGrid } from "../models/user/DivisionsDataGrid";
+
+type TabPanelProps = {
+  children: ReactNode;
+  index: number;
+  value: number;
+};
+
+const TabPanel = (props: TabPanelProps) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+};
 
 const UsersShow: FC = () => {
+  const { currentUser } = useContext(AuthContext);
+  const urlParams = useParams<{ id: string }>();
   const [flag, setFlag] = useState<boolean>(false);
-  const { user, unfinishedTasks, finishedTasks } = useFetchUser({
+  const [isFinished, setIsFinished] = useState<boolean>(false);
+  const [tabValue, setTabValue] = useState(0);
+  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
+  const [open, setOpen] = useState(false);
+  const { user, unfinishedTasks, finishedTasks, divisions } = useFetchUser({
     action: "show",
     flag,
   });
-  const { currentUser } = useContext(AuthContext);
-  const urlParams = useParams<{ id: string }>();
-  const [isFinished, setIsFinished] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<Task[]>(unfinishedTasks);
-  const [tabValue, setTabValue] = useState("unfinished");
-  const [columns, setColumns] = useState<GridColDef[]>([]);
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
-  const [open, setOpen] = useState(false);
+
+  const a11yProps = (index: number) => {
+    return {
+      id: `tab-${index}`,
+      "aria-controls": `tabpanel-${index}`,
+    };
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,159 +80,40 @@ const UsersShow: FC = () => {
       handleClose,
     });
 
-  const unfinishedColumns: GridColDef[] = [
-    {
-      field: "title",
-      headerName: "タイトル",
-      width: 200,
-      renderCell: (params) => (
-        <Link to={`/tasks/${params.id}`} style={{ color: "black" }}>
-          {params.value}
-        </Link>
-      ),
-    },
-    { field: "description", headerName: "詳細", width: 200 },
-    {
-      field: "priority",
-      headerName: "重要度",
-      width: 100,
-      renderCell: (params) => (
-        <Chip
-          variant="outlined"
-          sx={{ height: 28 }}
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...GetChipProps(params)}
-        />
-      ),
-    },
-    { field: "deadline", headerName: "納期", width: 150 },
-    { field: "rateOfProgress", headerName: "進捗率", width: 100 },
-    {
-      field: "actions",
-      headerName: "",
-      width: 150,
-      renderCell: (params) =>
-        user?.id === currentUser?.id ? (
-          <Stack direction="row" spacing={1}>
-            <Tooltip title="分担する" placement="top" arrow>
-              <IconButton
-                color="secondary"
-                component={Link}
-                to={`/tasks/${params.id}/divisions/new`}
-              >
-                <ConnectWithoutContactIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="編集" placement="top" arrow>
-              <IconButton component={Link} to={`/tasks/${params.id}/edit`}>
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-            <TasksDeleteIconButton taskId={params.id} />
-          </Stack>
-        ) : null,
-      sortable: false,
-      disableColumnMenu: true,
-      headerAlign: "center",
-      align: "center",
-    },
-  ];
-
-  const finishedColumns: GridColDef[] = [
-    {
-      field: "title",
-      headerName: "タイトル",
-      width: 200,
-      renderCell: (params) => (
-        <Link to={`/tasks/${params.id}`} style={{ color: "black" }}>
-          {params.value}
-        </Link>
-      ),
-    },
-    { field: "description", headerName: "詳細", width: 200 },
-    {
-      field: "priority",
-      headerName: "重要度",
-      width: 100,
-      renderCell: (params) => (
-        <Chip
-          variant="outlined"
-          sx={{ height: 28 }}
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...GetChipProps(params)}
-        />
-      ),
-    },
-    { field: "deadline", headerName: "納期", width: 150 },
-    { field: "updated_at", headerName: "完了日", width: 150 },
-    {
-      field: "actions",
-      headerName: "",
-      width: 100,
-      renderCell: (params) =>
-        user?.id === currentUser?.id ? (
-          <Stack direction="row" spacing={1}>
-            <Tooltip title="編集" placement="top" arrow>
-              <IconButton component={Link} to={`/tasks/${params.id}/edit`}>
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-            <TasksDeleteIconButton taskId={params.id} />
-          </Stack>
-        ) : null,
-      sortable: false,
-      disableColumnMenu: true,
-      headerAlign: "center",
-      align: "center",
-    },
-  ];
-
-  const rows = tasks.map((task) => ({
-    id: task.id,
-    title: task.title,
-    description: task.description,
-    priority: PriorityLabel(task.priority),
-    deadline: DatetimeFormat(task.deadline),
-    rateOfProgress: `${task.rate_of_progress}%`,
-    updated_at: DatetimeFormat(task.updated_at),
-  }));
-
   const handleSwitchTasks = useCallback(
-    (event: SyntheticEvent, newValue: string) => {
+    (event: SyntheticEvent, newValue: number) => {
       setTabValue(newValue);
 
-      if (newValue === "unfinished") {
+      if (newValue === 0) {
         setIsFinished(false);
-        setTasks(unfinishedTasks);
-        setColumns(unfinishedColumns);
         setSelectionModel([]);
-        console.log(isFinished);
-      } else {
+        console.log("unfinished");
+      } else if (newValue === 1) {
         setIsFinished(true);
-        setTasks(finishedTasks);
-        setColumns(finishedColumns);
         setSelectionModel([]);
-        console.log(isFinished);
+        console.log("finished");
+      } else {
+        setSelectionModel([]);
+        console.log("divisions");
       }
     },
-    [tasks]
+    []
   );
 
   useEffect(() => {
-    if (unfinishedTasks && !isFinished) {
-      setTasks(unfinishedTasks);
-      setColumns(unfinishedColumns);
-    } else if (finishedTasks && isFinished) {
-      setTasks(finishedTasks);
-      setColumns(finishedColumns);
+    if (unfinishedTasks && tabValue === 0) {
+      setIsFinished(false);
+      setSelectionModel([]);
+    } else if (finishedTasks && tabValue === 1) {
+      setIsFinished(true);
+      setSelectionModel([]);
     }
-  }, [unfinishedTasks, finishedTasks, urlParams]);
+  }, [unfinishedTasks, finishedTasks]);
 
   useEffect(() => {
-    if (urlParams) {
-      setTabValue("unfinished");
-      setIsFinished(false);
-    }
+    setTabValue(0);
+    setIsFinished(false);
+    setSelectionModel([]);
   }, [urlParams]);
 
   return (
@@ -231,8 +125,7 @@ const UsersShow: FC = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Grid
-            container
+          <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
@@ -264,45 +157,51 @@ const UsersShow: FC = () => {
             ) : (
               <br />
             )}
-            <Grid item>
-              <Box sx={{ width: "100%" }}>
-                <Tabs
-                  textColor="inherit"
-                  value={tabValue}
-                  onChange={handleSwitchTasks}
-                >
-                  <Tab value="unfinished" label="未了" />
-                  <Tab value="finished" label="完了済み" />
-                </Tabs>
-              </Box>
-            </Grid>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Tabs
+                value={tabValue}
+                onChange={handleSwitchTasks}
+                textColor="inherit"
+              >
+                <Tab label="未了" {...a11yProps(0)} />
+                <Tab label="完了済み" {...a11yProps(1)} />
+                <Tab label="分担履歴" {...a11yProps(2)} />
+              </Tabs>
+            </Box>
+          </Stack>
+        </Grid>
+        <TabPanel value={tabValue} index={0}>
+          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 974 } }}>
+            <TasksDataGrid
+              isFinished={false}
+              user={user}
+              tasks={unfinishedTasks}
+              selectionModel={selectionModel}
+              setSelectionModel={setSelectionModel}
+            />
           </Grid>
-        </Grid>
-        <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 974 } }}>
-          <div style={{ height: 400, width: "100%" }}>
-            {user?.id === currentUser?.id ? (
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
-                checkboxSelection
-                selectionModel={selectionModel}
-                onSelectionModelChange={(newSelectionModel) =>
-                  setSelectionModel(newSelectionModel)
-                }
-              />
-            ) : (
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
-                disableSelectionOnClick
-              />
-            )}
-          </div>
-        </Grid>
+        </TabPanel>
+        <TabPanel value={tabValue} index={1}>
+          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 974 } }}>
+            <TasksDataGrid
+              isFinished
+              user={user}
+              tasks={finishedTasks}
+              selectionModel={selectionModel}
+              setSelectionModel={setSelectionModel}
+            />
+          </Grid>
+        </TabPanel>
+        <TabPanel value={tabValue} index={2}>
+          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 974 } }}>
+            <DivisionsDataGrid
+              user={user}
+              divisions={divisions}
+              selectionModel={selectionModel}
+              setSelectionModel={setSelectionModel}
+            />
+          </Grid>
+        </TabPanel>
       </Grid>
     </div>
   );

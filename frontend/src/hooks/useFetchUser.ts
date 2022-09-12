@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { Task, User, UsersResponse } from "../types";
+import { Division, Task, User, UsersResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
 type Props = {
@@ -17,6 +17,7 @@ export const useFetchUser = (props: Props) => {
   const [user, setUser] = useState<User>();
   const [unfinishedTasks, setunfinishedTasks] = useState<Task[]>([]);
   const [finishedTasks, setfinishedTasks] = useState<Task[]>([]);
+  const [divisions, setDivisions] = useState<Division[]>([]);
 
   let url = "";
   if (action === "edit") {
@@ -42,11 +43,12 @@ export const useFetchUser = (props: Props) => {
         setUser(res?.data.user);
         setunfinishedTasks(res?.data.unfinished_tasks);
         setfinishedTasks(res?.data.finished_tasks);
+        setDivisions(res.data.divisions);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [params, action, flag]);
 
-  return { user, unfinishedTasks, finishedTasks };
+  return { user, unfinishedTasks, finishedTasks, divisions };
 };
