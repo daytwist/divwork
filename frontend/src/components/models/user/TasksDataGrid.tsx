@@ -1,9 +1,15 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Chip, IconButton, Stack, Tooltip } from "@mui/material";
-import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid";
+import { Box, Chip, IconButton, Stack, Tooltip } from "@mui/material";
+import {
+  DataGrid,
+  GridCellParams,
+  GridColDef,
+  GridRowId,
+} from "@mui/x-data-grid";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import EditIcon from "@mui/icons-material/Edit";
+import clsx from "clsx";
 import { GetChipProps } from "./GetChipProps";
 import { Task, User } from "../../../types";
 import { PriorityLabel } from "../task/PriorityLabel";
@@ -58,7 +64,19 @@ export const TasksDataGrid = (props: Props) => {
         />
       ),
     },
-    { field: "deadline", headerName: "納期", width: 150 },
+    {
+      field: "deadline",
+      headerName: "納期",
+      width: 150,
+      cellClassName: (params: GridCellParams<string>) => {
+        if (params.value === undefined) {
+          return "";
+        }
+        return clsx("deadline", {
+          over: new Date(params.value.toString()) < new Date(),
+        });
+      },
+    },
     { field: "rateOfProgress", headerName: "進捗率", width: 100 },
     {
       field: "actions",
@@ -141,7 +159,9 @@ export const TasksDataGrid = (props: Props) => {
   ];
 
   return (
-    <div style={{ height: 430, width: "100%" }}>
+    <Box
+      sx={{ height: 430, width: "100%", "& .deadline.over": { color: "red" } }}
+    >
       {user?.id === currentUser?.id ? (
         <DataGrid
           rows={rows}
@@ -181,6 +201,6 @@ export const TasksDataGrid = (props: Props) => {
           }}
         />
       )}
-    </div>
+    </Box>
   );
 };
