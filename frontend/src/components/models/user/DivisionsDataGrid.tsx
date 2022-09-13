@@ -76,7 +76,7 @@ export const DivisionsDataGrid = (props: Props) => {
       width: 150,
       renderCell: (params) => (
         <Link
-          to={`/tasks/${params.row.child_user_id}`}
+          to={`/users/${params.row.child_user_id}`}
           style={{ textDecoration: "none" }}
         >
           <Stack direction="row" component={Button} alignItems="center">
@@ -119,6 +119,11 @@ export const DivisionsDataGrid = (props: Props) => {
         columns={columns}
         pageSize={10}
         rowsPerPageOptions={[10]}
+        initialState={{
+          sorting: {
+            sortModel: [{ field: "created_at", sort: "desc" }],
+          },
+        }}
       />
     </div>
   );
