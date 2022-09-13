@@ -8,7 +8,6 @@ import {
   useCallback,
   ReactNode,
 } from "react";
-import { useParams } from "react-router-dom";
 import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { GridRowId } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -45,7 +44,6 @@ const TabPanel = (props: TabPanelProps) => {
 
 const UsersShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
-  const urlParams = useParams<{ id: string }>();
   const [flag, setFlag] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [tabValue, setTabValue] = useState(0);
@@ -109,12 +107,6 @@ const UsersShow: FC = () => {
       setSelectionModel([]);
     }
   }, [unfinishedTasks, finishedTasks]);
-
-  useEffect(() => {
-    setTabValue(0);
-    setIsFinished(false);
-    setSelectionModel([]);
-  }, [urlParams]);
 
   return (
     <div>
