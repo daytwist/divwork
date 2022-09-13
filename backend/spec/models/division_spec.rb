@@ -19,19 +19,19 @@ RSpec.describe Division, type: :model do
     end
   end
 
-  describe "details method" do
+  describe "parent_user, parent_task, child_user, child_task method" do
     let(:another_user) { create(:user, team:) }
     let(:child_task) { create(:task, user: another_user, parent_id: task.id) }
     let!(:division) { create(:division, user:, task: child_task) }
 
     it "親タスクの情報を取得出来ること" do
-      expect(division.details[:parent_user_id]).to eq user.id
-      expect(division.details[:parent_task_id]).to eq task.id
+      expect(division.parent_user.id).to eq user.id
+      expect(division.parent_task.id).to eq task.id
     end
 
     it "子タスクの情報を取得出来ること" do
-      expect(division.details[:child_user_id]).to eq another_user.id
-      expect(division.details[:child_task_id]).to eq child_task.id
+      expect(division.child_user.id).to eq another_user.id
+      expect(division.child_task.id).to eq child_task.id
     end
   end
 end
