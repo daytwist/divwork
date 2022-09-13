@@ -48,6 +48,11 @@ describe("UsersShow", () => {
       </MemoryRouter>
     );
 
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(5000);
+    });
+
     // 未完了タスクのみ表示される
     expect(await screen.findByText("UNFINISHED_TASK_1")).toBeInTheDocument();
     await waitFor(() => {

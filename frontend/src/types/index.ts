@@ -62,6 +62,21 @@ export type Division = {
   comment: string;
 };
 
+export type DivisionHistory = {
+  id: number;
+  user_id: number | undefined;
+  task_id: number;
+  created_at: Date;
+  updated_at: Date;
+  comment: string;
+  parent_task: Task;
+  parent_user: User;
+  parent_user_avatar: string;
+  child_task: Task;
+  child_user: User;
+  child_user_avatar: string;
+};
+
 export type DivisionIncludeUserName = {
   id: number;
   user_id: number | undefined;
@@ -122,6 +137,7 @@ export type UsersResponse = {
   user: User;
   unfinished_tasks: Task[];
   finished_tasks: Task[];
+  divisions: DivisionHistory[];
 };
 
 export type UsersUpdateResponse = {

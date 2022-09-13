@@ -47,7 +47,13 @@ const TasksEdit: FC = () => {
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
       },
-      data: task,
+      data: {
+        title: task.title,
+        description: task.description,
+        priority: task.priority,
+        deadline,
+        rate_of_progress: task.rate_of_progress,
+      },
     };
 
     axiosInstance(updateOptions)
