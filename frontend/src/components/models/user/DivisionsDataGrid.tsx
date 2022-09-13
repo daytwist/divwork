@@ -119,11 +119,6 @@ export const DivisionsDataGrid = (props: Props) => {
         columns={columns}
         pageSize={10}
         rowsPerPageOptions={[10]}
-        initialState={{
-          sorting: {
-            sortModel: [{ field: "created_at", sort: "desc" }],
-          },
-        }}
       />
     </div>
   );

@@ -173,15 +173,6 @@ export const TasksDataGrid = (props: Props) => {
           onSelectionModelChange={(newSelectionModel) =>
             setSelectionModel(newSelectionModel)
           }
-          initialState={{
-            sorting: {
-              sortModel: [
-                isFinished
-                  ? { field: "updated_at", sort: "desc" }
-                  : { field: "deadline", sort: "asc" },
-              ],
-            },
-          }}
         />
       ) : (
         <DataGrid
@@ -190,15 +181,6 @@ export const TasksDataGrid = (props: Props) => {
           pageSize={10}
           rowsPerPageOptions={[10]}
           disableSelectionOnClick
-          initialState={{
-            sorting: {
-              sortModel: [
-                isFinished
-                  ? { field: "updated_at", sort: "desc" }
-                  : { field: "deadline", sort: "asc" },
-              ],
-            },
-          }}
         />
       )}
     </Box>
