@@ -8,6 +8,7 @@ import {
   useCallback,
   ReactNode,
 } from "react";
+import { useParams } from "react-router-dom";
 import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { GridRowId } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,6 +20,7 @@ import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
 import { useHandleMultiTasks } from "../../hooks/useHandleMultiTasks";
 import { TasksDataGrid } from "../models/user/TasksDataGrid";
 import { DivisionsDataGrid } from "../models/user/DivisionsDataGrid";
+import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 type TabPanelProps = {
   children: ReactNode;
@@ -44,6 +46,7 @@ const TabPanel = (props: TabPanelProps) => {
 
 const UsersShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
+  const urlParams = useParams<{ id: string }>();
   const [flag, setFlag] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [tabValue, setTabValue] = useState(0);
@@ -85,14 +88,9 @@ const UsersShow: FC = () => {
       if (newValue === 0) {
         setIsFinished(false);
         setSelectionModel([]);
-        console.log("unfinished");
       } else if (newValue === 1) {
         setIsFinished(true);
         setSelectionModel([]);
-        console.log("finished");
-      } else {
-        setSelectionModel([]);
-        console.log("divisions");
       }
     },
     []
@@ -108,92 +106,118 @@ const UsersShow: FC = () => {
     }
   }, [unfinishedTasks, finishedTasks]);
 
+  useEffect(() => {
+    if (urlParams) {
+      setTabValue(0);
+      setIsFinished(false);
+    }
+  }, [urlParams]);
+
   return (
     <div>
-      <Grid container direction="column" spacing={3}>
-        <Grid item>
-          <Typography variant="h4" component="div" data-testid="users-show-h4">
-            {user?.name ? `${user.name}のタスク` : ""}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            {user?.id === currentUser?.id ? (
-              <Stack direction="row" spacing={2}>
-                <TasksNewButton />
-                {tabValue !== 2 ? (
-                  <Stack direction="row" spacing={2}>
-                    <IsDoneUpdateButton
-                      onClick={handleMultiIsDoneUpdate}
-                      disabled={selectionModel?.length === 0}
-                      isFinished={isFinished}
-                    />
-                    <Button
-                      color="error"
-                      variant="outlined"
-                      onClick={handleClickOpen}
-                      disabled={selectionModel?.length === 0}
-                      startIcon={<DeleteIcon />}
-                    >
-                      削除する
-                    </Button>
-                    <AlertDialog
-                      open={open}
-                      handleClose={handleClose}
-                      objectName="タスク"
-                      onClick={handleMultiTasksDelete}
-                    />
-                  </Stack>
-                ) : null}
-              </Stack>
-            ) : (
-              <br />
-            )}
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <Tabs
-                value={tabValue}
-                onChange={handleSwitchTasks}
-                textColor="inherit"
+      {user ? (
+        <div>
+          <Grid container direction="column" spacing={3}>
+            <Grid item>
+              <Typography
+                variant="h4"
+                component="div"
+                data-testid="users-show-h4"
               >
-                <Tab label="未了" {...a11yProps(0)} />
-                <Tab label="完了済み" {...a11yProps(1)} />
-                <Tab label="分担履歴" {...a11yProps(2)} />
-              </Tabs>
-            </Box>
-          </Stack>
-        </Grid>
-        <TabPanel value={tabValue} index={0}>
-          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}>
-            <TasksDataGrid
-              isFinished={false}
-              user={user}
-              tasks={unfinishedTasks}
-              selectionModel={selectionModel}
-              setSelectionModel={setSelectionModel}
-            />
+                {user.name}のタスク
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                {user?.id === currentUser?.id ? (
+                  <Stack direction="row" spacing={2}>
+                    <TasksNewButton />
+                    {tabValue !== 2 ? (
+                      <Stack direction="row" spacing={2}>
+                        <IsDoneUpdateButton
+                          onClick={handleMultiIsDoneUpdate}
+                          disabled={selectionModel?.length === 0}
+                          isFinished={isFinished}
+                        />
+                        <Button
+                          color="error"
+                          variant="outlined"
+                          onClick={handleClickOpen}
+                          disabled={selectionModel?.length === 0}
+                          startIcon={<DeleteIcon />}
+                        >
+                          削除する
+                        </Button>
+                        <AlertDialog
+                          open={open}
+                          handleClose={handleClose}
+                          objectName="タスク"
+                          onClick={handleMultiTasksDelete}
+                        />
+                      </Stack>
+                    ) : null}
+                  </Stack>
+                ) : (
+                  <br />
+                )}
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <Tabs
+                    value={tabValue}
+                    onChange={handleSwitchTasks}
+                    textColor="inherit"
+                  >
+                    <Tab label="未了" {...a11yProps(0)} />
+                    <Tab label="完了済み" {...a11yProps(1)} />
+                    <Tab label="分担履歴" {...a11yProps(2)} />
+                  </Tabs>
+                </Box>
+              </Stack>
+            </Grid>
+            <TabPanel value={tabValue} index={0}>
+              <Grid
+                item
+                sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}
+              >
+                <TasksDataGrid
+                  isFinished={false}
+                  user={user}
+                  tasks={unfinishedTasks}
+                  selectionModel={selectionModel}
+                  setSelectionModel={setSelectionModel}
+                />
+              </Grid>
+            </TabPanel>
+            <TabPanel value={tabValue} index={1}>
+              <Grid
+                item
+                sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}
+              >
+                <TasksDataGrid
+                  isFinished
+                  user={user}
+                  tasks={finishedTasks}
+                  selectionModel={selectionModel}
+                  setSelectionModel={setSelectionModel}
+                />
+              </Grid>
+            </TabPanel>
+            <TabPanel value={tabValue} index={2}>
+              <Grid
+                item
+                sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}
+              >
+                <DivisionsDataGrid divisions={divisions} />
+              </Grid>
+            </TabPanel>
           </Grid>
-        </TabPanel>
-        <TabPanel value={tabValue} index={1}>
-          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}>
-            <TasksDataGrid
-              isFinished
-              user={user}
-              tasks={finishedTasks}
-              selectionModel={selectionModel}
-              setSelectionModel={setSelectionModel}
-            />
-          </Grid>
-        </TabPanel>
-        <TabPanel value={tabValue} index={2}>
-          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}>
-            <DivisionsDataGrid divisions={divisions} />
-          </Grid>
-        </TabPanel>
-      </Grid>
+        </div>
+      ) : (
+        <LoadingColorRing />
+      )}
     </div>
   );
 };
