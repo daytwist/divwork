@@ -171,7 +171,7 @@ const UsersShow: FC = () => {
           </Stack>
         </Grid>
         <TabPanel value={tabValue} index={0}>
-          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 974 } }}>
+          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}>
             <TasksDataGrid
               isFinished={false}
               user={user}
@@ -182,7 +182,7 @@ const UsersShow: FC = () => {
           </Grid>
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 974 } }}>
+          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}>
             <TasksDataGrid
               isFinished
               user={user}
@@ -193,7 +193,7 @@ const UsersShow: FC = () => {
           </Grid>
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
-          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 974 } }}>
+          <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}>
             <DivisionsDataGrid
               user={user}
               divisions={divisions}

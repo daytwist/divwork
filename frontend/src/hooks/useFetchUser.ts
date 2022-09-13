@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { Division, Task, User, UsersResponse } from "../types";
+import { DivisionDetails, Task, User, UsersResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
 
 type Props = {
@@ -17,7 +17,7 @@ export const useFetchUser = (props: Props) => {
   const [user, setUser] = useState<User>();
   const [unfinishedTasks, setunfinishedTasks] = useState<Task[]>([]);
   const [finishedTasks, setfinishedTasks] = useState<Task[]>([]);
-  const [divisions, setDivisions] = useState<Division[]>([]);
+  const [divisions, setDivisions] = useState<DivisionDetails[]>([]);
 
   let url = "";
   if (action === "edit") {

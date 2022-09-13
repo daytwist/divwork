@@ -141,7 +141,7 @@ export const TasksDataGrid = (props: Props) => {
   ];
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 430, width: "100%" }}>
       {user?.id === currentUser?.id ? (
         <DataGrid
           rows={rows}
