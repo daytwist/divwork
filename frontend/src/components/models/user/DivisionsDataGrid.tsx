@@ -1,23 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Dispatch, SetStateAction, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Avatar, Button, Stack, Typography } from "@mui/material";
-import { DataGrid, GridRowId, GridColDef } from "@mui/x-data-grid";
-import { DivisionHistory, User } from "../../../types";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DivisionHistory } from "../../../types";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
-import { AuthContext } from "../../../providers/AuthProvider";
 
 type Props = {
-  user: User | undefined;
   divisions: DivisionHistory[];
-  selectionModel: GridRowId[];
-  setSelectionModel: Dispatch<SetStateAction<GridRowId[]>>;
 };
 
 export const DivisionsDataGrid = (props: Props) => {
-  const { user, divisions, selectionModel, setSelectionModel } = props;
-  const { currentUser } = useContext(AuthContext);
+  const { divisions } = props;
 
   const rows = divisions.map((division) => ({
     id: division.id,
@@ -120,27 +114,12 @@ export const DivisionsDataGrid = (props: Props) => {
 
   return (
     <div style={{ height: 430, width: "100%" }}>
-      {user?.id === currentUser?.id ? (
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          checkboxSelection
-          selectionModel={selectionModel}
-          onSelectionModelChange={(newSelectionModel) =>
-            setSelectionModel(newSelectionModel)
-          }
-        />
-      ) : (
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          disableSelectionOnClick
-        />
-      )}
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
+      />
     </div>
   );
 };

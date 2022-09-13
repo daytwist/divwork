@@ -125,26 +125,30 @@ const UsersShow: FC = () => {
             {user?.id === currentUser?.id ? (
               <Stack direction="row" spacing={2}>
                 <TasksNewButton />
-                <IsDoneUpdateButton
-                  onClick={handleMultiIsDoneUpdate}
-                  disabled={selectionModel?.length === 0}
-                  isFinished={isFinished}
-                />
-                <Button
-                  color="error"
-                  variant="outlined"
-                  onClick={handleClickOpen}
-                  disabled={selectionModel?.length === 0}
-                  startIcon={<DeleteIcon />}
-                >
-                  削除する
-                </Button>
-                <AlertDialog
-                  open={open}
-                  handleClose={handleClose}
-                  objectName="タスク"
-                  onClick={handleMultiTasksDelete}
-                />
+                {tabValue !== 2 ? (
+                  <Stack direction="row" spacing={2}>
+                    <IsDoneUpdateButton
+                      onClick={handleMultiIsDoneUpdate}
+                      disabled={selectionModel?.length === 0}
+                      isFinished={isFinished}
+                    />
+                    <Button
+                      color="error"
+                      variant="outlined"
+                      onClick={handleClickOpen}
+                      disabled={selectionModel?.length === 0}
+                      startIcon={<DeleteIcon />}
+                    >
+                      削除する
+                    </Button>
+                    <AlertDialog
+                      open={open}
+                      handleClose={handleClose}
+                      objectName="タスク"
+                      onClick={handleMultiTasksDelete}
+                    />
+                  </Stack>
+                ) : null}
               </Stack>
             ) : (
               <br />
@@ -186,12 +190,7 @@ const UsersShow: FC = () => {
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
           <Grid item sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}>
-            <DivisionsDataGrid
-              user={user}
-              divisions={divisions}
-              selectionModel={selectionModel}
-              setSelectionModel={setSelectionModel}
-            />
+            <DivisionsDataGrid divisions={divisions} />
           </Grid>
         </TabPanel>
       </Grid>
