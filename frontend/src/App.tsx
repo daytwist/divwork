@@ -14,6 +14,7 @@ import DivisionsNew from "./components/pages/DivisionsNew";
 import TasksEdit from "./components/pages/TasksEdit";
 import PrivateRoute from "./components/functional/PrivateRoute";
 import PublicRoute from "./components/functional/PublicRoute";
+import AdminRoute from "./components/functional/AdminRoute";
 import CommonLayout from "./components/ui/CommonLayout";
 import { SnackbarProvider } from "./providers/SnackbarProvider";
 import "@fontsource/roboto/300.css";
@@ -72,7 +73,9 @@ const App: React.FC = () => {
                 path="/teams/:id/edit"
                 element={
                   <PrivateRoute>
-                    <TeamsEdit />
+                    <AdminRoute>
+                      <TeamsEdit />
+                    </AdminRoute>
                   </PrivateRoute>
                 }
               />
