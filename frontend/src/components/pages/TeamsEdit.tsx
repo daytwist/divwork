@@ -26,7 +26,7 @@ const TeamsEdit: FC = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const params = useParams<{ id: string }>();
-  const { team: teamData } = useFetchTeam();
+  const { team: teamData, users } = useFetchTeam();
   const [team, setTeam] = useState<EditTeam>({
     name: "",
     max_num_of_users: 10,
@@ -43,7 +43,11 @@ const TeamsEdit: FC = () => {
     },
   };
 
-  const numbers = Array.from(new Array(20)).map((v, i) => i + 1);
+  const numOfUsers = users ? users.length : 1;
+  const numbers: number[] = [];
+  for (let i = numOfUsers; i < 21; i += 1) {
+    numbers.push(i);
+  }
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
