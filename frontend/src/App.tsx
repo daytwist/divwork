@@ -5,6 +5,7 @@ import SignUp from "./components/pages/SignUp";
 import SignIn from "./components/pages/SignIn";
 import TeamsSelect from "./components/pages/TeamsSelect";
 import TeamsShow from "./components/pages/TeamsShow";
+import TeamsEdit from "./components/pages/TeamsEdit";
 import UsersShow from "./components/pages/UsersShow";
 import UsersEdit from "./components/pages/UsersEdit";
 import TasksShow from "./components/pages/TasksShow";
@@ -64,6 +65,14 @@ const App: React.FC = () => {
                 element={
                   <PrivateRoute>
                     <TeamsShow />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/teams/:id/edit"
+                element={
+                  <PrivateRoute>
+                    <TeamsEdit />
                   </PrivateRoute>
                 }
               />

@@ -6,6 +6,11 @@ export type Team = {
   max_num_of_users: number;
 };
 
+export type EditTeam = {
+  name: string;
+  max_num_of_users: number;
+};
+
 export type User = {
   id: number;
   provider: string;
@@ -124,7 +129,7 @@ export type TeamsSelectResponse = {
   teams: Team[];
 };
 
-export type TeamsCreateResponse = {
+export type TeamsResponse = {
   team: Team;
 };
 

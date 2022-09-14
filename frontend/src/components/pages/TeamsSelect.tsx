@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
-import { Team, TeamsCreateResponse, TeamsSelectResponse } from "../../types";
+import { Team, TeamsResponse, TeamsSelectResponse } from "../../types";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
@@ -43,7 +43,7 @@ const TeamsSelect: FC = () => {
     };
 
     axiosInstance(teamsCreateOptions)
-      .then((res: AxiosResponse<TeamsCreateResponse>) => {
+      .then((res: AxiosResponse<TeamsResponse>) => {
         console.log(res);
 
         if (res.status === 201) {
