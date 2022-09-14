@@ -12,7 +12,7 @@ const NormalUserRoute: FC<RouteProps> = ({ children }) => {
 
   if (isSignedIn) {
     if (currentUser?.email === "guest@example.com") {
-      return <Navigate to={`/teams/${currentUser?.team_id}`} />;
+      return <Navigate to={`/users/${currentUser?.id}`} />;
     }
     return <div>{children}</div>;
   }
