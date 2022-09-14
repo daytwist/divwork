@@ -142,17 +142,21 @@ export const HeaderMenuButton: FC = () => {
               <ListItemText>チーム設定</ListItemText>
             </MenuItem>
           ) : null}
-          <MenuItem
-            component={Link}
-            to={`/users/${currentUser?.id}/edit`}
-            onClick={handleClose}
-          >
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText>アカウント設定</ListItemText>
-          </MenuItem>
-          <Divider />
+          {currentUser?.email === "guest@example.com" ? null : (
+            <div>
+              <MenuItem
+                component={Link}
+                to={`/users/${currentUser?.id}/edit`}
+                onClick={handleClose}
+              >
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText>アカウント設定</ListItemText>
+              </MenuItem>
+              <Divider />
+            </div>
+          )}
           <MenuItem onClick={handleSignOut}>
             <ListItemIcon>
               <LogoutIcon />

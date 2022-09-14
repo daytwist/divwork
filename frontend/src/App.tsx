@@ -21,6 +21,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import NormalUserRoute from "./components/functional/NormalUserRoute";
 
 const App: React.FC = () => {
   return (
@@ -91,7 +92,9 @@ const App: React.FC = () => {
                 path="users/:id/edit"
                 element={
                   <PrivateRoute>
-                    <UsersEdit />
+                    <NormalUserRoute>
+                      <UsersEdit />
+                    </NormalUserRoute>
                   </PrivateRoute>
                 }
               />
