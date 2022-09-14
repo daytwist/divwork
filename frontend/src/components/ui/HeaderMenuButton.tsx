@@ -106,6 +106,15 @@ export const HeaderMenuButton: FC = () => {
           onClick={handleClose}
         >{`${currentUser?.name}のタスク一覧`}</MenuItem>
         <Divider />
+        {currentUser?.admin ? (
+          <MenuItem
+            component={Link}
+            to={`/teams/${currentUser?.team_id}/edit`}
+            onClick={handleClose}
+          >
+            チーム設定
+          </MenuItem>
+        ) : null}
         <MenuItem
           component={Link}
           to={`/users/${currentUser?.id}/edit`}
@@ -113,6 +122,7 @@ export const HeaderMenuButton: FC = () => {
         >
           アカウント設定
         </MenuItem>
+        <Divider />
         <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
       </Menu>
     </Box>
