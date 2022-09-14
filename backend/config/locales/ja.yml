@@ -8,6 +8,7 @@ ja:
     attributes:
       team:
         name: チーム名
+        max_num_of_users: 上限人数
       user:
         name: ユーザー名
       task:
@@ -17,5 +18,6 @@ ja:
         priority: 優先度
         is_done: 完了済みフラグ
         user: ユーザー
+        admin: 管理者権限
       division:
         comment: コメント
