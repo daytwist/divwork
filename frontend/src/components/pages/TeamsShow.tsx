@@ -1,6 +1,5 @@
-import { useState, useEffect, FC } from "react";
-import { useParams, Link } from "react-router-dom";
-import Cookies from "js-cookie";
+import { FC } from "react";
+import { Link } from "react-router-dom";
 import {
   Avatar,
   Divider,
@@ -9,17 +8,13 @@ import {
   Stack,
   Button,
 } from "@mui/material";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
-import { Team, TeamsShowResponse, User } from "../../types";
 import { TasksBarChart } from "../models/task/TasksBarChart";
 import { TasksNewButton } from "../models/task/TasksNewButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
+import { useFetchTeam } from "../../hooks/useFetchTeam";
 
 const TeamsShow: FC = () => {
-  const params = useParams<{ id: string }>();
-  const [team, setTeam] = useState<Team>();
-  const [users, setUsers] = useState<User[]>();
+  const { team, users } = useFetchTeam();
 
   const totals: number[] = [];
   // eslint-disable-next-line array-callback-return
@@ -33,28 +28,6 @@ const TeamsShow: FC = () => {
     totals.push(total);
   });
   const maxCount: number = Math.max(...totals);
-
-  const options: AxiosRequestConfig = {
-    url: `/teams/${params.id}`,
-    method: "GET",
-    headers: {
-      "access-token": Cookies.get("_access_token") || "",
-      client: Cookies.get("_client") || "",
-      uid: Cookies.get("_uid") || "",
-    },
-  };
-
-  useEffect(() => {
-    axiosInstance(options)
-      .then((res: AxiosResponse<TeamsShowResponse>) => {
-        console.log(res);
-        setTeam(res.data.team);
-        setUsers(res.data.users);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <div>
