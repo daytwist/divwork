@@ -73,11 +73,9 @@ const App: React.FC = () => {
               <Route
                 path="/teams/:id/edit"
                 element={
-                  <PrivateRoute>
-                    <AdminRoute>
-                      <TeamsEdit />
-                    </AdminRoute>
-                  </PrivateRoute>
+                  <AdminRoute>
+                    <TeamsEdit />
+                  </AdminRoute>
                 }
               />
               <Route
@@ -91,11 +89,9 @@ const App: React.FC = () => {
               <Route
                 path="users/:id/edit"
                 element={
-                  <PrivateRoute>
-                    <NormalUserRoute>
-                      <UsersEdit />
-                    </NormalUserRoute>
-                  </PrivateRoute>
+                  <NormalUserRoute>
+                    <UsersEdit />
+                  </NormalUserRoute>
                 }
               />
               <Route

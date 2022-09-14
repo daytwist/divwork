@@ -7,11 +7,11 @@ const PublicRoute: FC<RouteProps> = ({ children }) => {
   const { loading, isSignedIn, currentUser } = useContext(AuthContext);
 
   if (loading) {
-    <LoadingColorRing />;
+    return <LoadingColorRing />;
   }
 
   if (isSignedIn) {
-    <Navigate to={`/teams/${currentUser?.team_id}`} />;
+    return <Navigate to={`/teams/${currentUser?.team_id}`} />;
   }
   return <div>{children}</div>;
 };

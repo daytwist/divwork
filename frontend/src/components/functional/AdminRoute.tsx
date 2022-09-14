@@ -4,16 +4,20 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 const AdminRoute: FC<RouteProps> = ({ children }) => {
-  const { loading, currentUser } = useContext(AuthContext);
+  const { loading, currentUser, isSignedIn } = useContext(AuthContext);
 
   if (loading) {
-    <LoadingColorRing />;
+    return <LoadingColorRing />;
   }
 
-  if (currentUser?.admin) {
-    return <div>{children}</div>;
+  if (isSignedIn) {
+    if (currentUser?.admin) {
+      return <div>{children}</div>;
+    }
+    return <Navigate to={`/teams/${currentUser?.team_id}`} />;
   }
-  return <Navigate to={`/teams/${currentUser?.team_id}`} />;
+
+  return <Navigate to="/sign_in" />;
 };
 
 export default AdminRoute;

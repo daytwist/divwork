@@ -7,7 +7,7 @@ const PrivateRoute: FC<RouteProps> = ({ children }) => {
   const { loading, isSignedIn } = useContext(AuthContext);
 
   if (loading) {
-    <LoadingColorRing />;
+    return <LoadingColorRing />;
   }
 
   if (isSignedIn) {
