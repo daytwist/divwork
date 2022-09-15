@@ -19,7 +19,7 @@ class Api::V1::TeamsController < ApplicationController
   end
 
   def show
-    users = @team.users
+    users = @team.users.includes(:avatar_attachment)
     users = users.map do |user|
       user.as_json(methods: :unfinished_tasks_count)
           .merge(avatar: avatar_url(user))

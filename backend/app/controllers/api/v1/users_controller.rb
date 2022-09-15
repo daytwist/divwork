@@ -6,7 +6,9 @@ class Api::V1::UsersController < ApplicationController
     user = @user.as_json.merge(avatar: avatar_url(@user))
     unfinished_tasks = @user.tasks.unfinished.order(deadline: "ASC")
     finished_tasks = @user.tasks.finished.order(updated_at: "DESC")
-    divisions = @user.divisions.order(created_at: "DESC").map do |division|
+    divisions = @user.divisions.includes(task: [user: :avatar_attachment])
+                     .order(created_at: "DESC")
+                     .map do |division|
       division.as_json(
         methods: [:parent_task, :parent_user, :child_task, :child_user]
       ).merge({ parent_user_avatar: avatar_url(division.parent_user) },

@@ -13,7 +13,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def show
-    children_tasks = @task.children.as_json(
+    children_tasks = @task.children.includes([:user, [division: :user]]).as_json(
       include: [{ user: { only: :name } },
                 { division: { include: { user: { only: :name } } } }]
     )
