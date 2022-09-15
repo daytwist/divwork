@@ -24,6 +24,7 @@ export type User = {
   created_at: Date;
   updated_at: Date;
   unfinished_tasks_priority_count: number[];
+  unfinished_tasks_deadline_count: number[];
   avatar: string;
   admin: boolean;
 };
