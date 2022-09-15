@@ -16,7 +16,6 @@ export const TabPanel = (props: TabPanelProps) => {
       hidden={value !== index}
       id={`tabpanel-${index}`}
       aria-labelledby={`tab-${index}`}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...other}
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}

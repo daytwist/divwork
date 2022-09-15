@@ -14,7 +14,6 @@ export const DeadlineTextField = (props: Props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DateTimePicker
-        // eslint-disable-next-line react/jsx-props-no-spreading
         renderInput={(dateTimeProps) => <TextField {...dateTimeProps} />}
         label="納期"
         value={value}
