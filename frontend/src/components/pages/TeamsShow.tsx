@@ -19,7 +19,7 @@ const TeamsShow: FC = () => {
   const totals: number[] = [];
   // eslint-disable-next-line array-callback-return
   users?.map((user) => {
-    const total = user.unfinished_tasks_count.reduce(
+    const total = user.unfinished_tasks_priority_count.reduce(
       (sum: number, element: number) => {
         return sum + element;
       },

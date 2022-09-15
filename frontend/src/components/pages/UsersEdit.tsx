@@ -34,7 +34,7 @@ const UsersEdit: FC = () => {
     image: "",
     created_at: new Date(),
     updated_at: new Date(),
-    unfinished_tasks_count: [0],
+    unfinished_tasks_priority_count: [0],
     avatar: "",
     admin: false,
   });

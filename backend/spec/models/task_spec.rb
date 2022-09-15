@@ -76,6 +76,28 @@ RSpec.describe Task, type: :model do
     end
   end
 
+  describe "scope deadline" do
+    let!(:task_long) { create(:task, user:, deadline: Time.zone.today.advance(days: 8)) }
+    let!(:task_middle_a) { create(:task, user:, deadline: Time.zone.today.advance(days: 7)) }
+    let!(:task_middle_b) { create(:task, user:, deadline: Time.zone.today.advance(days: 4)) }
+    let!(:task_short) { create(:task, user:, deadline: Time.zone.today.advance(days: 3)) }
+
+    it "納期が1週間以上後の未完了タスクを抽出出来ること" do
+      expect(user.tasks.deadline_long).to include(task_long)
+      expect(user.tasks.deadline_long).not_to include(task_middle_a)
+    end
+
+    it "納期が4日後〜1週間後の未完了タスクを抽出出来ること" do
+      expect(user.tasks.deadline_middle).to include(task_middle_a, task_middle_b)
+      expect(user.tasks.deadline_middle).not_to include(task_short)
+    end
+
+    it "納期が3日以内の未完了タスクを抽出出来ること" do
+      expect(user.tasks.deadline_short).to include(task_short)
+      expect(user.tasks.deadline_short).not_to include(task_middle_b)
+    end
+  end
+
   describe "parent-children relationship" do
     let(:parent_task) { create(:task, user:) }
     let(:child_task) { create(:task, user:, parent_id: parent_task.id) }
