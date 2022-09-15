@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, SyntheticEvent, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Avatar,
@@ -7,14 +7,27 @@ import {
   Typography,
   Stack,
   Button,
+  Box,
+  Tabs,
+  Tab,
 } from "@mui/material";
 import { TasksBarChart } from "../models/task/TasksBarChart";
 import { TasksNewButton } from "../models/task/TasksNewButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { useFetchTeam } from "../../hooks/useFetchTeam";
+import { TabPanel } from "../ui/TabPanel";
+import { DeadlineBarChart } from "../models/task/DeadlineBarChart";
 
 const TeamsShow: FC = () => {
   const { team, users } = useFetchTeam();
+  const [tabValue, setTabValue] = useState(0);
+
+  const tabProps = (index: number) => {
+    return {
+      id: `tab-${index}`,
+      "aria-controls": `tabpanel-${index}`,
+    };
+  };
 
   const totals: number[] = [];
   // eslint-disable-next-line array-callback-return
@@ -28,6 +41,13 @@ const TeamsShow: FC = () => {
     totals.push(total);
   });
   const maxCount: number = Math.max(...totals);
+
+  const handleSwitchTab = useCallback(
+    (event: SyntheticEvent, newValue: number) => {
+      setTabValue(newValue);
+    },
+    [tabValue]
+  );
 
   return (
     <div>
@@ -45,7 +65,23 @@ const TeamsShow: FC = () => {
               </Typography>
             </Grid>
             <Grid item>
-              <TasksNewButton />
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <TasksNewButton />
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <Tabs
+                    value={tabValue}
+                    onChange={handleSwitchTab}
+                    textColor="inherit"
+                  >
+                    <Tab label="優先度別" {...tabProps(0)} />
+                    <Tab label="納期別" {...tabProps(1)} />
+                  </Tabs>
+                </Box>
+              </Stack>
             </Grid>
             {users?.map((user) => (
               <Grid item key={user.id}>
@@ -101,7 +137,12 @@ const TeamsShow: FC = () => {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <TasksBarChart user={user} maxCount={maxCount} />
+                    <TabPanel value={tabValue} index={0}>
+                      <TasksBarChart user={user} maxCount={maxCount} />
+                    </TabPanel>
+                    <TabPanel value={tabValue} index={1}>
+                      <DeadlineBarChart user={user} maxCount={maxCount} />
+                    </TabPanel>
                   </Grid>
                 </Grid>
                 <Divider />
