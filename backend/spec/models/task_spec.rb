@@ -77,10 +77,10 @@ RSpec.describe Task, type: :model do
   end
 
   describe "scope deadline" do
-    let!(:task_long) { create(:task, user:, deadline: Time.zone.today.advance(days: 8)) }
-    let!(:task_middle_a) { create(:task, user:, deadline: Time.zone.today.advance(days: 7)) }
-    let!(:task_middle_b) { create(:task, user:, deadline: Time.zone.today.advance(days: 4)) }
-    let!(:task_short) { create(:task, user:, deadline: Time.zone.today.advance(days: 3)) }
+    let!(:task_long) { create(:task, user:, deadline: Time.zone.today.advance(days: 9)) }
+    let!(:task_middle_a) { create(:task, user:, deadline: Time.zone.today.advance(days: 8)) }
+    let!(:task_middle_b) { create(:task, user:, deadline: Time.zone.today.advance(days: 5)) }
+    let!(:task_short) { create(:task, user:, deadline: Time.zone.today.advance(days: 4)) }
 
     it "納期が1週間以上後の未完了タスクを抽出出来ること" do
       expect(user.tasks.deadline_long).to include(task_long)
