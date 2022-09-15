@@ -48,10 +48,10 @@ describe("Header", () => {
     expect(await screen.findByText("USER_1")).toBeInTheDocument();
 
     // ユーザー名をクリックするとメニューが表示される
-    expect(screen.queryByText("USER_1のタスク一覧")).not.toBeInTheDocument();
+    expect(screen.queryByText("マイタスク")).not.toBeInTheDocument();
     await act(() => {
       userEvent.click(screen.getByText("USER_1"));
     });
-    expect(screen.getByText("USER_1のタスク一覧")).toBeInTheDocument();
+    expect(screen.getByText("マイタスク")).toBeInTheDocument();
   });
 });

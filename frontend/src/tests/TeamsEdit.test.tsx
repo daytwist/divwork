@@ -63,9 +63,9 @@ describe("TeamsEdit", () => {
     });
 
     // 更新するとTeamsShowページへ遷移する
-    expect(await screen.findByText("teams-show-h4")).toBeInTheDocument();
     expect(
       await screen.findByText("チーム情報を更新しました")
     ).toBeInTheDocument();
+    expect(await screen.findByTestId("teams-show-h4")).toBeInTheDocument();
   });
 });
