@@ -6,7 +6,6 @@ import {
   SyntheticEvent,
   useEffect,
   useCallback,
-  ReactNode,
 } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
@@ -21,28 +20,7 @@ import { useHandleMultiTasks } from "../../hooks/useHandleMultiTasks";
 import { TasksDataGrid } from "../models/user/TasksDataGrid";
 import { DivisionsDataGrid } from "../models/user/DivisionsDataGrid";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
-
-type TabPanelProps = {
-  children: ReactNode;
-  index: number;
-  value: number;
-};
-
-const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
-};
+import { TabPanel } from "../ui/TabPanel";
 
 const UsersShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -57,7 +35,7 @@ const UsersShow: FC = () => {
     flag,
   });
 
-  const a11yProps = (index: number) => {
+  const tabProps = (index: number) => {
     return {
       id: `tab-${index}`,
       "aria-controls": `tabpanel-${index}`,
@@ -170,9 +148,9 @@ const UsersShow: FC = () => {
                     onChange={handleSwitchTasks}
                     textColor="inherit"
                   >
-                    <Tab label="未了" {...a11yProps(0)} />
-                    <Tab label="完了済み" {...a11yProps(1)} />
-                    <Tab label="分担履歴" {...a11yProps(2)} />
+                    <Tab label="未了" {...tabProps(0)} />
+                    <Tab label="完了済み" {...tabProps(1)} />
+                    <Tab label="分担履歴" {...tabProps(2)} />
                   </Tabs>
                 </Box>
               </Stack>
