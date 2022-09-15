@@ -9,7 +9,12 @@ import {
 } from "./mockAuth";
 import { mockDivisionsCreate, mockDivisionsNew } from "./mockDivisions";
 import { mockTasksShow } from "./mockTasks";
-import { mockTeamsCreate, mockTeamsSelect, mockTeamsShow } from "./mockTeams";
+import {
+  mockTeamsCreate,
+  mockTeamsSelect,
+  mockTeamsShow,
+  mockTeamsUpdate,
+} from "./mockTeams";
 import { mockUsersEdit, mockUsersShow } from "./mockUsers";
 
 export const handlers = [
@@ -21,6 +26,7 @@ export const handlers = [
   rest.delete("/auth", mockAuthDelete),
   rest.get("/teams/select", mockTeamsSelect),
   rest.get("/teams/:id", mockTeamsShow),
+  rest.patch("/teams/:id", mockTeamsUpdate),
   rest.post("/teams", mockTeamsCreate),
   rest.get("/users/:id/edit", mockUsersEdit),
   rest.get("/users/:id", mockUsersShow),

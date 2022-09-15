@@ -1,8 +1,23 @@
 import { FC, MouseEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Avatar, Box, Button, Divider, Menu, MenuItem } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  MenuList,
+} from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
+import TaskIcon from "@mui/icons-material/Task";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -93,27 +108,62 @@ export const HeaderMenuButton: FC = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
       >
-        <MenuItem
-          component={Link}
-          to={`/teams/${currentUser?.team_id}`}
-          onClick={handleClose}
-        >
-          チームタスク一覧
-        </MenuItem>
-        <MenuItem
-          component={Link}
-          to={`/users/${currentUser?.id}`}
-          onClick={handleClose}
-        >{`${currentUser?.name}のタスク一覧`}</MenuItem>
-        <Divider />
-        <MenuItem
-          component={Link}
-          to={`/users/${currentUser?.id}/edit`}
-          onClick={handleClose}
-        >
-          アカウント設定
-        </MenuItem>
-        <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
+        <MenuList>
+          <MenuItem
+            component={Link}
+            to={`/teams/${currentUser?.team_id}`}
+            onClick={handleClose}
+          >
+            <ListItemIcon>
+              <PlaylistAddCheckIcon />
+            </ListItemIcon>
+            <ListItemText>チームタスク</ListItemText>
+          </MenuItem>
+          <MenuItem
+            component={Link}
+            to={`/users/${currentUser?.id}`}
+            onClick={handleClose}
+          >
+            <ListItemIcon>
+              <TaskIcon />
+            </ListItemIcon>
+            <ListItemText>マイタスク</ListItemText>
+          </MenuItem>
+          <Divider />
+          {currentUser?.admin ? (
+            <MenuItem
+              component={Link}
+              to={`/teams/${currentUser?.team_id}/edit`}
+              onClick={handleClose}
+            >
+              <ListItemIcon>
+                <ManageAccountsIcon />
+              </ListItemIcon>
+              <ListItemText>チーム設定</ListItemText>
+            </MenuItem>
+          ) : null}
+          {currentUser?.email === "guest@example.com" ? null : (
+            <div>
+              <MenuItem
+                component={Link}
+                to={`/users/${currentUser?.id}/edit`}
+                onClick={handleClose}
+              >
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText>アカウント設定</ListItemText>
+              </MenuItem>
+              <Divider />
+            </div>
+          )}
+          <MenuItem onClick={handleSignOut}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText>ログアウト</ListItemText>
+          </MenuItem>
+        </MenuList>
       </Menu>
     </Box>
   );

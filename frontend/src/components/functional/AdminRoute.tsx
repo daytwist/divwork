@@ -3,17 +3,21 @@ import { Navigate, RouteProps } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 
-const PublicRoute: FC<RouteProps> = ({ children }) => {
-  const { loading, isSignedIn, currentUser } = useContext(AuthContext);
+const AdminRoute: FC<RouteProps> = ({ children }) => {
+  const { loading, currentUser, isSignedIn } = useContext(AuthContext);
 
   if (loading) {
     return <LoadingColorRing />;
   }
 
   if (isSignedIn) {
+    if (currentUser?.admin) {
+      return <div>{children}</div>;
+    }
     return <Navigate to={`/teams/${currentUser?.team_id}`} />;
   }
-  return <div>{children}</div>;
+
+  return <Navigate to="/sign_in" />;
 };
 
-export default PublicRoute;
+export default AdminRoute;

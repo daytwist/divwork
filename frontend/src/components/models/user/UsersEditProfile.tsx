@@ -40,7 +40,7 @@ export const UsersEditProfile = (props: Props) => {
     filename: "",
   });
 
-  const handleInputChangeUsers = (
+  const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
@@ -169,7 +169,7 @@ export const UsersEditProfile = (props: Props) => {
               sx={{ width: "30ch" }}
               name="name"
               value={user?.name}
-              onChange={handleInputChangeUsers}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item>
@@ -180,7 +180,7 @@ export const UsersEditProfile = (props: Props) => {
               sx={{ width: "30ch" }}
               name="email"
               value={user?.email}
-              onChange={handleInputChangeUsers}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item>
