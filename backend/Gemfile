@@ -39,6 +39,7 @@ gem "rails-i18n"
 gem "sd_notify"
 
 group :development, :test do
+  gem "bullet"
   gem "factory_bot"
   gem "rspec-rails", "~> 5.0.0"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -46,7 +47,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "bullet"
   gem "listen", "~> 3.3"
   gem "pry-rails"
   gem "rubocop", "~> 1.29", require: false
