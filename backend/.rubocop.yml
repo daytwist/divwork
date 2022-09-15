@@ -69,7 +69,7 @@ RSpec/ExampleLength:
   Enabled: false
 
 Metrics/AbcSize:
-  Max: 25
+  Max: 30
 
 Metrics/BlockLength:
   Max: 30
