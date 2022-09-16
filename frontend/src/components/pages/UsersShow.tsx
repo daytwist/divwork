@@ -29,6 +29,7 @@ import { TasksDataGrid } from "../models/user/TasksDataGrid";
 import { DivisionsDataGrid } from "../models/user/DivisionsDataGrid";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { TabPanel } from "../ui/TabPanel";
+import { UserNameHeader } from "../models/user/UserNameHeader";
 
 const UsersShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -105,34 +106,7 @@ const UsersShow: FC = () => {
         <div>
           <Grid container direction="column" spacing={1}>
             <Grid item>
-              <Stack direction="row" spacing={2} alignItems="center" mb={1}>
-                {user.avatar ? (
-                  <Avatar
-                    src={user.avatar}
-                    alt="avatar"
-                    sx={{
-                      width: { sm: 60 },
-                      height: { sm: 60 },
-                      ml: 1,
-                    }}
-                  />
-                ) : (
-                  <Avatar
-                    sx={{
-                      width: { sm: 60 },
-                      height: { sm: 60 },
-                      ml: 1,
-                    }}
-                  />
-                )}
-                <Typography
-                  variant="h4"
-                  component="div"
-                  data-testid="users-show-h4"
-                >
-                  {user.name}のタスク
-                </Typography>
-              </Stack>
+              <UserNameHeader user={user} />
             </Grid>
             <Grid item>
               <Stack

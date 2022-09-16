@@ -157,6 +157,7 @@ export type TasksResponse = {
 
 export type TasksShowResponse = {
   task: Task;
+  user: User;
   children_tasks: ChildrenTask[];
   division: DivisionIncludeUserName | undefined;
 };

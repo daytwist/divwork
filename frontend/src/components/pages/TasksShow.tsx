@@ -29,11 +29,12 @@ import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
 import { Task, TasksResponse } from "../../types";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
+import { UserNameHeader } from "../models/user/UserNameHeader";
 
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
-  const { task: taskData, childrenTasks, division } = useFetchTask();
+  const { task: taskData, user, childrenTasks, division } = useFetchTask();
   const params = useParams<{ id: string }>();
 
   const [task, setTask] = useState<Task>();
@@ -96,9 +97,7 @@ const TasksShow: FC = () => {
         <div>
           <Grid container direction="column" spacing={3}>
             <Grid item>
-              <Typography variant="h4" component="div">
-                タスク詳細
-              </Typography>
+              <UserNameHeader user={user} />
             </Grid>
             <Grid item>
               <Card sx={{ minWidth: 500, p: 2 }}>

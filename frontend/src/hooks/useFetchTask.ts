@@ -7,6 +7,7 @@ import {
   DivisionIncludeUserName,
   Task,
   TasksShowResponse,
+  User,
 } from "../types";
 import { axiosInstance } from "../utils/axios";
 
@@ -14,6 +15,7 @@ export const useFetchTask = () => {
   const params = useParams<{ id: string }>();
 
   const [task, setTask] = useState<Task>();
+  const [user, setUser] = useState<User>();
   const [childrenTasks, setChildrenTasks] = useState<ChildrenTask[]>([]);
   const [division, setDivision] = useState<DivisionIncludeUserName>();
 
@@ -32,6 +34,7 @@ export const useFetchTask = () => {
       .then((res: AxiosResponse<TasksShowResponse>) => {
         console.log(res);
         setTask(res?.data.task);
+        setUser(res.data.user);
         setChildrenTasks(res.data.children_tasks);
         setDivision(res.data.division);
       })
@@ -40,5 +43,5 @@ export const useFetchTask = () => {
       });
   }, [params]);
 
-  return { task, childrenTasks, division };
+  return { task, user, childrenTasks, division };
 };
