@@ -88,6 +88,7 @@ const TasksShow: FC = () => {
   useEffect(() => {
     if (taskData) {
       setTask(taskData);
+      window.scrollTo(0, 0);
     }
   }, [taskData]);
 
