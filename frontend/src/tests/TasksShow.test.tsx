@@ -81,5 +81,5 @@ describe("TasksShow", () => {
     await waitFor(() => {
       expect(screen.queryByText("TASK_2")).not.toBeInTheDocument();
     });
-  });
+  }, 8000);
 });

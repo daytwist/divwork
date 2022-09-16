@@ -3,8 +3,6 @@ import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import NormalUserRoute from "../components/functional/NormalUserRoute";
-import TeamsEdit from "../components/pages/TeamsEdit";
-import TeamsShow from "../components/pages/TeamsShow";
 import UsersEdit from "../components/pages/UsersEdit";
 import UsersShow from "../components/pages/UsersShow";
 import CommonLayout from "../components/ui/CommonLayout";
@@ -110,6 +108,11 @@ describe("NormalUserRoute", () => {
         </AuthProvider>
       </MemoryRouter>
     );
+
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(5000);
+    });
 
     await waitFor(() => {
       expect(screen.queryByText("アカウント設定")).not.toBeInTheDocument();
