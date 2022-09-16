@@ -7,7 +7,16 @@ import {
   useCallback,
 } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+} from "@mui/material";
 import { GridRowId } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -94,21 +103,42 @@ const UsersShow: FC = () => {
     <div>
       {user ? (
         <div>
-          <Grid container direction="column" spacing={3}>
+          <Grid container direction="column" spacing={1}>
             <Grid item>
-              <Typography
-                variant="h4"
-                component="div"
-                data-testid="users-show-h4"
-              >
-                {user.name}のタスク
-              </Typography>
+              <Stack direction="row" spacing={2} alignItems="center" mb={1}>
+                {user.avatar ? (
+                  <Avatar
+                    src={user.avatar}
+                    alt="avatar"
+                    sx={{
+                      width: { sm: 60 },
+                      height: { sm: 60 },
+                      ml: 1,
+                    }}
+                  />
+                ) : (
+                  <Avatar
+                    sx={{
+                      width: { sm: 60 },
+                      height: { sm: 60 },
+                      ml: 1,
+                    }}
+                  />
+                )}
+                <Typography
+                  variant="h4"
+                  component="div"
+                  data-testid="users-show-h4"
+                >
+                  {user.name}のタスク
+                </Typography>
+              </Stack>
             </Grid>
             <Grid item>
               <Stack
                 direction="row"
                 justifyContent="space-between"
-                alignItems="center"
+                alignItems="flex-end"
               >
                 {user?.id === currentUser?.id ? (
                   <Stack direction="row" spacing={2}>
