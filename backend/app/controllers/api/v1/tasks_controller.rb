@@ -13,12 +13,13 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def show
+    user = @task.user.as_json.merge(avatar: avatar_url(@task.user))
     children_tasks = @task.children.includes([:user, [division: :user]]).as_json(
       include: [{ user: { only: :name } },
                 { division: { include: { user: { only: :name } } } }]
     )
     division = @task.division.as_json(include: { user: { only: :name } })
-    render json: { task: @task, children_tasks:, division: }, status: :ok
+    render json: { task: @task, user:, children_tasks:, division: }, status: :ok
   end
 
   def update
