@@ -11,7 +11,7 @@ import {
   Tabs,
   Tab,
 } from "@mui/material";
-import { TasksBarChart } from "../models/task/TasksBarChart";
+import { PriorityBarChart } from "../models/task/PriorityBarChart";
 import { TasksNewButton } from "../models/task/TasksNewButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { useFetchTeam } from "../../hooks/useFetchTeam";
@@ -53,7 +53,7 @@ const TeamsShow: FC = () => {
     <div>
       {team ? (
         <div>
-          <Grid container direction="column" spacing={2}>
+          <Grid container direction="column" spacing={1}>
             <Grid item>
               <Typography
                 gutterBottom
@@ -69,6 +69,7 @@ const TeamsShow: FC = () => {
                 direction="row"
                 justifyContent="space-between"
                 alignItems="center"
+                mb={1}
               >
                 <TasksNewButton />
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -85,66 +86,64 @@ const TeamsShow: FC = () => {
             </Grid>
             {users?.map((user) => (
               <Grid item key={user.id}>
-                <Grid
-                  container
+                <Stack
                   direction="row"
                   justifyContent="space-between"
                   alignItems="center"
+                  mb={1}
                 >
-                  <Grid item>
-                    <Link
-                      to={`/users/${user.id}`}
-                      style={{ textDecoration: "none" }}
+                  <Link
+                    to={`/users/${user.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Stack
+                      component={Button}
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      sx={{
+                        width: { xs: 80, sm: 100 },
+                        height: { xs: 80, sm: 120 },
+                        mr: { xs: 1, sm: 2 },
+                      }}
                     >
-                      <Stack
-                        component={Button}
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
+                      {user.avatar ? (
+                        <Avatar
+                          src={user.avatar}
+                          alt="avatar"
+                          sx={{
+                            width: { sm: 60 },
+                            height: { sm: 60 },
+                          }}
+                        />
+                      ) : (
+                        <Avatar
+                          sx={{
+                            width: { sm: 60 },
+                            height: { sm: 60 },
+                          }}
+                        />
+                      )}
+                      <Typography
+                        variant="button"
                         sx={{
-                          width: { xs: 80, sm: 100 },
-                          height: { xs: 80, sm: 120 },
-                          mr: { xs: 1, sm: 2 },
+                          color: "black",
+                          mt: { xs: 0, sm: 1 },
                         }}
                       >
-                        {user.avatar ? (
-                          <Avatar
-                            src={user.avatar}
-                            alt="avatar"
-                            sx={{
-                              width: { sm: 60 },
-                              height: { sm: 60 },
-                            }}
-                          />
-                        ) : (
-                          <Avatar
-                            sx={{
-                              width: { sm: 60 },
-                              height: { sm: 60 },
-                            }}
-                          />
-                        )}
-                        <Typography
-                          variant="button"
-                          sx={{
-                            color: "black",
-                            mt: { xs: 0, sm: 1 },
-                          }}
-                        >
-                          {user.name}
-                        </Typography>
-                      </Stack>
-                    </Link>
-                  </Grid>
-                  <Grid item>
+                        {user.name}
+                      </Typography>
+                    </Stack>
+                  </Link>
+                  <Box sx={{ width: { xs: 200, sm: 350, md: 500, lg: 600 } }}>
                     <TabPanel value={tabValue} index={0}>
-                      <TasksBarChart user={user} maxCount={maxCount} />
+                      <PriorityBarChart user={user} maxCount={maxCount} />
                     </TabPanel>
                     <TabPanel value={tabValue} index={1}>
                       <DeadlineBarChart user={user} maxCount={maxCount} />
                     </TabPanel>
-                  </Grid>
-                </Grid>
+                  </Box>
+                </Stack>
                 <Divider />
               </Grid>
             ))}

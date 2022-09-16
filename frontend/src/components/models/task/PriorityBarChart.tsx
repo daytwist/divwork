@@ -14,15 +14,15 @@ type Props = {
   maxCount: number;
 };
 
-export const DeadlineBarChart = (props: Props) => {
+export const PriorityBarChart = (props: Props) => {
   const { user, maxCount } = props;
 
   const data = [
     {
       name: user.name,
-      "3日以内": user.unfinished_tasks_deadline_count[2],
-      "4日〜7日以内": user.unfinished_tasks_deadline_count[1],
-      "8日以上": user.unfinished_tasks_deadline_count[0],
+      高: user.unfinished_tasks_priority_count[2],
+      中: user.unfinished_tasks_priority_count[1],
+      低: user.unfinished_tasks_priority_count[0],
     },
   ];
 
@@ -32,23 +32,23 @@ export const DeadlineBarChart = (props: Props) => {
         <XAxis type="number" hide domain={[0, maxCount]} />
         <YAxis dataKey="name" type="category" hide />
         <Tooltip wrapperStyle={{ zIndex: 10, fontFamily: "roboto" }} />
-        <Bar dataKey="3日以内" stackId="a" fill="#ff5252">
+        <Bar dataKey="高" stackId="a" fill="#ff5252">
           <LabelList
-            dataKey="3日以内"
+            dataKey="高"
             position="top"
             style={{ fontFamily: "roboto" }}
           />
         </Bar>
-        <Bar dataKey="4日〜7日以内" stackId="a" fill="#ffd600">
+        <Bar dataKey="中" stackId="a" fill="#ffd600">
           <LabelList
-            dataKey="4日〜7日以内"
+            dataKey="中"
             position="top"
             style={{ fontFamily: "roboto" }}
           />
         </Bar>
-        <Bar dataKey="8日以上" stackId="a" fill="#00c853">
+        <Bar dataKey="低" stackId="a" fill="#00c853">
           <LabelList
-            dataKey="8日以上"
+            dataKey="低"
             position="top"
             style={{ fontFamily: "roboto" }}
           />
