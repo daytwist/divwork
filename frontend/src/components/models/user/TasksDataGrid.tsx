@@ -59,7 +59,6 @@ export const TasksDataGrid = (props: Props) => {
         <Chip
           variant="outlined"
           sx={{ height: 28 }}
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...GetChipProps(params)}
         />
       ),
@@ -129,7 +128,6 @@ export const TasksDataGrid = (props: Props) => {
         <Chip
           variant="outlined"
           sx={{ height: 28 }}
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...GetChipProps(params)}
         />
       ),

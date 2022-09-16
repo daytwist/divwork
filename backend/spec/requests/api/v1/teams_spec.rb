@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::Teams", type: :request do
 
   context "チームの管理者ユーザーがログインしている時" do
     let(:user_admin) { create(:user, team:, admin: true) }
-    let!(:task) { create(:task, user: user_admin, priority: 0) }
+    let!(:task) { create(:task, user: user_admin, priority: 0, deadline: Time.zone.today.advance(days: 5)) }
     let(:headers) { user_admin.create_new_auth_token }
 
     describe "GET /:id" do
@@ -41,8 +41,12 @@ RSpec.describe "Api::V1::Teams", type: :request do
         expect(json["users"][0]["id"]).to eq user_admin.id
       end
 
-      it "ユーザーの未完了タスク数を取得出来ること" do
-        expect(json["users"][0]["unfinished_tasks_count"]).to eq [1, 0, 0]
+      it "ユーザーの未完了タスク数を優先度毎に取得出来ること" do
+        expect(json["users"][0]["unfinished_tasks_priority_count"]).to eq [1, 0, 0]
+      end
+
+      it "ユーザーの未完了タスク数を納期毎に取得出来ること" do
+        expect(json["users"][0]["unfinished_tasks_deadline_count"]).to eq [0, 1, 0]
       end
 
       it "ユーザーのアバター情報が含まれること" do

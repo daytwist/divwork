@@ -18,4 +18,14 @@ class Task < ApplicationRecord
 
   scope :unfinished, -> { where(is_done: false) }
   scope :finished, -> { where(is_done: true) }
+
+  scope :deadline_long, lambda {
+    where("deadline > ?", Time.zone.today.advance(days: 8))
+  }
+  scope :deadline_middle, lambda {
+    where(deadline: Time.zone.today.advance(days: 4)..Time.zone.today.advance(days: 8))
+  }
+  scope :deadline_short, lambda {
+    where("deadline <= ?", Time.zone.today.advance(days: 4))
+  }
 end

@@ -78,6 +78,7 @@ module.exports = {
       },
     ],
     "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }],
+    "react/jsx-props-no-spreading": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "@typescript-eslint/no-unused-vars": "off",

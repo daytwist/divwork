@@ -14,11 +14,18 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 10 }
 
-  def unfinished_tasks_count
+  def unfinished_tasks_priority_count
     low    = tasks.unfinished.where(priority: 0).size
     medium = tasks.unfinished.where(priority: 1).size
     high   = tasks.unfinished.where(priority: 2).size
     [low, medium, high]
+  end
+
+  def unfinished_tasks_deadline_count
+    long = tasks.unfinished.deadline_long.size
+    middle = tasks.unfinished.deadline_middle.size
+    short = tasks.unfinished.deadline_short.size
+    [long, middle, short]
   end
 
   def self.guest

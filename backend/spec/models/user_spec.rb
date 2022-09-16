@@ -59,7 +59,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "unfinished_tasks_count method" do
+  describe "unfinished_tasks_priority_count method" do
     let(:user) { create(:user, team:) }
     let!(:task_a) { create(:task, user:, priority: 0) }
     let!(:task_b) { create(:task, user:, priority: 0) }
@@ -67,7 +67,20 @@ RSpec.describe User, type: :model do
     let!(:task_d) { create(:task, is_done: true, user:, priority: 2) }
 
     it "未完了タスクのみ優先度毎にカウント出来ること" do
-      expect(user.unfinished_tasks_count).to eq [2, 1, 0]
+      expect(user.unfinished_tasks_priority_count).to eq [2, 1, 0]
+    end
+  end
+
+  describe "unfinished_tasks_deadline_count method" do
+    let(:user) { create(:user, team:) }
+    let!(:task_a) { create(:task, user:, deadline: Time.zone.today.advance(days: 10)) }
+    let!(:task_b) { create(:task, user:, deadline: Time.zone.today.advance(days: 7)) }
+    let!(:task_c) { create(:task, user:, deadline: Time.zone.today.advance(days: 3)) }
+    let!(:task_d) { create(:task, user:, deadline: Time.zone.today.advance(days: -2)) }
+    let!(:task_e) { create(:task, user:, is_done: true) }
+
+    it "未完了タスクのみ納期毎にカウント出来ること" do
+      expect(user.unfinished_tasks_deadline_count).to eq [1, 1, 2]
     end
   end
 
