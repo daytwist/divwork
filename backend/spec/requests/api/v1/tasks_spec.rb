@@ -54,13 +54,11 @@ RSpec.describe "Api::V1::Tasks", type: :request do
 
       it "children_tasks, divisionを取得出来ること" do
         expect(json["children_tasks"][0]["id"]).to eq child_task.id
-        expect(json["children_tasks"][0]["division"]["id"]).to eq division_a.id
         expect(json["division"]["id"]).to eq division_b.id
       end
 
       it "children_tasks, divisionのuser nameを取得出来ること" do
         expect(json["children_tasks"][0]["user"]["name"]).to eq another_user.name
-        expect(json["children_tasks"][0]["division"]["user"]["name"]).to eq user.name
         expect(json["division"]["user"]["name"]).to eq another_user.name
       end
     end
