@@ -7,7 +7,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Grid,
   IconButton,
   Stack,
   Tooltip,
@@ -16,12 +15,12 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import PeopleIcon from "@mui/icons-material/People";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
-import { PriorityChip } from "../models/task/PriorityChip";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
 import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
@@ -104,12 +103,12 @@ const TasksShow: FC = () => {
     <div>
       {task ? (
         <div>
-          <Grid container direction="column" spacing={3}>
-            <Grid item>
+          <Grid2 container direction="column" spacing={3}>
+            <Grid2>
               <UserNameHeader user={user} />
-            </Grid>
-            <Grid item>
-              <Card sx={{ minWidth: 500, p: 2 }}>
+            </Grid2>
+            <Grid2>
+              <Card sx={{ width: 550, p: 2 }}>
                 <CardHeader
                   title={
                     <Typography variant="h5" component="div">
@@ -173,25 +172,37 @@ const TasksShow: FC = () => {
                   }
                 />
                 <CardContent>
-                  {task.description ? (
-                    <TaskContentTypography
-                      subtitle="詳細"
-                      body={task.description}
-                    />
-                  ) : null}
-                  <PriorityStack value={task.priority} />
-                  <TaskContentTypography
-                    subtitle="納期"
-                    body={DatetimeFormat(task.deadline)}
-                  />
-                  <TaskContentTypography
-                    subtitle="進捗率"
-                    body={`${task.rate_of_progress}%`}
-                  />
-                  <TaskContentTypography
-                    subtitle="ステータス"
-                    body={task?.is_done ? "完了済み" : "未了"}
-                  />
+                  <Grid2 container rowSpacing={2} pt={0} px={0} pb={4}>
+                    {task.description ? (
+                      <Grid2 xs={12}>
+                        <TaskContentTypography
+                          subtitle="詳細"
+                          body={task.description}
+                        />
+                      </Grid2>
+                    ) : null}
+                    <Grid2 xs={6}>
+                      <PriorityStack value={task.priority} />
+                    </Grid2>
+                    <Grid2 xs={6}>
+                      <TaskContentTypography
+                        subtitle="納期"
+                        body={DatetimeFormat(task.deadline)}
+                      />
+                    </Grid2>
+                    <Grid2 xs={6}>
+                      <TaskContentTypography
+                        subtitle="ステータス"
+                        body={task?.is_done ? "完了済み" : "未了"}
+                      />
+                    </Grid2>
+                    <Grid2 xs={6}>
+                      <TaskContentTypography
+                        subtitle="進捗率"
+                        body={`${task.rate_of_progress}%`}
+                      />
+                    </Grid2>
+                  </Grid2>
                 </CardContent>
                 <CardActions>
                   <Stack direction="row" spacing={2}>
@@ -214,18 +225,18 @@ const TasksShow: FC = () => {
                   </Stack>
                 </CardActions>
               </Card>
-            </Grid>
+            </Grid2>
             {parentTask ? (
-              <Grid item>
+              <Grid2>
                 <ParentTasksCard parentTask={parentTask} />
-              </Grid>
+              </Grid2>
             ) : null}
             {childrenTasks.length ? (
-              <Grid item>
+              <Grid2>
                 <ChildrenTasksCard childrenTasks={childrenTasks} />
-              </Grid>
+              </Grid2>
             ) : null}
-          </Grid>
+          </Grid2>
         </div>
       ) : (
         <LoadingColorRing />

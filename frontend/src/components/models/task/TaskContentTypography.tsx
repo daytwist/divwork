@@ -13,7 +13,7 @@ export const TaskContentTypography = (props: Props) => {
       <Typography variant="subtitle1" component="div" color="text.secondary">
         {subtitle}
       </Typography>
-      <Typography variant="body1" component="div" sx={{ mb: 2 }}>
+      <Typography variant="body1" component="div">
         {body}
       </Typography>
     </div>
