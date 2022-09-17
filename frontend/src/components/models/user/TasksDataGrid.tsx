@@ -10,9 +10,9 @@ import {
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import EditIcon from "@mui/icons-material/Edit";
 import clsx from "clsx";
-import { GetChipProps } from "./GetChipProps";
+import { PriorityChipProps } from "./PriorityChipProps";
 import { Task, User } from "../../../types";
-import { PriorityLabel } from "../task/PriorityLabel";
+import { PriorityChip } from "../task/PriorityChip";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { TasksDeleteIconButton } from "../task/TasksDeleteIconButton";
@@ -33,7 +33,7 @@ export const TasksDataGrid = (props: Props) => {
     id: task.id,
     title: task.title,
     description: task.description,
-    priority: PriorityLabel(task.priority),
+    priority: task.priority,
     deadline: DatetimeFormat(task.deadline),
     rateOfProgress: `${task.rate_of_progress}%`,
     updated_at: DatetimeFormat(task.updated_at),
@@ -59,7 +59,7 @@ export const TasksDataGrid = (props: Props) => {
         <Chip
           variant="outlined"
           sx={{ height: 28 }}
-          {...GetChipProps(params)}
+          {...PriorityChipProps(params)}
         />
       ),
     },
@@ -128,7 +128,7 @@ export const TasksDataGrid = (props: Props) => {
         <Chip
           variant="outlined"
           sx={{ height: 28 }}
-          {...GetChipProps(params)}
+          {...PriorityChipProps(params)}
         />
       ),
     },

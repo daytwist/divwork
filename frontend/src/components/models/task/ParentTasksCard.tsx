@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { TaskIncludeUser } from "../../../types";
 import { TaskContentTypography } from "./TaskContentTypography";
-import { PriorityLabel } from "./PriorityLabel";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
+import { PriorityStack } from "./PriorityStack";
 
 type Props = {
   parentTask: TaskIncludeUser;
@@ -64,10 +64,7 @@ export const ParentTasksCard = (props: Props) => {
             body={parentTask.description}
           />
         ) : null}
-        <TaskContentTypography
-          subtitle="優先度"
-          body={PriorityLabel(parentTask.priority)}
-        />
+        <PriorityStack value={parentTask.priority} />
         <TaskContentTypography
           subtitle="納期"
           body={DatetimeFormat(parentTask.deadline)}

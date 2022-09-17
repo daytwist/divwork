@@ -21,7 +21,7 @@ import { axiosInstance } from "../../utils/axios";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
-import { PriorityLabel } from "../models/task/PriorityLabel";
+import { PriorityChip } from "../models/task/PriorityChip";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
 import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
@@ -31,6 +31,7 @@ import { UserNameHeader } from "../models/user/UserNameHeader";
 import { ChildrenTasksCard } from "../models/task/ChildrenTasksCard";
 import { ParentTasksCard } from "../models/task/ParentTasksCard";
 import { TaskContentTypography } from "../models/task/TaskContentTypography";
+import { PriorityStack } from "../models/task/PriorityStack";
 
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -178,10 +179,7 @@ const TasksShow: FC = () => {
                       body={task.description}
                     />
                   ) : null}
-                  <TaskContentTypography
-                    subtitle="優先度"
-                    body={PriorityLabel(task.priority)}
-                  />
+                  <PriorityStack value={task.priority} />
                   <TaskContentTypography
                     subtitle="納期"
                     body={DatetimeFormat(task.deadline)}
