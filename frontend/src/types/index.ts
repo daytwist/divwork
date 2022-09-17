@@ -55,8 +55,8 @@ export type ChildrenTask = {
   created_at: Date;
   updated_at: Date;
   parent_id: number;
-  user: { name: string };
-  division: DivisionIncludeUserName;
+  user: User;
+  avatar: string;
 };
 
 export type Division = {
