@@ -35,7 +35,13 @@ import { TaskContentTypography } from "../models/task/TaskContentTypography";
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
-  const { task: taskData, user, childrenTasks, division } = useFetchTask();
+  const {
+    task: taskData,
+    user,
+    parentTask,
+    childrenTasks,
+    division,
+  } = useFetchTask();
   const params = useParams<{ id: string }>();
 
   const [task, setTask] = useState<Task>();
@@ -166,10 +172,12 @@ const TasksShow: FC = () => {
                   }
                 />
                 <CardContent>
-                  <TaskContentTypography
-                    subtitle="詳細"
-                    body={task.description}
-                  />
+                  {task.description ? (
+                    <TaskContentTypography
+                      subtitle="詳細"
+                      body={task.description}
+                    />
+                  ) : null}
                   <TaskContentTypography
                     subtitle="優先度"
                     body={PriorityLabel(task.priority)}
@@ -209,9 +217,9 @@ const TasksShow: FC = () => {
                 </CardActions>
               </Card>
             </Grid>
-            {division ? (
+            {parentTask ? (
               <Grid item>
-                <ParentTasksCard task={task} division={division} />
+                <ParentTasksCard parentTask={parentTask} />
               </Grid>
             ) : null}
             {childrenTasks.length ? (

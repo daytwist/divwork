@@ -43,7 +43,7 @@ export type Task = {
   parent_id: number;
 };
 
-export type ChildrenTask = {
+export type TaskIncludeUser = {
   id: number;
   title: string;
   description: string;
@@ -158,7 +158,8 @@ export type TasksResponse = {
 export type TasksShowResponse = {
   task: Task;
   user: User;
-  children_tasks: ChildrenTask[];
+  parent_task: TaskIncludeUser;
+  children_tasks: TaskIncludeUser[];
   division: DivisionIncludeUserName | undefined;
 };
 

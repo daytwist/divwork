@@ -9,13 +9,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { ChildrenTask } from "../../../types";
+import { TaskIncludeUser } from "../../../types";
 import { TaskContentTypography } from "./TaskContentTypography";
 import { PriorityLabel } from "./PriorityLabel";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 
 type Props = {
-  childrenTasks: ChildrenTask[];
+  childrenTasks: TaskIncludeUser[];
 };
 
 export const ChildrenTasksCard = (props: Props) => {
@@ -46,7 +46,9 @@ export const ChildrenTasksCard = (props: Props) => {
                   }}
                 />
               )}
-              <Typography>{childTask.user.name}のタスク</Typography>
+              <Typography variant="body1" component="div">
+                {childTask.user.name}のタスク
+              </Typography>
             </Stack>
             <Box mb={2}>
               <Typography
@@ -58,10 +60,12 @@ export const ChildrenTasksCard = (props: Props) => {
                 {childTask.title}
               </Typography>
             </Box>
-            <TaskContentTypography
-              subtitle="詳細"
-              body={childTask.description}
-            />
+            {childTask.description ? (
+              <TaskContentTypography
+                subtitle="詳細"
+                body={childTask.description}
+              />
+            ) : null}
             <TaskContentTypography
               subtitle="優先度"
               body={PriorityLabel(childTask.priority)}
