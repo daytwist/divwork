@@ -226,9 +226,9 @@ const TasksShow: FC = () => {
                 </CardActions>
               </Card>
             </Grid2>
-            {parentTask ? (
+            {division && parentTask ? (
               <Grid2>
-                <ParentTasksCard parentTask={parentTask} />
+                <ParentTasksCard division={division} parentTask={parentTask} />
               </Grid2>
             ) : null}
             {childrenTasks.length ? (
