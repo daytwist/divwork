@@ -30,7 +30,7 @@ RSpec.describe "Api::V1::Tasks", type: :request do
       end
     end
 
-    fdescribe "GET /:id" do
+    describe "GET /:id" do
       let(:task) { create(:task, user:, parent_id: parent_task.id) }
       let(:user_a) { create(:user, team:) }
       let(:user_b) { create(:user, team:) }
@@ -53,15 +53,23 @@ RSpec.describe "Api::V1::Tasks", type: :request do
         expect(json["user"]["avatar"]).to eq ""
       end
 
-      it "parent_task, children_tasks, divisionを取得出来ること" do
+      it "親タスク情報を取得出来ること" do
         expect(json["parent_task"]["id"]).to eq parent_task.id
-        expect(json["children_tasks"][0]["id"]).to eq child_task.id
-        expect(json["division"]["id"]).to eq division_b.id
+        expect(json["parent_task"]["user"]["id"]).to eq user_a.id
       end
 
-      it "parent_task, children_tasks, divisionのuser情報を取得出来ること" do
-        expect(json["parent_task"]["user"]["id"]).to eq user_a.id
+      it "子タスク情報を取得出来ること" do
+        expect(json["children_tasks"][0]["id"]).to eq child_task.id
         expect(json["children_tasks"][0]["user"]["id"]).to eq user_b.id
+      end
+
+      it "子タスクの分担情報を取得出来ること" do
+        expect(json["children_tasks"][0]["division"]["id"]).to eq division_a.id
+        expect(json["children_tasks"][0]["division"]["user"]["id"]).to eq user.id
+      end
+
+      it "分担情報を取得出来ること" do
+        expect(json["division"]["id"]).to eq division_b.id
         expect(json["division"]["user"]["name"]).to eq user_a.name
       end
     end

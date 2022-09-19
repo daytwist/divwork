@@ -22,7 +22,8 @@ class Api::V1::TasksController < ApplicationController
     end
 
     children_tasks = @task.children.includes(user: :avatar_attachment).map do |child|
-      child.as_json(include: :user).merge(avatar: avatar_url(child.user))
+      child.as_json(include: [:user, { division: { include: :user } }])
+           .merge(avatar: avatar_url(child.user))
     end
 
     division = @task.division.as_json(include: { user: { only: :name } })
