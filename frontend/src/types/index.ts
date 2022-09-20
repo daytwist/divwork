@@ -74,6 +74,7 @@ export type ChildTask = {
   user: User;
   division: DivisionIncludeUser;
   avatar: string;
+  division_avatar: string;
 };
 
 export type Division = {

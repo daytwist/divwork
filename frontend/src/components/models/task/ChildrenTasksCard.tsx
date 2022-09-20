@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import {
-  Avatar,
   Card,
   CardContent,
   CardHeader,
@@ -13,6 +12,7 @@ import { ChildTask } from "../../../types";
 import { TaskContentTypography } from "./TaskContentTypography";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 import { PriorityStack } from "./PriorityStack";
+import { TaskCardAvatar } from "./TaskCardAvatar";
 
 type Props = {
   childrenTasks: ChildTask[];
@@ -28,43 +28,34 @@ export const ChildrenTasksCard = (props: Props) => {
         <Divider sx={{ mb: 2 }} />
         {childrenTasks?.map((childTask) => (
           <div key={childTask.id}>
-            <Grid2 container rowSpacing={2}>
-              <Grid2 xs={12} direction="column">
+            <Grid2 container rowSpacing={1} p={0}>
+              <Grid2 xs={12}>
                 <Typography>
                   {DatetimeFormat(childTask.division.created_at)}
                 </Typography>
-                <Typography>
-                  {childTask.division.user.name}が分担を作成しました。
-                </Typography>
-                {childTask.division.comment ? (
+              </Grid2>
+              <Grid2 xs={12}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <TaskCardAvatar avatar={childTask.division_avatar} />
+                  <Typography>
+                    {childTask.division.user.name}が分担を作成しました。
+                  </Typography>
+                </Stack>
+              </Grid2>
+              {childTask.division.comment ? (
+                <Grid2 xs={12}>
                   <Typography mt={1}>
                     コメント：{childTask.division.comment}
                   </Typography>
-                ) : null}
-              </Grid2>
+                </Grid2>
+              ) : null}
               <Grid2 xs={12}>
-                <Card sx={{ p: 2 }}>
+                <Card sx={{ p: 2, mt: 2 }}>
                   <CardHeader
                     title={
                       <Stack direction="column" spacing={1}>
                         <Stack direction="row" spacing={1} alignItems="center">
-                          {childTask.avatar ? (
-                            <Avatar
-                              src={childTask.avatar}
-                              alt="avatar"
-                              sx={{
-                                width: { sm: 30 },
-                                height: { sm: 30 },
-                              }}
-                            />
-                          ) : (
-                            <Avatar
-                              sx={{
-                                width: { sm: 30 },
-                                height: { sm: 30 },
-                              }}
-                            />
-                          )}
+                          <TaskCardAvatar avatar={childTask.avatar} />
                           <Typography variant="body1" component="div">
                             {childTask.user.name}のタスク
                           </Typography>
