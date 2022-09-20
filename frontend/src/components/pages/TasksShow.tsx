@@ -112,48 +112,67 @@ const TasksShow: FC = () => {
                 <CardHeader
                   title={
                     <Typography variant="h5" component="div">
-                      {task?.title}
+                      {task.title}
                     </Typography>
                   }
                   subheader={
-                    <div>
+                    <Grid2
+                      container
+                      direction="column"
+                      spacing={1}
+                      p={0}
+                      mt={1}
+                    >
+                      <Grid2>
+                        <Typography
+                          color="text.secondary"
+                          variant="body2"
+                          component="div"
+                        >
+                          登録日：{DatetimeFormat(task.created_at)}
+                        </Typography>
+                      </Grid2>
                       {division ? (
-                        <Stack direction="row" mt={1}>
-                          <PeopleIcon
-                            sx={{
-                              width: 18,
-                              height: 18,
-                              mr: 1,
-                            }}
-                          />
-                          <Typography
-                            color="text.secondary"
-                            variant="body2"
-                            component="div"
-                          >
-                            親タスクから分担されました
-                          </Typography>
-                        </Stack>
+                        <Grid2>
+                          <Stack direction="row">
+                            <PeopleIcon
+                              sx={{
+                                width: 18,
+                                height: 18,
+                                mr: 1,
+                              }}
+                            />
+                            <Typography
+                              color="text.secondary"
+                              variant="body2"
+                              component="div"
+                            >
+                              親タスクから分担されました
+                            </Typography>
+                          </Stack>
+                        </Grid2>
                       ) : null}
                       {childrenTasks.length ? (
-                        <Stack direction="row" mt={1}>
-                          <PeopleIcon
-                            sx={{
-                              width: 18,
-                              height: 18,
-                              mr: 1,
-                            }}
-                          />
-                          <Typography
-                            color="text.secondary"
-                            variant="body2"
-                            component="div"
-                          >
-                            子タスクへ分担されました
-                          </Typography>
-                        </Stack>
+                        <Grid2>
+                          <Stack direction="row">
+                            <PeopleIcon
+                              sx={{
+                                width: 18,
+                                height: 18,
+                                mr: 1,
+                              }}
+                            />
+                            <Typography
+                              color="text.secondary"
+                              variant="body2"
+                              component="div"
+                            >
+                              子タスクへ分担されました
+                            </Typography>
+                          </Stack>
+                        </Grid2>
                       ) : null}
-                    </div>
+                    </Grid2>
                   }
                   action={
                     task?.user_id === currentUser?.id && (
@@ -193,7 +212,7 @@ const TasksShow: FC = () => {
                     <Grid2 xs={6}>
                       <TaskContentTypography
                         subtitle="ステータス"
-                        body={task?.is_done ? "完了済み" : "未了"}
+                        body={task.is_done ? "完了済み" : "未了"}
                       />
                     </Grid2>
                     <Grid2 xs={6}>
@@ -202,6 +221,14 @@ const TasksShow: FC = () => {
                         body={`${task.rate_of_progress}%`}
                       />
                     </Grid2>
+                    <Grid2 xs={6}>
+                      {task.is_done ? (
+                        <TaskContentTypography
+                          subtitle="完了日"
+                          body={DatetimeFormat(task.updated_at)}
+                        />
+                      ) : null}
+                    </Grid2>
                   </Grid2>
                 </CardContent>
                 <CardActions>
@@ -209,14 +236,14 @@ const TasksShow: FC = () => {
                     <IsDoneUpdateButton
                       onClick={handleIsDoneUpdate}
                       disabled={false}
-                      isFinished={task?.is_done}
+                      isFinished={task.is_done}
                     />
-                    {task?.is_done === false && (
+                    {task.is_done ? null : (
                       <Button
                         variant="contained"
                         type="button"
                         component={Link}
-                        to={`/tasks/${task?.id}/divisions/new`}
+                        to={`/tasks/${task.id}/divisions/new`}
                         startIcon={<ConnectWithoutContactIcon />}
                       >
                         分担する
