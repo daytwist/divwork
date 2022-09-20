@@ -70,7 +70,7 @@ RSpec.describe "Api::V1::Tasks", type: :request do
 
       it "分担情報を取得出来ること" do
         expect(json["division"]["id"]).to eq division_b.id
-        expect(json["division"]["user"]["name"]).to eq user_a.name
+        expect(json["division"]["user"]["id"]).to eq user_a.id
       end
     end
 

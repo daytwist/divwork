@@ -22,10 +22,11 @@ class Api::V1::TasksController < ApplicationController
     end
 
     children_tasks = @task.children
-                          .includes([{ user: :avatar_attachment }, { division: :user }])
+                          .includes([{ user: :avatar_attachment }, { division: { user: :avatar_attachment } }])
                           .map do |child|
       child.as_json(include: [:user, { division: { include: :user } }])
-           .merge(avatar: avatar_url(child.user))
+           .merge(avatar: avatar_url(child.user),
+                  division_avatar: avatar_url(child.division.user))
     end
 
     division = @task.division
