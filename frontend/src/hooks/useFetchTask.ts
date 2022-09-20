@@ -3,11 +3,12 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  TaskIncludeUser,
+  ParentTask,
   DivisionIncludeUserName,
   Task,
   TasksShowResponse,
   User,
+  ChildTask,
 } from "../types";
 import { axiosInstance } from "../utils/axios";
 
@@ -16,8 +17,8 @@ export const useFetchTask = () => {
 
   const [task, setTask] = useState<Task>();
   const [user, setUser] = useState<User>();
-  const [parentTask, setParentTask] = useState<TaskIncludeUser>();
-  const [childrenTasks, setChildrenTasks] = useState<TaskIncludeUser[]>([]);
+  const [parentTask, setParentTask] = useState<ParentTask>();
+  const [childrenTasks, setChildrenTasks] = useState<ChildTask[]>([]);
   const [division, setDivision] = useState<DivisionIncludeUserName>();
 
   const options: AxiosRequestConfig = {

@@ -9,14 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { DivisionIncludeUserName, TaskIncludeUser } from "../../../types";
+import { DivisionIncludeUserName, ParentTask } from "../../../types";
 import { TaskContentTypography } from "./TaskContentTypography";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 import { PriorityStack } from "./PriorityStack";
 
 type Props = {
   division: DivisionIncludeUserName;
-  parentTask: TaskIncludeUser;
+  parentTask: ParentTask;
 };
 
 export const ParentTasksCard = (props: Props) => {
@@ -31,7 +31,9 @@ export const ParentTasksCard = (props: Props) => {
           <Grid2 xs={12} direction="column">
             <Typography>{DatetimeFormat(division.created_at)}</Typography>
             <Typography>{division.user.name}から分担されました。</Typography>
-            <Typography mt={1}>コメント：{division.comment}</Typography>
+            {division.comment ? (
+              <Typography mt={1}>コメント：{division.comment}</Typography>
+            ) : null}
           </Grid2>
           <Grid2 xs={12}>
             <Card sx={{ p: 2 }}>

@@ -43,7 +43,7 @@ export type Task = {
   parent_id: number;
 };
 
-export type TaskIncludeUser = {
+export type ParentTask = {
   id: number;
   title: string;
   description: string;
@@ -56,6 +56,23 @@ export type TaskIncludeUser = {
   updated_at: Date;
   parent_id: number;
   user: User;
+  avatar: string;
+};
+
+export type ChildTask = {
+  id: number;
+  title: string;
+  description: string;
+  deadline: Date;
+  priority: string;
+  is_done: boolean;
+  rate_of_progress: number;
+  user_id: number;
+  created_at: Date;
+  updated_at: Date;
+  parent_id: number;
+  user: User;
+  division: DivisionIncludeUser;
   avatar: string;
 };
 
@@ -81,6 +98,16 @@ export type DivisionHistory = {
   child_task: Task;
   child_user: User;
   child_user_avatar: string;
+};
+
+export type DivisionIncludeUser = {
+  id: number;
+  user_id: number | undefined;
+  task_id: number;
+  created_at: Date;
+  updated_at: Date;
+  comment: string;
+  user: User;
 };
 
 export type DivisionIncludeUserName = {
@@ -158,8 +185,8 @@ export type TasksResponse = {
 export type TasksShowResponse = {
   task: Task;
   user: User;
-  parent_task: TaskIncludeUser;
-  children_tasks: TaskIncludeUser[];
+  parent_task: ParentTask;
+  children_tasks: ChildTask[];
   division: DivisionIncludeUserName | undefined;
 };
 
