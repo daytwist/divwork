@@ -1,7 +1,10 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Button,
   Card,
   CardActions,
@@ -15,6 +18,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import PeopleIcon from "@mui/icons-material/People";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
@@ -27,8 +31,8 @@ import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
 import { Task, TasksResponse } from "../../types";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { UserNameHeader } from "../models/user/UserNameHeader";
-import { ChildrenTasksCard } from "../models/task/ChildrenTasksCard";
-import { ParentTasksCard } from "../models/task/ParentTasksCard";
+import { ChildrenTasksDetails } from "../models/task/ChildrenTasksDetails";
+import { ParentTaskDetails } from "../models/task/ParentTaskDetails";
 import { TaskContentTypography } from "../models/task/TaskContentTypography";
 import { PriorityStack } from "../models/task/PriorityStack";
 
@@ -103,12 +107,18 @@ const TasksShow: FC = () => {
     <div>
       {task ? (
         <div>
-          <Grid2 container direction="column" spacing={3}>
+          <Grid2
+            container
+            direction="column"
+            spacing={3}
+            width={550}
+            alignContent="center"
+          >
             <Grid2>
               <UserNameHeader user={user} />
             </Grid2>
             <Grid2>
-              <Card sx={{ width: 550, p: 2 }}>
+              <Card sx={{ p: 2 }}>
                 <CardHeader
                   title={
                     <Typography variant="h5" component="div">
@@ -253,16 +263,31 @@ const TasksShow: FC = () => {
                 </CardActions>
               </Card>
             </Grid2>
-            {division && parentTask ? (
-              <Grid2>
-                <ParentTasksCard division={division} parentTask={parentTask} />
-              </Grid2>
-            ) : null}
-            {childrenTasks.length ? (
-              <Grid2>
-                <ChildrenTasksCard childrenTasks={childrenTasks} />
-              </Grid2>
-            ) : null}
+            <Grid2>
+              {division && parentTask ? (
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    親タスク情報
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <ParentTaskDetails
+                      division={division}
+                      parentTask={parentTask}
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              ) : null}
+              {childrenTasks.length ? (
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    子タスク情報
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <ChildrenTasksDetails childrenTasks={childrenTasks} />
+                  </AccordionDetails>
+                </Accordion>
+              ) : null}
+            </Grid2>
           </Grid2>
         </div>
       ) : (
