@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import {
-  Avatar,
   Card,
   CardContent,
   CardHeader,
@@ -9,13 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { DivisionIncludeUserName, ParentTask } from "../../../types";
+import { DivisionIncludeUserAvatar, ParentTask } from "../../../types";
 import { TaskContentTypography } from "./TaskContentTypography";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 import { PriorityStack } from "./PriorityStack";
+import { TaskCardAvatar } from "./TaskCardAvatar";
 
 type Props = {
-  division: DivisionIncludeUserName;
+  division: DivisionIncludeUserAvatar;
   parentTask: ParentTask;
 };
 
@@ -27,37 +27,28 @@ export const ParentTasksCard = (props: Props) => {
       <CardHeader title="親タスク情報" />
       <CardContent>
         <Divider sx={{ mb: 2 }} />
-        <Grid2 container rowSpacing={2}>
-          <Grid2 xs={12} direction="column">
+        <Grid2 container rowSpacing={1} p={0}>
+          <Grid2 xs={12}>
             <Typography>{DatetimeFormat(division.created_at)}</Typography>
-            <Typography>{division.user.name}から分担されました。</Typography>
-            {division.comment ? (
-              <Typography mt={1}>コメント：{division.comment}</Typography>
-            ) : null}
           </Grid2>
           <Grid2 xs={12}>
-            <Card sx={{ p: 2 }}>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <TaskCardAvatar avatar={division.avatar} />
+              <Typography>{division.user.name}から分担されました。</Typography>
+            </Stack>
+          </Grid2>
+          {division.comment ? (
+            <Grid2 xs={12}>
+              <Typography>コメント：{division.comment}</Typography>
+            </Grid2>
+          ) : null}
+          <Grid2 xs={12}>
+            <Card sx={{ p: 2, mt: 2 }}>
               <CardHeader
                 title={
                   <Stack direction="column" spacing={1}>
                     <Stack direction="row" spacing={1} alignItems="center">
-                      {parentTask.avatar ? (
-                        <Avatar
-                          src={parentTask.avatar}
-                          alt="avatar"
-                          sx={{
-                            width: { sm: 30 },
-                            height: { sm: 30 },
-                          }}
-                        />
-                      ) : (
-                        <Avatar
-                          sx={{
-                            width: { sm: 30 },
-                            height: { sm: 30 },
-                          }}
-                        />
-                      )}
+                      <TaskCardAvatar avatar={parentTask.avatar} />
                       <Typography variant="body1" component="div">
                         {parentTask.user.name}のタスク
                       </Typography>

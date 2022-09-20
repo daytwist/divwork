@@ -110,14 +110,15 @@ export type DivisionIncludeUser = {
   user: User;
 };
 
-export type DivisionIncludeUserName = {
+export type DivisionIncludeUserAvatar = {
   id: number;
   user_id: number | undefined;
   task_id: number;
   created_at: Date;
   updated_at: Date;
   comment: string;
-  user: { name: string };
+  user: User;
+  avatar: string;
 };
 
 export type EditTask = {
@@ -187,7 +188,7 @@ export type TasksShowResponse = {
   user: User;
   parent_task: ParentTask;
   children_tasks: ChildTask[];
-  division: DivisionIncludeUserName | undefined;
+  division: DivisionIncludeUserAvatar | undefined;
 };
 
 export type DivisionsNewResponse = {

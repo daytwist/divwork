@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   ParentTask,
-  DivisionIncludeUserName,
+  DivisionIncludeUserAvatar,
   Task,
   TasksShowResponse,
   User,
@@ -19,7 +19,7 @@ export const useFetchTask = () => {
   const [user, setUser] = useState<User>();
   const [parentTask, setParentTask] = useState<ParentTask>();
   const [childrenTasks, setChildrenTasks] = useState<ChildTask[]>([]);
-  const [division, setDivision] = useState<DivisionIncludeUserName>();
+  const [division, setDivision] = useState<DivisionIncludeUserAvatar>();
 
   const options: AxiosRequestConfig = {
     url: `/tasks/${params.id}`,
