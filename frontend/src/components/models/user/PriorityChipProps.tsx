@@ -21,7 +21,7 @@ export const PriorityChipProps = (params: GridRenderCellParams): ChipProps => {
   }
   return {
     icon: <LowPriorityIcon sx={{ width: 16, high: 16 }} />,
-    label: "low",
+    label: "低",
     color: "success",
   };
 };
