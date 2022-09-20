@@ -14,19 +14,26 @@ class Api::V1::TasksController < ApplicationController
 
   def show
     user = @task.user.as_json.merge(avatar: avatar_url(@task.user))
-    parent_task = @task.parent
 
+    parent_task = @task.parent
     if parent_task.present?
-      parent_task = @task.parent.as_json(include: :user)
-                         .merge(avatar: avatar_url(@task.parent.user))
+      parent_task = parent_task.as_json(include: :user)
+                               .merge(avatar: avatar_url(parent_task.user))
     end
 
-    children_tasks = @task.children.includes(user: :avatar_attachment).map do |child|
+    children_tasks = @task.children
+                          .includes([{ user: :avatar_attachment }, { division: :user }])
+                          .map do |child|
       child.as_json(include: [:user, { division: { include: :user } }])
            .merge(avatar: avatar_url(child.user))
     end
 
-    division = @task.division.as_json(include: { user: { only: :name } })
+    division = @task.division
+    if division.present?
+      division = division.as_json(include: :user)
+                         .merge(avatar: avatar_url(division.user))
+    end
+
     render json: { task: @task, user:, parent_task:, children_tasks:, division: },
            status: :ok
   end
