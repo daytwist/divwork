@@ -30,7 +30,11 @@ export const ChildrenTasksCard = (props: Props) => {
           <div key={childTask.id}>
             <Grid2 container rowSpacing={1} p={0}>
               <Grid2 xs={12}>
-                <Typography>
+                <Typography
+                  color="text.secondary"
+                  variant="body2"
+                  component="div"
+                >
                   {DatetimeFormat(childTask.division.created_at)}
                 </Typography>
               </Grid2>

@@ -29,7 +29,9 @@ export const ParentTasksCard = (props: Props) => {
         <Divider sx={{ mb: 2 }} />
         <Grid2 container rowSpacing={1} p={0}>
           <Grid2 xs={12}>
-            <Typography>{DatetimeFormat(division.created_at)}</Typography>
+            <Typography color="text.secondary" variant="body2" component="div">
+              {DatetimeFormat(division.created_at)}
+            </Typography>
           </Grid2>
           <Grid2 xs={12}>
             <Stack direction="row" spacing={1} alignItems="center">
