@@ -36,6 +36,7 @@ import { ParentTaskDetails } from "../models/task/ParentTaskDetails";
 import { TaskContentTypography } from "../models/task/TaskContentTypography";
 import { PriorityStack } from "../models/task/PriorityStack";
 import { DeadlineTypography } from "../models/task/DeadlineTypography";
+import { IsDoneTypography } from "../models/task/IsDoneTypography";
 
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -218,10 +219,7 @@ const TasksShow: FC = () => {
                       <DeadlineTypography deadline={task.deadline} />
                     </Grid2>
                     <Grid2 xs={6}>
-                      <TaskContentTypography
-                        subtitle="ステータス"
-                        body={task.is_done ? "完了済み" : "未了"}
-                      />
+                      <IsDoneTypography isDone={task.is_done} />
                     </Grid2>
                     <Grid2 xs={6}>
                       <TaskContentTypography

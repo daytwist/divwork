@@ -15,6 +15,7 @@ import { DatetimeFormat } from "../../ui/DatetimeFormat";
 import { PriorityStack } from "./PriorityStack";
 import { TaskCardAvatar } from "./TaskCardAvatar";
 import { DeadlineTypography } from "./DeadlineTypography";
+import { IsDoneTypography } from "./IsDoneTypography";
 
 type Props = {
   childrenTasks: ChildTask[];
@@ -112,10 +113,7 @@ export const ChildrenTasksDetails = (props: Props) => {
                     <DeadlineTypography deadline={childTask.deadline} />
                   </Grid2>
                   <Grid2 xs={6}>
-                    <TaskContentTypography
-                      subtitle="ステータス"
-                      body={childTask.is_done ? "完了済み" : "未了"}
-                    />
+                    <IsDoneTypography isDone={childTask.is_done} />
                   </Grid2>
                   <Grid2 xs={6}>
                     <TaskContentTypography
