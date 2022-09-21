@@ -7,8 +7,10 @@ module.exports = {
     "**/?(*.)+(spec|test).+(ts|tsx|js)",
   ],
   transform: {
-    "^.+\\.(t|j)sx?$": "ts-jest",
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest",
   },
+  transformIgnorePatterns: [],
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   moduleNameMapper: {
     "^d3-(.*)$": `<rootDir>/node_modules/d3-$1/dist/d3-$1`,

@@ -34,7 +34,13 @@ module.exports = {
     "unused-imports",
     "jest-dom",
   ],
-  ignorePatterns: [".eslintrc.js", "build", "jest.config.js", "setupTests.ts"],
+  ignorePatterns: [
+    ".eslintrc.js",
+    "build",
+    "jest.config.js",
+    "setupTests.ts",
+    "babel.config.js",
+  ],
   rules: {
     "arrow-body-style": "off",
     "import/extensions": [
