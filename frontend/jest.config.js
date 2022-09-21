@@ -7,7 +7,7 @@ module.exports = {
     "**/?(*.)+(spec|test).+(ts|tsx|js)",
   ],
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(t|j)sx?$": "ts-jest",
   },
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   moduleNameMapper: {

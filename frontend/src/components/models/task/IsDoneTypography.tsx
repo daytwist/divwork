@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
+import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
 
 type Props = {
   isDone: boolean;

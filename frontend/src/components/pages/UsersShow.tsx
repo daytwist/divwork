@@ -7,16 +7,7 @@ import {
   useCallback,
 } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Avatar,
-  Box,
-  Button,
-  Grid,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, Stack, Tab, Tabs } from "@mui/material";
 import { GridRowId } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -103,7 +94,7 @@ const UsersShow: FC = () => {
   return (
     <div>
       {user ? (
-        <div>
+        <div data-testid="users-show-page">
           <Grid container direction="column" spacing={1}>
             <Grid item>
               <UserNameHeader user={user} />

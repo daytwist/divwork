@@ -68,7 +68,7 @@ describe("UsersEdit", () => {
     });
 
     // 更新するとUsersShowページへ遷移する
-    expect(await screen.findByTestId("users-show-h4")).toBeInTheDocument();
+    expect(await screen.findByTestId("users-show-page")).toBeInTheDocument();
     expect(
       await screen.findByText("ユーザー情報を更新しました")
     ).toBeInTheDocument();
@@ -104,7 +104,7 @@ describe("UsersEdit", () => {
     });
 
     // 更新するとUsersShowページへ遷移する
-    expect(await screen.findByTestId("users-show-h4")).toBeInTheDocument();
+    expect(await screen.findByTestId("users-show-page")).toBeInTheDocument();
     expect(
       await screen.findByText("パスワードを更新しました")
     ).toBeInTheDocument();
