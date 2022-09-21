@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Card,
   CardContent,
   CardHeader,
   Divider,
+  Link,
   Stack,
   Typography,
 } from "@mui/material";
@@ -22,7 +23,7 @@ export const ChildrenTasksDetails = (props: Props) => {
   const { childrenTasks } = props;
 
   return (
-    <Grid2 container rowSpacing={1}>
+    <Grid2 container direction="column" rowSpacing={1} pt={0}>
       {childrenTasks?.map((childTask) => (
         <div key={childTask.id}>
           <Grid2 xs={12}>
@@ -31,16 +32,28 @@ export const ChildrenTasksDetails = (props: Props) => {
             </Typography>
           </Grid2>
           <Grid2 xs={12}>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <TaskCardAvatar avatar={childTask.division_avatar} />
-              <Typography>
-                {childTask.division.user.name}が分担を作成しました。
+            <Stack direction="row" alignItems="center">
+              <TaskCardAvatar
+                userId={childTask.division.user_id}
+                avatar={childTask.division_avatar}
+              />
+              <Link
+                variant="body1"
+                color="inherit"
+                underline="hover"
+                component={RouterLink}
+                to={`/users/${childTask.division.user_id}`}
+              >
+                {childTask.division.user.name}
+              </Link>
+              <Typography variant="body1" component="div">
+                が分担を作成しました。
               </Typography>
             </Stack>
           </Grid2>
           {childTask.division.comment ? (
             <Grid2 xs={12}>
-              <Typography mt={1}>
+              <Typography variant="body1" component="div">
                 コメント：{childTask.division.comment}
               </Typography>
             </Grid2>
@@ -48,26 +61,40 @@ export const ChildrenTasksDetails = (props: Props) => {
           <Grid2 xs={12}>
             <Card sx={{ p: 2, mt: 2 }}>
               <CardHeader
+                sx={{ p: 1 }}
                 title={
-                  <Stack direction="column" spacing={1}>
-                    <Stack direction="row" spacing={1} alignItems="center">
-                      <TaskCardAvatar avatar={childTask.avatar} />
+                  <Stack direction="column" spacing={2}>
+                    <Stack direction="row" alignItems="center">
+                      <TaskCardAvatar
+                        userId={childTask.user_id}
+                        avatar={childTask.avatar}
+                      />
+                      <Link
+                        variant="body1"
+                        color="inherit"
+                        underline="hover"
+                        component={RouterLink}
+                        to={`/users/${childTask.user_id}`}
+                      >
+                        {childTask.user.name}
+                      </Link>
                       <Typography variant="body1" component="div">
-                        {childTask.user.name}のタスク
+                        のタスク
                       </Typography>
                     </Stack>
-                    <Typography
+                    <Link
                       variant="h6"
-                      component={Link}
+                      color="inherit"
+                      underline="hover"
+                      component={RouterLink}
                       to={`/tasks/${childTask.id}`}
-                      sx={{ color: "inherit" }}
                     >
                       {childTask.title}
-                    </Typography>
+                    </Link>
                   </Stack>
                 }
               />
-              <CardContent>
+              <CardContent sx={{ p: 1 }}>
                 <Grid2 container rowSpacing={2} p={0}>
                   {childTask.description ? (
                     <Grid2 xs={12}>

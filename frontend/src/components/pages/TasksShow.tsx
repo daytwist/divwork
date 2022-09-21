@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -111,13 +111,13 @@ const TasksShow: FC = () => {
             container
             direction="column"
             spacing={3}
-            width={550}
             alignContent="center"
+            width={700}
           >
-            <Grid2>
+            <Grid2 xs={12}>
               <UserNameHeader user={user} />
             </Grid2>
-            <Grid2>
+            <Grid2 xs={12}>
               <Card sx={{ p: 2 }}>
                 <CardHeader
                   title={
@@ -133,7 +133,7 @@ const TasksShow: FC = () => {
                       p={0}
                       mt={1}
                     >
-                      <Grid2>
+                      <Grid2 xs={12}>
                         <Typography
                           color="text.secondary"
                           variant="body2"
@@ -143,7 +143,7 @@ const TasksShow: FC = () => {
                         </Typography>
                       </Grid2>
                       {division ? (
-                        <Grid2>
+                        <Grid2 xs={12}>
                           <Stack direction="row">
                             <PeopleIcon
                               sx={{
@@ -163,7 +163,7 @@ const TasksShow: FC = () => {
                         </Grid2>
                       ) : null}
                       {childrenTasks.length ? (
-                        <Grid2>
+                        <Grid2 xs={12}>
                           <Stack direction="row">
                             <PeopleIcon
                               sx={{
@@ -201,7 +201,7 @@ const TasksShow: FC = () => {
                   }
                 />
                 <CardContent>
-                  <Grid2 container rowSpacing={2} pt={0} px={0} pb={4}>
+                  <Grid2 container rowSpacing={2} pt={0} px={0} pb={2}>
                     {task.description ? (
                       <Grid2 xs={12}>
                         <TaskContentTypography
@@ -263,7 +263,7 @@ const TasksShow: FC = () => {
                 </CardActions>
               </Card>
             </Grid2>
-            <Grid2>
+            <Grid2 xs={12}>
               {division && parentTask ? (
                 <Accordion>
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
