@@ -35,6 +35,7 @@ import { ChildrenTasksDetails } from "../models/task/ChildrenTasksDetails";
 import { ParentTaskDetails } from "../models/task/ParentTaskDetails";
 import { TaskContentTypography } from "../models/task/TaskContentTypography";
 import { PriorityStack } from "../models/task/PriorityStack";
+import { DeadlineTypography } from "../models/task/DeadlineTypography";
 
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -214,10 +215,7 @@ const TasksShow: FC = () => {
                       <PriorityStack value={task.priority} />
                     </Grid2>
                     <Grid2 xs={6}>
-                      <TaskContentTypography
-                        subtitle="納期"
-                        body={DatetimeFormat(task.deadline)}
-                      />
+                      <DeadlineTypography deadline={task.deadline} />
                     </Grid2>
                     <Grid2 xs={6}>
                       <TaskContentTypography

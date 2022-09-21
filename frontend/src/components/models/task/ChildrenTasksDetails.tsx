@@ -14,6 +14,7 @@ import { TaskContentTypography } from "./TaskContentTypography";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 import { PriorityStack } from "./PriorityStack";
 import { TaskCardAvatar } from "./TaskCardAvatar";
+import { DeadlineTypography } from "./DeadlineTypography";
 
 type Props = {
   childrenTasks: ChildTask[];
@@ -23,7 +24,7 @@ export const ChildrenTasksDetails = (props: Props) => {
   const { childrenTasks } = props;
 
   return (
-    <Grid2 container direction="column" rowSpacing={1} pt={0}>
+    <Grid2 container direction="column" rowSpacing={1} pt={0} px={2} pb={2}>
       {childrenTasks?.map((childTask) => (
         <div key={childTask.id}>
           <Grid2 xs={12}>
@@ -108,10 +109,7 @@ export const ChildrenTasksDetails = (props: Props) => {
                     <PriorityStack value={childTask.priority} />
                   </Grid2>
                   <Grid2 xs={6}>
-                    <TaskContentTypography
-                      subtitle="納期"
-                      body={DatetimeFormat(childTask.deadline)}
-                    />
+                    <DeadlineTypography deadline={childTask.deadline} />
                   </Grid2>
                   <Grid2 xs={6}>
                     <TaskContentTypography

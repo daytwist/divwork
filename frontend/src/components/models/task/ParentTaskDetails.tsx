@@ -13,6 +13,7 @@ import { TaskContentTypography } from "./TaskContentTypography";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 import { PriorityStack } from "./PriorityStack";
 import { TaskCardAvatar } from "./TaskCardAvatar";
+import { DeadlineTypography } from "./DeadlineTypography";
 
 type Props = {
   division: DivisionIncludeUserAvatar;
@@ -23,7 +24,7 @@ export const ParentTaskDetails = (props: Props) => {
   const { division, parentTask } = props;
 
   return (
-    <Grid2 container direction="column" rowSpacing={1} pt={0}>
+    <Grid2 container direction="column" rowSpacing={1} pt={0} px={2} pb={2}>
       <Grid2 xs={12}>
         <Typography color="text.secondary" variant="body2" component="div">
           {DatetimeFormat(division.created_at)}
@@ -103,10 +104,7 @@ export const ParentTaskDetails = (props: Props) => {
                 <PriorityStack value={parentTask.priority} />
               </Grid2>
               <Grid2 xs={6}>
-                <TaskContentTypography
-                  subtitle="納期"
-                  body={DatetimeFormat(parentTask.deadline)}
-                />
+                <DeadlineTypography deadline={parentTask.deadline} />
               </Grid2>
               <Grid2 xs={6}>
                 <TaskContentTypography
