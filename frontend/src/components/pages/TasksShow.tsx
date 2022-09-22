@@ -262,7 +262,10 @@ const TasksShow: FC = () => {
             <Grid2 xs={12}>
               {division && parentTask ? (
                 <Accordion>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    data-testid="parent-task-details"
+                  >
                     親タスク情報
                   </AccordionSummary>
                   <AccordionDetails>
@@ -275,7 +278,10 @@ const TasksShow: FC = () => {
               ) : null}
               {childrenTasks.length ? (
                 <Accordion>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    data-testid="children-tasks-details"
+                  >
                     子タスク情報
                   </AccordionSummary>
                   <AccordionDetails>

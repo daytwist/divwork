@@ -40,6 +40,7 @@ export const ParentTaskDetails = (props: Props) => {
             underline="hover"
             component={RouterLink}
             to={`/users/${division.user_id}`}
+            data-testid="division-user-name"
           >
             {division.user.name}
           </Link>
@@ -72,6 +73,7 @@ export const ParentTaskDetails = (props: Props) => {
                     underline="hover"
                     component={RouterLink}
                     to={`/users/${parentTask.user_id}`}
+                    data-testid="parent-task-user-name"
                   >
                     {parentTask.user.name}
                   </Link>
