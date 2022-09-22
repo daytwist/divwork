@@ -11,12 +11,12 @@ import {
   Tabs,
   Tab,
 } from "@mui/material";
-import { PriorityBarChart } from "../models/task/PriorityBarChart";
+import { PriorityBarChart } from "../models/team/PriorityBarChart";
 import { TasksNewButton } from "../models/task/TasksNewButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { useFetchTeam } from "../../hooks/useFetchTeam";
 import { TabPanel } from "../ui/TabPanel";
-import { DeadlineBarChart } from "../models/task/DeadlineBarChart";
+import { DeadlineBarChart } from "../models/team/DeadlineBarChart";
 
 const TeamsShow: FC = () => {
   const { team, users } = useFetchTeam();

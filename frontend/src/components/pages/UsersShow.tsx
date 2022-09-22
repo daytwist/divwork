@@ -7,7 +7,7 @@ import {
   useCallback,
 } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Tab, Tabs } from "@mui/material";
 import { GridRowId } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -20,6 +20,7 @@ import { TasksDataGrid } from "../models/user/TasksDataGrid";
 import { DivisionsDataGrid } from "../models/user/DivisionsDataGrid";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { TabPanel } from "../ui/TabPanel";
+import { UserNameHeader } from "../models/user/UserNameHeader";
 
 const UsersShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -93,22 +94,16 @@ const UsersShow: FC = () => {
   return (
     <div>
       {user ? (
-        <div>
-          <Grid container direction="column" spacing={3}>
+        <div data-testid="users-show-page">
+          <Grid container direction="column" spacing={1}>
             <Grid item>
-              <Typography
-                variant="h4"
-                component="div"
-                data-testid="users-show-h4"
-              >
-                {user.name}のタスク
-              </Typography>
+              <UserNameHeader user={user} />
             </Grid>
             <Grid item>
               <Stack
                 direction="row"
                 justifyContent="space-between"
-                alignItems="center"
+                alignItems="flex-end"
               >
                 {user?.id === currentUser?.id ? (
                   <Stack direction="row" spacing={2}>

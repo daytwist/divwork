@@ -54,8 +54,21 @@ describe("TasksShow", () => {
     // タスクのタイトルが表示されている
     expect(await screen.findByText("TASK_2")).toBeInTheDocument();
 
-    // 分担ユーザーが表示されている
-    expect(await screen.findByText("USER_2")).toBeInTheDocument();
+    act(() => {
+      userEvent.click(screen.getByTestId("parent-task-details"));
+    });
+
+    // 分担作成ユーザーと親タスクユーザーが表示されている
+    expect(await screen.findByTestId("division-user-name")).toBeInTheDocument();
+    expect(
+      await screen.findByTestId("parent-task-user-name")
+    ).toBeInTheDocument();
+
+    act(() => {
+      userEvent.click(screen.getByTestId("children-tasks-details"));
+    });
+
+    // 分担作成ユーザーと子タスクユーザーが表示されている
     expect(await screen.findByText("USER_3")).toBeInTheDocument();
     expect(await screen.findByText("USER_4")).toBeInTheDocument();
 
@@ -75,7 +88,7 @@ describe("TasksShow", () => {
     expect(await screen.findByText("タスクを削除しました")).toBeInTheDocument();
 
     // ユーザー詳細ページに遷移する
-    expect(await screen.findByText("USER_1のタスク")).toBeInTheDocument();
+    expect(await screen.findByTestId("users-show-page")).toBeInTheDocument();
 
     // 削除したタスクは表示されていない
     await waitFor(() => {

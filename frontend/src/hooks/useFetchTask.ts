@@ -3,10 +3,12 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  ChildrenTask,
-  DivisionIncludeUserName,
+  ParentTask,
+  DivisionIncludeUserAvatar,
   Task,
   TasksShowResponse,
+  User,
+  ChildTask,
 } from "../types";
 import { axiosInstance } from "../utils/axios";
 
@@ -14,8 +16,10 @@ export const useFetchTask = () => {
   const params = useParams<{ id: string }>();
 
   const [task, setTask] = useState<Task>();
-  const [childrenTasks, setChildrenTasks] = useState<ChildrenTask[]>([]);
-  const [division, setDivision] = useState<DivisionIncludeUserName>();
+  const [user, setUser] = useState<User>();
+  const [parentTask, setParentTask] = useState<ParentTask>();
+  const [childrenTasks, setChildrenTasks] = useState<ChildTask[]>([]);
+  const [division, setDivision] = useState<DivisionIncludeUserAvatar>();
 
   const options: AxiosRequestConfig = {
     url: `/tasks/${params.id}`,
@@ -32,6 +36,8 @@ export const useFetchTask = () => {
       .then((res: AxiosResponse<TasksShowResponse>) => {
         console.log(res);
         setTask(res?.data.task);
+        setUser(res.data.user);
+        setParentTask(res.data.parent_task);
         setChildrenTasks(res.data.children_tasks);
         setDivision(res.data.division);
       })
@@ -40,5 +46,5 @@ export const useFetchTask = () => {
       });
   }, [params]);
 
-  return { task, childrenTasks, division };
+  return { task, user, parentTask, childrenTasks, division };
 };

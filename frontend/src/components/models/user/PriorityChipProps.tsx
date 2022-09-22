@@ -4,15 +4,15 @@ import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import LowPriorityIcon from "@mui/icons-material/LowPriority";
 
-export const GetChipProps = (params: GridRenderCellParams): ChipProps => {
-  if (params.value === "高") {
+export const PriorityChipProps = (params: GridRenderCellParams): ChipProps => {
+  if (params.value === "high") {
     return {
       icon: <PriorityHighIcon sx={{ width: 16, high: 16 }} />,
       label: "高",
       color: "error",
     };
   }
-  if (params.value === "中") {
+  if (params.value === "medium") {
     return {
       icon: <WarningAmberIcon sx={{ width: 16, high: 16 }} />,
       label: "中",

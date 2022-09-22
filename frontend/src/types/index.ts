@@ -43,7 +43,7 @@ export type Task = {
   parent_id: number;
 };
 
-export type ChildrenTask = {
+export type ParentTask = {
   id: number;
   title: string;
   description: string;
@@ -55,8 +55,26 @@ export type ChildrenTask = {
   created_at: Date;
   updated_at: Date;
   parent_id: number;
-  user: { name: string };
-  division: DivisionIncludeUserName;
+  user: User;
+  avatar: string;
+};
+
+export type ChildTask = {
+  id: number;
+  title: string;
+  description: string;
+  deadline: Date;
+  priority: string;
+  is_done: boolean;
+  rate_of_progress: number;
+  user_id: number;
+  created_at: Date;
+  updated_at: Date;
+  parent_id: number;
+  user: User;
+  division: DivisionIncludeUser;
+  avatar: string;
+  division_avatar: string;
 };
 
 export type Division = {
@@ -83,14 +101,25 @@ export type DivisionHistory = {
   child_user_avatar: string;
 };
 
-export type DivisionIncludeUserName = {
+export type DivisionIncludeUser = {
   id: number;
   user_id: number | undefined;
   task_id: number;
   created_at: Date;
   updated_at: Date;
   comment: string;
-  user: { name: string };
+  user: User;
+};
+
+export type DivisionIncludeUserAvatar = {
+  id: number;
+  user_id: number | undefined;
+  task_id: number;
+  created_at: Date;
+  updated_at: Date;
+  comment: string;
+  user: User;
+  avatar: string;
 };
 
 export type EditTask = {
@@ -157,8 +186,10 @@ export type TasksResponse = {
 
 export type TasksShowResponse = {
   task: Task;
-  children_tasks: ChildrenTask[];
-  division: DivisionIncludeUserName | undefined;
+  user: User;
+  parent_task: ParentTask;
+  children_tasks: ChildTask[];
+  division: DivisionIncludeUserAvatar | undefined;
 };
 
 export type DivisionsNewResponse = {

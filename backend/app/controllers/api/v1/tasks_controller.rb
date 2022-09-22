@@ -13,12 +13,30 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def show
-    children_tasks = @task.children.includes([:user, [division: :user]]).as_json(
-      include: [{ user: { only: :name } },
-                { division: { include: { user: { only: :name } } } }]
-    )
-    division = @task.division.as_json(include: { user: { only: :name } })
-    render json: { task: @task, children_tasks:, division: }, status: :ok
+    user = @task.user.as_json.merge(avatar: avatar_url(@task.user))
+
+    parent_task = @task.parent
+    if parent_task.present?
+      parent_task = parent_task.as_json(include: :user)
+                               .merge(avatar: avatar_url(parent_task.user))
+    end
+
+    children_tasks = @task.children
+                          .includes([{ user: :avatar_attachment }, { division: { user: :avatar_attachment } }])
+                          .map do |child|
+      child.as_json(include: [:user, { division: { include: :user } }])
+           .merge(avatar: avatar_url(child.user),
+                  division_avatar: avatar_url(child.division.user))
+    end
+
+    division = @task.division
+    if division.present?
+      division = division.as_json(include: :user)
+                         .merge(avatar: avatar_url(division.user))
+    end
+
+    render json: { task: @task, user:, parent_task:, children_tasks:, division: },
+           status: :ok
   end
 
   def update

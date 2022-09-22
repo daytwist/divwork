@@ -2,13 +2,14 @@ import { FC, useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  Divider,
-  Grid,
   IconButton,
   Stack,
   Tooltip,
@@ -16,24 +17,37 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import PeopleIcon from "@mui/icons-material/People";
-import LinkIcon from "@mui/icons-material/Link";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
-import { PriorityLabel } from "../models/task/PriorityLabel";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
 import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
 import { Task, TasksResponse } from "../../types";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
+import { UserNameHeader } from "../models/user/UserNameHeader";
+import { ChildrenTasksDetails } from "../models/task/ChildrenTasksDetails";
+import { ParentTaskDetails } from "../models/task/ParentTaskDetails";
+import { TaskContentTypography } from "../models/task/TaskContentTypography";
+import { PriorityStack } from "../models/task/PriorityStack";
+import { DeadlineTypography } from "../models/task/DeadlineTypography";
+import { IsDoneTypography } from "../models/task/IsDoneTypography";
 
 const TasksShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
-  const { task: taskData, childrenTasks, division } = useFetchTask();
+  const {
+    task: taskData,
+    user,
+    parentTask,
+    childrenTasks,
+    division,
+  } = useFetchTask();
   const params = useParams<{ id: string }>();
 
   const [task, setTask] = useState<Task>();
@@ -87,6 +101,7 @@ const TasksShow: FC = () => {
   useEffect(() => {
     if (taskData) {
       setTask(taskData);
+      window.scrollTo(0, 0);
     }
   }, [taskData]);
 
@@ -94,59 +109,82 @@ const TasksShow: FC = () => {
     <div>
       {task ? (
         <div>
-          <Grid container direction="column" spacing={3}>
-            <Grid item>
-              <Typography variant="h4" component="div">
-                タスク詳細
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Card sx={{ minWidth: 500, p: 2 }}>
+          <Grid2
+            container
+            direction="column"
+            spacing={3}
+            alignContent="center"
+            width={700}
+          >
+            <Grid2 xs={12}>
+              <UserNameHeader user={user} />
+            </Grid2>
+            <Grid2 xs={12}>
+              <Card sx={{ p: 2 }}>
                 <CardHeader
                   title={
                     <Typography variant="h5" component="div">
-                      {task?.title}
+                      {task.title}
                     </Typography>
                   }
                   subheader={
-                    <div>
+                    <Grid2
+                      container
+                      direction="column"
+                      spacing={1}
+                      p={0}
+                      mt={1}
+                    >
+                      <Grid2 xs={12}>
+                        <Typography
+                          color="text.secondary"
+                          variant="body2"
+                          component="div"
+                        >
+                          登録日：{DatetimeFormat(task.created_at)}
+                        </Typography>
+                      </Grid2>
                       {division ? (
-                        <Stack direction="row" mt={1}>
-                          <PeopleIcon
-                            sx={{
-                              width: 18,
-                              height: 18,
-                              mr: 1,
-                            }}
-                          />
-                          <Typography
-                            color="text.secondary"
-                            variant="body2"
-                            component="div"
-                          >
-                            親タスクから分担されました
-                          </Typography>
-                        </Stack>
+                        <Grid2 xs={12}>
+                          <Stack direction="row">
+                            <PeopleIcon
+                              sx={{
+                                width: 18,
+                                height: 18,
+                                mr: 1,
+                              }}
+                            />
+                            <Typography
+                              color="text.secondary"
+                              variant="body2"
+                              component="div"
+                            >
+                              親タスクから分担されました
+                            </Typography>
+                          </Stack>
+                        </Grid2>
                       ) : null}
                       {childrenTasks.length ? (
-                        <Stack direction="row" mt={1}>
-                          <PeopleIcon
-                            sx={{
-                              width: 18,
-                              height: 18,
-                              mr: 1,
-                            }}
-                          />
-                          <Typography
-                            color="text.secondary"
-                            variant="body2"
-                            component="div"
-                          >
-                            子タスクへ分担されました
-                          </Typography>
-                        </Stack>
+                        <Grid2 xs={12}>
+                          <Stack direction="row">
+                            <PeopleIcon
+                              sx={{
+                                width: 18,
+                                height: 18,
+                                mr: 1,
+                              }}
+                            />
+                            <Typography
+                              color="text.secondary"
+                              variant="body2"
+                              component="div"
+                            >
+                              子タスクへ分担されました
+                            </Typography>
+                          </Stack>
+                        </Grid2>
                       ) : null}
-                    </div>
+                    </Grid2>
                   }
                   action={
                     task?.user_id === currentUser?.id && (
@@ -165,70 +203,53 @@ const TasksShow: FC = () => {
                   }
                 />
                 <CardContent>
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    color="text.secondary"
-                  >
-                    詳細
-                  </Typography>
-                  <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                    {task?.description}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    color="text.secondary"
-                  >
-                    優先度
-                  </Typography>
-                  <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                    {PriorityLabel(task?.priority)}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    color="text.secondary"
-                  >
-                    納期
-                  </Typography>
-                  <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                    {DatetimeFormat(task?.deadline)}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    color="text.secondary"
-                  >
-                    進捗率
-                  </Typography>
-                  <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                    {task?.rate_of_progress}%
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    color="text.secondary"
-                  >
-                    ステータス
-                  </Typography>
-                  <Typography variant="body1" component="div" sx={{ mb: 2 }}>
-                    {task?.is_done ? "完了済み" : "未了"}
-                  </Typography>
+                  <Grid2 container rowSpacing={2} pt={0} px={0} pb={2}>
+                    {task.description ? (
+                      <Grid2 xs={12}>
+                        <TaskContentTypography
+                          subtitle="詳細"
+                          body={task.description}
+                        />
+                      </Grid2>
+                    ) : null}
+                    <Grid2 xs={6}>
+                      <PriorityStack value={task.priority} />
+                    </Grid2>
+                    <Grid2 xs={6}>
+                      <DeadlineTypography deadline={task.deadline} />
+                    </Grid2>
+                    <Grid2 xs={6}>
+                      <IsDoneTypography isDone={task.is_done} />
+                    </Grid2>
+                    <Grid2 xs={6}>
+                      <TaskContentTypography
+                        subtitle="進捗率"
+                        body={`${task.rate_of_progress}%`}
+                      />
+                    </Grid2>
+                    <Grid2 xs={6}>
+                      {task.is_done ? (
+                        <TaskContentTypography
+                          subtitle="完了日"
+                          body={DatetimeFormat(task.updated_at)}
+                        />
+                      ) : null}
+                    </Grid2>
+                  </Grid2>
                 </CardContent>
                 <CardActions>
                   <Stack direction="row" spacing={2}>
                     <IsDoneUpdateButton
                       onClick={handleIsDoneUpdate}
                       disabled={false}
-                      isFinished={task?.is_done}
+                      isFinished={task.is_done}
                     />
-                    {task?.is_done === false && (
+                    {task.is_done ? null : (
                       <Button
                         variant="contained"
                         type="button"
                         component={Link}
-                        to={`/tasks/${task?.id}/divisions/new`}
+                        to={`/tasks/${task.id}/divisions/new`}
                         startIcon={<ConnectWithoutContactIcon />}
                       >
                         分担する
@@ -237,134 +258,39 @@ const TasksShow: FC = () => {
                   </Stack>
                 </CardActions>
               </Card>
-            </Grid>
-            {division ? (
-              <Grid item>
-                <Card sx={{ minWidth: 500, p: 2 }}>
-                  <CardHeader title="親タスク情報" />
-                  <CardContent>
-                    <Divider sx={{ mb: 2 }} />
-                    <Stack direction="row" alignItems="center">
-                      <Typography
-                        variant="subtitle1"
-                        component="div"
-                        color="text.secondary"
-                        sx={{ textAlign: "end", width: 85, mr: 1 }}
-                      >
-                        From:
-                      </Typography>
-                      <Typography variant="body1" component="div">
-                        {division.user.name}
-                      </Typography>
-                    </Stack>
-                    {division.comment ? (
-                      <Stack direction="row" alignItems="center">
-                        <Typography
-                          variant="subtitle1"
-                          component="div"
-                          color="text.secondary"
-                          sx={{ textAlign: "end", width: 85, mr: 1 }}
-                        >
-                          コメント:
-                        </Typography>
-                        <Typography variant="body1" component="div">
-                          {division.comment}
-                        </Typography>
-                      </Stack>
-                    ) : null}
-                    <Stack direction="row" alignItems="center">
-                      <Typography
-                        variant="subtitle1"
-                        component="div"
-                        color="text.secondary"
-                        sx={{ textAlign: "end", width: 85, mr: 1 }}
-                      >
-                        参照リンク:
-                      </Typography>
-                      <IconButton
-                        component={Link}
-                        to={`/tasks/${task?.parent_id}`}
-                      >
-                        <LinkIcon />
-                      </IconButton>
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ) : null}
-            {childrenTasks.length ? (
-              <Grid item>
-                <Card sx={{ minWidth: 500, p: 2 }}>
-                  <CardHeader title="子タスク情報" />
-                  <CardContent>
-                    <Divider sx={{ mb: 2 }} />
-                    {childrenTasks?.map((childTask) => (
-                      <div key={childTask.id}>
-                        <Stack direction="row" alignItems="center">
-                          <Typography
-                            variant="subtitle1"
-                            component="div"
-                            color="text.secondary"
-                            sx={{ textAlign: "end", width: 85, mr: 1 }}
-                          >
-                            From:
-                          </Typography>
-                          <Typography variant="body1" component="div">
-                            {childTask.division.user.name}
-                          </Typography>
-                        </Stack>
-                        <Stack direction="row" alignItems="center">
-                          <Typography
-                            variant="subtitle1"
-                            component="div"
-                            color="text.secondary"
-                            sx={{ textAlign: "end", width: 85, mr: 1 }}
-                          >
-                            To:
-                          </Typography>
-                          <Typography variant="body1" component="div">
-                            {childTask.user.name}
-                          </Typography>
-                        </Stack>
-                        {childTask.division.comment ? (
-                          <Stack direction="row" alignItems="center">
-                            <Typography
-                              variant="subtitle1"
-                              component="div"
-                              color="text.secondary"
-                              sx={{ textAlign: "end", width: 85, mr: 1 }}
-                            >
-                              コメント:
-                            </Typography>
-                            <Typography variant="body1" component="div">
-                              {childTask.division.comment}
-                            </Typography>
-                          </Stack>
-                        ) : null}
-                        <Stack direction="row" alignItems="center">
-                          <Typography
-                            variant="subtitle1"
-                            component="div"
-                            color="text.secondary"
-                            sx={{ textAlign: "end", width: 85, mr: 1 }}
-                          >
-                            参照リンク:
-                          </Typography>
-                          <IconButton
-                            component={Link}
-                            to={`/tasks/${childTask.id}`}
-                          >
-                            <LinkIcon />
-                          </IconButton>
-                        </Stack>
-                        <Divider sx={{ my: 2 }} />
-                      </div>
-                    ))}
-                  </CardContent>
-                </Card>
-              </Grid>
-            ) : null}
-          </Grid>
+            </Grid2>
+            <Grid2 xs={12}>
+              {division && parentTask ? (
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    data-testid="parent-task-details"
+                  >
+                    親タスク情報
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <ParentTaskDetails
+                      division={division}
+                      parentTask={parentTask}
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              ) : null}
+              {childrenTasks.length ? (
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    data-testid="children-tasks-details"
+                  >
+                    子タスク情報
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <ChildrenTasksDetails childrenTasks={childrenTasks} />
+                  </AccordionDetails>
+                </Accordion>
+              ) : null}
+            </Grid2>
+          </Grid2>
         </div>
       ) : (
         <LoadingColorRing />
