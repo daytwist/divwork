@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext } from "react";
-import { Link } from "react-router-dom";
-import { Box, Chip, IconButton, Stack, Tooltip } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import { Link, Box, Chip, IconButton, Stack, Tooltip } from "@mui/material";
 import {
   DataGrid,
   GridCellParams,
@@ -44,7 +44,12 @@ export const TasksDataGrid = (props: Props) => {
       headerName: "タイトル",
       width: 200,
       renderCell: (params) => (
-        <Link to={`/tasks/${params.id}`} style={{ color: "black" }}>
+        <Link
+          color="inherit"
+          underline="hover"
+          component={RouterLink}
+          to={`/tasks/${params.id}`}
+        >
           {params.value}
         </Link>
       ),
@@ -86,14 +91,17 @@ export const TasksDataGrid = (props: Props) => {
             <Tooltip title="分担する" placement="top" arrow>
               <IconButton
                 color="secondary"
-                component={Link}
+                component={RouterLink}
                 to={`/tasks/${params.id}/divisions/new`}
               >
                 <ConnectWithoutContactIcon />
               </IconButton>
             </Tooltip>
             <Tooltip title="編集" placement="top" arrow>
-              <IconButton component={Link} to={`/tasks/${params.id}/edit`}>
+              <IconButton
+                component={RouterLink}
+                to={`/tasks/${params.id}/edit`}
+              >
                 <EditIcon />
               </IconButton>
             </Tooltip>
@@ -113,7 +121,12 @@ export const TasksDataGrid = (props: Props) => {
       headerName: "タイトル",
       width: 200,
       renderCell: (params) => (
-        <Link to={`/tasks/${params.id}`} style={{ color: "black" }}>
+        <Link
+          color="inherit"
+          underline="hover"
+          component={RouterLink}
+          to={`/tasks/${params.id}`}
+        >
           {params.value}
         </Link>
       ),
@@ -141,7 +154,10 @@ export const TasksDataGrid = (props: Props) => {
         user?.id === currentUser?.id ? (
           <Stack direction="row" spacing={1}>
             <Tooltip title="編集" placement="top" arrow>
-              <IconButton component={Link} to={`/tasks/${params.id}/edit`}>
+              <IconButton
+                component={RouterLink}
+                to={`/tasks/${params.id}/edit`}
+              >
                 <EditIcon />
               </IconButton>
             </Tooltip>
