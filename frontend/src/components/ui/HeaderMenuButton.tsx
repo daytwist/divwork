@@ -13,6 +13,7 @@ import {
   MenuList,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import AddTaskIcon from "@mui/icons-material/AddTask";
 import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 import TaskIcon from "@mui/icons-material/Task";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
@@ -128,6 +129,13 @@ export const HeaderMenuButton: FC = () => {
               <TaskIcon />
             </ListItemIcon>
             <ListItemText>マイタスク</ListItemText>
+          </MenuItem>
+          <Divider />
+          <MenuItem component={Link} to="/tasks/new" onClick={handleClose}>
+            <ListItemIcon>
+              <AddTaskIcon />
+            </ListItemIcon>
+            <ListItemText>新規タスク作成</ListItemText>
           </MenuItem>
           <Divider />
           {currentUser?.admin ? (
