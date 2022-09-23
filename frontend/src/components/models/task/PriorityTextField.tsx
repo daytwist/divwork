@@ -27,12 +27,14 @@ export const PriorityTextField = (props: Props) => {
   return (
     <div>
       <TextField
+        required
         select
+        color="secondary"
         label="優先度"
         name="priority"
         value={value}
         onChange={onChange}
-        sx={{ width: "10ch" }}
+        sx={{ width: "12ch" }}
       >
         {priorities.map((priority) => (
           <MenuItem key={priority.value} value={priority.value}>

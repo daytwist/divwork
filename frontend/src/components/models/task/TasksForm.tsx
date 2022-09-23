@@ -27,9 +27,12 @@ export const TasksForm = (props: Props) => {
     <Grid2 container direction="column" rowSpacing={4} p={0}>
       <Grid2 xs={12}>
         <TextField
+          required
           label="タイトル"
           variant="outlined"
+          color="secondary"
           sx={{ width: "50ch" }}
+          helperText="50文字以内"
           name="title"
           value={task.title}
           onChange={onChange}
@@ -39,9 +42,11 @@ export const TasksForm = (props: Props) => {
         <TextField
           label="詳細"
           variant="outlined"
+          color="secondary"
           multiline
           rows={4}
           sx={{ width: "50ch" }}
+          helperText="400文字以内"
           name="description"
           value={task.description}
           onChange={onChange}
@@ -55,9 +60,12 @@ export const TasksForm = (props: Props) => {
       </Grid2>
       {action === "edit" ? (
         <Grid2 xs={12}>
-          <FormControl sx={{ width: "10ch" }}>
-            <InputLabel htmlFor="rate-of-progress">進捗率</InputLabel>
+          <FormControl sx={{ width: "12ch" }}>
+            <InputLabel color="secondary" htmlFor="rate-of-progress">
+              進捗率
+            </InputLabel>
             <OutlinedInput
+              color="secondary"
               id="rate-of-progress"
               label="進捗率"
               type="number"

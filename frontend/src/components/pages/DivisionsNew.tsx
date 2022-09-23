@@ -30,7 +30,7 @@ const DivisionsNew: FC = () => {
   const [deadline, setDeadline] = useState<Date | null>(new Date());
   const [comment, setComment] = useState<string>("");
   const [teamMembers, setTeamMembers] = useState<User[]>([]);
-  const [teamMemberValue, setteamMemberValue] = useState<string>("");
+  const [teamMemberValue, setTeamMemberValue] = useState<string>("");
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -132,11 +132,13 @@ const DivisionsNew: FC = () => {
       <Grid2 xs={12}>
         <TextField
           select
+          required
+          color="secondary"
           label="分担先ユーザー"
           sx={{ width: "20ch" }}
           name="user_id"
           value={teamMemberValue}
-          onChange={(event) => setteamMemberValue(event.target.value)}
+          onChange={(event) => setTeamMemberValue(event.target.value)}
         >
           {teamMembers.map((member) => (
             <MenuItem key={member.id} value={member.id.toString()}>
@@ -147,9 +149,12 @@ const DivisionsNew: FC = () => {
       </Grid2>
       <Grid2 xs={12}>
         <TextField
+          required
           label="分担コメント"
           variant="outlined"
+          color="secondary"
           sx={{ width: "50ch" }}
+          helperText="100文字以内"
           value={comment}
           onChange={(event) => setComment(event.target.value)}
         />

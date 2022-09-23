@@ -14,7 +14,9 @@ export const DeadlineTextField = (props: Props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DateTimePicker
-        renderInput={(dateTimeProps) => <TextField {...dateTimeProps} />}
+        renderInput={(dateTimeProps) => (
+          <TextField required color="secondary" {...dateTimeProps} />
+        )}
         label="納期"
         value={value}
         onChange={onChange}
