@@ -27,6 +27,7 @@ export const TasksForm = (props: Props) => {
       <Grid2 xs={12}>
         <TextField
           required
+          inputProps={{ maxLength: 50 }}
           label="タイトル"
           variant="outlined"
           color="secondary"
@@ -39,6 +40,7 @@ export const TasksForm = (props: Props) => {
       </Grid2>
       <Grid2 xs={12}>
         <TextField
+          inputProps={{ maxLength: 400 }}
           label="詳細"
           variant="outlined"
           color="secondary"
