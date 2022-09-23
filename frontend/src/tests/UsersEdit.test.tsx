@@ -59,7 +59,9 @@ describe("UsersEdit", () => {
     ).toBeInTheDocument();
 
     await act(() => {
+      userEvent.clear(screen.getByLabelText("ユーザー名"));
       userEvent.type(screen.getByLabelText("ユーザー名"), "USER_UPDATE");
+      userEvent.clear(screen.getByLabelText("メールアドレス"));
       userEvent.type(
         screen.getByLabelText("メールアドレス"),
         "update@example.com"
@@ -67,12 +69,17 @@ describe("UsersEdit", () => {
       userEvent.click(screen.getByText("更新する"));
     });
 
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+
     // 更新するとUsersShowページへ遷移する
     expect(await screen.findByTestId("users-show-page")).toBeInTheDocument();
     expect(
       await screen.findByText("ユーザー情報を更新しました")
     ).toBeInTheDocument();
-  });
+  }, 8000);
 
   test("パスワード更新", async () => {
     render(
@@ -101,6 +108,11 @@ describe("UsersEdit", () => {
         "newpassword"
       );
       userEvent.click(screen.getByRole("button", { name: "更新する" }));
+    });
+
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(3000);
     });
 
     // 更新するとUsersShowページへ遷移する

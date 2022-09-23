@@ -50,7 +50,7 @@ describe("UsersShow", () => {
 
     jest.useFakeTimers();
     act(() => {
-      jest.advanceTimersByTime(5000);
+      jest.advanceTimersByTime(3000);
     });
 
     // 未完了タスクのみ表示される
