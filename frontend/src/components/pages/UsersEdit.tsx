@@ -1,7 +1,8 @@
 import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Box, Button, Grid, Tab, Typography } from "@mui/material";
+import { Box, Button, Tab, Typography } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
@@ -100,65 +101,63 @@ const UsersEdit: FC = () => {
   }, [userData]);
 
   return (
-    <div>
-      <Grid container direction="column" spacing={2}>
-        <Grid item>
-          <Typography variant="h4" component="div">
-            アカウント設定
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Box sx={{ width: 400 }}>
-            <TabContext value={value}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <TabList
-                  onChange={handleChange}
-                  textColor="secondary"
-                  indicatorColor="secondary"
-                >
-                  <Tab label="プロフィール" value="1" />
-                  <Tab label="パスワード再設定" value="2" />
-                  <Tab label="その他" value="3" />
-                </TabList>
-              </Box>
-              <TabPanel value="1">
-                <Grid container justifyContent="center">
-                  <Grid item>
-                    <UsersEditProfile user={user} setUser={setUser} />
-                  </Grid>
-                </Grid>
-              </TabPanel>
-              <TabPanel value="2">
-                <Grid container justifyContent="center">
-                  <Grid item>
-                    <UsersEditPassword />
-                  </Grid>
-                </Grid>
-              </TabPanel>
-              <TabPanel value="3">
-                <Grid container justifyContent="center">
-                  <Grid item>
-                    <Button
-                      color="error"
-                      variant="outlined"
-                      onClick={handleClickOpen}
-                    >
-                      アカウント削除
-                    </Button>
-                    <AlertDialog
-                      open={open}
-                      handleClose={handleClose}
-                      objectName="アカウント"
-                      onClick={handleUsersDelete}
-                    />
-                  </Grid>
-                </Grid>
-              </TabPanel>
-            </TabContext>
-          </Box>
-        </Grid>
-      </Grid>
-    </div>
+    <Grid2 container direction="column" rowSpacing={2}>
+      <Grid2 xs={12}>
+        <Typography variant="h4" component="div">
+          アカウント設定
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <Box sx={{ width: 400 }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                textColor="secondary"
+                indicatorColor="secondary"
+              >
+                <Tab label="プロフィール" value="1" />
+                <Tab label="パスワード再設定" value="2" />
+                <Tab label="その他" value="3" />
+              </TabList>
+            </Box>
+            <TabPanel value="1">
+              <Grid2 container justifyContent="center">
+                <Grid2 xs={12}>
+                  <UsersEditProfile user={user} setUser={setUser} />
+                </Grid2>
+              </Grid2>
+            </TabPanel>
+            <TabPanel value="2">
+              <Grid2 container justifyContent="center">
+                <Grid2 xs={12}>
+                  <UsersEditPassword />
+                </Grid2>
+              </Grid2>
+            </TabPanel>
+            <TabPanel value="3">
+              <Grid2 container justifyContent="center">
+                <Grid2>
+                  <Button
+                    color="error"
+                    variant="outlined"
+                    onClick={handleClickOpen}
+                  >
+                    アカウント削除
+                  </Button>
+                  <AlertDialog
+                    open={open}
+                    handleClose={handleClose}
+                    objectName="アカウント"
+                    onClick={handleUsersDelete}
+                  />
+                </Grid2>
+              </Grid2>
+            </TabPanel>
+          </TabContext>
+        </Box>
+      </Grid2>
+    </Grid2>
   );
 };
 

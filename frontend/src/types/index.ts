@@ -133,6 +133,8 @@ export type EditTask = {
 export type DivisionTask = {
   title: string;
   description: string;
+  priority: string;
+  rate_of_progress: number;
   parent_id: number;
 };
 

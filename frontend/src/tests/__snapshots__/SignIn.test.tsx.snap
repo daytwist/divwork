@@ -1,115 +1,113 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SignIn スナップショット 1`] = `
-<div>
+<div
+  className="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-column css-s21l6u-MuiGrid2-root"
+>
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column css-32q0xd-MuiGrid-root"
+    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
   >
     <div
-      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+      className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
     >
-      <div
-        className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
-      >
-        ログイン
-      </div>
+      ログイン
     </div>
+  </div>
+  <div
+    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
+  >
     <div
-      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+      className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
     >
-      <div
-        className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
+      <label
+        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
+        data-shrink={false}
+        htmlFor=":r0:"
+        id=":r0:-label"
       >
-        <label
-          className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
-          data-shrink={false}
-          htmlFor=":r0:"
-          id=":r0:-label"
-        >
-          メールアドレス
-        </label>
-        <div
-          className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
-          onClick={[Function]}
-        >
-          <input
-            aria-invalid={false}
-            autoFocus={false}
-            className="MuiInput-input MuiInputBase-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
-            disabled={false}
-            id=":r0:"
-            onAnimationStart={[Function]}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            required={false}
-            type="email"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-    >
+        メールアドレス
+      </label>
       <div
-        className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
-      >
-        <label
-          className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
-          data-shrink={false}
-          htmlFor=":r1:"
-          id=":r1:-label"
-        >
-          パスワード
-        </label>
-        <div
-          className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
-          onClick={[Function]}
-        >
-          <input
-            aria-invalid={false}
-            autoFocus={false}
-            className="MuiInput-input MuiInputBase-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
-            disabled={false}
-            id=":r1:"
-            onAnimationStart={[Function]}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            required={false}
-            type="password"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-    >
-      <button
-        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-sghohy-MuiButtonBase-root-MuiButton-root"
-        data-testid="sign-in-button"
-        disabled={false}
-        onBlur={[Function]}
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
         onClick={[Function]}
-        onContextMenu={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={0}
-        type="submit"
       >
-        ログイン
-      </button>
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInput-input MuiInputBase-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+          disabled={false}
+          id=":r0:"
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={false}
+          type="email"
+          value=""
+        />
+      </div>
     </div>
+  </div>
+  <div
+    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
+  >
+    <div
+      className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
+    >
+      <label
+        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
+        data-shrink={false}
+        htmlFor=":r1:"
+        id=":r1:-label"
+      >
+        パスワード
+      </label>
+      <div
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInput-input MuiInputBase-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+          disabled={false}
+          id=":r1:"
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={false}
+          type="password"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
+  >
+    <button
+      className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-sghohy-MuiButtonBase-root-MuiButton-root"
+      data-testid="sign-in-button"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="submit"
+    >
+      ログイン
+    </button>
   </div>
 </div>
 `;

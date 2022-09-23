@@ -1,7 +1,8 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -52,45 +53,43 @@ const SignIn: FC = () => {
   };
 
   return (
-    <div>
-      <Grid container direction="column" spacing={3}>
-        <Grid item>
-          <Typography variant="h4" component="div">
-            ログイン
-          </Typography>
-        </Grid>
-        <Grid item>
-          <TextField
-            type="email"
-            label="メールアドレス"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            type="password"
-            label="パスワード"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </Grid>
-        <Grid item>
-          <Button
-            data-testid="sign-in-button"
-            variant="contained"
-            type="submit"
-            onClick={handleSignIn}
-          >
-            ログイン
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
+    <Grid2 container direction="column" rowSpacing={3}>
+      <Grid2 xs={12}>
+        <Typography variant="h4" component="div">
+          ログイン
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <TextField
+          type="email"
+          label="メールアドレス"
+          variant="standard"
+          sx={{ width: "30ch" }}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <TextField
+          type="password"
+          label="パスワード"
+          variant="standard"
+          sx={{ width: "30ch" }}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <Button
+          data-testid="sign-in-button"
+          variant="contained"
+          type="submit"
+          onClick={handleSignIn}
+        >
+          ログイン
+        </Button>
+      </Grid2>
+    </Grid2>
   );
 };
 

@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   FormControl,
-  Grid,
   InputLabel,
   OutlinedInput,
   TextField,
@@ -14,6 +13,7 @@ import {
   Stack,
   Button,
 } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { useFetchTeam } from "../../hooks/useFetchTeam";
@@ -105,61 +105,59 @@ const TeamsEdit: FC = () => {
   }, [teamData]);
 
   return (
-    <div>
-      <Grid container direction="column" spacing={4}>
-        <Grid item>
-          <Typography gutterBottom variant="h4" component="div">
-            チーム設定
+    <Grid2 container direction="column" rowSpacing={4}>
+      <Grid2 xs={12}>
+        <Typography variant="h4" component="div">
+          チーム設定
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <TextField
+          label="チーム名"
+          variant="standard"
+          color="secondary"
+          sx={{ width: "30ch" }}
+          name="name"
+          value={team?.name}
+          onChange={handleInputChange}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <FormControl sx={{ width: 100 }} color="secondary">
+            <InputLabel id="max_num_of_users_label">上限人数</InputLabel>
+            <Select
+              labelId="max_num_of_users_label"
+              id="max_num_of_users"
+              name="max_num_of_users"
+              value={team.max_num_of_users}
+              onChange={handleInputSelectChange}
+              input={<OutlinedInput label="上限人数" />}
+              MenuProps={MenuProps}
+            >
+              {numbers.map((num) => (
+                <MenuItem key={num} value={num}>
+                  {num}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Typography variant="body1" component="div">
+            人
           </Typography>
-        </Grid>
-        <Grid item>
-          <TextField
-            label="チーム名"
-            variant="standard"
-            color="secondary"
-            sx={{ width: "30ch" }}
-            name="name"
-            value={team?.name}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <FormControl sx={{ width: 100 }} color="secondary">
-              <InputLabel id="max_num_of_users_label">上限人数</InputLabel>
-              <Select
-                labelId="max_num_of_users_label"
-                id="max_num_of_users"
-                name="max_num_of_users"
-                value={team.max_num_of_users}
-                onChange={handleInputSelectChange}
-                input={<OutlinedInput label="上限人数" />}
-                MenuProps={MenuProps}
-              >
-                {numbers.map((num) => (
-                  <MenuItem key={num} value={num}>
-                    {num}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <Typography variant="body1" component="div">
-              人
-            </Typography>
-          </Stack>
-        </Grid>
-        <Grid item>
-          <Button
-            variant="contained"
-            color="secondary"
-            type="submit"
-            onClick={handleTeamsUpdate}
-          >
-            更新する
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
+        </Stack>
+      </Grid2>
+      <Grid2 xs={12}>
+        <Button
+          variant="contained"
+          color="secondary"
+          type="submit"
+          onClick={handleTeamsUpdate}
+        >
+          更新する
+        </Button>
+      </Grid2>
+    </Grid2>
   );
 };
 

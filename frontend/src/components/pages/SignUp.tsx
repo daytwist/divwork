@@ -1,7 +1,8 @@
 import { FC, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { AuthResponse } from "../../types/index";
@@ -68,55 +69,53 @@ const SignUp: FC = () => {
   };
 
   return (
-    <div>
-      <Grid container direction="column" spacing={3}>
-        <Grid item>
-          <Typography variant="h4" component="div">
-            ユーザー登録
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="h6" component="div">
-            {teamName}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <TextField
-            type="text"
-            label="ユーザー名"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            type="email"
-            label="メールアドレス"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            type="password"
-            label="パスワード"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </Grid>
-        <Grid item>
-          <Button variant="contained" type="submit" onClick={handleSignUp}>
-            登録する
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
+    <Grid2 container direction="column" rowSpacing={3}>
+      <Grid2 xs={12}>
+        <Typography variant="h4" component="div">
+          ユーザー登録
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <Typography variant="h6" component="div">
+          {teamName}
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <TextField
+          type="text"
+          label="ユーザー名"
+          variant="standard"
+          sx={{ width: "30ch" }}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <TextField
+          type="email"
+          label="メールアドレス"
+          variant="standard"
+          sx={{ width: "30ch" }}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <TextField
+          type="password"
+          label="パスワード"
+          variant="standard"
+          sx={{ width: "30ch" }}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <Button variant="contained" type="submit" onClick={handleSignUp}>
+          登録する
+        </Button>
+      </Grid2>
+    </Grid2>
   );
 };
 

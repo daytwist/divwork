@@ -1,7 +1,8 @@
 import { ChangeEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../../utils/axios";
 import { AuthPasswordResponse } from "../../../types";
@@ -67,8 +68,8 @@ export const UsersEditPassword = () => {
   };
 
   return (
-    <Grid container direction="column" spacing={3}>
-      <Grid item>
+    <Grid2 container direction="column" rowSpacing={3}>
+      <Grid2 xs={12}>
         <TextField
           type="password"
           label="新しいパスワード"
@@ -79,8 +80,8 @@ export const UsersEditPassword = () => {
           value={newPasswords.password}
           onChange={handleInputChangePasswords}
         />
-      </Grid>
-      <Grid item>
+      </Grid2>
+      <Grid2 xs={12}>
         <TextField
           type="password"
           label="新しいパスワード(確認用)"
@@ -91,8 +92,8 @@ export const UsersEditPassword = () => {
           value={newPasswords.passwordConfirmation}
           onChange={handleInputChangePasswords}
         />
-      </Grid>
-      <Grid item>
+      </Grid2>
+      <Grid2 xs={12}>
         <Button
           color="secondary"
           variant="contained"
@@ -100,7 +101,7 @@ export const UsersEditPassword = () => {
         >
           更新する
         </Button>
-      </Grid>
-    </Grid>
+      </Grid2>
+    </Grid2>
   );
 };
