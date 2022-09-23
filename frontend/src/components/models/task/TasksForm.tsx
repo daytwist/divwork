@@ -4,7 +4,6 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  Stack,
   TextField,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
@@ -24,14 +23,14 @@ export const TasksForm = (props: Props) => {
   const { action, task, onChange, deadline, onChangeDeadline } = props;
 
   return (
-    <Grid2 container direction="column" rowSpacing={4} p={0}>
+    <Grid2 container rowSpacing={3} p={0}>
       <Grid2 xs={12}>
         <TextField
           required
           label="タイトル"
           variant="outlined"
           color="secondary"
-          sx={{ width: "50ch" }}
+          sx={{ width: "100%" }}
           helperText="50文字以内"
           name="title"
           value={task.title}
@@ -45,22 +44,22 @@ export const TasksForm = (props: Props) => {
           color="secondary"
           multiline
           rows={4}
-          sx={{ width: "50ch" }}
+          sx={{ width: "100%" }}
           helperText="400文字以内"
           name="description"
           value={task.description}
           onChange={onChange}
         />
       </Grid2>
-      <Grid2 xs={12}>
-        <Stack direction="row" spacing={5}>
-          <PriorityTextField value={task.priority} onChange={onChange} />
-          <DeadlineTextField value={deadline} onChange={onChangeDeadline} />
-        </Stack>
+      <Grid2 xs={4}>
+        <PriorityTextField value={task.priority} onChange={onChange} />
+      </Grid2>
+      <Grid2 xs={8}>
+        <DeadlineTextField value={deadline} onChange={onChangeDeadline} />
       </Grid2>
       {action === "edit" ? (
-        <Grid2 xs={12}>
-          <FormControl sx={{ width: "12ch" }}>
+        <Grid2 xs={12} mt={2}>
+          <FormControl sx={{ width: "13ch" }}>
             <InputLabel color="secondary" htmlFor="rate-of-progress">
               進捗率
             </InputLabel>

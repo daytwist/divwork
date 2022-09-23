@@ -89,9 +89,9 @@ const TasksEdit: FC = () => {
   }, [taskData]);
 
   return (
-    <Grid2 container direction="column" rowSpacing={4}>
+    <Grid2 container direction="column" rowSpacing={3} width={700}>
       <Grid2 xs={12}>
-        <Typography variant="h4" component="div">
+        <Typography gutterBottom variant="h4" component="div">
           タスクを編集する
         </Typography>
       </Grid2>

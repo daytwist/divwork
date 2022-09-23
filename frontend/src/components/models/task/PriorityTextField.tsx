@@ -25,23 +25,21 @@ export const PriorityTextField = (props: Props) => {
   ];
 
   return (
-    <div>
-      <TextField
-        required
-        select
-        color="secondary"
-        label="優先度"
-        name="priority"
-        value={value}
-        onChange={onChange}
-        sx={{ width: "12ch" }}
-      >
-        {priorities.map((priority) => (
-          <MenuItem key={priority.value} value={priority.value}>
-            {priority.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </div>
+    <TextField
+      required
+      select
+      color="secondary"
+      label="優先度"
+      sx={{ width: "13ch" }}
+      name="priority"
+      value={value}
+      onChange={onChange}
+    >
+      {priorities.map((priority) => (
+        <MenuItem key={priority.value} value={priority.value}>
+          {priority.label}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 };

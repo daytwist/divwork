@@ -1,7 +1,13 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, MenuItem, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Divider,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
@@ -114,9 +120,9 @@ const DivisionsNew: FC = () => {
   }, []);
 
   return (
-    <Grid2 container direction="column" rowSpacing={4}>
+    <Grid2 container direction="column" rowSpacing={3} width={700}>
       <Grid2 xs={12}>
-        <Typography variant="h4" component="div">
+        <Typography gutterBottom variant="h4" component="div">
           タスクを分担する
         </Typography>
       </Grid2>
@@ -129,6 +135,7 @@ const DivisionsNew: FC = () => {
           onChangeDeadline={handleDeadlineChange}
         />
       </Grid2>
+      <Divider sx={{ my: 4 }} />
       <Grid2 xs={12}>
         <TextField
           select
@@ -153,7 +160,7 @@ const DivisionsNew: FC = () => {
           label="分担コメント"
           variant="outlined"
           color="secondary"
-          sx={{ width: "50ch" }}
+          sx={{ width: "100%" }}
           helperText="100文字以内"
           value={comment}
           onChange={(event) => setComment(event.target.value)}
