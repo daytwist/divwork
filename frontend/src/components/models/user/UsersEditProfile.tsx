@@ -147,10 +147,13 @@ export const UsersEditProfile = (props: Props) => {
       </Grid2>
       <Grid2 xs={12}>
         <TextField
+          required
+          inputProps={{ maxLength: 10 }}
           label="ユーザー名"
           variant="standard"
           color="secondary"
           sx={{ width: "30ch" }}
+          helperText="10文字以内"
           name="name"
           value={user?.name}
           onChange={handleInputChange}
@@ -158,6 +161,7 @@ export const UsersEditProfile = (props: Props) => {
       </Grid2>
       <Grid2 xs={12}>
         <TextField
+          required
           label="メールアドレス"
           variant="standard"
           color="secondary"

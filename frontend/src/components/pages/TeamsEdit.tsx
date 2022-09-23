@@ -113,10 +113,13 @@ const TeamsEdit: FC = () => {
       </Grid2>
       <Grid2 xs={12}>
         <TextField
+          required
+          inputProps={{ maxLength: 20 }}
           label="チーム名"
-          variant="standard"
+          variant="outlined"
           color="secondary"
           sx={{ width: "30ch" }}
+          helperText="20文字以内"
           name="name"
           value={team?.name}
           onChange={handleInputChange}
@@ -124,7 +127,7 @@ const TeamsEdit: FC = () => {
       </Grid2>
       <Grid2 xs={12}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <FormControl sx={{ width: 100 }} color="secondary">
+          <FormControl required sx={{ width: 100 }} color="secondary">
             <InputLabel id="max_num_of_users_label">上限人数</InputLabel>
             <Select
               labelId="max_num_of_users_label"

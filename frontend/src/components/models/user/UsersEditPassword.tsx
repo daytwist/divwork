@@ -71,11 +71,14 @@ export const UsersEditPassword = () => {
     <Grid2 container direction="column" rowSpacing={3}>
       <Grid2 xs={12}>
         <TextField
+          required
+          inputProps={{ minLength: 6, pattern: "^[a-zA-Z0-9!-/:-@¥[-`{-~]*$" }}
           type="password"
           label="新しいパスワード"
           variant="standard"
           color="secondary"
           sx={{ width: "30ch" }}
+          helperText="英数字記号6文字以上"
           name="password"
           value={newPasswords.password}
           onChange={handleInputChangePasswords}
@@ -83,6 +86,7 @@ export const UsersEditPassword = () => {
       </Grid2>
       <Grid2 xs={12}>
         <TextField
+          required
           type="password"
           label="新しいパスワード(確認用)"
           variant="standard"
