@@ -100,8 +100,10 @@ const TeamsSelect: FC = () => {
       <Grid2 xs={12}>
         <TextField
           select
+          required
           label="チーム"
-          sx={{ width: "25ch" }}
+          color="secondary"
+          sx={{ width: "30ch" }}
           name="id"
           value={teamId}
           defaultValue=""
@@ -141,11 +143,15 @@ const TeamsSelect: FC = () => {
       </Grid2>
       <Grid2 xs={12}>
         <TextField
+          required
           type="text"
+          inputProps={{ maxLength: 20 }}
           label="新規チーム名"
+          color="secondary"
+          helperText="20文字以内"
           value={newTeamName}
           onChange={(event) => setNewTeamName(event.target.value)}
-          sx={{ width: "25ch" }}
+          sx={{ width: "30ch" }}
         />
       </Grid2>
       <Grid2 xs={12}>

@@ -87,6 +87,7 @@ export const UsersEditPassword = () => {
       <Grid2 xs={12}>
         <TextField
           required
+          inputProps={{ minLength: 6, pattern: "^[a-zA-Z0-9!-/:-@¥[-`{-~]*$" }}
           type="password"
           label="新しいパスワード(確認用)"
           variant="standard"
