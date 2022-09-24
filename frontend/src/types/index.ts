@@ -142,6 +142,11 @@ export type NewDivision = {
   comment: string;
 };
 
+export type PasswordState = {
+  password: string;
+  showPassword: boolean;
+}
+
 export type AuthSessionsResponse = {
   is_signed_in: boolean;
   current_user: User | undefined;

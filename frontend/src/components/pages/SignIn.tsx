@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, TextField, Typography } from "@mui/material";
@@ -6,22 +6,34 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { AuthContext } from "../../providers/AuthProvider";
-import { AuthResponse } from "../../types";
+import { AuthResponse, PasswordState } from "../../types";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { PasswordTextfield } from "../models/user/PasswordTextfield";
 
 const SignIn: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [values, setValues] = useState<PasswordState>({
+    password: "",
+    showPassword: false,
+  });
+
+  const handleValuesChange =
+    (prop: keyof PasswordState) => (event: ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
 
   const handleSignIn = () => {
     const options: AxiosRequestConfig = {
       url: "/auth/sign_in",
       method: "POST",
-      params: { email, password },
+      params: {
+        email,
+        password: values.password,
+      },
     };
 
     axiosInstance(options)
@@ -64,19 +76,18 @@ const SignIn: FC = () => {
           type="email"
           label="メールアドレス"
           variant="standard"
+          color="secondary"
           sx={{ width: "30ch" }}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
       </Grid2>
       <Grid2 xs={12}>
-        <TextField
-          type="password"
-          label="パスワード"
-          variant="standard"
-          sx={{ width: "30ch" }}
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
+        <PasswordTextfield
+          values={values}
+          setValues={setValues}
+          handleChange={handleValuesChange}
+          withHelperText={false}
         />
       </Grid2>
       <Grid2 xs={12}>
