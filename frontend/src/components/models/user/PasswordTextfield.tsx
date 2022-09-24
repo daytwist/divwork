@@ -19,11 +19,19 @@ type Props = {
   ) => (event: ChangeEvent<HTMLInputElement>) => void;
   label: string;
   withHelperText: boolean;
+  handleSubmit: (() => void) | undefined;
 };
 
 export const PasswordTextfield = (props: Props) => {
-  const { value, values, setValues, handleChange, label, withHelperText } =
-    props;
+  const {
+    value,
+    values,
+    setValues,
+    handleChange,
+    label,
+    withHelperText,
+    handleSubmit,
+  } = props;
 
   const handleClickShowPassword = () => {
     setValues({
@@ -45,6 +53,16 @@ export const PasswordTextfield = (props: Props) => {
         value={values[`${value}`]}
         onChange={handleChange(`${value}`)}
         inputProps={{ minLength: 6 }}
+        onKeyPress={
+          handleSubmit
+            ? (e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSubmit();
+                }
+              }
+            : undefined
+        }
         endAdornment={
           <InputAdornment position="end">
             <IconButton

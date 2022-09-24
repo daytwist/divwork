@@ -135,6 +135,7 @@ const SignUp: FC = () => {
           handleChange={handleValuesChange}
           label="パスワード"
           withHelperText
+          handleSubmit={handleSignUp}
         />
       </Grid2>
       <Grid2 xs={12}>
