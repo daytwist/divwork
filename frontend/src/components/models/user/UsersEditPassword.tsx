@@ -1,30 +1,30 @@
 import { ChangeEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../../utils/axios";
-import { AuthPasswordResponse } from "../../../types";
+import { AuthPasswordResponse, PasswordState } from "../../../types";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { SnackbarContext } from "../../../providers/SnackbarProvider";
+import { PasswordTextfield } from "./PasswordTextfield";
 
 export const UsersEditPassword = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
-  const [newPasswords, setNewPasswords] = useState({
+  const [values, setValues] = useState({
     password: "",
     passwordConfirmation: "",
+    showPassword: false,
   });
 
-  const handleInputChangePasswords = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.target;
-    setNewPasswords({ ...newPasswords, [name]: value });
-  };
+  const handleValuesChange =
+    (prop: keyof PasswordState) => (event: ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
 
   const handlePasswordUpdate = () => {
     const options: AxiosRequestConfig = {
@@ -37,8 +37,8 @@ export const UsersEditPassword = () => {
         uid: Cookies.get("_uid") || "",
       },
       data: {
-        password: newPasswords.password,
-        password_confirmation: newPasswords.passwordConfirmation,
+        password: values.password,
+        password_confirmation: values.passwordConfirmation,
       },
     };
 
@@ -70,32 +70,23 @@ export const UsersEditPassword = () => {
   return (
     <Grid2 container direction="column" rowSpacing={3}>
       <Grid2 xs={12}>
-        <TextField
-          required
-          inputProps={{ minLength: 6, pattern: "^[a-zA-Z0-9!-/:-@¥[-`{-~]*$" }}
-          type="password"
+        <PasswordTextfield
+          value="password"
+          values={values}
+          setValues={setValues}
+          handleChange={handleValuesChange}
           label="新しいパスワード"
-          variant="standard"
-          color="secondary"
-          sx={{ width: "30ch" }}
-          helperText="英数字記号6文字以上"
-          name="password"
-          value={newPasswords.password}
-          onChange={handleInputChangePasswords}
+          withHelperText
         />
       </Grid2>
       <Grid2 xs={12}>
-        <TextField
-          required
-          inputProps={{ minLength: 6, pattern: "^[a-zA-Z0-9!-/:-@¥[-`{-~]*$" }}
-          type="password"
+        <PasswordTextfield
+          value="passwordConfirmation"
+          values={values}
+          setValues={setValues}
+          handleChange={handleValuesChange}
           label="新しいパスワード(確認用)"
-          variant="standard"
-          color="secondary"
-          sx={{ width: "30ch" }}
-          name="passwordConfirmation"
-          value={newPasswords.passwordConfirmation}
-          onChange={handleInputChangePasswords}
+          withHelperText={false}
         />
       </Grid2>
       <Grid2 xs={12}>

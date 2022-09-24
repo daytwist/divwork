@@ -108,7 +108,7 @@ const UsersEdit: FC = () => {
         </Typography>
       </Grid2>
       <Grid2 xs={12}>
-        <Box sx={{ width: 400 }}>
+        <Box sx={{ width: 370 }}>
           <TabContext value={value}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <TabList
@@ -121,22 +121,18 @@ const UsersEdit: FC = () => {
                 <Tab label="その他" value="3" />
               </TabList>
             </Box>
-            <TabPanel value="1">
-              <Grid2 container justifyContent="center">
-                <Grid2 xs={12}>
+            <Grid2 container direction="column" alignContent="center">
+              <TabPanel value="1">
+                <Grid2>
                   <UsersEditProfile user={user} setUser={setUser} />
                 </Grid2>
-              </Grid2>
-            </TabPanel>
-            <TabPanel value="2">
-              <Grid2 container justifyContent="center">
-                <Grid2 xs={12}>
+              </TabPanel>
+              <TabPanel value="2">
+                <Grid2>
                   <UsersEditPassword />
                 </Grid2>
-              </Grid2>
-            </TabPanel>
-            <TabPanel value="3">
-              <Grid2 container justifyContent="center">
+              </TabPanel>
+              <TabPanel value="3">
                 <Grid2>
                   <Button
                     color="error"
@@ -152,8 +148,8 @@ const UsersEdit: FC = () => {
                     onClick={handleUsersDelete}
                   />
                 </Grid2>
-              </Grid2>
-            </TabPanel>
+              </TabPanel>
+            </Grid2>
           </TabContext>
         </Box>
       </Grid2>

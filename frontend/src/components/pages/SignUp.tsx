@@ -30,6 +30,7 @@ const SignUp: FC = () => {
   });
   const [values, setValues] = useState({
     password: "",
+    passwordConfirmation: "",
     showPassword: false,
   });
 
@@ -128,9 +129,11 @@ const SignUp: FC = () => {
       </Grid2>
       <Grid2 xs={12}>
         <PasswordTextfield
+          value="password"
           values={values}
           setValues={setValues}
           handleChange={handleValuesChange}
+          label="パスワード"
           withHelperText
         />
       </Grid2>

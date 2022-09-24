@@ -144,8 +144,9 @@ export type NewDivision = {
 
 export type PasswordState = {
   password: string;
+  passwordConfirmation: string;
   showPassword: boolean;
-}
+};
 
 export type AuthSessionsResponse = {
   is_signed_in: boolean;

@@ -11,16 +11,19 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { PasswordState } from "../../../types";
 
 type Props = {
+  value: keyof PasswordState;
   values: PasswordState;
   setValues: Dispatch<SetStateAction<PasswordState>>;
   handleChange: (
     prop: keyof PasswordState
   ) => (event: ChangeEvent<HTMLInputElement>) => void;
+  label: string;
   withHelperText: boolean;
 };
 
 export const PasswordTextfield = (props: Props) => {
-  const { values, setValues, handleChange, withHelperText } = props;
+  const { value, values, setValues, handleChange, label, withHelperText } =
+    props;
 
   const handleClickShowPassword = () => {
     setValues({
@@ -35,12 +38,12 @@ export const PasswordTextfield = (props: Props) => {
 
   return (
     <FormControl sx={{ width: "30ch" }} variant="standard" color="secondary">
-      <InputLabel htmlFor="standard-adornment-password">パスワード</InputLabel>
+      <InputLabel htmlFor={`standard-adornment-${value}`}>{label}</InputLabel>
       <Input
-        id="standard-adornment-password"
+        id={`standard-adornment-${value}`}
         type={values.showPassword ? "text" : "password"}
-        value={values.password}
-        onChange={handleChange("password")}
+        value={values[`${value}`]}
+        onChange={handleChange(`${value}`)}
         inputProps={{ minLength: 6 }}
         endAdornment={
           <InputAdornment position="end">
@@ -55,7 +58,7 @@ export const PasswordTextfield = (props: Props) => {
         }
       />
       {withHelperText ? (
-        <FormHelperText id="standard-adornment-password">
+        <FormHelperText id={`standard-adornment-${value}`}>
           英数字記号6文字以上
         </FormHelperText>
       ) : null}
