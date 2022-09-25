@@ -78,6 +78,7 @@ export const UsersEditPassword = () => {
           label="新しいパスワード"
           withHelperText
           handleSubmit={undefined}
+          required
         />
       </Grid2>
       <Grid2 xs={12}>
@@ -89,6 +90,7 @@ export const UsersEditPassword = () => {
           label="新しいパスワード(確認用)"
           withHelperText={false}
           handleSubmit={handlePasswordUpdate}
+          required
         />
       </Grid2>
       <Grid2 xs={12}>

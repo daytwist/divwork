@@ -20,6 +20,7 @@ type Props = {
   label: string;
   withHelperText: boolean;
   handleSubmit: (() => void) | undefined;
+  required: boolean;
 };
 
 export const PasswordTextfield = (props: Props) => {
@@ -31,6 +32,7 @@ export const PasswordTextfield = (props: Props) => {
     label,
     withHelperText,
     handleSubmit,
+    required,
   } = props;
 
   const handleClickShowPassword = () => {
@@ -45,7 +47,12 @@ export const PasswordTextfield = (props: Props) => {
   };
 
   return (
-    <FormControl sx={{ width: "30ch" }} variant="standard" color="secondary">
+    <FormControl
+      required={required}
+      sx={{ width: "30ch" }}
+      variant="standard"
+      color="secondary"
+    >
       <InputLabel htmlFor={`standard-adornment-${value}`}>{label}</InputLabel>
       <Input
         id={`standard-adornment-${value}`}

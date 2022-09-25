@@ -136,6 +136,7 @@ const SignUp: FC = () => {
           label="パスワード"
           withHelperText
           handleSubmit={handleSignUp}
+          required
         />
       </Grid2>
       <Grid2 xs={12}>
