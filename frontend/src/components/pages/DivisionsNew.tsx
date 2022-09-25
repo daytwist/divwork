@@ -156,7 +156,6 @@ const DivisionsNew: FC = () => {
       </Grid2>
       <Grid2 xs={12}>
         <TextField
-          required
           inputProps={{ maxLength: 100 }}
           label="分担コメント"
           variant="outlined"

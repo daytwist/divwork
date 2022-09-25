@@ -57,8 +57,8 @@ describe("TeamsEdit", () => {
     expect(await screen.findByDisplayValue("10")).toBeInTheDocument();
 
     await act(() => {
-      userEvent.clear(screen.getByLabelText("チーム名"));
-      userEvent.type(screen.getByLabelText("チーム名"), "TEAM_UPDATE");
+      userEvent.clear(screen.getByLabelText("チーム名 *"));
+      userEvent.type(screen.getByLabelText("チーム名 *"), "TEAM_UPDATE");
       userEvent.click(screen.getByRole("button", { name: "更新する" }));
     });
 

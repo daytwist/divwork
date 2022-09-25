@@ -22,18 +22,25 @@ exports[`TeamsSelect スナップショット 1`] = `
     className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
   >
     <div
-      className="MuiFormControl-root MuiTextField-root css-ygea6l-MuiFormControl-root-MuiTextField-root"
+      className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
     >
       <label
-        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorSecondary Mui-required css-1v4qvbo-MuiFormLabel-root-MuiInputLabel-root"
         data-shrink={false}
         htmlFor=":r0:"
         id=":r0:-label"
       >
         チーム
+        <span
+          aria-hidden={true}
+          className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
+        >
+           
+          *
+        </span>
       </label>
       <div
-        className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+        className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorSecondary MuiInputBase-formControl css-hjtp1-MuiInputBase-root-MuiOutlinedInput-root"
         onClick={[Function]}
         variant="outlined"
       >
@@ -64,7 +71,7 @@ exports[`TeamsSelect スナップショット 1`] = `
           name="id"
           onAnimationStart={[Function]}
           onChange={[Function]}
-          required={false}
+          required={true}
           tabIndex={-1}
           value=""
         />
@@ -88,6 +95,8 @@ exports[`TeamsSelect スナップショット 1`] = `
           >
             <span>
               チーム
+               
+              *
             </span>
           </legend>
         </fieldset>
@@ -156,31 +165,40 @@ exports[`TeamsSelect スナップショット 1`] = `
     className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
   >
     <div
-      className="MuiFormControl-root MuiTextField-root css-ygea6l-MuiFormControl-root-MuiTextField-root"
+      className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
     >
       <label
-        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorSecondary Mui-required css-1v4qvbo-MuiFormLabel-root-MuiInputLabel-root"
         data-shrink={false}
         htmlFor=":r1:"
         id=":r1:-label"
       >
         新規チーム名
+        <span
+          aria-hidden={true}
+          className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
+        >
+           
+          *
+        </span>
       </label>
       <div
-        className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+        className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorSecondary MuiInputBase-formControl css-hjtp1-MuiInputBase-root-MuiOutlinedInput-root"
         onClick={[Function]}
       >
         <input
+          aria-describedby=":r1:-helper-text"
           aria-invalid={false}
           autoFocus={false}
           className="MuiOutlinedInput-input MuiInputBase-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
           disabled={false}
           id=":r1:"
+          maxLength={20}
           onAnimationStart={[Function]}
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          required={false}
+          required={true}
           type="text"
           value=""
         />
@@ -193,10 +211,18 @@ exports[`TeamsSelect スナップショット 1`] = `
           >
             <span>
               新規チーム名
+               
+              *
             </span>
           </legend>
         </fieldset>
       </div>
+      <p
+        className="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained Mui-required css-1wc848c-MuiFormHelperText-root"
+        id=":r1:-helper-text"
+      >
+        20文字以内
+      </p>
     </div>
   </div>
   <div

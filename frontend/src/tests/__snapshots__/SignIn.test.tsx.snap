@@ -20,7 +20,7 @@ exports[`SignIn スナップショット 1`] = `
       className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
     >
       <label
-        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
+        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorSecondary css-t7bnno-MuiFormLabel-root-MuiInputLabel-root"
         data-shrink={false}
         htmlFor=":r0:"
         id=":r0:-label"
@@ -28,7 +28,7 @@ exports[`SignIn スナップショット 1`] = `
         メールアドレス
       </label>
       <div
-        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorSecondary MuiInputBase-formControl css-89bi5l-MuiInputBase-root-MuiInput-root"
         onClick={[Function]}
       >
         <input
@@ -52,26 +52,26 @@ exports[`SignIn スナップショット 1`] = `
     className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
   >
     <div
-      className="MuiFormControl-root MuiTextField-root css-tghzsf-MuiFormControl-root-MuiTextField-root"
+      className="MuiFormControl-root css-1saec9o-MuiFormControl-root"
     >
       <label
-        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
+        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorSecondary css-t7bnno-MuiFormLabel-root-MuiInputLabel-root"
         data-shrink={false}
-        htmlFor=":r1:"
-        id=":r1:-label"
+        htmlFor="standard-adornment-password"
       >
         パスワード
       </label>
       <div
-        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorSecondary MuiInputBase-formControl MuiInputBase-adornedEnd css-89bi5l-MuiInputBase-root-MuiInput-root"
         onClick={[Function]}
+        onKeyPress={[Function]}
       >
         <input
           aria-invalid={false}
-          autoFocus={false}
-          className="MuiInput-input MuiInputBase-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+          className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd css-1x51dt5-MuiInputBase-input-MuiInput-input"
           disabled={false}
-          id=":r1:"
+          id="standard-adornment-password"
+          minLength={6}
           onAnimationStart={[Function]}
           onBlur={[Function]}
           onChange={[Function]}
@@ -80,6 +80,42 @@ exports[`SignIn スナップショット 1`] = `
           type="password"
           value=""
         />
+        <div
+          className="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-standard MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
+        >
+          <button
+            aria-label="toggle password visibility"
+            className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+              data-testid="VisibilityIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>

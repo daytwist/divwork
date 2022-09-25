@@ -61,7 +61,7 @@ describe("DivisionsNew", () => {
     });
 
     act(() => {
-      userEvent.click(screen.getByLabelText("分担先ユーザー"));
+      userEvent.click(screen.getByLabelText("分担先ユーザー *"));
     });
 
     // チームメンバーが表示される

@@ -118,5 +118,5 @@ describe("NormalUserRoute", () => {
       expect(screen.queryByText("アカウント設定")).not.toBeInTheDocument();
     });
     expect(await screen.findByTestId("users-show-h4")).toBeInTheDocument();
-  });
+  }, 8000);
 });

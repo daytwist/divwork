@@ -59,11 +59,11 @@ describe("UsersEdit", () => {
     ).toBeInTheDocument();
 
     await act(() => {
-      userEvent.clear(screen.getByLabelText("ユーザー名"));
-      userEvent.type(screen.getByLabelText("ユーザー名"), "USER_UPDATE");
-      userEvent.clear(screen.getByLabelText("メールアドレス"));
+      userEvent.clear(screen.getByLabelText("ユーザー名 *"));
+      userEvent.type(screen.getByLabelText("ユーザー名 *"), "USER_UPDATE");
+      userEvent.clear(screen.getByLabelText("メールアドレス *"));
       userEvent.type(
-        screen.getByLabelText("メールアドレス"),
+        screen.getByLabelText("メールアドレス *"),
         "update@example.com"
       );
       userEvent.click(screen.getByText("更新する"));
@@ -102,9 +102,9 @@ describe("UsersEdit", () => {
     });
 
     await act(() => {
-      userEvent.type(screen.getByLabelText("新しいパスワード"), "newpassword");
+      userEvent.type(screen.getByLabelText("新しいパスワード *"), "newpassword");
       userEvent.type(
-        screen.getByLabelText("新しいパスワード(確認用)"),
+        screen.getByLabelText("新しいパスワード(確認用) *"),
         "newpassword"
       );
       userEvent.click(screen.getByRole("button", { name: "更新する" }));
