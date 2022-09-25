@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   Avatar,
   Divider,
-  Grid,
   Typography,
   Stack,
   Button,
@@ -11,6 +10,7 @@ import {
   Tabs,
   Tab,
 } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { PriorityBarChart } from "../models/team/PriorityBarChart";
 import { TasksNewButton } from "../models/task/TasksNewButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
@@ -52,103 +52,101 @@ const TeamsShow: FC = () => {
   return (
     <div>
       {team ? (
-        <div>
-          <Grid container direction="column" spacing={1}>
-            <Grid item>
-              <Typography
-                gutterBottom
-                variant="h4"
-                component="div"
-                data-testid="teams-show-h4"
-              >
-                {team.name}のタスク
-              </Typography>
-            </Grid>
-            <Grid item>
+        <Grid2 container direction="column" rowSpacing={1}>
+          <Grid2 xs={12}>
+            <Typography
+              gutterBottom
+              variant="h4"
+              component="div"
+              data-testid="teams-show-h4"
+            >
+              {team.name}のタスク
+            </Typography>
+          </Grid2>
+          <Grid2 xs={12}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              mb={1}
+            >
+              <TasksNewButton />
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <Tabs
+                  value={tabValue}
+                  onChange={handleSwitchTab}
+                  textColor="inherit"
+                >
+                  <Tab label="優先度別" {...tabProps(0)} />
+                  <Tab label="納期別" {...tabProps(1)} />
+                </Tabs>
+              </Box>
+            </Stack>
+          </Grid2>
+          {users?.map((user) => (
+            <Grid2 xs={12} key={user.id}>
               <Stack
                 direction="row"
                 justifyContent="space-between"
                 alignItems="center"
                 mb={1}
               >
-                <TasksNewButton />
-                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                  <Tabs
-                    value={tabValue}
-                    onChange={handleSwitchTab}
-                    textColor="inherit"
-                  >
-                    <Tab label="優先度別" {...tabProps(0)} />
-                    <Tab label="納期別" {...tabProps(1)} />
-                  </Tabs>
-                </Box>
-              </Stack>
-            </Grid>
-            {users?.map((user) => (
-              <Grid item key={user.id}>
-                <Stack
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  mb={1}
+                <Link
+                  to={`/users/${user.id}`}
+                  style={{ textDecoration: "none" }}
                 >
-                  <Link
-                    to={`/users/${user.id}`}
-                    style={{ textDecoration: "none" }}
+                  <Stack
+                    component={Button}
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      width: { xs: 80, sm: 100 },
+                      height: { xs: 80, sm: 120 },
+                      mr: { xs: 1, sm: 2 },
+                    }}
                   >
-                    <Stack
-                      component={Button}
-                      direction="column"
-                      justifyContent="center"
-                      alignItems="center"
+                    {user.avatar ? (
+                      <Avatar
+                        src={user.avatar}
+                        alt="avatar"
+                        sx={{
+                          width: { sm: 60 },
+                          height: { sm: 60 },
+                        }}
+                      />
+                    ) : (
+                      <Avatar
+                        sx={{
+                          width: { sm: 60 },
+                          height: { sm: 60 },
+                        }}
+                      />
+                    )}
+                    <Typography
+                      variant="button"
                       sx={{
-                        width: { xs: 80, sm: 100 },
-                        height: { xs: 80, sm: 120 },
-                        mr: { xs: 1, sm: 2 },
+                        color: "black",
+                        mt: { xs: 0, sm: 1 },
                       }}
                     >
-                      {user.avatar ? (
-                        <Avatar
-                          src={user.avatar}
-                          alt="avatar"
-                          sx={{
-                            width: { sm: 60 },
-                            height: { sm: 60 },
-                          }}
-                        />
-                      ) : (
-                        <Avatar
-                          sx={{
-                            width: { sm: 60 },
-                            height: { sm: 60 },
-                          }}
-                        />
-                      )}
-                      <Typography
-                        variant="button"
-                        sx={{
-                          color: "black",
-                          mt: { xs: 0, sm: 1 },
-                        }}
-                      >
-                        {user.name}
-                      </Typography>
-                    </Stack>
-                  </Link>
-                  <Box sx={{ width: { xs: 200, sm: 350, md: 500, lg: 600 } }}>
-                    <TabPanel value={tabValue} index={0}>
-                      <PriorityBarChart user={user} maxCount={maxCount} />
-                    </TabPanel>
-                    <TabPanel value={tabValue} index={1}>
-                      <DeadlineBarChart user={user} maxCount={maxCount} />
-                    </TabPanel>
-                  </Box>
-                </Stack>
-                <Divider />
-              </Grid>
-            ))}
-          </Grid>
-        </div>
+                      {user.name}
+                    </Typography>
+                  </Stack>
+                </Link>
+                <Box sx={{ width: { xs: 200, sm: 350, md: 500, lg: 600 } }}>
+                  <TabPanel value={tabValue} index={0}>
+                    <PriorityBarChart user={user} maxCount={maxCount} />
+                  </TabPanel>
+                  <TabPanel value={tabValue} index={1}>
+                    <DeadlineBarChart user={user} maxCount={maxCount} />
+                  </TabPanel>
+                </Box>
+              </Stack>
+              <Divider />
+            </Grid2>
+          ))}
+        </Grid2>
       ) : (
         <LoadingColorRing />
       )}

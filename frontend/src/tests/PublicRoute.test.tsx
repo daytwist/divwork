@@ -64,7 +64,7 @@ describe("PublicRoute", () => {
 
     jest.useFakeTimers();
     act(() => {
-      jest.advanceTimersByTime(5000);
+      jest.advanceTimersByTime(3000);
     });
 
     expect(await screen.findByTestId("teams-show-h4")).toBeInTheDocument();

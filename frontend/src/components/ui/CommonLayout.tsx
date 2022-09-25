@@ -5,10 +5,10 @@ import {
   Box,
   Container,
   createTheme,
-  Grid,
   responsiveFontSizes,
   ThemeProvider,
 } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { jaJP } from "@mui/x-data-grid";
 import Header from "./Header";
 import { AlertSnackbar } from "./AlertSnackbar";
@@ -64,9 +64,9 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
             }}
           >
             <Container>
-              <Grid container justifyContent="center">
-                <Grid item>{children}</Grid>
-              </Grid>
+              <Grid2 container justifyContent="center">
+                <Grid2>{children}</Grid2>
+              </Grid2>
             </Container>
           </Box>
         </main>

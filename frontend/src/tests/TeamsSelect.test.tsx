@@ -25,7 +25,7 @@ describe("TeamsSelect", () => {
   test("チーム一覧の表示", async () => {
     render(<TeamsSelect />, { wrapper: BrowserRouter });
     act(() => {
-      userEvent.click(screen.getByLabelText("チーム"));
+      userEvent.click(screen.getByLabelText("チーム *"));
     });
     expect(await screen.findByText("TEAM_1")).toBeInTheDocument();
     expect(await screen.findByText("TEAM_2")).toBeInTheDocument();
@@ -48,9 +48,15 @@ describe("TeamsSelect", () => {
     );
 
     act(() => {
-      userEvent.type(screen.getByLabelText("新規チーム名"), "TEAM_NEW");
+      userEvent.type(screen.getByLabelText("新規チーム名 *"), "TEAM_NEW");
       userEvent.click(screen.getByRole("button", { name: "作成" }));
     });
-    expect(await screen.findByText("TEAM_NEW")).toBeInTheDocument();
+
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+
+    expect(await screen.findByText("所属チーム：TEAM_NEW")).toBeInTheDocument();
   });
 });

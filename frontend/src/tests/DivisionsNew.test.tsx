@@ -61,7 +61,7 @@ describe("DivisionsNew", () => {
     });
 
     act(() => {
-      userEvent.click(screen.getByLabelText("送信先ユーザー"));
+      userEvent.click(screen.getByLabelText("分担先ユーザー *"));
     });
 
     // チームメンバーが表示される
@@ -69,7 +69,7 @@ describe("DivisionsNew", () => {
 
     await act(() => {
       userEvent.click(screen.getByText("USER_2"));
-      userEvent.type(screen.getByLabelText("送信コメント"), "Thank you");
+      userEvent.type(screen.getByLabelText("分担コメント"), "Thank you");
       userEvent.click(screen.getByTestId("send-button"));
     });
 

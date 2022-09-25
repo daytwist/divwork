@@ -59,12 +59,19 @@ describe("UsersEdit", () => {
     ).toBeInTheDocument();
 
     await act(() => {
-      userEvent.type(screen.getByLabelText("ユーザー名"), "USER_UPDATE");
+      userEvent.clear(screen.getByLabelText("ユーザー名 *"));
+      userEvent.type(screen.getByLabelText("ユーザー名 *"), "USER_UPDATE");
+      userEvent.clear(screen.getByLabelText("メールアドレス *"));
       userEvent.type(
-        screen.getByLabelText("メールアドレス"),
+        screen.getByLabelText("メールアドレス *"),
         "update@example.com"
       );
       userEvent.click(screen.getByText("更新する"));
+    });
+
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(3000);
     });
 
     // 更新するとUsersShowページへ遷移する
@@ -72,7 +79,7 @@ describe("UsersEdit", () => {
     expect(
       await screen.findByText("ユーザー情報を更新しました")
     ).toBeInTheDocument();
-  });
+  }, 8000);
 
   test("パスワード更新", async () => {
     render(
@@ -95,12 +102,17 @@ describe("UsersEdit", () => {
     });
 
     await act(() => {
-      userEvent.type(screen.getByLabelText("新しいパスワード"), "newpassword");
+      userEvent.type(screen.getByLabelText("新しいパスワード *"), "newpassword");
       userEvent.type(
-        screen.getByLabelText("新しいパスワード(確認用)"),
+        screen.getByLabelText("新しいパスワード(確認用) *"),
         "newpassword"
       );
       userEvent.click(screen.getByRole("button", { name: "更新する" }));
+    });
+
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(3000);
     });
 
     // 更新するとUsersShowページへ遷移する

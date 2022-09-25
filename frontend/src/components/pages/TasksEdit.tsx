@@ -1,7 +1,8 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Grid, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { TasksResponse, EditTask } from "../../types";
@@ -88,25 +89,27 @@ const TasksEdit: FC = () => {
   }, [taskData]);
 
   return (
-    <div>
-      <Grid container direction="column" spacing={4}>
-        <Grid item>
-          <Typography variant="h4" component="div">
-            タスクを編集する
-          </Typography>
-        </Grid>
-        <Grid item>
-          <TasksForm
-            action="edit"
-            task={task}
-            onChange={handleInputChange}
-            deadline={deadline}
-            onChangeDeadline={handleDeadlineChange}
-            onClick={handleTasksUpdate}
-          />
-        </Grid>
-      </Grid>
-    </div>
+    <Grid2 container direction="column" rowSpacing={3} width={700}>
+      <Grid2 xs={12}>
+        <Typography gutterBottom variant="h4" component="div">
+          タスクを編集する
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <TasksForm
+          action="edit"
+          task={task}
+          onChange={handleInputChange}
+          deadline={deadline}
+          onChangeDeadline={handleDeadlineChange}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <Button variant="contained" type="submit" onClick={handleTasksUpdate}>
+          完了
+        </Button>
+      </Grid2>
+    </Grid2>
   );
 };
 

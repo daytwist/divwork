@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Link } from "react-router-dom";
-import { Avatar, Button, Stack, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import { Link, Avatar, Stack } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DivisionHistory } from "../../../types";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
@@ -36,25 +36,23 @@ export const DivisionsDataGrid = (props: Props) => {
       headerName: "分担元ユーザー",
       width: 150,
       renderCell: (params) => (
-        <Link
-          to={`/users/${params.row.parent_user_id}`}
-          style={{ textDecoration: "none" }}
-        >
-          <Stack direction="row" component={Button} alignItems="center">
-            <Avatar
-              src={params.row.parent_user_avatar}
-              alt="avatar"
-              sx={{ width: 28, height: 28, mr: 1 }}
-            />
-            <Typography
-              variant="button"
-              component="div"
-              sx={{ color: "black" }}
-            >
-              {params.value}
-            </Typography>
-          </Stack>
-        </Link>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Avatar
+            src={params.row.parent_user_avatar}
+            alt="avatar"
+            component={RouterLink}
+            to={`/users/${params.row.parent_user_id}`}
+            sx={{ width: 28, height: 28 }}
+          />
+          <Link
+            color="inherit"
+            underline="hover"
+            component={RouterLink}
+            to={`/users/${params.row.parent_user_id}`}
+          >
+            {params.value}
+          </Link>
+        </Stack>
       ),
     },
     {
@@ -63,8 +61,10 @@ export const DivisionsDataGrid = (props: Props) => {
       width: 160,
       renderCell: (params) => (
         <Link
+          color="inherit"
+          underline="hover"
+          component={RouterLink}
           to={`/tasks/${params.row.parent_task_id}`}
-          style={{ color: "black" }}
         >
           {params.value}
         </Link>
@@ -75,25 +75,23 @@ export const DivisionsDataGrid = (props: Props) => {
       headerName: "分担先ユーザー",
       width: 150,
       renderCell: (params) => (
-        <Link
-          to={`/users/${params.row.child_user_id}`}
-          style={{ textDecoration: "none" }}
-        >
-          <Stack direction="row" component={Button} alignItems="center">
-            <Avatar
-              src={params.row.child_user_avatar}
-              alt="avatar"
-              sx={{ width: 28, height: 28, mr: 1 }}
-            />
-            <Typography
-              variant="button"
-              component="div"
-              sx={{ color: "black" }}
-            >
-              {params.value}
-            </Typography>
-          </Stack>
-        </Link>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Avatar
+            src={params.row.child_user_avatar}
+            alt="avatar"
+            component={RouterLink}
+            to={`/users/${params.row.child_user_id}`}
+            sx={{ width: 28, height: 28 }}
+          />
+          <Link
+            color="inherit"
+            underline="hover"
+            component={RouterLink}
+            to={`/users/${params.row.child_user_id}`}
+          >
+            {params.value}
+          </Link>
+        </Stack>
       ),
     },
     {
@@ -102,8 +100,10 @@ export const DivisionsDataGrid = (props: Props) => {
       width: 160,
       renderCell: (params) => (
         <Link
+          color="inherit"
+          underline="hover"
+          component={RouterLink}
           to={`/tasks/${params.row.child_task_id}`}
-          style={{ color: "black" }}
         >
           {params.value}
         </Link>

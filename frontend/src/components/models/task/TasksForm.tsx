@@ -1,65 +1,72 @@
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent } from "react";
 import {
-  Button,
   FormControl,
-  Grid,
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  Stack,
   TextField,
 } from "@mui/material";
-import { EditTask } from "../../../types";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { DivisionTask, EditTask } from "../../../types";
 import { PriorityTextField } from "./PriorityTextField";
 import { DeadlineTextField } from "./DeadlineTextField";
 
 type Props = {
   action: string;
-  task: EditTask;
+  task: EditTask | DivisionTask;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   deadline: Date | null;
   onChangeDeadline: (newValue: Date | null) => void;
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const TasksForm = (props: Props) => {
-  const { action, task, onChange, deadline, onChangeDeadline, onClick } = props;
+  const { action, task, onChange, deadline, onChangeDeadline } = props;
 
   return (
-    <Grid container direction="column" spacing={4}>
-      <Grid item>
+    <Grid2 container rowSpacing={3} p={0}>
+      <Grid2 xs={12}>
         <TextField
+          required
+          inputProps={{ maxLength: 50 }}
           label="タイトル"
           variant="outlined"
-          sx={{ width: "50ch" }}
+          color="secondary"
+          sx={{ width: "100%" }}
+          helperText="50文字以内"
           name="title"
           value={task.title}
           onChange={onChange}
         />
-      </Grid>
-      <Grid item>
+      </Grid2>
+      <Grid2 xs={12}>
         <TextField
+          inputProps={{ maxLength: 400 }}
           label="詳細"
           variant="outlined"
+          color="secondary"
           multiline
           rows={4}
-          sx={{ width: "50ch" }}
+          sx={{ width: "100%" }}
+          helperText="400文字以内"
           name="description"
           value={task.description}
           onChange={onChange}
         />
-      </Grid>
-      <Grid item>
-        <Stack direction="row" spacing={5}>
-          <PriorityTextField value={task.priority} onChange={onChange} />
-          <DeadlineTextField value={deadline} onChange={onChangeDeadline} />
-        </Stack>
-      </Grid>
+      </Grid2>
+      <Grid2 xs={4}>
+        <PriorityTextField value={task.priority} onChange={onChange} />
+      </Grid2>
+      <Grid2 xs={8}>
+        <DeadlineTextField value={deadline} onChange={onChangeDeadline} />
+      </Grid2>
       {action === "edit" ? (
-        <Grid item>
-          <FormControl sx={{ width: "10ch" }}>
-            <InputLabel htmlFor="rate-of-progress">進捗率</InputLabel>
+        <Grid2 xs={12} mt={2}>
+          <FormControl sx={{ width: "13ch" }}>
+            <InputLabel color="secondary" htmlFor="rate-of-progress">
+              進捗率
+            </InputLabel>
             <OutlinedInput
+              color="secondary"
               id="rate-of-progress"
               label="進捗率"
               type="number"
@@ -70,13 +77,8 @@ export const TasksForm = (props: Props) => {
               inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             />
           </FormControl>
-        </Grid>
+        </Grid2>
       ) : null}
-      <Grid item>
-        <Button variant="contained" type="submit" onClick={onClick}>
-          完了
-        </Button>
-      </Grid>
-    </Grid>
+    </Grid2>
   );
 };

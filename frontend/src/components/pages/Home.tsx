@@ -1,7 +1,8 @@
 import { FC, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { AuthResponse } from "../../types";
@@ -57,8 +58,8 @@ const Home: FC = () => {
       >
         DivWork
       </Typography>
-      <Grid container direction="column" spacing={2}>
-        <Grid item>
+      <Grid2 container direction="column" rowSpacing={2}>
+        <Grid2 xs={12}>
           <Button
             variant="contained"
             type="button"
@@ -67,8 +68,8 @@ const Home: FC = () => {
           >
             ユーザー登録
           </Button>
-        </Grid>
-        <Grid item>
+        </Grid2>
+        <Grid2 xs={12}>
           <Button
             color="secondary"
             variant="contained"
@@ -78,13 +79,13 @@ const Home: FC = () => {
           >
             ログイン
           </Button>
-        </Grid>
-        <Grid item>
+        </Grid2>
+        <Grid2 xs={12}>
           <Button color="secondary" type="button" onClick={handleGuestSignIn}>
             ゲストユーザーでログイン
           </Button>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </div>
   );
 };

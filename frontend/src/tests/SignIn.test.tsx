@@ -11,7 +11,7 @@ import TeamsShow from "../components/pages/TeamsShow";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 import CommonLayout from "../components/ui/CommonLayout";
 
-describe("SignIn", () => {
+describe.only("SignIn", () => {
   test("スナップショット", () => {
     const tree = renderer
       .create(
@@ -23,7 +23,7 @@ describe("SignIn", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test("ログイン後の表示", async () => {
+  test.only("ログイン後の表示", async () => {
     render(
       <MemoryRouter initialEntries={["/sign_in"]}>
         <AuthProvider>
@@ -62,5 +62,5 @@ describe("SignIn", () => {
     // Headerにログインユーザー名が表示される
     expect(await screen.findByTestId("current-user-name")).toBeInTheDocument();
     expect(await screen.findByText("ログインしました")).toBeInTheDocument();
-  });
+  }, 8000);
 });

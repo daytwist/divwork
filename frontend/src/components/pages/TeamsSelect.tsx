@@ -1,14 +1,13 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, MenuItem, TextField, Typography } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { Team, TeamsResponse, TeamsSelectResponse } from "../../types";
-import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 const TeamsSelect: FC = () => {
-  const { isSignedIn, currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
@@ -89,79 +88,78 @@ const TeamsSelect: FC = () => {
   }, []);
 
   return (
-    <div>
-      {isSignedIn && <Navigate to={`/teams/${currentUser?.team_id}`} />}
-      <Grid container direction="column" spacing={3}>
-        <Grid item>
-          <Typography variant="h4" component="div" gutterBottom>
-            所属チームの選択
-          </Typography>
-          <Typography variant="subtitle1" component="div">
-            選択したチームでユーザー登録します。
-          </Typography>
-        </Grid>
-        <Grid item>
-          <TextField
-            select
-            label="チーム"
-            sx={{ width: "25ch" }}
-            name="id"
-            value={teamId}
-            defaultValue=""
-            onChange={handleChange}
+    <Grid2 container direction="column" rowSpacing={3}>
+      <Grid2 xs={12}>
+        <Typography variant="h4" component="div" gutterBottom>
+          所属チームの選択
+        </Typography>
+        <Typography variant="subtitle1" component="div">
+          選択したチームでユーザー登録します。
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <TextField
+          select
+          required
+          label="チーム"
+          color="secondary"
+          sx={{ width: "30ch" }}
+          name="id"
+          value={teamId}
+          defaultValue=""
+          onChange={handleChange}
+        >
+          {teams?.map((menu) => (
+            <MenuItem key={menu.id} value={menu.id}>
+              {menu.name}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid2>
+      <Grid2 xs={12}>
+        <Button variant="contained" type="button">
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to="/sign_up"
+            key={teamId}
+            state={{ teamId, teamName, isAdmin: false }}
           >
-            {teams?.map((menu) => (
-              <MenuItem key={menu.id} value={menu.id}>
-                {menu.name}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item>
-          <Button variant="contained" type="button">
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              to="/sign_up"
-              key={teamId}
-              state={{ teamId, teamName, isAdmin: false }}
-            >
-              次へ
-            </Link>
-          </Button>
-        </Grid>
-        <Grid item>
-          <Typography
-            variant="subtitle1"
-            component="div"
-            sx={{ my: 2, ml: 13 }}
-          >
-            または
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="h4" component="div" gutterBottom>
-            新規チーム作成
-          </Typography>
-          <Typography variant="subtitle1" component="div">
-            新しいチームの管理者としてユーザー登録します。
-          </Typography>
-        </Grid>
-        <Grid item>
-          <TextField
-            type="text"
-            label="新規チーム名"
-            value={newTeamName}
-            onChange={(event) => setNewTeamName(event.target.value)}
-            sx={{ width: "25ch" }}
-          />
-        </Grid>
-        <Grid item>
-          <Button type="submit" variant="contained" onClick={handleTeamsCreate}>
-            作成
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
+            次へ
+          </Link>
+        </Button>
+      </Grid2>
+      <Grid2 xs={12}>
+        <Typography variant="subtitle1" component="div" sx={{ my: 2, ml: 13 }}>
+          または
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <Typography variant="h4" component="div" gutterBottom>
+          新規チーム作成
+        </Typography>
+        <Typography variant="subtitle1" component="div">
+          新しいチームの管理者としてユーザー登録します。
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <TextField
+          required
+          type="text"
+          inputProps={{ maxLength: 20 }}
+          label="新規チーム名"
+          color="secondary"
+          helperText="20文字以内"
+          value={newTeamName}
+          onChange={(event) => setNewTeamName(event.target.value)}
+          sx={{ width: "30ch" }}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <Button type="submit" variant="contained" onClick={handleTeamsCreate}>
+          作成
+        </Button>
+      </Grid2>
+    </Grid2>
   );
 };
 

@@ -1,26 +1,40 @@
-import { FC, useContext, useState } from "react";
+import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { AuthContext } from "../../providers/AuthProvider";
-import { AuthResponse } from "../../types";
+import { AuthResponse, PasswordState } from "../../types";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { PasswordTextfield } from "../models/user/PasswordTextfield";
 
 const SignIn: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [values, setValues] = useState<PasswordState>({
+    password: "",
+    passwordConfirmation: "",
+    showPassword: false,
+  });
+
+  const handleValuesChange =
+    (prop: keyof PasswordState) => (event: ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
 
   const handleSignIn = () => {
     const options: AxiosRequestConfig = {
       url: "/auth/sign_in",
       method: "POST",
-      params: { email, password },
+      params: {
+        email,
+        password: values.password,
+      },
     };
 
     axiosInstance(options)
@@ -52,45 +66,46 @@ const SignIn: FC = () => {
   };
 
   return (
-    <div>
-      <Grid container direction="column" spacing={3}>
-        <Grid item>
-          <Typography variant="h4" component="div">
-            ログイン
-          </Typography>
-        </Grid>
-        <Grid item>
-          <TextField
-            type="email"
-            label="メールアドレス"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            type="password"
-            label="パスワード"
-            variant="standard"
-            sx={{ width: "30ch" }}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </Grid>
-        <Grid item>
-          <Button
-            data-testid="sign-in-button"
-            variant="contained"
-            type="submit"
-            onClick={handleSignIn}
-          >
-            ログイン
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
+    <Grid2 container direction="column" rowSpacing={3}>
+      <Grid2 xs={12}>
+        <Typography variant="h4" component="div">
+          ログイン
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <TextField
+          type="email"
+          label="メールアドレス"
+          variant="standard"
+          color="secondary"
+          sx={{ width: "30ch" }}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <PasswordTextfield
+          value="password"
+          values={values}
+          setValues={setValues}
+          handleChange={handleValuesChange}
+          label="パスワード"
+          withHelperText={false}
+          handleSubmit={handleSignIn}
+          required={false}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <Button
+          data-testid="sign-in-button"
+          variant="contained"
+          type="submit"
+          onClick={handleSignIn}
+        >
+          ログイン
+        </Button>
+      </Grid2>
+    </Grid2>
   );
 };
 
