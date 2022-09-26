@@ -1,7 +1,7 @@
 class Api::V1::TeamsController < ApplicationController
-  before_action :authenticate_api_v1_user!, except: [:select, :create, :destroy]
-  before_action :set_team, only: [:show, :update, :destroy, :ensure_correct_user]
-  before_action :ensure_correct_user, except: [:select, :create, :destroy]
+  before_action :authenticate_api_v1_user!, only: [:show, :update]
+  before_action :set_team, only: [:show, :update, :destroy, :ensure_team_member]
+  before_action :ensure_team_member, only: [:show, :update]
   before_action :ensure_admin_user, only: [:update, :destroy]
 
   def select
@@ -54,9 +54,9 @@ class Api::V1::TeamsController < ApplicationController
     params.require(:team).permit(:name, :max_num_of_users)
   end
 
-  def ensure_correct_user
+  def ensure_team_member
     if @team.users.exclude? current_api_v1_user
-      render json: { messages: "この操作は出来ません" }, status: :internal_server_error
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
     end
   end
 

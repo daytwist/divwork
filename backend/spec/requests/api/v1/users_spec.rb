@@ -43,4 +43,25 @@ RSpec.describe "Api::V1::Users", type: :request do
       expect(json["user"]["id"]).to eq user.id
     end
   end
+
+  describe "ensure_team_member" do
+    let(:another_team) { create(:team) }
+    let(:another_user) { create(:user, team: another_team) }
+
+    it "他チームのユーザーページにアクセス出来ないこと" do
+      get "/api/v1/users/#{another_user.id}", headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"]).to eq "アクセス権限がありません"
+    end
+  end
+
+  describe "ensure_correct_user" do
+    let(:user_b) { create(:user, team:) }
+
+    it "他ユーザーの編集ページにアクセス出来ないこと" do
+      get "/api/v1/users/#{user_b.id}/edit", headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"]).to eq "アクセス権限がありません"
+    end
+  end
 end
