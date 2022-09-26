@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { DivisionHistory, Task, User, UsersResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
+import { AuthContext } from "../providers/AuthProvider";
+import { SnackbarContext } from "../providers/SnackbarProvider";
 
 type Props = {
   action: string;
@@ -12,11 +14,13 @@ type Props = {
 
 export const useFetchUser = (props: Props) => {
   const { action, flag } = props;
+  const { currentUser } = useContext(AuthContext);
+  const { handleSetSnackbar } = useContext(SnackbarContext);
   const params = useParams<{ id: string }>();
-
+  const navigate = useNavigate();
   const [user, setUser] = useState<User>();
-  const [unfinishedTasks, setunfinishedTasks] = useState<Task[]>([]);
-  const [finishedTasks, setfinishedTasks] = useState<Task[]>([]);
+  const [unfinishedTasks, setUnfinishedTasks] = useState<Task[]>([]);
+  const [finishedTasks, setFinishedTasks] = useState<Task[]>([]);
   const [divisions, setDivisions] = useState<DivisionHistory[]>([]);
 
   let url = "";
@@ -41,12 +45,19 @@ export const useFetchUser = (props: Props) => {
       .then((res: AxiosResponse<UsersResponse>) => {
         console.log(res);
         setUser(res?.data.user);
-        setunfinishedTasks(res?.data.unfinished_tasks);
-        setfinishedTasks(res?.data.finished_tasks);
+        setUnfinishedTasks(res?.data.unfinished_tasks);
+        setFinishedTasks(res?.data.finished_tasks);
         setDivisions(res.data.divisions);
       })
       .catch((err) => {
         console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          message: `${err.response.data.messages}`,
+        });
+        navigate(`/teams/${currentUser?.team_id}`, { replace: true });
       });
   }, [params, action, flag]);
 
