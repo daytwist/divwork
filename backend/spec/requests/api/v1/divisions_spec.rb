@@ -62,4 +62,16 @@ RSpec.describe "Api::V1::Divisions", type: :request do
       expect(json["messages"][0]).to eq "ユーザーを入力してください"
     end
   end
+
+  describe "ensure_team_member" do
+    let(:team_c) { create(:team) }
+    let(:user_c) { create(:user, team: team_c) }
+    let(:task_c) { create(:task, user: user_c) }
+
+    it "他チームのタスク分担ページにアクセス出来ないこと" do
+      get "/api/v1/tasks/#{task_c.id}/divisions/new", headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"]).to eq "アクセス権限がありません"
+    end
+  end
 end

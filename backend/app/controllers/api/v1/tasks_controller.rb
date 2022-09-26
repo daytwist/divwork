@@ -1,6 +1,7 @@
 class Api::V1::TasksController < ApplicationController
   before_action :authenticate_api_v1_user!
   before_action :set_task, only: [:show, :update, :destroy, :ensure_correct_user]
+  before_action :ensure_team_member, only: [:show]
   before_action :ensure_correct_user, only: [:update, :destroy]
 
   def create
@@ -57,19 +58,25 @@ class Api::V1::TasksController < ApplicationController
 
   private
 
-  def set_task
-    @task = Task.find(params[:id])
-  end
-
-  def ensure_correct_user
-    if @task.user != current_api_v1_user
-      render json: { messages: "この操作は出来ません" }, status: :internal_server_error
-    end
-  end
-
   def task_params
     params.require(:task).permit(
       :title, :description, :deadline, :priority, :is_done, :rate_of_progress, :user_id, files: []
     )
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  def ensure_team_member
+    if @task.user.team.users.exclude? current_api_v1_user
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
+    end
+  end
+
+  def ensure_correct_user
+    if @task.user != current_api_v1_user
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
+    end
   end
 end

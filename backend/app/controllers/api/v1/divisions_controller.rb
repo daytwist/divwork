@@ -1,11 +1,12 @@
 class Api::V1::DivisionsController < ApplicationController
   before_action :authenticate_api_v1_user!
+  before_action :set_task, only: [:new, :ensure_team_member]
+  before_action :ensure_team_member, only: [:new]
 
   def new
-    task = Task.find(params[:task_id])
-    new_task = task.dup
-    new_task.parent = task
-    team_members = task.user.team_members
+    new_task = @task.dup
+    new_task.parent = @task
+    team_members = @task.user.team_members
     render json: { task: new_task, team_members: }, status: :ok
   end
 
@@ -33,5 +34,15 @@ class Api::V1::DivisionsController < ApplicationController
 
   def division_params
     params.require(:division).permit(:comment)
+  end
+
+  def set_task
+    @task = Task.find(params[:task_id])
+  end
+
+  def ensure_team_member
+    if @task.user.team.users.exclude? current_api_v1_user
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
+    end
   end
 end
