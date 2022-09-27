@@ -104,9 +104,16 @@ RSpec.describe "Api::V1::Tasks", type: :request do
     let(:team_c) { create(:team) }
     let(:user_c) { create(:user, team: team_c) }
     let(:task_c) { create(:task, user: user_c) }
+    let(:params_c) { attributes_for(:task, user_id: user_c.id) }
 
     it "他チームのタスク詳細ページにアクセス出来ないこと" do
       get "/api/v1/tasks/#{task_c.id}", headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"]).to eq "アクセス権限がありません"
+    end
+
+    it "他チームのユーザータスクを作成出来ないこと" do
+      post "/api/v1/tasks", params: params_c.to_json, headers: headers
       expect(response).to have_http_status(:internal_server_error)
       expect(json["messages"]).to eq "アクセス権限がありません"
     end

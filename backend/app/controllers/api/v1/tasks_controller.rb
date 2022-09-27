@@ -1,7 +1,7 @@
 class Api::V1::TasksController < ApplicationController
   before_action :authenticate_api_v1_user!
-  before_action :set_task, only: [:show, :update, :destroy, :ensure_correct_user]
-  before_action :ensure_team_member, only: [:show]
+  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :ensure_team_member, only: [:create, :show]
   before_action :ensure_correct_user, only: [:update, :destroy]
 
   def create
@@ -18,22 +18,18 @@ class Api::V1::TasksController < ApplicationController
 
     parent_task = @task.parent
     if parent_task.present?
-      parent_task = parent_task.as_json(include: :user)
-                               .merge(avatar: avatar_url(parent_task.user))
+      parent_task = parent_task.as_json(include: :user).merge(avatar: avatar_url(parent_task.user))
     end
 
-    children_tasks = @task.children
-                          .includes([{ user: :avatar_attachment }, { division: { user: :avatar_attachment } }])
+    children_tasks = @task.children.includes([{ user: :avatar_attachment }, { division: { user: :avatar_attachment } }])
                           .map do |child|
       child.as_json(include: [:user, { division: { include: :user } }])
-           .merge(avatar: avatar_url(child.user),
-                  division_avatar: avatar_url(child.division.user))
+           .merge(avatar: avatar_url(child.user), division_avatar: avatar_url(child.division.user))
     end
 
     division = @task.division
     if division.present?
-      division = division.as_json(include: :user)
-                         .merge(avatar: avatar_url(division.user))
+      division = division.as_json(include: :user).merge(avatar: avatar_url(division.user))
     end
 
     render json: { task: @task, user:, parent_task:, children_tasks:, division: },
@@ -69,7 +65,11 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def ensure_team_member
-    if @task.user.team.users.exclude? current_api_v1_user
+    if task_params && (User.find(task_params[:user_id]).team.users.exclude? current_api_v1_user)
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
+    end
+
+    if @task && (@task.user.team.users.exclude? current_api_v1_user)
       render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
     end
   end
