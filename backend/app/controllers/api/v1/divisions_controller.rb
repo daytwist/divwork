@@ -41,7 +41,8 @@ class Api::V1::DivisionsController < ApplicationController
   end
 
   def ensure_team_member
-    if task_params && (User.find(task_params[:user_id]).team.users.exclude? current_api_v1_user)
+    if params[:task].present? && params[:task][:user_id].present? &&
+       (User.find(task_params[:user_id]).team.users.exclude? current_api_v1_user)
       render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
     end
 

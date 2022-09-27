@@ -58,6 +58,9 @@ RSpec.describe "Api::V1::Divisions", type: :request do
       post "/api/v1/tasks/#{task.id}/divisions",
            params: { task: task_params_blank, division: division_params }.to_json,
            headers: headers
+
+      binding.pry
+
       expect(response).to have_http_status(:internal_server_error)
       expect(json["messages"][0]).to eq "ユーザーを入力してください"
     end

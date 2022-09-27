@@ -1,6 +1,6 @@
 class Api::V1::TasksController < ApplicationController
   before_action :authenticate_api_v1_user!
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: [:show, :update, :destroy, :ensure_team_member]
   before_action :ensure_team_member, only: [:create, :show]
   before_action :ensure_correct_user, only: [:update, :destroy]
 
@@ -65,7 +65,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def ensure_team_member
-    if task_params && (User.find(task_params[:user_id]).team.users.exclude? current_api_v1_user)
+    if params[:task].present? && (User.find(task_params[:user_id]).team.users.exclude? current_api_v1_user)
       render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
     end
 
