@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
@@ -16,7 +16,7 @@ const TasksEdit: FC = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const params = useParams<{ id: string }>();
-  const { task: taskData } = useFetchTask();
+  const { task: taskData } = useFetchTask({ action: "edit" });
 
   const [task, setTask] = useState<EditTask>({
     title: "",
@@ -89,37 +89,27 @@ const TasksEdit: FC = () => {
   }, [taskData]);
 
   return (
-    <div>
-      {currentUser?.id === task.user_id ? (
-        <Grid2 container direction="column" rowSpacing={3} width={700}>
-          <Grid2 xs={12}>
-            <Typography gutterBottom variant="h4" component="div">
-              タスクを編集する
-            </Typography>
-          </Grid2>
-          <Grid2 xs={12}>
-            <TasksForm
-              action="edit"
-              task={task}
-              onChange={handleInputChange}
-              deadline={deadline}
-              onChangeDeadline={handleDeadlineChange}
-            />
-          </Grid2>
-          <Grid2 xs={12}>
-            <Button
-              variant="contained"
-              type="submit"
-              onClick={handleTasksUpdate}
-            >
-              完了
-            </Button>
-          </Grid2>
-        </Grid2>
-      ) : (
-        <Navigate to={`/tasks/${params.id}`} />
-      )}
-    </div>
+    <Grid2 container direction="column" rowSpacing={3} width={700}>
+      <Grid2 xs={12}>
+        <Typography gutterBottom variant="h4" component="div">
+          タスクを編集する
+        </Typography>
+      </Grid2>
+      <Grid2 xs={12}>
+        <TasksForm
+          action="edit"
+          task={task}
+          onChange={handleInputChange}
+          deadline={deadline}
+          onChangeDeadline={handleDeadlineChange}
+        />
+      </Grid2>
+      <Grid2 xs={12}>
+        <Button variant="contained" type="submit" onClick={handleTasksUpdate}>
+          完了
+        </Button>
+      </Grid2>
+    </Grid2>
   );
 };
 

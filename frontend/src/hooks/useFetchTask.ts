@@ -14,7 +14,12 @@ import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 
-export const useFetchTask = () => {
+type Props = {
+  action: string;
+};
+
+export const useFetchTask = (props: Props) => {
+  const { action } = props;
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const params = useParams<{ id: string }>();
@@ -25,8 +30,15 @@ export const useFetchTask = () => {
   const [childrenTasks, setChildrenTasks] = useState<ChildTask[]>([]);
   const [division, setDivision] = useState<DivisionIncludeUserAvatar>();
 
+  let url = "";
+  if (action === "edit") {
+    url = `/tasks/${params.id}/edit`;
+  } else {
+    url = `/tasks/${params.id}`;
+  }
+
   const options: AxiosRequestConfig = {
-    url: `/tasks/${params.id}`,
+    url,
     method: "GET",
     headers: {
       "access-token": Cookies.get("_access_token") || "",
@@ -55,7 +67,7 @@ export const useFetchTask = () => {
         });
         navigate(`/teams/${currentUser?.team_id}`, { replace: true });
       });
-  }, [params]);
+  }, [params, action]);
 
   return { task, user, parentTask, childrenTasks, division };
 };

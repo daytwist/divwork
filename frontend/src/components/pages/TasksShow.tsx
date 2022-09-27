@@ -47,7 +47,7 @@ const TasksShow: FC = () => {
     parentTask,
     childrenTasks,
     division,
-  } = useFetchTask();
+  } = useFetchTask({ action: "show" });
   const params = useParams<{ id: string }>();
 
   const [task, setTask] = useState<Task>();
