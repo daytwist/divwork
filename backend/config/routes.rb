@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
       resources :users, only: [:show, :edit]
 
-      resources :tasks, only: [:create, :show, :update, :destroy] do
+      resources :tasks, only: [:create, :show, :edit, :update, :destroy] do
         resources :divisions, only: [:new, :create]
       end
 

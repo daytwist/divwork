@@ -73,6 +73,14 @@ RSpec.describe "Api::V1::Tasks", type: :request do
     end
   end
 
+  describe "GET /:id/edit" do
+    it "タスクの情報取得に成功すること" do
+      get "/api/v1/tasks/#{task.id}/edit", headers: headers
+      expect(response).to have_http_status(:ok)
+      expect(json["task"]["id"]).to eq task.id
+    end
+  end
+
   describe "PATCH /:id" do
     let(:params) do
       attributes_for(:task, title: "task_update", user_id: user.id,
@@ -123,6 +131,12 @@ RSpec.describe "Api::V1::Tasks", type: :request do
     let(:another_user) { create(:user, team:) }
     let(:another_task) { create(:task, user: another_user) }
     let(:params) { attributes_for(:task, title: "task_update2") }
+
+    it "他ユーザーのタスク編集ページにアクセス出来ないこと" do
+      get "/api/v1/tasks/#{another_task.id}/edit", headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"]).to eq "アクセス権限がありません"
+    end
 
     it "他ユーザーのタスクを更新しようとするとエラーが発生すること" do
       patch "/api/v1/tasks/#{another_task.id}", params: params.to_json, headers: headers

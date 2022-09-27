@@ -1,8 +1,8 @@
 class Api::V1::TasksController < ApplicationController
   before_action :authenticate_api_v1_user!
-  before_action :set_task, only: [:show, :update, :destroy, :ensure_team_member]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :ensure_team_member, only: [:create, :show]
-  before_action :ensure_correct_user, only: [:update, :destroy]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def create
     task = Task.new(task_params)
@@ -34,6 +34,10 @@ class Api::V1::TasksController < ApplicationController
 
     render json: { task: @task, user:, parent_task:, children_tasks:, division: },
            status: :ok
+  end
+
+  def edit
+    render json: { task: @task }
   end
 
   def update
