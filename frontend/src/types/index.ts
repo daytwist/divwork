@@ -93,6 +93,9 @@ export type DivisionHistory = {
   created_at: Date;
   updated_at: Date;
   comment: string;
+  user: {
+    name: string;
+  };
   parent_task: Task;
   parent_user: User;
   parent_user_avatar: string;
