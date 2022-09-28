@@ -5,12 +5,12 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
-import Header from "../components/ui/Header";
+import MenuBars from "../components/ui/MenuBars";
 import { server } from "../mocks/server";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 
-describe("Header", () => {
+describe("MenuBars", () => {
   test("ヘッダーメニュー", async () => {
     server.use(
       rest.get("/auth/sessions", (req, res, ctx) => {
@@ -39,7 +39,7 @@ describe("Header", () => {
       <BrowserRouter>
         <AuthProvider>
           <SnackbarProvider>
-            <Header />
+            <MenuBars />
           </SnackbarProvider>
         </AuthProvider>
       </BrowserRouter>

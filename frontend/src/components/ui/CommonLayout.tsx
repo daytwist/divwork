@@ -7,10 +7,11 @@ import {
   createTheme,
   responsiveFontSizes,
   ThemeProvider,
+  Toolbar,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { jaJP } from "@mui/x-data-grid";
-import Header from "./Header";
+import MenuBars from "./MenuBars";
 import { AlertSnackbar } from "./AlertSnackbar";
 
 const CommonLayout: FC<RouteProps> = ({ children }) => {
@@ -52,24 +53,18 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
     <div>
       <ThemeProvider theme={theme}>
         <Global styles={global} />
-        <header>
-          <Header />
-        </header>
-        <main>
-          <AlertSnackbar />
-          <Box
-            sx={{
-              m: { xs: 1, sm: 2 },
-              py: { xs: 3, sm: 4 },
-            }}
-          >
-            <Container>
+        <AlertSnackbar />
+        <Box sx={{ display: "flex" }}>
+          <MenuBars />
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Toolbar />
+            <Container sx={{ py: 3 }}>
               <Grid2 container justifyContent="center">
                 <Grid2>{children}</Grid2>
               </Grid2>
             </Container>
           </Box>
-        </main>
+        </Box>
       </ThemeProvider>
     </div>
   );
