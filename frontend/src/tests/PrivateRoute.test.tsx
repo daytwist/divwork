@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import PrivateRoute from "../components/functional/PrivateRoute";
 import PublicRoute from "../components/functional/PublicRoute";
@@ -30,11 +29,6 @@ describe("PrivateRoute", () => {
         </Routes>
       </MemoryRouter>
     );
-
-    jest.useFakeTimers();
-    act(() => {
-      jest.advanceTimersByTime(5000);
-    });
 
     await waitFor(() => {
       expect(screen.queryByTestId("teams-show-h4")).not.toBeInTheDocument();

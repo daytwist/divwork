@@ -10,7 +10,6 @@ import { AuthProvider } from "../providers/AuthProvider";
 import DivisionsNew from "../components/pages/DivisionsNew";
 import UsersShow from "../components/pages/UsersShow";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import CommonLayout from "../components/ui/CommonLayout";
 
 describe("DivisionsNew", () => {
   test("分担作成ページ", async () => {
@@ -40,15 +39,13 @@ describe("DivisionsNew", () => {
       <MemoryRouter initialEntries={["/tasks/1/divisions/new"]}>
         <AuthProvider>
           <SnackbarProvider>
-            <CommonLayout>
-              <Routes>
-                <Route path="/users/:id" element={<UsersShow />} />
-                <Route
-                  path="/tasks/:id/divisions/new"
-                  element={<DivisionsNew />}
-                />
-              </Routes>
-            </CommonLayout>
+            <Routes>
+              <Route path="/users/:id" element={<UsersShow />} />
+              <Route
+                path="/tasks/:id/divisions/new"
+                element={<DivisionsNew />}
+              />
+            </Routes>
           </SnackbarProvider>
         </AuthProvider>
       </MemoryRouter>
@@ -75,8 +72,5 @@ describe("DivisionsNew", () => {
 
     // UsersShowページに遷移する
     expect(await screen.findByTestId("users-show-h4")).toBeInTheDocument();
-    expect(
-      await screen.findByText("分担タスクを作成しました")
-    ).toBeInTheDocument();
   }, 8000);
 });

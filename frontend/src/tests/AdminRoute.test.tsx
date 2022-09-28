@@ -1,6 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import AdminRoute from "../components/functional/AdminRoute";
 import TeamsEdit from "../components/pages/TeamsEdit";
@@ -56,11 +55,6 @@ describe("AdminRoute", () => {
         </AuthProvider>
       </MemoryRouter>
     );
-
-    jest.useFakeTimers();
-    act(() => {
-      jest.advanceTimersByTime(5000);
-    });
 
     await waitFor(() => {
       expect(screen.queryByText("チーム設定")).not.toBeInTheDocument();
