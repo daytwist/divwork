@@ -82,7 +82,7 @@ const DivisionsNew: FC = () => {
           handleSetSnackbar({
             open: true,
             type: "success",
-            message: "分担タスクを送信しました",
+            message: "分担タスクを作成しました",
           });
           navigate(`/users/${res.data.division.user_id}`, { replace: false });
         }

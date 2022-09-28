@@ -1,6 +1,5 @@
 import { Stack, Typography } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
 
 type Props = {
   isDone: boolean;
@@ -23,7 +22,7 @@ export const IsDoneTypography = (props: Props) => {
         </Stack>
       ) : (
         <Stack direction="row" spacing={0.5}>
-          <AssignmentLateIcon color="warning" />
+          <CheckCircleOutlineIcon color="disabled" />
           <Typography variant="body1" component="div">
             未了
           </Typography>

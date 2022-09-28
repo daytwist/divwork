@@ -85,33 +85,34 @@ export const TasksDataGrid = (props: Props) => {
       field: "actions",
       headerName: "",
       width: 150,
-      renderCell: (params) =>
-        user?.id === currentUser?.id ? (
-          <Stack direction="row" spacing={1}>
-            <Tooltip title="分担する" placement="top" arrow>
-              <IconButton
-                color="secondary"
-                component={RouterLink}
-                to={`/tasks/${params.id}/divisions/new`}
-              >
-                <ConnectWithoutContactIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="編集" placement="top" arrow>
-              <IconButton
-                component={RouterLink}
-                to={`/tasks/${params.id}/edit`}
-              >
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-            <TasksDeleteIconButton taskId={params.id} />
-          </Stack>
-        ) : null,
+      renderCell: (params) => (
+        <Stack direction="row" spacing={1}>
+          <Tooltip title="分担する" placement="top" arrow>
+            <IconButton
+              color="secondary"
+              component={RouterLink}
+              to={`/tasks/${params.id}/divisions/new`}
+            >
+              <ConnectWithoutContactIcon />
+            </IconButton>
+          </Tooltip>
+          {user?.id === currentUser?.id ? (
+            <>
+              <Tooltip title="編集" placement="top" arrow>
+                <IconButton
+                  component={RouterLink}
+                  to={`/tasks/${params.id}/edit`}
+                >
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+              <TasksDeleteIconButton taskId={params.id} />
+            </>
+          ) : null}
+        </Stack>
+      ),
       sortable: false,
       disableColumnMenu: true,
-      headerAlign: "center",
-      align: "center",
     },
   ];
 
@@ -166,8 +167,6 @@ export const TasksDataGrid = (props: Props) => {
         ) : null,
       sortable: false,
       disableColumnMenu: true,
-      headerAlign: "center",
-      align: "center",
     },
   ];
 
