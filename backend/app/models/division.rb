@@ -5,11 +5,15 @@ class Division < ApplicationRecord
   validates :comment, length: { maximum: 100 }
 
   def parent_task
-    task.parent
+    if task&.parent_id?
+      task.parent
+    end
   end
 
   def parent_user
-    task.parent.user
+    if task&.parent_id?
+      task.parent.user
+    end
   end
 
   def child_task
@@ -17,6 +21,6 @@ class Division < ApplicationRecord
   end
 
   def child_user
-    task.user
+    task&.user
   end
 end
