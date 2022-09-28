@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   end
 
   def avatar_url(user)
-    if user.avatar.attached?
+    if user&.avatar&.attached?
       url_for(user.avatar)
     else
       ""
