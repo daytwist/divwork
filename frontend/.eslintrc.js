@@ -40,6 +40,7 @@ module.exports = {
     "jest.config.js",
     "setupTests.ts",
     "babel.config.js",
+    "__mocks__",
   ],
   rules: {
     "arrow-body-style": "off",

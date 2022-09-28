@@ -102,7 +102,10 @@ describe("UsersEdit", () => {
     });
 
     await act(() => {
-      userEvent.type(screen.getByLabelText("新しいパスワード *"), "newpassword");
+      userEvent.type(
+        screen.getByLabelText("新しいパスワード *"),
+        "newpassword"
+      );
       userEvent.type(
         screen.getByLabelText("新しいパスワード(確認用) *"),
         "newpassword"

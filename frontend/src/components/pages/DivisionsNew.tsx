@@ -17,10 +17,12 @@ import {
   DivisionsNewResponse,
   User,
 } from "../../types";
+import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 
 const DivisionsNew: FC = () => {
+  const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -65,7 +67,7 @@ const DivisionsNew: FC = () => {
           description: task.description,
           priority: task.priority,
           deadline,
-          user_id: Number(teamMemberValue),
+          user_id: teamMemberValue ? Number(teamMemberValue) : "",
           parent_id: task.parent_id,
         },
         division: { comment },
@@ -90,8 +92,8 @@ const DivisionsNew: FC = () => {
         handleSetSnackbar({
           open: true,
           type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.messages.join("。")}`,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          message: err.response.data.error,
         });
       });
   };
@@ -116,8 +118,15 @@ const DivisionsNew: FC = () => {
       })
       .catch((err) => {
         console.log(err);
+        handleSetSnackbar({
+          open: true,
+          type: "error",
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          message: `${err.response.data.messages}`,
+        });
+        navigate(`/teams/${currentUser?.team_id}`, { replace: true });
       });
-  }, []);
+  }, [params]);
 
   return (
     <Grid2 container direction="column" rowSpacing={3} width={700}>

@@ -5,10 +5,10 @@ up:
 	docker-compose up -d
 
 start:
-	docker-compose start
+	COMPOSE_HTTP_TIMEOUT=100 docker-compose start
 
 stop:
-	docker-compose stop
+	COMPOSE_HTTP_TIMEOUT=100 docker-compose stop
 
 restart:
 	docker-compose restart

@@ -80,7 +80,7 @@ RSpec.describe "Api::V1::Teams", type: :request do
     end
   end
 
-  describe "ensure_correct_user" do
+  describe "ensure_team_member" do
     let(:another_team) { create(:team) }
     let(:another_user) { create(:user, team: another_team) }
     let(:headers) { another_user.create_new_auth_token }

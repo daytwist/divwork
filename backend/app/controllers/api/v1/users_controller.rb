@@ -1,6 +1,8 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authenticate_api_v1_user!
-  before_action :set_user
+  before_action :authenticate_api_v1_user!, only: [:show, :edit]
+  before_action :set_user, only: [:show, :edit, :ensure_team_member, :ensure_correct_user]
+  before_action :ensure_team_member, only: [:show]
+  before_action :ensure_correct_user, only: [:edit]
 
   def show
     user = @user.as_json.merge(avatar: avatar_url(@user))
@@ -29,5 +31,17 @@ class Api::V1::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def ensure_team_member
+    if @user.team.users.exclude? current_api_v1_user
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
+    end
+  end
+
+  def ensure_correct_user
+    if @user != current_api_v1_user
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
+    end
   end
 end

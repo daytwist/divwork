@@ -1,5 +1,8 @@
+import { FC, StrictMode } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./providers/AuthProvider";
+import { SnackbarProvider } from "./providers/SnackbarProvider";
+import CommonLayout from "./components/ui/CommonLayout";
 import Home from "./components/pages/Home";
 import SignUp from "./components/pages/SignUp";
 import SignIn from "./components/pages/SignIn";
@@ -15,122 +18,124 @@ import TasksEdit from "./components/pages/TasksEdit";
 import PrivateRoute from "./components/functional/PrivateRoute";
 import PublicRoute from "./components/functional/PublicRoute";
 import AdminRoute from "./components/functional/AdminRoute";
-import CommonLayout from "./components/ui/CommonLayout";
-import { SnackbarProvider } from "./providers/SnackbarProvider";
+import NormalUserRoute from "./components/functional/NormalUserRoute";
+import NotFound from "./components/pages/NotFound";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import NormalUserRoute from "./components/functional/NormalUserRoute";
 
-const App: React.FC = () => {
+const App: FC = () => {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <SnackbarProvider>
-          <CommonLayout>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <PublicRoute>
-                    <Home />
-                  </PublicRoute>
-                }
-              />
-              <Route
-                path="/sign_up/teams/select"
-                element={
-                  <PublicRoute>
-                    <TeamsSelect />
-                  </PublicRoute>
-                }
-              />
-              <Route
-                path="/sign_up"
-                element={
-                  <PublicRoute>
-                    <SignUp />
-                  </PublicRoute>
-                }
-              />
-              <Route
-                path="/sign_in"
-                element={
-                  <PublicRoute>
-                    <SignIn />
-                  </PublicRoute>
-                }
-              />
-              <Route
-                path="/teams/:id"
-                element={
-                  <PrivateRoute>
-                    <TeamsShow />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/teams/:id/edit"
-                element={
-                  <AdminRoute>
-                    <TeamsEdit />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="users/:id"
-                element={
-                  <PrivateRoute>
-                    <UsersShow />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="users/:id/edit"
-                element={
-                  <NormalUserRoute>
-                    <UsersEdit />
-                  </NormalUserRoute>
-                }
-              />
-              <Route
-                path="/tasks/new"
-                element={
-                  <PrivateRoute>
-                    <TasksNew />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/tasks/:id"
-                element={
-                  <PrivateRoute>
-                    <TasksShow />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/tasks/:id/edit"
-                element={
-                  <PrivateRoute>
-                    <TasksEdit />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/tasks/:id/divisions/new"
-                element={
-                  <PrivateRoute>
-                    <DivisionsNew />
-                  </PrivateRoute>
-                }
-              />
-            </Routes>
-          </CommonLayout>
-        </SnackbarProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <StrictMode>
+      <BrowserRouter>
+        <AuthProvider>
+          <SnackbarProvider>
+            <CommonLayout>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <PublicRoute>
+                      <Home />
+                    </PublicRoute>
+                  }
+                />
+                <Route
+                  path="/sign_up/teams/select"
+                  element={
+                    <PublicRoute>
+                      <TeamsSelect />
+                    </PublicRoute>
+                  }
+                />
+                <Route
+                  path="/sign_up"
+                  element={
+                    <PublicRoute>
+                      <SignUp />
+                    </PublicRoute>
+                  }
+                />
+                <Route
+                  path="/sign_in"
+                  element={
+                    <PublicRoute>
+                      <SignIn />
+                    </PublicRoute>
+                  }
+                />
+                <Route
+                  path="/teams/:id"
+                  element={
+                    <PrivateRoute>
+                      <TeamsShow />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/teams/:id/edit"
+                  element={
+                    <AdminRoute>
+                      <TeamsEdit />
+                    </AdminRoute>
+                  }
+                />
+                <Route
+                  path="users/:id"
+                  element={
+                    <PrivateRoute>
+                      <UsersShow />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="users/:id/edit"
+                  element={
+                    <NormalUserRoute>
+                      <UsersEdit />
+                    </NormalUserRoute>
+                  }
+                />
+                <Route
+                  path="/tasks/new"
+                  element={
+                    <PrivateRoute>
+                      <TasksNew />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/tasks/:id"
+                  element={
+                    <PrivateRoute>
+                      <TasksShow />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/tasks/:id/edit"
+                  element={
+                    <PrivateRoute>
+                      <TasksEdit />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/tasks/:id/divisions/new"
+                  element={
+                    <PrivateRoute>
+                      <DivisionsNew />
+                    </PrivateRoute>
+                  }
+                />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </CommonLayout>
+          </SnackbarProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </StrictMode>
   );
 };
 

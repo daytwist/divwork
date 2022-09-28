@@ -16,7 +16,7 @@ const TasksEdit: FC = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const params = useParams<{ id: string }>();
-  const { task: taskData } = useFetchTask();
+  const { task: taskData } = useFetchTask({ action: "edit" });
 
   const [task, setTask] = useState<EditTask>({
     title: "",

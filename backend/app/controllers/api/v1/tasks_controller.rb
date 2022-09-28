@@ -1,7 +1,8 @@
 class Api::V1::TasksController < ApplicationController
   before_action :authenticate_api_v1_user!
-  before_action :set_task, only: [:show, :update, :destroy, :ensure_correct_user]
-  before_action :ensure_correct_user, only: [:update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_team_member, only: [:create, :show]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def create
     task = Task.new(task_params)
@@ -17,26 +18,26 @@ class Api::V1::TasksController < ApplicationController
 
     parent_task = @task.parent
     if parent_task.present?
-      parent_task = parent_task.as_json(include: :user)
-                               .merge(avatar: avatar_url(parent_task.user))
+      parent_task = parent_task.as_json(include: :user).merge(avatar: avatar_url(parent_task.user))
     end
 
-    children_tasks = @task.children
-                          .includes([{ user: :avatar_attachment }, { division: { user: :avatar_attachment } }])
+    children_tasks = @task.children.includes([{ user: :avatar_attachment }, { division: { user: :avatar_attachment } }])
                           .map do |child|
       child.as_json(include: [:user, { division: { include: :user } }])
-           .merge(avatar: avatar_url(child.user),
-                  division_avatar: avatar_url(child.division.user))
+           .merge(avatar: avatar_url(child.user), division_avatar: avatar_url(child.division.user))
     end
 
     division = @task.division
     if division.present?
-      division = division.as_json(include: :user)
-                         .merge(avatar: avatar_url(division.user))
+      division = division.as_json(include: :user).merge(avatar: avatar_url(division.user))
     end
 
     render json: { task: @task, user:, parent_task:, children_tasks:, division: },
            status: :ok
+  end
+
+  def edit
+    render json: { task: @task }
   end
 
   def update
@@ -57,19 +58,29 @@ class Api::V1::TasksController < ApplicationController
 
   private
 
-  def set_task
-    @task = Task.find(params[:id])
-  end
-
-  def ensure_correct_user
-    if @task.user != current_api_v1_user
-      render json: { messages: "この操作は出来ません" }, status: :internal_server_error
-    end
-  end
-
   def task_params
     params.require(:task).permit(
       :title, :description, :deadline, :priority, :is_done, :rate_of_progress, :user_id, files: []
     )
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  def ensure_team_member
+    if params[:task].present? && (User.find(task_params[:user_id]).team.users.exclude? current_api_v1_user)
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
+    end
+
+    if @task && (@task.user.team.users.exclude? current_api_v1_user)
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
+    end
+  end
+
+  def ensure_correct_user
+    if @task.user != current_api_v1_user
+      render json: { messages: "アクセス権限がありません" }, status: :internal_server_error
+    end
   end
 end

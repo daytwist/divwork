@@ -8,6 +8,10 @@ RSpec.describe "Api::V1::Divisions", type: :request do
   let(:headers) { user_a.create_new_auth_token }
   let(:json) { JSON.parse(response.body) }
 
+  before do
+    headers.merge!("Content-Type" => "application/json")
+  end
+
   describe "GET /new" do
     before do
       get "/api/v1/tasks/#{task.id}/divisions/new", headers:
@@ -32,10 +36,6 @@ RSpec.describe "Api::V1::Divisions", type: :request do
     let(:task_params_blank) { attributes_for(:task, parent_id: task.id) }
     let(:division_params) { attributes_for(:division) }
 
-    before do
-      headers.merge!("Content-Type" => "application/json")
-    end
-
     it "user_aがuser_bにタスクを分担出来ること" do
       expect do
         post "/api/v1/tasks/#{task.id}/divisions",
@@ -59,7 +59,29 @@ RSpec.describe "Api::V1::Divisions", type: :request do
            params: { task: task_params_blank, division: division_params }.to_json,
            headers: headers
       expect(response).to have_http_status(:internal_server_error)
-      expect(json["messages"][0]).to eq "ユーザーを入力してください"
+      expect(json["error"]).to eq "バリデーションに失敗しました: ユーザーを入力してください"
+    end
+  end
+
+  describe "ensure_team_member" do
+    let(:team_c) { create(:team) }
+    let(:user_c) { create(:user, team: team_c) }
+    let(:task_c) { create(:task, user: user_c) }
+    let(:task_params_c) { attributes_for(:task, user_id: user_c.id, parent_id: task_c.id) }
+    let(:division_params_c) { attributes_for(:division) }
+
+    it "他チームのタスク分担ページにアクセス出来ないこと" do
+      get "/api/v1/tasks/#{task_c.id}/divisions/new", headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"]).to eq "アクセス権限がありません"
+    end
+
+    it "他チームのタスクを分担出来ないこと" do
+      post "/api/v1/tasks/#{task_c.id}/divisions",
+           params: { task: task_params_c, division: division_params_c }.to_json,
+           headers: headers
+      expect(response).to have_http_status(:internal_server_error)
+      expect(json["messages"]).to eq "アクセス権限がありません"
     end
   end
 end
