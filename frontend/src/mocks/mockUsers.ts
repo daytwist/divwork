@@ -51,6 +51,7 @@ export const mockUsersShow: ResponseResolver<
           parent_id: null,
         },
       ],
+      divisions: null,
     })
   );
 };

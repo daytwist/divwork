@@ -76,7 +76,7 @@ describe("DivisionsNew", () => {
     // UsersShowページに遷移する
     expect(await screen.findByTestId("users-show-h4")).toBeInTheDocument();
     expect(
-      await screen.findByText("分担タスクを送信しました")
+      await screen.findByText("分担タスクを作成しました")
     ).toBeInTheDocument();
   }, 8000);
 });
