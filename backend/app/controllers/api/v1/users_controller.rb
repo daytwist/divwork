@@ -11,10 +11,10 @@ class Api::V1::UsersController < ApplicationController
     divisions = @user.divisions.includes(task: [user: :avatar_attachment])
                      .order(created_at: "DESC")
                      .map do |division|
-      division.as_json(
-        methods: [:parent_task, :parent_user, :child_task, :child_user]
-      ).merge({ parent_user_avatar: avatar_url(division.parent_user) },
-              { child_user_avatar: avatar_url(division.child_user) })
+      division.as_json(include: { user: { only: :name } },
+                       methods: [:parent_task, :parent_user, :child_task, :child_user])
+              .merge({ parent_user_avatar: avatar_url(division.parent_user) },
+                     { child_user_avatar: avatar_url(division.child_user) })
     end
 
     render json: {

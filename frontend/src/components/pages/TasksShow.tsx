@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   Accordion,
@@ -11,6 +11,7 @@ import {
   CardContent,
   CardHeader,
   IconButton,
+  Link,
   Stack,
   Tooltip,
   Typography,
@@ -191,7 +192,7 @@ const TasksShow: FC = () => {
                       <Stack direction="row" spacing={1}>
                         <Tooltip title="編集" placement="top" arrow>
                           <IconButton
-                            component={Link}
+                            component={RouterLink}
                             to={`/tasks/${task?.id}/edit`}
                           >
                             <EditIcon />
@@ -239,16 +240,18 @@ const TasksShow: FC = () => {
                 </CardContent>
                 <CardActions>
                   <Stack direction="row" spacing={2}>
-                    <IsDoneUpdateButton
-                      onClick={handleIsDoneUpdate}
-                      disabled={false}
-                      isFinished={task.is_done}
-                    />
+                    {task.user_id === currentUser?.id ? (
+                      <IsDoneUpdateButton
+                        onClick={handleIsDoneUpdate}
+                        disabled={false}
+                        isFinished={task.is_done}
+                      />
+                    ) : null}
                     {task.is_done ? null : (
                       <Button
                         variant="contained"
                         type="button"
-                        component={Link}
+                        component={RouterLink}
                         to={`/tasks/${task.id}/divisions/new`}
                         startIcon={<ConnectWithoutContactIcon />}
                       >
@@ -260,7 +263,7 @@ const TasksShow: FC = () => {
               </Card>
             </Grid2>
             <Grid2 xs={12}>
-              {division && parentTask ? (
+              {division ? (
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -269,10 +272,34 @@ const TasksShow: FC = () => {
                     親タスク情報
                   </AccordionSummary>
                   <AccordionDetails>
-                    <ParentTaskDetails
-                      division={division}
-                      parentTask={parentTask}
-                    />
+                    {parentTask ? (
+                      <ParentTaskDetails
+                        division={division}
+                        parentTask={parentTask}
+                      />
+                    ) : (
+                      <Stack direction="column" spacing={1}>
+                        <Typography variant="body1" component="div">
+                          親タスクは削除されました。
+                        </Typography>
+                        <Typography variant="body1" component="div">
+                          分担作成者：
+                          {division.user_id ? (
+                            <Link
+                              variant="body1"
+                              color="inherit"
+                              underline="hover"
+                              component={RouterLink}
+                              to={`/users/${division.user_id}`}
+                            >
+                              {division.user.name}
+                            </Link>
+                          ) : (
+                            "退会済みユーザー"
+                          )}
+                        </Typography>
+                      </Stack>
+                    )}
                   </AccordionDetails>
                 </Accordion>
               ) : null}

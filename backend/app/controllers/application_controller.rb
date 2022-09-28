@@ -1,13 +1,13 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
-  def error_messages(obj)
-    obj.errors.full_messages
+  def error_messages(resource)
+    resource.errors.full_messages
   end
 
-  def avatar_url(obj)
-    if obj.avatar.attached?
-      url_for(obj.avatar)
+  def avatar_url(user)
+    if user&.avatar&.attached?
+      url_for(user.avatar)
     else
       ""
     end
