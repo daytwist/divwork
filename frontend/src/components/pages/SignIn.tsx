@@ -51,7 +51,7 @@ const SignIn: FC = () => {
             type: "success",
             message: "ログインしました",
           });
-          navigate(`/teams/${res.data.data.team_id}`, { replace: false });
+          navigate("/teams", { replace: false });
         }
       })
       .catch((err) => {

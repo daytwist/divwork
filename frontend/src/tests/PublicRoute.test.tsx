@@ -10,7 +10,7 @@ import TeamsShow from "../components/pages/TeamsShow";
 import { AuthProvider } from "../providers/AuthProvider";
 
 describe("PublicRoute", () => {
-  test("ログイン状態でPablicRouteにアクセスしない", async () => {
+  test("ログイン状態でPublicRouteにアクセスしない", async () => {
     server.use(
       rest.get("/auth/sessions", (req, res, ctx) => {
         return res(
@@ -46,7 +46,7 @@ describe("PublicRoute", () => {
               }
             />
             <Route
-              path="/teams/:id"
+              path="/teams"
               element={
                 <PrivateRoute>
                   <TeamsShow />
@@ -64,7 +64,7 @@ describe("PublicRoute", () => {
 
     jest.useFakeTimers();
     act(() => {
-      jest.advanceTimersByTime(3000);
+      jest.advanceTimersByTime(5000);
     });
 
     expect(await screen.findByTestId("teams-show-h4")).toBeInTheDocument();

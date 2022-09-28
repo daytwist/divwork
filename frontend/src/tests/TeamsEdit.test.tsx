@@ -38,13 +38,13 @@ describe("TeamsEdit", () => {
 
   test("チーム情報更新", async () => {
     render(
-      <MemoryRouter initialEntries={["/teams/1/edit"]}>
+      <MemoryRouter initialEntries={["/teams/edit"]}>
         <AuthProvider>
           <SnackbarProvider>
             <CommonLayout>
               <Routes>
-                <Route path="/teams/:id" element={<TeamsShow />} />
-                <Route path="/teams/:id/edit" element={<TeamsEdit />} />
+                <Route path="/teams" element={<TeamsShow />} />
+                <Route path="/teams/edit" element={<TeamsEdit />} />
               </Routes>
             </CommonLayout>
           </SnackbarProvider>

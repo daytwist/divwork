@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import PrivateRoute from "../components/functional/PrivateRoute";
 import PublicRoute from "../components/functional/PublicRoute";
@@ -8,7 +9,7 @@ import TeamsShow from "../components/pages/TeamsShow";
 describe("PrivateRoute", () => {
   test("ログインしていない状態でPrivateRouteにアクセスしない", async () => {
     render(
-      <MemoryRouter initialEntries={["/teams/1"]}>
+      <MemoryRouter initialEntries={["/teams"]}>
         <Routes>
           <Route
             path="/sign_in"
@@ -19,7 +20,7 @@ describe("PrivateRoute", () => {
             }
           />
           <Route
-            path="/teams/:id"
+            path="/teams"
             element={
               <PrivateRoute>
                 <TeamsShow />
@@ -29,6 +30,12 @@ describe("PrivateRoute", () => {
         </Routes>
       </MemoryRouter>
     );
+
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(5000);
+    });
+
     await waitFor(() => {
       expect(screen.queryByTestId("teams-show-h4")).not.toBeInTheDocument();
     });

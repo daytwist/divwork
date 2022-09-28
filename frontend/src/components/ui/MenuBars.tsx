@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Divider,
@@ -6,26 +6,36 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   Toolbar,
   AppBar,
   Box,
   Button,
   Typography,
+  Avatar,
+  ListItemAvatar,
+  ListItemIcon,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import StarIcon from "@mui/icons-material/Star";
 import { HeaderMenuButton } from "./HeaderMenuButton";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useFetchTeam } from "../../hooks/useFetchTeam";
 
 const drawerWidth = 240;
 
 const MenuBars: FC = () => {
   const { isSignedIn, currentUser } = useContext(AuthContext);
+  const { team, users } = useFetchTeam();
 
-  return (
-    <Box>
+  const unfinishedTasksCount = (tasks: number[]) => {
+    const total = tasks.reduce((sum: number, element: number) => {
+      return sum + element;
+    }, 0);
+    return total;
+  };
+
+  const appBar = useMemo(
+    () => (
       <AppBar
         position="fixed"
         sx={{
@@ -37,7 +47,7 @@ const MenuBars: FC = () => {
           <Typography
             variant="h5"
             component={Link}
-            to={isSignedIn ? `/teams/${currentUser?.team_id}` : "/"}
+            to={isSignedIn ? "/teams" : "/"}
             sx={{
               flexGrow: 1,
               display: "block",
@@ -73,35 +83,60 @@ const MenuBars: FC = () => {
           </div>
         </Toolbar>
       </AppBar>
-      {isSignedIn ? (
-        <Drawer
-          sx={{
+    ),
+    [currentUser]
+  );
+
+  const drawer = useMemo(
+    () => (
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-          variant="permanent"
-          anchor="left"
-        >
-          <Toolbar />
-          <Divider />
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
-      ) : null}
+            boxSizing: "border-box",
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar />
+        <Divider />
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to={`/teams/${team?.id}`}>
+              <ListItemIcon>
+                <StarIcon />
+              </ListItemIcon>
+              <ListItemText primary={team?.name} />
+            </ListItemButton>
+          </ListItem>
+          {users?.map((user) => (
+            <ListItem key={user.id} disablePadding>
+              <ListItemButton component={Link} to={`/users/${user.id}`}>
+                <ListItemAvatar>
+                  <Avatar src={user.avatar} alt="avatar" />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={user.name}
+                  secondary={`タスク：${unfinishedTasksCount(
+                    user.unfinished_tasks_priority_count
+                  )}個`}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    ),
+    [team]
+  );
+
+  return (
+    <Box>
+      {appBar}
+      {isSignedIn ? drawer : null}
     </Box>
   );
 };

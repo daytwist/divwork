@@ -66,7 +66,7 @@ const App: FC = () => {
                   }
                 />
                 <Route
-                  path="/teams/:id"
+                  path="/teams"
                   element={
                     <PrivateRoute>
                       <TeamsShow />
@@ -74,7 +74,7 @@ const App: FC = () => {
                   }
                 />
                 <Route
-                  path="/teams/:id/edit"
+                  path="/teams/edit"
                   element={
                     <AdminRoute>
                       <TeamsEdit />

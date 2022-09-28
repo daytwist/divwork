@@ -73,7 +73,7 @@ const SignUp: FC = () => {
             type: "success",
             message: "ユーザー登録しました",
           });
-          navigate(`/teams/${res.data.data.team_id}`, { replace: false });
+          navigate("/teams", { replace: false });
         }
       })
       .catch((err) => {

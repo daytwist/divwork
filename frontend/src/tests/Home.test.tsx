@@ -54,7 +54,7 @@ describe("Home", () => {
             <CommonLayout>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/teams/:id" element={<TeamsShow />} />
+                <Route path="/teams" element={<TeamsShow />} />
               </Routes>
             </CommonLayout>
           </SnackbarProvider>

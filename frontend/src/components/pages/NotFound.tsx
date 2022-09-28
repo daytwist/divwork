@@ -6,7 +6,7 @@ import hydrangea from "../../images/hydrangea.png";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const NotFound: FC = () => {
-  const { isSignedIn, currentUser } = useContext(AuthContext);
+  const { isSignedIn } = useContext(AuthContext);
 
   return (
     <Grid2 container rowSpacing={8} columnSpacing={3}>
@@ -28,7 +28,7 @@ const NotFound: FC = () => {
           <Button
             variant="contained"
             component={Link}
-            to={isSignedIn ? `/teams/${currentUser?.team_id}` : "/"}
+            to={isSignedIn ? "/teams" : "/"}
           >
             ホームへ戻る
           </Button>

@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { DivisionHistory, Task, User, UsersResponse } from "../types";
 import { axiosInstance } from "../utils/axios";
-import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 
 type Props = {
@@ -14,7 +13,6 @@ type Props = {
 
 export const useFetchUser = (props: Props) => {
   const { action, flag } = props;
-  const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -57,7 +55,7 @@ export const useFetchUser = (props: Props) => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           message: `${err.response.data.messages}`,
         });
-        navigate(`/teams/${currentUser?.team_id}`, { replace: true });
+        navigate("/teams", { replace: true });
       });
   }, [params, action, flag]);
 

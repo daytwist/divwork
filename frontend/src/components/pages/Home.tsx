@@ -34,7 +34,7 @@ const Home: FC = () => {
             type: "success",
             message: "ゲストログインしました",
           });
-          navigate(`/teams/${res.data.data.team_id}`, { replace: false });
+          navigate("/teams", { replace: false });
         }
       })
       .catch((err) => {

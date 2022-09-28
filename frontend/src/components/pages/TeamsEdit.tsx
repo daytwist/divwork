@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   FormControl,
@@ -25,7 +25,6 @@ const TeamsEdit: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const params = useParams<{ id: string }>();
   const { team: teamData, users } = useFetchTeam();
   const [team, setTeam] = useState<EditTeam>({
     name: "",
@@ -63,7 +62,7 @@ const TeamsEdit: FC = () => {
 
   const handleTeamsUpdate = () => {
     const options: AxiosRequestConfig = {
-      url: `/teams/${params.id}`,
+      url: `/teams/${currentUser?.team_id}`,
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +83,7 @@ const TeamsEdit: FC = () => {
             type: "success",
             message: "チーム情報を更新しました",
           });
-          navigate(`/teams/${currentUser?.team_id}`, { replace: false });
+          navigate("/teams", { replace: false });
         }
       })
       .catch((err) => {

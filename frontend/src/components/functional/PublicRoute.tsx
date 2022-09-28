@@ -4,14 +4,14 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 const PublicRoute: FC<RouteProps> = ({ children }) => {
-  const { loading, isSignedIn, currentUser } = useContext(AuthContext);
+  const { loading, isSignedIn } = useContext(AuthContext);
 
   if (loading) {
     return <LoadingColorRing />;
   }
 
   if (isSignedIn) {
-    return <Navigate to={`/teams/${currentUser?.team_id}`} />;
+    return <Navigate to="/teams" />;
   }
   return <div>{children}</div>;
 };

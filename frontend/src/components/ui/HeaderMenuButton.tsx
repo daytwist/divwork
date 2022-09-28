@@ -110,11 +110,7 @@ export const HeaderMenuButton: FC = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
       >
         <MenuList>
-          <MenuItem
-            component={Link}
-            to={`/teams/${currentUser?.team_id}`}
-            onClick={handleClose}
-          >
+          <MenuItem component={Link} to="/teams" onClick={handleClose}>
             <ListItemIcon>
               <PlaylistAddCheckIcon />
             </ListItemIcon>
@@ -139,11 +135,7 @@ export const HeaderMenuButton: FC = () => {
           </MenuItem>
           <Divider />
           {currentUser?.admin ? (
-            <MenuItem
-              component={Link}
-              to={`/teams/${currentUser?.team_id}/edit`}
-              onClick={handleClose}
-            >
+            <MenuItem component={Link} to="/teams/edit" onClick={handleClose}>
               <ListItemIcon>
                 <ManageAccountsIcon />
               </ListItemIcon>

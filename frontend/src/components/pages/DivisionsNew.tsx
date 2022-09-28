@@ -17,12 +17,10 @@ import {
   DivisionsNewResponse,
   User,
 } from "../../types";
-import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 
 const DivisionsNew: FC = () => {
-  const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -124,7 +122,7 @@ const DivisionsNew: FC = () => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           message: `${err.response.data.messages}`,
         });
-        navigate(`/teams/${currentUser?.team_id}`, { replace: true });
+        navigate("/teams", { replace: true });
       });
   }, [params]);
 
