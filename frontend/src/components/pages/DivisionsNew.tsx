@@ -67,7 +67,7 @@ const DivisionsNew: FC = () => {
           description: task.description,
           priority: task.priority,
           deadline,
-          user_id: Number(teamMemberValue),
+          user_id: teamMemberValue ? Number(teamMemberValue) : "",
           parent_id: task.parent_id,
         },
         division: { comment },
@@ -92,8 +92,8 @@ const DivisionsNew: FC = () => {
         handleSetSnackbar({
           open: true,
           type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.messages.join("。")}`,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          message: err.response.data.error,
         });
       });
   };

@@ -59,7 +59,7 @@ RSpec.describe "Api::V1::Divisions", type: :request do
            params: { task: task_params_blank, division: division_params }.to_json,
            headers: headers
       expect(response).to have_http_status(:internal_server_error)
-      expect(json["messages"][0]).to eq "ユーザーを入力してください"
+      expect(json["error"]).to eq "バリデーションに失敗しました: ユーザーを入力してください"
     end
   end
 
