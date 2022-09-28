@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
-  has_one :division, dependent: :destroy
+  has_one :division, dependent: :nullify
   has_many :children, class_name: "Task", foreign_key: "parent_id", inverse_of: :parent, dependent: :nullify
   belongs_to :parent, class_name: "Task", optional: true, inverse_of: :children
   has_many_attached :files
