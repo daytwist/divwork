@@ -84,7 +84,7 @@ const MenuBars: FC = () => {
         </Toolbar>
       </AppBar>
     ),
-    [currentUser]
+    [isSignedIn, currentUser]
   );
 
   const drawer = useMemo(
@@ -105,7 +105,7 @@ const MenuBars: FC = () => {
         <Divider />
         <List>
           <ListItem disablePadding>
-            <ListItemButton component={Link} to={`/teams/${team?.id}`}>
+            <ListItemButton component={Link} to="/teams">
               <ListItemIcon>
                 <StarIcon />
               </ListItemIcon>
@@ -133,7 +133,7 @@ const MenuBars: FC = () => {
         </List>
       </Drawer>
     ),
-    [team, users]
+    [team, users, isSignedIn, currentUser]
   );
 
   return (
