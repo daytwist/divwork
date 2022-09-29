@@ -22,12 +22,12 @@ const TeamsShow: FC = () => {
   const { team, users } = useFetchTeam();
   const [tabValue, setTabValue] = useState(0);
 
-  const tabProps = (index: number) => {
+  const tabProps = useCallback((index: number) => {
     return {
       id: `tab-${index}`,
       "aria-controls": `tabpanel-${index}`,
     };
-  };
+  }, []);
 
   const totals: number[] = [];
   // eslint-disable-next-line array-callback-return
