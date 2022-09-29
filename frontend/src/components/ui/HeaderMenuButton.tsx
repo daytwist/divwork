@@ -25,7 +25,8 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 export const HeaderMenuButton: FC = () => {
-  const { setIsSignedIn, currentUser } = useContext(AuthContext);
+  const { setIsSignedIn, currentUser } =
+    useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
@@ -54,19 +55,16 @@ export const HeaderMenuButton: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse) => {
         console.log(res);
-
-        if (res.status === 200) {
-          Cookies.remove("_access_token");
-          Cookies.remove("_client");
-          Cookies.remove("_uid");
-          setIsSignedIn(false);
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "ログアウトしました",
-          });
-          navigate("/", { replace: true });
-        }
+        Cookies.remove("_access_token");
+        Cookies.remove("_client");
+        Cookies.remove("_uid");
+        setIsSignedIn(false);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "ログアウトしました",
+        });
+        navigate("/", { replace: true });
       })
       .catch((err) => {
         console.log(err);

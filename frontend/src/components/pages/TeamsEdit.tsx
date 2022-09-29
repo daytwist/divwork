@@ -76,15 +76,12 @@ const TeamsEdit: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<TeamsResponse>) => {
         console.log(res);
-
-        if (res.status === 200) {
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "チーム情報を更新しました",
-          });
-          navigate("/teams", { replace: false });
-        }
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "チーム情報を更新しました",
+        });
+        navigate("/teams", { replace: false });
       })
       .catch((err) => {
         console.log(err);

@@ -44,21 +44,18 @@ const TeamsSelect: FC = () => {
     axiosInstance(teamsCreateOptions)
       .then((res: AxiosResponse<TeamsResponse>) => {
         console.log(res);
-
-        if (res.status === 201) {
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "チームを作成しました",
-          });
-          navigate("/sign_up", {
-            state: {
-              teamId: res.data.team.id,
-              teamName: res.data.team.name,
-              isAdmin: true,
-            },
-          });
-        }
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "チームを作成しました",
+        });
+        navigate("/sign_up", {
+          state: {
+            teamId: res.data.team.id,
+            teamName: res.data.team.name,
+            isAdmin: true,
+          },
+        });
       })
       .catch((err) => {
         console.log(err);
