@@ -11,31 +11,18 @@ export const UserNameHeader = (props: Props) => {
 
   return (
     <Stack direction="row" alignItems="center" mb={1}>
-      {user?.avatar ? (
-        <Avatar
-          src={user.avatar}
-          alt="avatar"
-          component={RouterLink}
-          to={`/users/${user.id}`}
-          sx={{
-            width: { sm: 60 },
-            height: { sm: 60 },
-            ml: 1,
-            mr: 2,
-          }}
-        />
-      ) : (
-        <Avatar
-          component={RouterLink}
-          to={`/users/${user?.id}`}
-          sx={{
-            width: { sm: 60 },
-            height: { sm: 60 },
-            ml: 1,
-            mr: 2,
-          }}
-        />
-      )}
+      <Avatar
+        src={user?.avatar}
+        alt="avatar"
+        component={RouterLink}
+        to={`/users/${user?.id}`}
+        sx={{
+          width: { sm: 60 },
+          height: { sm: 60 },
+          ml: 1,
+          mr: 2,
+        }}
+      />
       <Link
         variant="h4"
         color="inherit"

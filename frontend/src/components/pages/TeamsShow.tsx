@@ -106,23 +106,14 @@ const TeamsShow: FC = () => {
                       mr: { xs: 1, sm: 2 },
                     }}
                   >
-                    {user.avatar ? (
-                      <Avatar
-                        src={user.avatar}
-                        alt="avatar"
-                        sx={{
-                          width: { sm: 60 },
-                          height: { sm: 60 },
-                        }}
-                      />
-                    ) : (
-                      <Avatar
-                        sx={{
-                          width: { sm: 60 },
-                          height: { sm: 60 },
-                        }}
-                      />
-                    )}
+                    <Avatar
+                      src={user.avatar}
+                      alt="avatar"
+                      sx={{
+                        width: { sm: 60 },
+                        height: { sm: 60 },
+                      }}
+                    />
                     <Typography
                       variant="button"
                       sx={{

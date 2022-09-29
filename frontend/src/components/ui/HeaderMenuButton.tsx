@@ -90,11 +90,7 @@ export const HeaderMenuButton: FC = () => {
         sx={{ color: "black" }}
         data-testid="current-user-name"
       >
-        {currentUser?.avatar ? (
-          <Avatar src={currentUser.avatar} alt="avatar" sx={{ mr: 1 }} />
-        ) : (
-          <Avatar sx={{ mr: 1 }} />
-        )}
+        <Avatar src={currentUser?.avatar} alt="avatar" sx={{ mr: 1 }} />
         {currentUser?.name}
         <ArrowDropDownIcon fontSize="small" />
       </Button>
