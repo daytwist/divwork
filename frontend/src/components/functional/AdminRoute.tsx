@@ -14,7 +14,7 @@ const AdminRoute: FC<RouteProps> = ({ children }) => {
     if (currentUser?.admin) {
       return <div>{children}</div>;
     }
-    return <Navigate to={`/teams/${currentUser?.team_id}`} />;
+    return <Navigate to="/teams" />;
   }
 
   return <Navigate to="/sign_in" />;

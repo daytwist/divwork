@@ -13,7 +13,8 @@ type Props = {
 
 export const useTasksDelete = (props: Props) => {
   const { taskId } = props;
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
+    useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
@@ -31,15 +32,13 @@ export const useTasksDelete = (props: Props) => {
     axiosInstance(options)
       .then((res: AxiosResponse) => {
         console.log(res);
-
-        if (res.status === 200) {
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "タスクを削除しました",
-          });
-          navigate(`/users/${currentUser?.id}`, { replace: true });
-        }
+        setTeamReloadFlag(!teamReloadFlag);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "タスクを削除しました",
+        });
+        navigate(`/users/${currentUser?.id}`, { replace: true });
       })
       .catch((err) => {
         console.log(err);

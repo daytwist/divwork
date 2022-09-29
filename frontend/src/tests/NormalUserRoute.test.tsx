@@ -111,7 +111,7 @@ describe("NormalUserRoute", () => {
 
     jest.useFakeTimers();
     act(() => {
-      jest.advanceTimersByTime(3000);
+      jest.advanceTimersByTime(5000);
     });
 
     await waitFor(() => {

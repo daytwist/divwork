@@ -5,12 +5,12 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
-import Header from "../components/ui/Header";
+import MenuBars from "../components/ui/MenuBars";
 import { server } from "../mocks/server";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 
-describe("Header", () => {
+describe("MenuBars", () => {
   test("ヘッダーメニュー", async () => {
     server.use(
       rest.get("/auth/sessions", (req, res, ctx) => {
@@ -39,18 +39,18 @@ describe("Header", () => {
       <BrowserRouter>
         <AuthProvider>
           <SnackbarProvider>
-            <Header />
+            <MenuBars />
           </SnackbarProvider>
         </AuthProvider>
       </BrowserRouter>
     );
 
-    expect(await screen.findByText("USER_1")).toBeInTheDocument();
+    expect(await screen.findByTestId("current-user-name")).toBeInTheDocument();
 
     // ユーザー名をクリックするとメニューが表示される
     expect(screen.queryByText("マイタスク")).not.toBeInTheDocument();
-    await act(() => {
-      userEvent.click(screen.getByText("USER_1"));
+    act(() => {
+      userEvent.click(screen.getByTestId("current-user-name"));
     });
     expect(screen.getByText("マイタスク")).toBeInTheDocument();
   });

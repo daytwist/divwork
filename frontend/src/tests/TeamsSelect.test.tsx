@@ -8,7 +8,6 @@ import TeamsSelect from "../components/pages/TeamsSelect";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 import SignUp from "../components/pages/SignUp";
 import { AuthProvider } from "../providers/AuthProvider";
-import CommonLayout from "../components/ui/CommonLayout";
 
 describe("TeamsSelect", () => {
   test("スナップショット", () => {
@@ -36,12 +35,10 @@ describe("TeamsSelect", () => {
       <MemoryRouter initialEntries={["/sign_up/teams/select"]}>
         <AuthProvider>
           <SnackbarProvider>
-            <CommonLayout>
-              <Routes>
-                <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
-                <Route path="/sign_up" element={<SignUp />} />
-              </Routes>
-            </CommonLayout>
+            <Routes>
+              <Route path="/sign_up/teams/select" element={<TeamsSelect />} />
+              <Route path="/sign_up" element={<SignUp />} />
+            </Routes>
           </SnackbarProvider>
         </AuthProvider>
       </MemoryRouter>

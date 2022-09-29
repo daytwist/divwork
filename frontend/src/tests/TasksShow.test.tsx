@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import CommonLayout from "../components/ui/CommonLayout";
 import { server } from "../mocks/server";
 import TasksShow from "../components/pages/TasksShow";
 import UsersShow from "../components/pages/UsersShow";
@@ -40,12 +39,10 @@ describe("TasksShow", () => {
       <MemoryRouter initialEntries={["/tasks/1"]}>
         <AuthProvider>
           <SnackbarProvider>
-            <CommonLayout>
-              <Routes>
-                <Route path="/tasks/:id" element={<TasksShow />} />
-                <Route path="/users/:id" element={<UsersShow />} />
-              </Routes>
-            </CommonLayout>
+            <Routes>
+              <Route path="/tasks/:id" element={<TasksShow />} />
+              <Route path="/users/:id" element={<UsersShow />} />
+            </Routes>
           </SnackbarProvider>
         </AuthProvider>
       </MemoryRouter>
@@ -84,8 +81,6 @@ describe("TasksShow", () => {
     await act(() => {
       userEvent.click(screen.getByRole("button", { name: "削除する" }));
     });
-
-    expect(await screen.findByText("タスクを削除しました")).toBeInTheDocument();
 
     // ユーザー詳細ページに遷移する
     expect(await screen.findByTestId("users-show-page")).toBeInTheDocument();

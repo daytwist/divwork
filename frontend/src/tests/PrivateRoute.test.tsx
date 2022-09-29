@@ -8,7 +8,7 @@ import TeamsShow from "../components/pages/TeamsShow";
 describe("PrivateRoute", () => {
   test("ログインしていない状態でPrivateRouteにアクセスしない", async () => {
     render(
-      <MemoryRouter initialEntries={["/teams/1"]}>
+      <MemoryRouter initialEntries={["/teams"]}>
         <Routes>
           <Route
             path="/sign_in"
@@ -19,7 +19,7 @@ describe("PrivateRoute", () => {
             }
           />
           <Route
-            path="/teams/:id"
+            path="/teams"
             element={
               <PrivateRoute>
                 <TeamsShow />
@@ -29,6 +29,7 @@ describe("PrivateRoute", () => {
         </Routes>
       </MemoryRouter>
     );
+
     await waitFor(() => {
       expect(screen.queryByTestId("teams-show-h4")).not.toBeInTheDocument();
     });

@@ -38,13 +38,13 @@ describe("TeamsEdit", () => {
 
   test("チーム情報更新", async () => {
     render(
-      <MemoryRouter initialEntries={["/teams/1/edit"]}>
+      <MemoryRouter initialEntries={["/teams/edit"]}>
         <AuthProvider>
           <SnackbarProvider>
             <CommonLayout>
               <Routes>
-                <Route path="/teams/:id" element={<TeamsShow />} />
-                <Route path="/teams/:id/edit" element={<TeamsEdit />} />
+                <Route path="/teams" element={<TeamsShow />} />
+                <Route path="/teams/edit" element={<TeamsEdit />} />
               </Routes>
             </CommonLayout>
           </SnackbarProvider>
@@ -60,6 +60,11 @@ describe("TeamsEdit", () => {
       userEvent.clear(screen.getByLabelText("チーム名 *"));
       userEvent.type(screen.getByLabelText("チーム名 *"), "TEAM_UPDATE");
       userEvent.click(screen.getByRole("button", { name: "更新する" }));
+    });
+
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(3000);
     });
 
     // 更新するとTeamsShowページへ遷移する

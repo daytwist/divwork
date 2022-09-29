@@ -40,19 +40,16 @@ const SignIn: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<AuthResponse>) => {
         console.log(res);
-
-        if (res.status === 200) {
-          Cookies.set("_access_token", res.headers["access-token"]);
-          Cookies.set("_client", res.headers.client);
-          Cookies.set("_uid", res.headers.uid);
-          setIsSignedIn(true);
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "ログインしました",
-          });
-          navigate(`/teams/${res.data.data.team_id}`, { replace: false });
-        }
+        Cookies.set("_access_token", res.headers["access-token"]);
+        Cookies.set("_client", res.headers.client);
+        Cookies.set("_uid", res.headers.uid);
+        setIsSignedIn(true);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "ログインしました",
+        });
+        navigate("/teams", { replace: false });
       })
       .catch((err) => {
         console.log(err);

@@ -1,3 +1,4 @@
+import { useCallback, useMemo, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -16,15 +17,25 @@ type Props = {
 
 export const PriorityBarChart = (props: Props) => {
   const { user, maxCount } = props;
+  const [animate, setAnimate] = useState(true);
 
-  const data = [
-    {
-      name: user.name,
-      高: user.unfinished_tasks_priority_count[2],
-      中: user.unfinished_tasks_priority_count[1],
-      低: user.unfinished_tasks_priority_count[0],
-    },
-  ];
+  const onAnimationStart = useCallback(() => {
+    setTimeout(() => {
+      setAnimate(false);
+    }, 2000);
+  }, []);
+
+  const data = useMemo(
+    () => [
+      {
+        name: user.name,
+        高: user.unfinished_tasks_priority_count[2],
+        中: user.unfinished_tasks_priority_count[1],
+        低: user.unfinished_tasks_priority_count[0],
+      },
+    ],
+    [user]
+  );
 
   return (
     <ResponsiveContainer width="100%" height={70}>
@@ -32,21 +43,39 @@ export const PriorityBarChart = (props: Props) => {
         <XAxis type="number" hide domain={[0, maxCount]} />
         <YAxis dataKey="name" type="category" hide />
         <Tooltip wrapperStyle={{ zIndex: 10, fontFamily: "roboto" }} />
-        <Bar dataKey="高" stackId="a" fill="#ff5252">
+        <Bar
+          dataKey="高"
+          stackId="a"
+          fill="#ff5252"
+          isAnimationActive={animate}
+          onAnimationStart={onAnimationStart}
+        >
           <LabelList
             dataKey="高"
             position="top"
             style={{ fontFamily: "roboto" }}
           />
         </Bar>
-        <Bar dataKey="中" stackId="a" fill="#ffd600">
+        <Bar
+          dataKey="中"
+          stackId="a"
+          fill="#ffd600"
+          isAnimationActive={animate}
+          onAnimationStart={onAnimationStart}
+        >
           <LabelList
             dataKey="中"
             position="top"
             style={{ fontFamily: "roboto" }}
           />
         </Bar>
-        <Bar dataKey="低" stackId="a" fill="#00c853">
+        <Bar
+          dataKey="低"
+          stackId="a"
+          fill="#00c853"
+          isAnimationActive={animate}
+          onAnimationStart={onAnimationStart}
+        >
           <LabelList
             dataKey="低"
             position="top"

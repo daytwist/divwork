@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useCallback, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { GridRowId } from "@mui/x-data-grid";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -18,9 +17,8 @@ type Props = {
 
 export const useHandleMultiTasks = (props: Props) => {
   const { selectionModel, isFinished, flag, setFlag, handleClose } = props;
-  const { currentUser } = useContext(AuthContext);
+  const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
 
   const handleMultiIsDoneUpdate = useCallback(() => {
     // eslint-disable-next-line array-callback-return
@@ -48,16 +46,14 @@ export const useHandleMultiTasks = (props: Props) => {
         .then((res: AxiosResponse<TasksResponse>) => {
           console.log(res);
           setFlag(!flag);
-
-          if (res.status === 200) {
-            handleSetSnackbar({
-              open: true,
-              type: "success",
-              message: isFinished
-                ? "タスクを未了にしました"
-                : "タスクを完了済みにしました",
-            });
-          }
+          setTeamReloadFlag(!teamReloadFlag);
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: isFinished
+              ? "タスクを未了にしました"
+              : "タスクを完了済みにしました",
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -69,7 +65,7 @@ export const useHandleMultiTasks = (props: Props) => {
           });
         });
     });
-  }, [selectionModel, isFinished, flag, setFlag, handleClose]);
+  }, [selectionModel, isFinished, flag, teamReloadFlag]);
 
   const handleMultiTasksDelete = useCallback(() => {
     // eslint-disable-next-line array-callback-return
@@ -88,16 +84,13 @@ export const useHandleMultiTasks = (props: Props) => {
         .then((res: AxiosResponse) => {
           console.log(res);
           setFlag(!flag);
-
-          if (res.status === 200) {
-            handleSetSnackbar({
-              open: true,
-              type: "success",
-              message: "タスクを削除しました",
-            });
-            handleClose();
-            navigate(`/users/${currentUser?.id}`, { replace: true });
-          }
+          setTeamReloadFlag(!teamReloadFlag);
+          handleSetSnackbar({
+            open: true,
+            type: "success",
+            message: "タスクを削除しました",
+          });
+          handleClose();
         })
         .catch((err) => {
           console.log(err);
@@ -109,7 +102,7 @@ export const useHandleMultiTasks = (props: Props) => {
           });
         });
     });
-  }, [selectionModel, isFinished, flag, setFlag, handleClose]);
+  }, [selectionModel, isFinished, flag, teamReloadFlag]);
 
   return { handleMultiIsDoneUpdate, handleMultiTasksDelete };
 };

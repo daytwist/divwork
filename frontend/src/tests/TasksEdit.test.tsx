@@ -50,7 +50,7 @@ describe("TasksEdit", () => {
             <CommonLayout>
               <Routes>
                 <Route path="/tasks/:id/edit" element={<TasksEdit />} />
-                <Route path="/teams/:id" element={<TeamsShow />} />
+                <Route path="/teams" element={<TeamsShow />} />
               </Routes>
             </CommonLayout>
           </SnackbarProvider>

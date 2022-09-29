@@ -45,16 +45,13 @@ export const UsersEditPassword = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<AuthPasswordResponse>) => {
         console.log(res);
-
-        if (res.status === 200) {
-          setCurrentUser(res.data.data);
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "パスワードを更新しました",
-          });
-          navigate(`/users/${currentUser?.id}`, { replace: false });
-        }
+        setCurrentUser(res.data.data);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "パスワードを更新しました",
+        });
+        navigate(`/users/${currentUser?.id}`, { replace: false });
       })
       .catch((err) => {
         console.log(err);

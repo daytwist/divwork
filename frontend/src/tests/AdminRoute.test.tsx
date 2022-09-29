@@ -35,14 +35,14 @@ describe("AdminRoute", () => {
     );
 
     render(
-      <MemoryRouter initialEntries={["/teams/1/edit"]}>
+      <MemoryRouter initialEntries={["/teams/edit"]}>
         <AuthProvider>
           <SnackbarProvider>
             <CommonLayout>
               <Routes>
-                <Route path="/teams/:id" element={<TeamsShow />} />
+                <Route path="/teams" element={<TeamsShow />} />
                 <Route
-                  path="/teams/:id/edit"
+                  path="/teams/edit"
                   element={
                     <AdminRoute>
                       <TeamsEdit />
@@ -55,6 +55,7 @@ describe("AdminRoute", () => {
         </AuthProvider>
       </MemoryRouter>
     );
+
     await waitFor(() => {
       expect(screen.queryByText("チーム設定")).not.toBeInTheDocument();
     });

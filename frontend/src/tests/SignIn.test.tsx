@@ -31,7 +31,7 @@ describe.only("SignIn", () => {
             <CommonLayout>
               <Routes>
                 <Route path="/sign_in" element={<SignIn />} />
-                <Route path="/teams/:id" element={<TeamsShow />} />
+                <Route path="/teams" element={<TeamsShow />} />
               </Routes>
             </CommonLayout>
           </SnackbarProvider>

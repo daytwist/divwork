@@ -5,6 +5,7 @@ import {
   SyntheticEvent,
   useEffect,
   useCallback,
+  useMemo,
 } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Button, Stack, Tab, Tabs } from "@mui/material";
@@ -36,20 +37,20 @@ const UsersShow: FC = () => {
     flag,
   });
 
-  const tabProps = (index: number) => {
+  const tabProps = useCallback((index: number) => {
     return {
       id: `tab-${index}`,
       "aria-controls": `tabpanel-${index}`,
     };
-  };
+  }, []);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = useCallback(() => {
     setOpen(true);
-  };
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false);
-  };
+  }, []);
 
   const { handleMultiIsDoneUpdate, handleMultiTasksDelete } =
     useHandleMultiTasks({
@@ -73,6 +74,50 @@ const UsersShow: FC = () => {
       }
     },
     []
+  );
+
+  const tabs = useMemo(
+    () => (
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs value={tabValue} onChange={handleSwitchTasks} textColor="inherit">
+          <Tab label="未了" {...tabProps(0)} />
+          <Tab label="完了済み" {...tabProps(1)} />
+          <Tab label="分担履歴" {...tabProps(2)} />
+        </Tabs>
+      </Box>
+    ),
+    [tabValue]
+  );
+
+  const unfinishedTasksDataGrid = useMemo(
+    () => (
+      <TasksDataGrid
+        isFinished={false}
+        user={user}
+        tasks={unfinishedTasks}
+        selectionModel={selectionModel}
+        setSelectionModel={setSelectionModel}
+      />
+    ),
+    [unfinishedTasks, selectionModel]
+  );
+
+  const finishedTasksDataGrid = useMemo(
+    () => (
+      <TasksDataGrid
+        isFinished
+        user={user}
+        tasks={finishedTasks}
+        selectionModel={selectionModel}
+        setSelectionModel={setSelectionModel}
+      />
+    ),
+    [finishedTasks, selectionModel]
+  );
+
+  const divisionsDataGrid = useMemo(
+    () => <DivisionsDataGrid divisions={divisions} />,
+    [divisions, selectionModel]
   );
 
   useEffect(() => {
@@ -143,17 +188,7 @@ const UsersShow: FC = () => {
               ) : (
                 <br />
               )}
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs
-                  value={tabValue}
-                  onChange={handleSwitchTasks}
-                  textColor="inherit"
-                >
-                  <Tab label="未了" {...tabProps(0)} />
-                  <Tab label="完了済み" {...tabProps(1)} />
-                  <Tab label="分担履歴" {...tabProps(2)} />
-                </Tabs>
-              </Box>
+              {tabs}
             </Stack>
           </Grid2>
           <Grid2
@@ -161,25 +196,13 @@ const UsersShow: FC = () => {
             sx={{ width: { xs: 300, sm: 550, md: 710, lg: 1000 } }}
           >
             <TabPanel value={tabValue} index={0}>
-              <TasksDataGrid
-                isFinished={false}
-                user={user}
-                tasks={unfinishedTasks}
-                selectionModel={selectionModel}
-                setSelectionModel={setSelectionModel}
-              />
+              {unfinishedTasksDataGrid}
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
-              <TasksDataGrid
-                isFinished
-                user={user}
-                tasks={finishedTasks}
-                selectionModel={selectionModel}
-                setSelectionModel={setSelectionModel}
-              />
+              {finishedTasksDataGrid}
             </TabPanel>
             <TabPanel value={tabValue} index={2}>
-              <DivisionsDataGrid divisions={divisions} />
+              {divisionsDataGrid}
             </TabPanel>
           </Grid2>
         </Grid2>

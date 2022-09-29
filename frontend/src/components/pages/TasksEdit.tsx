@@ -60,15 +60,12 @@ const TasksEdit: FC = () => {
     axiosInstance(updateOptions)
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
-
-        if (res.status === 200) {
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "タスクを更新しました",
-          });
-          navigate(`/users/${currentUser?.id}`, { replace: false });
-        }
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "タスクを更新しました",
+        });
+        navigate(`/users/${currentUser?.id}`, { replace: false });
       })
       .catch((err) => {
         console.log(err);

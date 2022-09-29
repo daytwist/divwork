@@ -71,17 +71,14 @@ const UsersEdit: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse) => {
         console.log(res);
-
-        if (res.status === 200) {
-          setIsSignedIn(false);
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message:
-              "アカウントを削除しました。またのご利用をお待ちしております。",
-          });
-          navigate("/", { replace: true });
-        }
+        setIsSignedIn(false);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message:
+            "アカウントを削除しました。またのご利用をお待ちしております。",
+        });
+        navigate("/", { replace: true });
       })
       .catch((err) => {
         console.log(err);

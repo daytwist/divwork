@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   FormControl,
@@ -22,10 +22,10 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 const TeamsEdit: FC = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
+    useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const params = useParams<{ id: string }>();
   const { team: teamData, users } = useFetchTeam();
   const [team, setTeam] = useState<EditTeam>({
     name: "",
@@ -63,7 +63,7 @@ const TeamsEdit: FC = () => {
 
   const handleTeamsUpdate = () => {
     const options: AxiosRequestConfig = {
-      url: `/teams/${params.id}`,
+      url: `/teams/${currentUser?.team_id}`,
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -77,15 +77,13 @@ const TeamsEdit: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<TeamsResponse>) => {
         console.log(res);
-
-        if (res.status === 200) {
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "チーム情報を更新しました",
-          });
-          navigate(`/teams/${currentUser?.team_id}`, { replace: false });
-        }
+        setTeamReloadFlag(!teamReloadFlag);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "チーム情報を更新しました",
+        });
+        navigate("/teams", { replace: false });
       })
       .catch((err) => {
         console.log(err);

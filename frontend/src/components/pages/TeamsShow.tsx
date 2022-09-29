@@ -22,12 +22,12 @@ const TeamsShow: FC = () => {
   const { team, users } = useFetchTeam();
   const [tabValue, setTabValue] = useState(0);
 
-  const tabProps = (index: number) => {
+  const tabProps = useCallback((index: number) => {
     return {
       id: `tab-${index}`,
       "aria-controls": `tabpanel-${index}`,
     };
-  };
+  }, []);
 
   const totals: number[] = [];
   // eslint-disable-next-line array-callback-return
@@ -106,23 +106,14 @@ const TeamsShow: FC = () => {
                       mr: { xs: 1, sm: 2 },
                     }}
                   >
-                    {user.avatar ? (
-                      <Avatar
-                        src={user.avatar}
-                        alt="avatar"
-                        sx={{
-                          width: { sm: 60 },
-                          height: { sm: 60 },
-                        }}
-                      />
-                    ) : (
-                      <Avatar
-                        sx={{
-                          width: { sm: 60 },
-                          height: { sm: 60 },
-                        }}
-                      />
-                    )}
+                    <Avatar
+                      src={user.avatar}
+                      alt="avatar"
+                      sx={{
+                        width: { sm: 60 },
+                        height: { sm: 60 },
+                      }}
+                    />
                     <Typography
                       variant="button"
                       sx={{

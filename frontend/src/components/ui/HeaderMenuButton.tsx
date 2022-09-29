@@ -54,19 +54,16 @@ export const HeaderMenuButton: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse) => {
         console.log(res);
-
-        if (res.status === 200) {
-          Cookies.remove("_access_token");
-          Cookies.remove("_client");
-          Cookies.remove("_uid");
-          setIsSignedIn(false);
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "ログアウトしました",
-          });
-          navigate("/", { replace: true });
-        }
+        Cookies.remove("_access_token");
+        Cookies.remove("_client");
+        Cookies.remove("_uid");
+        setIsSignedIn(false);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "ログアウトしました",
+        });
+        navigate("/", { replace: true });
       })
       .catch((err) => {
         console.log(err);
@@ -90,11 +87,7 @@ export const HeaderMenuButton: FC = () => {
         sx={{ color: "black" }}
         data-testid="current-user-name"
       >
-        {currentUser?.avatar ? (
-          <Avatar src={currentUser.avatar} alt="avatar" sx={{ mr: 1 }} />
-        ) : (
-          <Avatar sx={{ mr: 1 }} />
-        )}
+        <Avatar src={currentUser?.avatar} alt="avatar" sx={{ mr: 1 }} />
         {currentUser?.name}
         <ArrowDropDownIcon fontSize="small" />
       </Button>
@@ -110,11 +103,7 @@ export const HeaderMenuButton: FC = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
       >
         <MenuList>
-          <MenuItem
-            component={Link}
-            to={`/teams/${currentUser?.team_id}`}
-            onClick={handleClose}
-          >
+          <MenuItem component={Link} to="/teams" onClick={handleClose}>
             <ListItemIcon>
               <PlaylistAddCheckIcon />
             </ListItemIcon>
@@ -139,11 +128,7 @@ export const HeaderMenuButton: FC = () => {
           </MenuItem>
           <Divider />
           {currentUser?.admin ? (
-            <MenuItem
-              component={Link}
-              to={`/teams/${currentUser?.team_id}/edit`}
-              onClick={handleClose}
-            >
+            <MenuItem component={Link} to="/teams/edit" onClick={handleClose}>
               <ListItemIcon>
                 <ManageAccountsIcon />
               </ListItemIcon>

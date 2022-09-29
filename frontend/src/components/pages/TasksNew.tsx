@@ -11,7 +11,8 @@ import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 
 const TasksNew: FC = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
+    useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
@@ -57,15 +58,13 @@ const TasksNew: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
-
-        if (res.status === 201) {
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "タスクを作成しました",
-          });
-          navigate(`/users/${currentUser?.id}`, { replace: false });
-        }
+        setTeamReloadFlag(!teamReloadFlag);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "タスクを作成しました",
+        });
+        navigate(`/users/${currentUser?.id}`, { replace: false });
       })
       .catch((err) => {
         console.log(err);

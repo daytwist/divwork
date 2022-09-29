@@ -82,16 +82,13 @@ export const UsersEditProfile = (props: Props) => {
     axiosInstance(updateOptions)
       .then((res: AxiosResponse<UsersUpdateResponse>) => {
         console.log(res);
-
-        if (res.status === 200) {
-          setCurrentUser(res.data.data);
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "ユーザー情報を更新しました",
-          });
-          navigate(`/users/${currentUser?.id}`, { replace: false });
-        }
+        setCurrentUser(res.data.data);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "ユーザー情報を更新しました",
+        });
+        navigate(`/users/${currentUser?.id}`, { replace: false });
       })
       .catch((err) => {
         console.log(err);
