@@ -38,10 +38,7 @@ const MenuBars: FC = () => {
     () => (
       <AppBar
         position="fixed"
-        sx={{
-          width: isSignedIn ? `calc(100% - ${drawerWidth}px)` : "100%",
-          ml: `${drawerWidth}px`,
-        }}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>
           <Typography
