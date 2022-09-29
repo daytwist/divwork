@@ -82,6 +82,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
           setLoading(false);
         } else if (res.data.is_signed_in === false) {
           setIsSignedIn(false);
+          setCurrentUser(undefined);
           setLoading(false);
         } else {
           setLoading(true);

@@ -21,15 +21,17 @@ export const useFetchTeam = () => {
   };
 
   useEffect(() => {
-    axiosInstance(options)
-      .then((res: AxiosResponse<TeamsShowResponse>) => {
-        console.log(res);
-        setTeam(res.data.team);
-        setUsers(res.data.users);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (currentUser) {
+      axiosInstance(options)
+        .then((res: AxiosResponse<TeamsShowResponse>) => {
+          console.log(res);
+          setTeam(res.data.team);
+          setUsers(res.data.users);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [currentUser, teamReloadFlag]);
 
   return { team, users };
