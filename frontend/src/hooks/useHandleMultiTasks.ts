@@ -17,8 +17,7 @@ type Props = {
 
 export const useHandleMultiTasks = (props: Props) => {
   const { selectionModel, isFinished, flag, setFlag, handleClose } = props;
-  const { teamReloadFlag, setTeamReloadFlag } =
-    useContext(AuthContext);
+  const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
 
   const handleMultiIsDoneUpdate = useCallback(() => {

@@ -22,7 +22,8 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 const TeamsEdit: FC = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
+    useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const { team: teamData, users } = useFetchTeam();
@@ -76,6 +77,7 @@ const TeamsEdit: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<TeamsResponse>) => {
         console.log(res);
+        setTeamReloadFlag(!teamReloadFlag);
         handleSetSnackbar({
           open: true,
           type: "success",

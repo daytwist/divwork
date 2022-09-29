@@ -25,8 +25,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 export const HeaderMenuButton: FC = () => {
-  const { setIsSignedIn, currentUser } =
-    useContext(AuthContext);
+  const { setIsSignedIn, currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 

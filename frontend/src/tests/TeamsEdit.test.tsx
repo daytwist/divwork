@@ -62,6 +62,11 @@ describe("TeamsEdit", () => {
       userEvent.click(screen.getByRole("button", { name: "更新する" }));
     });
 
+    jest.useFakeTimers();
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+
     // 更新するとTeamsShowページへ遷移する
     expect(
       await screen.findByText("チーム情報を更新しました")

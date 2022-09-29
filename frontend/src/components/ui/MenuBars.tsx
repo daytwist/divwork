@@ -136,7 +136,7 @@ const MenuBars: FC = () => {
   return (
     <Box>
       {appBar}
-      {isSignedIn ? drawer : null}
+      {isSignedIn && team ? drawer : null}
     </Box>
   );
 };
