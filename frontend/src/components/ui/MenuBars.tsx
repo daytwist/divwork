@@ -1,4 +1,4 @@
-import { FC, useContext, useMemo } from "react";
+import { FC, useCallback, useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Divider,
@@ -27,12 +27,12 @@ const MenuBars: FC = () => {
   const { isSignedIn, currentUser } = useContext(AuthContext);
   const { team, users } = useFetchTeam();
 
-  const unfinishedTasksCount = (tasks: number[]) => {
+  const unfinishedTasksCount = useCallback((tasks: number[]) => {
     const total = tasks.reduce((sum: number, element: number) => {
       return sum + element;
     }, 0);
     return total;
-  };
+  }, []);
 
   const appBar = useMemo(
     () => (
@@ -109,7 +109,10 @@ const MenuBars: FC = () => {
               <ListItemIcon>
                 <StarIcon />
               </ListItemIcon>
-              <ListItemText primary={team?.name} />
+              <ListItemText
+                primary={team?.name}
+                secondary={`${users?.length}人のメンバー`}
+              />
             </ListItemButton>
           </ListItem>
           {users?.map((user) => (
@@ -120,9 +123,9 @@ const MenuBars: FC = () => {
                 </ListItemAvatar>
                 <ListItemText
                   primary={user.name}
-                  secondary={`タスク：${unfinishedTasksCount(
+                  secondary={`${unfinishedTasksCount(
                     user.unfinished_tasks_priority_count
-                  )}個`}
+                  )}件のタスク`}
                 />
               </ListItemButton>
             </ListItem>
@@ -130,7 +133,7 @@ const MenuBars: FC = () => {
         </List>
       </Drawer>
     ),
-    [team]
+    [team, users]
   );
 
   return (

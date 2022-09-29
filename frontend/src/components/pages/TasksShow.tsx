@@ -40,7 +40,8 @@ import { DeadlineTypography } from "../models/task/DeadlineTypography";
 import { IsDoneTypography } from "../models/task/IsDoneTypography";
 
 const TasksShow: FC = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
+    useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const {
     task: taskData,
@@ -77,16 +78,14 @@ const TasksShow: FC = () => {
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
         setTask(res.data.task);
-
-        if (res.status === 200) {
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: task?.is_done
-              ? "タスクを未了にしました"
-              : "タスクを完了済みにしました",
-          });
-        }
+        setTeamReloadFlag(!teamReloadFlag);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: task?.is_done
+            ? "タスクを未了にしました"
+            : "タスクを完了済みにしました",
+        });
       })
       .catch((err) => {
         console.log(err);

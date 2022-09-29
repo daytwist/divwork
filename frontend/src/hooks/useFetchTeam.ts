@@ -6,7 +6,7 @@ import { Team, TeamsShowResponse, User } from "../types";
 import { AuthContext } from "../providers/AuthProvider";
 
 export const useFetchTeam = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, teamReloadFlag } = useContext(AuthContext);
   const [team, setTeam] = useState<Team>();
   const [users, setUsers] = useState<User[]>();
 
@@ -30,7 +30,7 @@ export const useFetchTeam = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [currentUser]);
+  }, [currentUser, teamReloadFlag]);
 
   return { team, users };
 };

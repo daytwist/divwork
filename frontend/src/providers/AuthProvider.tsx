@@ -24,6 +24,8 @@ type AuthContextValue = {
   setIsSignedIn: Dispatch<SetStateAction<boolean>>;
   currentUser: User | undefined;
   setCurrentUser: Dispatch<SetStateAction<User | undefined>>;
+  teamReloadFlag: boolean;
+  setTeamReloadFlag: Dispatch<SetStateAction<boolean>>;
 };
 
 export const AuthContext = createContext<AuthContextValue>(
@@ -31,9 +33,10 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 export const AuthProvider: FC<Props> = ({ children }) => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
+  const [teamReloadFlag, setTeamReloadFlag] = useState(false);
 
   const AuthProviderValue = useMemo(
     () => ({
@@ -43,6 +46,8 @@ export const AuthProvider: FC<Props> = ({ children }) => {
       setIsSignedIn,
       currentUser,
       setCurrentUser,
+      teamReloadFlag,
+      setTeamReloadFlag,
     }),
     [
       loading,
@@ -51,6 +56,8 @@ export const AuthProvider: FC<Props> = ({ children }) => {
       setIsSignedIn,
       currentUser,
       setCurrentUser,
+      teamReloadFlag,
+      setTeamReloadFlag,
     ]
   );
 

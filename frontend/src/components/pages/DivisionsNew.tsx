@@ -17,10 +17,12 @@ import {
   DivisionsNewResponse,
   User,
 } from "../../types";
+import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 
 const DivisionsNew: FC = () => {
+  const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -75,15 +77,13 @@ const DivisionsNew: FC = () => {
     axiosInstance(options)
       .then((res: AxiosResponse<DivisionsCreateResponse>) => {
         console.log(res);
-
-        if (res.status === 200) {
-          handleSetSnackbar({
-            open: true,
-            type: "success",
-            message: "分担タスクを作成しました",
-          });
-          navigate(`/users/${res.data.division.user_id}`, { replace: false });
-        }
+        setTeamReloadFlag(!teamReloadFlag);
+        handleSetSnackbar({
+          open: true,
+          type: "success",
+          message: "分担タスクを作成しました",
+        });
+        navigate(`/users/${res.data.division.user_id}`, { replace: false });
       })
       .catch((err) => {
         console.log(err);
