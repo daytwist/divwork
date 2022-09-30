@@ -133,7 +133,6 @@ const TeamsEdit: FC = () => {
             <InputLabel id="max_num_of_users_label">上限人数</InputLabel>
             <Select
               labelId="max_num_of_users_label"
-              id="max_num_of_users"
               name="max_num_of_users"
               value={team.max_num_of_users}
               onChange={handleInputSelectChange}

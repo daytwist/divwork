@@ -1,6 +1,16 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, MenuItem, Stack, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
@@ -9,17 +19,25 @@ import { BackButton } from "../ui/BackButton";
 
 const TeamsSelect: FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
-  const [teamId, setTeamId] = useState<string>("");
-  const [teamName, setTeamName] = useState<string>("");
+  const [teamId, setTeamId] = useState<string | number>("");
+  const [teamName, setTeamName] = useState("");
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent<string | number>) => {
     const { value } = event.target;
     setTeamId(value);
 
-    const teamIdNumber = Number(value);
-    const selectTeam: Team | undefined = teams.find(
-      (v) => v.id === teamIdNumber
-    );
+    const selectTeam: Team | undefined = teams.find((v) => v.id === value);
     console.log(selectTeam);
 
     if (selectTeam) {
@@ -54,23 +72,22 @@ const TeamsSelect: FC = () => {
         </Typography>
       </Grid2>
       <Grid2 xs={12}>
-        <TextField
-          select
-          required
-          label="チーム"
-          color="secondary"
-          sx={{ width: "30ch" }}
-          name="id"
-          value={teamId}
-          defaultValue=""
-          onChange={handleChange}
-        >
-          {teams?.map((menu) => (
-            <MenuItem key={menu.id} value={menu.id}>
-              {menu.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl required sx={{ width: 300 }} color="secondary">
+          <InputLabel id="team_label">チーム</InputLabel>
+          <Select
+            labelId="team_label"
+            value={teamId}
+            onChange={handleSelectChange}
+            input={<OutlinedInput label="チーム" />}
+            MenuProps={MenuProps}
+          >
+            {teams?.map((menu) => (
+              <MenuItem key={menu.id} value={menu.id}>
+                {menu.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Grid2>
       <Grid2 xs={12}>
         <Stack direction="row" spacing={1}>
