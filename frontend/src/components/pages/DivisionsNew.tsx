@@ -5,6 +5,7 @@ import {
   Button,
   Divider,
   MenuItem,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -20,6 +21,7 @@ import {
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
+import { BackButton } from "../ui/BackButton";
 
 const DivisionsNew: FC = () => {
   const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
@@ -129,9 +131,12 @@ const DivisionsNew: FC = () => {
   return (
     <Grid2 container direction="column" rowSpacing={3} width={700}>
       <Grid2 xs={12}>
-        <Typography gutterBottom variant="h4" component="div">
-          タスクを分担する
-        </Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <BackButton />
+          <Typography gutterBottom variant="h4" component="div">
+            タスクを分担する
+          </Typography>
+        </Stack>
       </Grid2>
       <Grid2 xs={12}>
         <TasksForm

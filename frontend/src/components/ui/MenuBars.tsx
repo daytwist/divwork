@@ -37,6 +37,7 @@ const MenuBars: FC = () => {
   const appBar = useMemo(
     () => (
       <AppBar
+        component="header"
         position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >

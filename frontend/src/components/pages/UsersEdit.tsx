@@ -1,7 +1,7 @@
 import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Box, Button, Tab, Typography } from "@mui/material";
+import { Box, Button, Stack, Tab, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -13,6 +13,7 @@ import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { AlertDialog } from "../ui/AlertDialog";
 import { UsersEditProfile } from "../models/user/UsersEditProfile";
 import { UsersEditPassword } from "../models/user/UsersEditPassword";
+import { BackButton } from "../ui/BackButton";
 
 const UsersEdit: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
@@ -100,9 +101,12 @@ const UsersEdit: FC = () => {
   return (
     <Grid2 container direction="column" rowSpacing={2}>
       <Grid2 xs={12}>
-        <Typography variant="h4" component="div">
-          アカウント設定
-        </Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <BackButton />
+          <Typography variant="h4" component="div">
+            アカウント設定
+          </Typography>
+        </Stack>
       </Grid2>
       <Grid2 xs={12}>
         <Box sx={{ width: 370 }}>

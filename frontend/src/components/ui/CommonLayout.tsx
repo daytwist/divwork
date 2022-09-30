@@ -13,6 +13,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { jaJP } from "@mui/x-data-grid";
 import MenuBars from "./MenuBars";
 import { AlertSnackbar } from "./AlertSnackbar";
+import { Footer } from "./Footer";
 
 const CommonLayout: FC<RouteProps> = ({ children }) => {
   let theme = createTheme(
@@ -43,16 +44,26 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
   );
   theme = responsiveFontSizes(theme);
 
-  const global = css`
-    * {
+  const styles = {
+    "*": css`
       margin: 0;
-    }
-  `;
+    `,
+
+    main: css`
+      display: flex;
+      flex-direction: column;
+      min-height: calc(103vh - 68.5px - 50px);
+    `,
+
+    footer: css`
+      margin-top: auto;
+    `,
+  };
 
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Global styles={global} />
+        <Global styles={styles} />
         <AlertSnackbar />
         <Box sx={{ display: "flex" }}>
           <MenuBars />
@@ -65,6 +76,7 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
             </Container>
           </Box>
         </Box>
+        <Footer />
       </ThemeProvider>
     </div>
   );

@@ -38,6 +38,7 @@ import { TaskContentTypography } from "../models/task/TaskContentTypography";
 import { PriorityStack } from "../models/task/PriorityStack";
 import { DeadlineTypography } from "../models/task/DeadlineTypography";
 import { IsDoneTypography } from "../models/task/IsDoneTypography";
+import { BackButton } from "../ui/BackButton";
 
 const TasksShow: FC = () => {
   const { currentUser, teamReloadFlag, setTeamReloadFlag } =
@@ -117,7 +118,10 @@ const TasksShow: FC = () => {
             width={700}
           >
             <Grid2 xs={12}>
-              <UserNameHeader user={user} />
+              <Stack direction="row" spacing={1} alignItems="center">
+                <BackButton />
+                <UserNameHeader user={user} />
+              </Stack>
             </Grid2>
             <Grid2 xs={12}>
               <Card sx={{ p: 2 }}>

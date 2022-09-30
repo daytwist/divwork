@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
@@ -10,6 +10,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
+import { BackButton } from "../ui/BackButton";
 
 const TasksEdit: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -88,9 +89,12 @@ const TasksEdit: FC = () => {
   return (
     <Grid2 container direction="column" rowSpacing={3} width={700}>
       <Grid2 xs={12}>
-        <Typography gutterBottom variant="h4" component="div">
-          タスクを編集する
-        </Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <BackButton />
+          <Typography gutterBottom variant="h4" component="div">
+            タスクを編集する
+          </Typography>
+        </Stack>
       </Grid2>
       <Grid2 xs={12}>
         <TasksForm
