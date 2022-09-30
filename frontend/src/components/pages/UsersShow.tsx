@@ -23,7 +23,7 @@ import { DivisionsDataGrid } from "../models/user/DivisionsDataGrid";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { TabPanel } from "../ui/TabPanel";
 import { UserNameHeader } from "../models/user/UserNameHeader";
-import { BackButton } from "../ui/BackButton";
+import { BackIconButton } from "../ui/BackIconButton";
 
 const UsersShow: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -138,7 +138,7 @@ const UsersShow: FC = () => {
         >
           <Grid2 xs={12}>
             <Stack direction="row" spacing={1} alignItems="center">
-              <BackButton />
+              <BackIconButton />
               <UserNameHeader user={user} />
             </Stack>
           </Grid2>

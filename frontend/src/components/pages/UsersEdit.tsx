@@ -13,7 +13,7 @@ import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { AlertDialog } from "../ui/AlertDialog";
 import { UsersEditProfile } from "../models/user/UsersEditProfile";
 import { UsersEditPassword } from "../models/user/UsersEditPassword";
-import { BackButton } from "../ui/BackButton";
+import { BackIconButton } from "../ui/BackIconButton";
 
 const UsersEdit: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
@@ -102,7 +102,7 @@ const UsersEdit: FC = () => {
     <Grid2 container direction="column" rowSpacing={2}>
       <Grid2 xs={12}>
         <Stack direction="row" spacing={1} alignItems="center">
-          <BackButton />
+          <BackIconButton />
           <Typography variant="h4" component="div">
             アカウント設定
           </Typography>

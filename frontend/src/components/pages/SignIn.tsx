@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
@@ -9,6 +9,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { AuthResponse, PasswordState } from "../../types";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { PasswordTextfield } from "../models/user/PasswordTextfield";
+import { BackButton } from "../ui/BackButton";
 
 const SignIn: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
@@ -93,14 +94,17 @@ const SignIn: FC = () => {
         />
       </Grid2>
       <Grid2 xs={12}>
-        <Button
-          data-testid="sign-in-button"
-          variant="contained"
-          type="submit"
-          onClick={handleSignIn}
-        >
-          ログイン
-        </Button>
+        <Stack direction="row" spacing={1}>
+          <Button
+            data-testid="sign-in-button"
+            variant="contained"
+            type="submit"
+            onClick={handleSignIn}
+          >
+            ログイン
+          </Button>
+          <BackButton />
+        </Stack>
       </Grid2>
     </Grid2>
   );

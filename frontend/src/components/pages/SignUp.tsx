@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
@@ -9,6 +9,7 @@ import { AuthResponse, PasswordState } from "../../types/index";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { PasswordTextfield } from "../models/user/PasswordTextfield";
+import { BackButton } from "../ui/BackButton";
 
 type State = {
   teamId: number;
@@ -137,9 +138,12 @@ const SignUp: FC = () => {
         />
       </Grid2>
       <Grid2 xs={12}>
-        <Button variant="contained" type="submit" onClick={handleSignUp}>
-          登録する
-        </Button>
+        <Stack direction="row" spacing={1}>
+          <Button variant="contained" type="submit" onClick={handleSignUp}>
+            登録する
+          </Button>
+          <BackButton />
+        </Stack>
       </Grid2>
     </Grid2>
   );

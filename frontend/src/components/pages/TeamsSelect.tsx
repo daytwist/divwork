@@ -1,10 +1,11 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, MenuItem, TextField, Typography } from "@mui/material";
+import { Button, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { Team, TeamsSelectResponse } from "../../types";
+import { BackButton } from "../ui/BackButton";
 
 const TeamsSelect: FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
@@ -72,15 +73,18 @@ const TeamsSelect: FC = () => {
         </TextField>
       </Grid2>
       <Grid2 xs={12}>
-        <Button
-          variant="contained"
-          component={Link}
-          to="/sign_up"
-          key={teamId}
-          state={{ teamId, teamName, isAdmin: false }}
-        >
-          次へ
-        </Button>
+        <Stack direction="row" spacing={1}>
+          <Button
+            variant="contained"
+            component={Link}
+            to="/sign_up"
+            key={teamId}
+            state={{ teamId, teamName, isAdmin: false }}
+          >
+            次へ
+          </Button>
+          <BackButton />
+        </Stack>
       </Grid2>
       <Grid2 xs={12}>
         <Typography variant="body1" component="div">

@@ -1,11 +1,12 @@
 import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { TeamsResponse } from "../../types";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { BackButton } from "../ui/BackButton";
 
 const TeamsNew: FC = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
@@ -73,9 +74,12 @@ const TeamsNew: FC = () => {
         />
       </Grid2>
       <Grid2 xs={12}>
-        <Button type="submit" variant="contained" onClick={handleTeamsCreate}>
-          作成
-        </Button>
+        <Stack direction="row" spacing={1}>
+          <Button type="submit" variant="contained" onClick={handleTeamsCreate}>
+            作成
+          </Button>
+          <BackButton />
+        </Stack>
       </Grid2>
     </Grid2>
   );
