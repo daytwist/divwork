@@ -4,7 +4,11 @@ import Cookies from "js-cookie";
 import {
   Button,
   Divider,
+  FormControl,
+  InputLabel,
   MenuItem,
+  OutlinedInput,
+  Select,
   Stack,
   TextField,
   Typography,
@@ -41,6 +45,17 @@ const DivisionsNew: FC = () => {
   const [comment, setComment] = useState<string>("");
   const [teamMembers, setTeamMembers] = useState<User[]>([]);
   const [teamMemberValue, setTeamMemberValue] = useState<string>("");
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 3 + ITEM_PADDING_TOP,
+        width: 150,
+      },
+    },
+  };
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -149,22 +164,23 @@ const DivisionsNew: FC = () => {
       </Grid2>
       <Divider sx={{ my: 4 }} />
       <Grid2 xs={12}>
-        <TextField
-          select
-          required
-          color="secondary"
-          label="分担先ユーザー"
-          sx={{ width: "20ch" }}
-          name="user_id"
-          value={teamMemberValue}
-          onChange={(event) => setTeamMemberValue(event.target.value)}
-        >
-          {teamMembers.map((member) => (
-            <MenuItem key={member.id} value={member.id.toString()}>
-              {member.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl required sx={{ width: 200 }} color="secondary">
+          <InputLabel id="users_label">分担先ユーザー</InputLabel>
+          <Select
+            labelId="users_label"
+            name="user_id"
+            value={teamMemberValue}
+            onChange={(event) => setTeamMemberValue(event.target.value)}
+            input={<OutlinedInput label="分担先ユーザー" />}
+            MenuProps={MenuProps}
+          >
+            {teamMembers.map((member) => (
+              <MenuItem key={member.id} value={member.id.toString()}>
+                {member.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Grid2>
       <Grid2 xs={12}>
         <TextField
