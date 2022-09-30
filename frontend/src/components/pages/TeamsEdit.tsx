@@ -20,6 +20,7 @@ import { useFetchTeam } from "../../hooks/useFetchTeam";
 import { EditTeam, TeamsResponse } from "../../types";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { BackButton } from "../ui/BackButton";
 
 const TeamsEdit: FC = () => {
   const { currentUser, teamReloadFlag, setTeamReloadFlag } =
@@ -105,9 +106,12 @@ const TeamsEdit: FC = () => {
   return (
     <Grid2 container direction="column" rowSpacing={4}>
       <Grid2 xs={12}>
-        <Typography variant="h4" component="div">
-          チーム設定
-        </Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <BackButton />
+          <Typography variant="h4" component="div">
+            チーム設定
+          </Typography>
+        </Stack>
       </Grid2>
       <Grid2 xs={12}>
         <TextField
