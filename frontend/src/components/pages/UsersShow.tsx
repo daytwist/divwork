@@ -38,20 +38,20 @@ const UsersShow: FC = () => {
     flag,
   });
 
-  const tabProps = useCallback((index: number) => {
+  const tabProps = (index: number) => {
     return {
       id: `tab-${index}`,
       "aria-controls": `tabpanel-${index}`,
     };
-  }, []);
+  };
 
-  const handleClickOpen = useCallback(() => {
+  const handleClickOpen = () => {
     setOpen(true);
-  }, []);
+  };
 
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     setOpen(false);
-  }, []);
+  };
 
   const { handleMultiIsDoneUpdate, handleMultiTasksDelete } =
     useHandleMultiTasks({
@@ -75,19 +75,6 @@ const UsersShow: FC = () => {
       }
     },
     []
-  );
-
-  const tabs = useMemo(
-    () => (
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={tabValue} onChange={handleSwitchTasks} textColor="inherit">
-          <Tab label="未了" {...tabProps(0)} />
-          <Tab label="完了済み" {...tabProps(1)} />
-          <Tab label="分担履歴" {...tabProps(2)} />
-        </Tabs>
-      </Box>
-    ),
-    [tabValue]
   );
 
   const unfinishedTasksDataGrid = useMemo(
@@ -192,7 +179,17 @@ const UsersShow: FC = () => {
               ) : (
                 <br />
               )}
-              {tabs}
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <Tabs
+                  value={tabValue}
+                  onChange={handleSwitchTasks}
+                  textColor="inherit"
+                >
+                  <Tab label="未了" {...tabProps(0)} />
+                  <Tab label="完了済み" {...tabProps(1)} />
+                  <Tab label="分担履歴" {...tabProps(2)} />
+                </Tabs>
+              </Box>
             </Stack>
           </Grid2>
           <Grid2

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { GridRowId } from "@mui/x-data-grid";
@@ -14,13 +14,13 @@ export const TasksDeleteIconButton = (props: Props) => {
   const handleTasksDelete = useTasksDelete({ taskId });
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = useCallback(() => {
+  const handleClickOpen = () => {
     setOpen(true);
-  }, []);
+  };
 
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     setOpen(false);
-  }, []);
+  };
 
   return (
     <div>

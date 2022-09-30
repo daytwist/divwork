@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useCallback, useState } from "react";
+import { FC, SyntheticEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Avatar,
@@ -22,12 +22,12 @@ const TeamsShow: FC = () => {
   const { team, users } = useFetchTeam();
   const [tabValue, setTabValue] = useState(0);
 
-  const tabProps = useCallback((index: number) => {
+  const tabProps = (index: number) => {
     return {
       id: `tab-${index}`,
       "aria-controls": `tabpanel-${index}`,
     };
-  }, []);
+  };
 
   const totals: number[] = [];
   // eslint-disable-next-line array-callback-return
@@ -42,12 +42,9 @@ const TeamsShow: FC = () => {
   });
   const maxCount: number = Math.max(...totals);
 
-  const handleSwitchTab = useCallback(
-    (event: SyntheticEvent, newValue: number) => {
-      setTabValue(newValue);
-    },
-    [tabValue]
-  );
+  const handleSwitchTab = (event: SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   return (
     <div>
