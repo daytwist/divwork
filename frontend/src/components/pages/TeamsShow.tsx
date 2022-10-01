@@ -74,8 +74,8 @@ const TeamsShow: FC = () => {
                   onChange={handleSwitchTab}
                   textColor="inherit"
                 >
-                  <Tab label="優先度別" {...tabProps(0)} />
-                  <Tab label="納期別" {...tabProps(1)} />
+                  <Tab label="優先度" {...tabProps(0)} />
+                  <Tab label="納期" {...tabProps(1)} />
                 </Tabs>
               </Box>
             </Stack>
