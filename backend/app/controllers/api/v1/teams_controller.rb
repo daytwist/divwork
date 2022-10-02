@@ -8,7 +8,7 @@ class Api::V1::TeamsController < ApplicationController
     teams = []
 
     Team.all.find_each do |team|
-      if team.max_num_of_users > team.users.size
+      if team.max_num_of_users > team.users_count
         teams << team
       end
     end
