@@ -10,7 +10,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
-import { BackButton } from "../ui/BackButton";
+import { BackIconButton } from "../ui/BackIconButton";
 
 const TasksEdit: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -90,7 +90,7 @@ const TasksEdit: FC = () => {
     <Grid2 container direction="column" rowSpacing={3} width={700}>
       <Grid2 xs={12}>
         <Stack direction="row" spacing={1} alignItems="center">
-          <BackButton />
+          <BackIconButton />
           <Typography gutterBottom variant="h4" component="div">
             タスクを編集する
           </Typography>

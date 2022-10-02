@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   belongs_to :team
+  counter_culture :team
   has_many :tasks, dependent: :destroy
   has_many :divisions, dependent: :nullify
 

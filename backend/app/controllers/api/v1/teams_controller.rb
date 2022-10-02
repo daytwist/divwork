@@ -5,7 +5,14 @@ class Api::V1::TeamsController < ApplicationController
   before_action :ensure_admin_user, only: [:update, :destroy]
 
   def select
-    teams = Team.all
+    teams = []
+
+    Team.all.find_each do |team|
+      if team.max_num_of_users > team.users_count
+        teams << team
+      end
+    end
+
     render json: { teams: }, status: :ok
   end
 

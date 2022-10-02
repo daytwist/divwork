@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { IconButton, Tooltip } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Button } from "@mui/material";
 
 export const BackButton = () => {
   const navigate = useNavigate();
@@ -10,10 +9,8 @@ export const BackButton = () => {
   };
 
   return (
-    <Tooltip title="戻る" placement="top" arrow>
-      <IconButton size="large" onClick={handleBack}>
-        <ArrowBackIcon fontSize="inherit" />
-      </IconButton>
-    </Tooltip>
+    <Button color="secondary" onClick={handleBack}>
+      戻る
+    </Button>
   );
 };

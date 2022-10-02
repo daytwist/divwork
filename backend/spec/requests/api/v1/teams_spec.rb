@@ -5,7 +5,10 @@ RSpec.describe "Api::V1::Teams", type: :request do
   let(:json) { JSON.parse(response.body) }
 
   describe "GET /select" do
-    it "チームの情報取得に成功すること" do
+    let(:another_team) { create(:team, max_num_of_users: 1) }
+    let(:another_user) { create(:user, team: another_team) }
+
+    it "最大人数に達していないチームを取得出来ること" do
       get "/api/v1/teams/select"
       expect(response).to have_http_status(:ok)
       expect(json["teams"][-1]["id"]).to eq team.id
@@ -23,9 +26,9 @@ RSpec.describe "Api::V1::Teams", type: :request do
   end
 
   context "チームの管理者ユーザーがログインしている時" do
-    let(:user_admin) { create(:user, team:, admin: true) }
-    let!(:task) { create(:task, user: user_admin, priority: 0, deadline: Time.zone.today.advance(days: 5)) }
-    let(:headers) { user_admin.create_new_auth_token }
+    let(:admin_user) { create(:user, team:, admin: true) }
+    let!(:task) { create(:task, user: admin_user, priority: 0, deadline: Time.zone.today.advance(days: 5)) }
+    let(:headers) { admin_user.create_new_auth_token }
 
     describe "GET /:id" do
       before do
@@ -38,7 +41,7 @@ RSpec.describe "Api::V1::Teams", type: :request do
       end
 
       it "チームに所属するユーザーの情報を取得出来ること" do
-        expect(json["users"][0]["id"]).to eq user_admin.id
+        expect(json["users"][0]["id"]).to eq admin_user.id
       end
 
       it "ユーザーの未完了タスク数を優先度毎に取得出来ること" do
@@ -67,8 +70,8 @@ RSpec.describe "Api::V1::Teams", type: :request do
   end
 
   describe "ensure_admin_user" do
-    let(:user_normal) { create(:user, team:) }
-    let(:headers) { user_normal.create_new_auth_token }
+    let(:normal_user) { create(:user, team:) }
+    let(:headers) { normal_user.create_new_auth_token }
 
     it "一般ユーザーがチームの情報更新しようとするとエラーが発生すること" do
       params = { name: "team_update" }

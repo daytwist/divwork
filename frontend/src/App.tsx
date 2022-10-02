@@ -7,6 +7,7 @@ import Home from "./components/pages/Home";
 import SignUp from "./components/pages/SignUp";
 import SignIn from "./components/pages/SignIn";
 import TeamsSelect from "./components/pages/TeamsSelect";
+import TeamsNew from "./components/pages/TeamsNew";
 import TeamsShow from "./components/pages/TeamsShow";
 import TeamsEdit from "./components/pages/TeamsEdit";
 import UsersShow from "./components/pages/UsersShow";
@@ -46,6 +47,14 @@ const App: FC = () => {
                   element={
                     <PublicRoute>
                       <TeamsSelect />
+                    </PublicRoute>
+                  }
+                />
+                <Route
+                  path="/sign_up/teams/new"
+                  element={
+                    <PublicRoute>
+                      <TeamsNew />
                     </PublicRoute>
                   }
                 />

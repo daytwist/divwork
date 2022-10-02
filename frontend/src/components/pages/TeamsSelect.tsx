@@ -1,71 +1,48 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Button, MenuItem, TextField, Typography } from "@mui/material";
+import { FC, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
-import { Team, TeamsResponse, TeamsSelectResponse } from "../../types";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { Team, TeamsSelectResponse } from "../../types";
+import { BackButton } from "../ui/BackButton";
 
 const TeamsSelect: FC = () => {
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-
   const [teams, setTeams] = useState<Team[]>([]);
-  const [teamId, setTeamId] = useState<string>("");
-  const [teamName, setTeamName] = useState<string>("");
-  const [newTeamName, setNewTeamName] = useState<string>("");
+  const [teamId, setTeamId] = useState<string | number>("");
+  const [teamName, setTeamName] = useState("");
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent<string | number>) => {
     const { value } = event.target;
     setTeamId(value);
 
-    const teamIdNumber = Number(value);
-    const selectTeam: Team | undefined = teams.find(
-      (v) => v.id === teamIdNumber
-    );
+    const selectTeam: Team | undefined = teams.find((v) => v.id === value);
     console.log(selectTeam);
 
     if (selectTeam) {
       setTeamName(selectTeam.name);
     }
-  };
-
-  const handleTeamsCreate = () => {
-    const teamsCreateOptions: AxiosRequestConfig = {
-      url: "/teams",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: { name: newTeamName },
-    };
-
-    axiosInstance(teamsCreateOptions)
-      .then((res: AxiosResponse<TeamsResponse>) => {
-        console.log(res);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "チームを作成しました",
-        });
-        navigate("/sign_up", {
-          state: {
-            teamId: res.data.team.id,
-            teamName: res.data.team.name,
-            isAdmin: true,
-          },
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.messages.join("。")}`,
-        });
-      });
   };
 
   const options: AxiosRequestConfig = {
@@ -90,70 +67,55 @@ const TeamsSelect: FC = () => {
         <Typography variant="h4" component="div" gutterBottom>
           所属チームの選択
         </Typography>
-        <Typography variant="subtitle1" component="div">
+        <Typography variant="body1" component="div">
           選択したチームでユーザー登録します。
         </Typography>
       </Grid2>
       <Grid2 xs={12}>
-        <TextField
-          select
-          required
-          label="チーム"
-          color="secondary"
-          sx={{ width: "30ch" }}
-          name="id"
-          value={teamId}
-          defaultValue=""
-          onChange={handleChange}
-        >
-          {teams?.map((menu) => (
-            <MenuItem key={menu.id} value={menu.id}>
-              {menu.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl required sx={{ width: 300 }} color="secondary">
+          <InputLabel id="team_label">チーム</InputLabel>
+          <Select
+            labelId="team_label"
+            value={teamId}
+            onChange={handleSelectChange}
+            input={<OutlinedInput label="チーム" />}
+            MenuProps={MenuProps}
+          >
+            {teams?.map((menu) => (
+              <MenuItem key={menu.id} value={menu.id}>
+                {menu.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Grid2>
       <Grid2 xs={12}>
-        <Button variant="contained" type="button">
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
+        <Stack direction="row" spacing={1}>
+          <Button
+            variant="contained"
+            component={Link}
             to="/sign_up"
             key={teamId}
             state={{ teamId, teamName, isAdmin: false }}
           >
             次へ
-          </Link>
-        </Button>
+          </Button>
+          <BackButton />
+        </Stack>
       </Grid2>
       <Grid2 xs={12}>
-        <Typography variant="subtitle1" component="div" sx={{ my: 2, ml: 13 }}>
+        <Typography variant="body1" component="div">
           または
         </Typography>
       </Grid2>
       <Grid2 xs={12}>
-        <Typography variant="h4" component="div" gutterBottom>
-          新規チーム作成
-        </Typography>
-        <Typography variant="subtitle1" component="div">
-          新しいチームの管理者としてユーザー登録します。
-        </Typography>
-      </Grid2>
-      <Grid2 xs={12}>
-        <TextField
-          required
-          type="text"
-          inputProps={{ maxLength: 20 }}
-          label="新規チーム名"
+        <Button
+          variant="contained"
           color="secondary"
-          helperText="20文字以内"
-          value={newTeamName}
-          onChange={(event) => setNewTeamName(event.target.value)}
-          sx={{ width: "30ch" }}
-        />
-      </Grid2>
-      <Grid2 xs={12}>
-        <Button type="submit" variant="contained" onClick={handleTeamsCreate}>
-          作成
+          component={Link}
+          to="/sign_up/teams/new"
+        >
+          新規チーム作成
         </Button>
       </Grid2>
     </Grid2>
