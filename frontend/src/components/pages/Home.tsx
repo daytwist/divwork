@@ -1,60 +1,22 @@
-import { FC, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Cookies from "js-cookie";
+import { FC } from "react";
+import { Link } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
-import { AuthResponse } from "../../types";
-import { AuthContext } from "../../providers/AuthProvider";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
 import telework from "../../images/telework.png";
 import graph from "../../images/graph.png";
 import task from "../../images/task.png";
 import team from "../../images/team.png";
 import folder from "../../images/folder.png";
 import screen from "../../images/screen.png";
+import { useGuestSignIn } from "../../hooks/useGuestSignIn";
 
 const Home: FC = () => {
-  const { setIsSignedIn } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-
-  const handleGuestSignIn = () => {
-    const options: AxiosRequestConfig = {
-      url: "/auth/guest_sign_in",
-      method: "POST",
-    };
-
-    axiosInstance(options)
-      .then((res: AxiosResponse<AuthResponse>) => {
-        console.log(res);
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers.client);
-        Cookies.set("_uid", res.headers.uid);
-        setIsSignedIn(true);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "ゲストログインしました",
-        });
-        navigate("/teams", { replace: false });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          message: `${err.response.data.errors}`,
-        });
-      });
-  };
+  const handleGuestSignIn = useGuestSignIn();
 
   return (
     <Grid2
       container
-      rowSpacing={15}
+      rowSpacing={10}
       columnSpacing={10}
       alignItems="center"
       sx={{ pt: 3 }}
@@ -71,7 +33,6 @@ const Home: FC = () => {
         <Stack direction="column" spacing={2} alignItems="flex-start">
           <Button
             variant="contained"
-            type="button"
             component={Link}
             to="/sign_up/teams/select"
           >
@@ -80,13 +41,12 @@ const Home: FC = () => {
           <Button
             color="secondary"
             variant="contained"
-            type="button"
             component={Link}
             to="/sign_in"
           >
             ログイン
           </Button>
-          <Button color="secondary" type="button" onClick={handleGuestSignIn}>
+          <Button color="secondary" onClick={handleGuestSignIn}>
             ゲストユーザーでログイン
           </Button>
         </Stack>

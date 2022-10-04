@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { RouteProps } from "react-router-dom";
+import { FC, useContext } from "react";
+import { RouteProps, useLocation } from "react-router-dom";
 import { css, Global } from "@emotion/react";
 import {
   Box,
@@ -14,8 +14,13 @@ import { jaJP } from "@mui/x-data-grid";
 import MenuBars from "./MenuBars";
 import { AlertSnackbar } from "./AlertSnackbar";
 import { Footer } from "./Footer";
+import { RecommendBar } from "./RecommendBar";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const CommonLayout: FC<RouteProps> = ({ children }) => {
+  const { loading } = useContext(AuthContext);
+  const location = useLocation();
+
   let theme = createTheme(
     {
       palette: {
@@ -52,7 +57,7 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
     main: css`
       display: flex;
       flex-direction: column;
-      min-height: calc(103vh - 68.5px - 50px);
+      min-height: calc(100vh - 50px);
     `,
 
     footer: css`
@@ -67,13 +72,14 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
         <AlertSnackbar />
         <Box sx={{ display: "flex" }}>
           <MenuBars />
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Box component="main" sx={{ flexGrow: 1 }}>
             <Toolbar />
-            <Container sx={{ py: 3 }}>
+            <Container sx={{ px: 3, py: 6 }}>
               <Grid2 container justifyContent="center">
                 <Grid2>{children}</Grid2>
               </Grid2>
             </Container>
+            {!loading && location.pathname === "/" ? <RecommendBar /> : null}
           </Box>
         </Box>
         <Footer />
