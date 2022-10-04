@@ -9,6 +9,10 @@ import { AuthResponse } from "../../types";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import telework from "../../images/telework.png";
+import graph from "../../images/graph.png";
+import task from "../../images/task.png";
+import team from "../../images/team.png";
+import folder from "../../images/folder.png";
 
 const Home: FC = () => {
   const { setIsSignedIn } = useContext(AuthContext);
@@ -48,7 +52,7 @@ const Home: FC = () => {
 
   return (
     <div>
-      <Grid2 container spacing={15}>
+      <Grid2 container rowSpacing={10} columnSpacing={10}>
         <Grid2 xs={6}>
           <Stack direction="column" spacing={2} alignItems="flex-start">
             <Typography variant="h2" component="div" data-testid="home-title">
@@ -83,6 +87,58 @@ const Home: FC = () => {
           <Box sx={{ width: 380, mt: 2 }}>
             <img src={telework} alt="telework" width="100%" height="100%" />
           </Box>
+        </Grid2>
+        <Grid2 xs={2}>
+          <img src={graph} alt="graph" width={150} />
+        </Grid2>
+        <Grid2 xs={4}>
+          <Stack direction="column" spacing={1}>
+            <Typography variant="h6" component="div">
+              チームタスク管理
+            </Typography>
+            <Typography variant="body1" component="div" color="text.secondary">
+              タスク件数をグラフ化し、メンバーの状況を一目で把握出来ます。優先度表示または納期表示に切り替えることが出来ます。
+            </Typography>
+          </Stack>
+        </Grid2>
+        <Grid2 xs={2}>
+          <img src={task} alt="task" width={130} />
+        </Grid2>
+        <Grid2 xs={4}>
+          <Stack direction="column" spacing={1}>
+            <Typography variant="h6" component="div">
+              納期/進捗管理
+            </Typography>
+            <Typography variant="body1" component="div" color="text.secondary">
+              タスクの納期、進捗率をデータテーブルで確認することが出来ます。絞り込みやソートすることも出来ます。
+            </Typography>
+          </Stack>
+        </Grid2>
+        <Grid2 xs={2}>
+          <img src={team} alt="team" width={140} />
+        </Grid2>
+        <Grid2 xs={4}>
+          <Stack direction="column" spacing={1}>
+            <Typography variant="h6" component="div">
+              タスク分担機能
+            </Typography>
+            <Typography variant="body1" component="div" color="text.secondary">
+              タスクはチームのメンバーと簡単に分担することが出来ます。他メンバーのタスクを分担することも出来ます。
+            </Typography>
+          </Stack>
+        </Grid2>
+        <Grid2 xs={2}>
+          <img src={folder} alt="folder" width={150} />
+        </Grid2>
+        <Grid2 xs={4}>
+          <Stack direction="column" spacing={1}>
+            <Typography variant="h6" component="div">
+              分担タスク管理
+            </Typography>
+            <Typography variant="body1" component="div" color="text.secondary">
+              メンバーの分担履歴を確認することが出来ます。また、関連タスクの進捗状況を確認することが出来ます。
+            </Typography>
+          </Stack>
         </Grid2>
       </Grid2>
     </div>
