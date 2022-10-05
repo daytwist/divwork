@@ -1,18 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home スナップショット 1`] = `
-<div>
+<div
+  className="MuiGrid2-root MuiGrid2-container css-14x5mjd-MuiGrid2-root"
+>
   <div
-    className="MuiTypography-root MuiTypography-h2 MuiTypography-gutterBottom css-i1hrn3-MuiTypography-root"
-    data-testid="home-title"
-  >
-    DivWork
-  </div>
-  <div
-    className="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-column css-o8qf7w-MuiGrid2-root"
+    className="MuiGrid2-root MuiGrid2-grid-xs-6 css-sptymy-MuiGrid2-root"
   >
     <div
-      className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
+      className="css-yz6u8k-MuiStack-root"
+    >
+      <div
+        className="MuiTypography-root MuiTypography-h2 css-1sra7t5-MuiTypography-root"
+        data-testid="home-title"
+      >
+        DivWork
+      </div>
+      <div
+        className="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+      >
+        チーム作業のためのタスク管理ツール
+      </div>
+    </div>
+    <div
+      className="css-1dpyoso-MuiStack-root"
     >
       <a
         className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-sghohy-MuiButtonBase-root-MuiButton-root"
@@ -31,14 +42,9 @@ exports[`Home スナップショット 1`] = `
         onTouchMove={[Function]}
         onTouchStart={[Function]}
         tabIndex={0}
-        type="button"
       >
         ユーザー登録
       </a>
-    </div>
-    <div
-      className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
-    >
       <a
         className="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-zcbmsk-MuiButtonBase-root-MuiButton-root"
         href="/sign_in"
@@ -56,14 +62,9 @@ exports[`Home スナップショット 1`] = `
         onTouchMove={[Function]}
         onTouchStart={[Function]}
         tabIndex={0}
-        type="button"
       >
         ログイン
       </a>
-    </div>
-    <div
-      className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
-    >
       <button
         className="MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1d3f8j8-MuiButtonBase-root-MuiButton-root"
         disabled={false}
@@ -85,6 +86,177 @@ exports[`Home スナップショット 1`] = `
       >
         ゲストユーザーでログイン
       </button>
+    </div>
+  </div>
+  <div
+    className="MuiGrid2-root MuiGrid2-grid-xs-6 css-sptymy-MuiGrid2-root"
+  >
+    <div
+      className="MuiBox-root css-1p60kzr"
+    >
+      <img
+        alt="telework"
+        height="100%"
+        src=""
+        width="100%"
+      />
+    </div>
+  </div>
+  <div
+    className="MuiGrid2-root MuiGrid2-grid-xs-6 css-sptymy-MuiGrid2-root"
+  >
+    <div
+      className="css-1p5q5e5-MuiStack-root"
+    >
+      <div
+        className="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+      >
+        メンバーと協力してタスクを進める
+      </div>
+      <div
+        className="MuiTypography-root MuiTypography-h6 css-1jgmn5n-MuiTypography-root"
+      >
+        DivWorkはチームでタスクを共有、管理が出来るツールです。また、タスクをメンバーと分担することが出来るので、チーム内での協力、助け合いをサポートします。
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid2-root MuiGrid2-grid-xs-6 css-sptymy-MuiGrid2-root"
+  >
+    <div
+      className="MuiBox-root css-utdpdo"
+    >
+      <img
+        alt="screen"
+        height="100%"
+        src=""
+        width="100%"
+      />
+    </div>
+  </div>
+  <div
+    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
+  >
+    <div
+      className="MuiGrid2-root MuiGrid2-container css-1aptk5h-MuiGrid2-root"
+    >
+      <div
+        className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
+      >
+        <div
+          className="MuiTypography-root MuiTypography-h5 css-ph2xsj-MuiTypography-root"
+        >
+          チームのタスク管理に必要な機能が充実
+        </div>
+      </div>
+      <div
+        className="MuiGrid2-root MuiGrid2-grid-xs-2 css-bytlsb-MuiGrid2-root"
+      >
+        <img
+          alt="graph"
+          src=""
+          width={150}
+        />
+      </div>
+      <div
+        className="MuiGrid2-root MuiGrid2-grid-xs-4 css-tttlff-MuiGrid2-root"
+      >
+        <div
+          className="css-1okj3ks-MuiStack-root"
+        >
+          <div
+            className="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+          >
+            チーム状況管理
+          </div>
+          <div
+            className="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+          >
+            タスク件数をグラフ化し、メンバーの状況を一目で把握出来ます。優先度表示または納期表示に切り替えることが出来ます。
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid2-root MuiGrid2-grid-xs-2 css-bytlsb-MuiGrid2-root"
+      >
+        <img
+          alt="task"
+          src=""
+          width={130}
+        />
+      </div>
+      <div
+        className="MuiGrid2-root MuiGrid2-grid-xs-4 css-tttlff-MuiGrid2-root"
+      >
+        <div
+          className="css-1okj3ks-MuiStack-root"
+        >
+          <div
+            className="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+          >
+            納期/進捗管理
+          </div>
+          <div
+            className="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+          >
+            タスクの納期、進捗率をデータテーブルで確認することが出来ます。絞り込みやソートすることも出来ます。
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid2-root MuiGrid2-grid-xs-2 css-bytlsb-MuiGrid2-root"
+      >
+        <img
+          alt="team"
+          src=""
+          width={140}
+        />
+      </div>
+      <div
+        className="MuiGrid2-root MuiGrid2-grid-xs-4 css-tttlff-MuiGrid2-root"
+      >
+        <div
+          className="css-1okj3ks-MuiStack-root"
+        >
+          <div
+            className="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+          >
+            タスク分担機能
+          </div>
+          <div
+            className="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+          >
+            タスクはチームのメンバーと簡単に分担することが出来ます。他メンバーのタスクを分担することも出来ます。
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid2-root MuiGrid2-grid-xs-2 css-bytlsb-MuiGrid2-root"
+      >
+        <img
+          alt="folder"
+          src=""
+          width={150}
+        />
+      </div>
+      <div
+        className="MuiGrid2-root MuiGrid2-grid-xs-4 css-tttlff-MuiGrid2-root"
+      >
+        <div
+          className="css-1okj3ks-MuiStack-root"
+        >
+          <div
+            className="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+          >
+            分担タスク管理
+          </div>
+          <div
+            className="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+          >
+            メンバーの分担履歴を確認することが出来ます。また、関連タスクの進捗状況を確認することが出来ます。
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
