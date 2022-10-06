@@ -1,29 +1,26 @@
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 
 export const TasksNewButton = () => {
   return (
     <div>
+      <Tooltip title="新規作成" placement="top" arrow>
+        <IconButton
+          color="primary"
+          component={Link}
+          to="/tasks/new"
+          sx={{ display: { xs: "flex", md: "none" } }}
+        >
+          <AddTaskIcon />
+        </IconButton>
+      </Tooltip>
       <Button
-        size="small"
         variant="contained"
-        type="button"
         component={Link}
         to="/tasks/new"
         startIcon={<AddTaskIcon />}
-        sx={{ display: { xs: "flex", sm: "none" } }}
-      >
-        新規作成
-      </Button>
-      <Button
-        size="medium"
-        variant="contained"
-        type="button"
-        component={Link}
-        to="/tasks/new"
-        startIcon={<AddTaskIcon />}
-        sx={{ display: { xs: "none", sm: "flex" } }}
+        sx={{ display: { xs: "none", md: "flex" } }}
       >
         新規作成
       </Button>
