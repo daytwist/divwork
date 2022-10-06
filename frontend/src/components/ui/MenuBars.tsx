@@ -1,4 +1,4 @@
-import { FC, useCallback, useContext, useMemo } from "react";
+import { FC, useCallback, useContext, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Divider,
@@ -15,17 +15,30 @@ import {
   Avatar,
   ListItemAvatar,
   ListItemIcon,
+  IconButton,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
+import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderMenuButton } from "./HeaderMenuButton";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchTeam } from "../../hooks/useFetchTeam";
 
 const drawerWidth = 240;
 
-const MenuBars: FC = () => {
+interface Props {
+  // eslint-disable-next-line react/require-default-props
+  window?: () => Window;
+}
+
+const MenuBars: FC = (props: Props) => {
+  const { window } = props;
   const { isSignedIn, currentUser } = useContext(AuthContext);
   const { team, users } = useFetchTeam();
+  const [open, setOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setOpen(!open);
+  };
 
   const unfinishedTasksCount = useCallback((tasks: number[]) => {
     const total = tasks.reduce((sum: number, element: number) => {
@@ -34,14 +47,33 @@ const MenuBars: FC = () => {
     return total;
   }, []);
 
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
   const appBar = useMemo(
     () => (
       <AppBar
         component="header"
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{
+          zIndex: {
+            xs: 1199,
+            md: 1201,
+          },
+        }}
       >
         <Toolbar>
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{
+              mr: 2,
+              display: { md: "none" },
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography
             variant="h5"
             component={Link}
@@ -87,18 +119,7 @@ const MenuBars: FC = () => {
 
   const drawer = useMemo(
     () => (
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
+      <div>
         <Toolbar />
         <Divider />
         <List>
@@ -129,7 +150,7 @@ const MenuBars: FC = () => {
             </ListItem>
           ))}
         </List>
-      </Drawer>
+      </div>
     ),
     [team, users, isSignedIn, currentUser]
   );
@@ -137,7 +158,45 @@ const MenuBars: FC = () => {
   return (
     <Box>
       {appBar}
-      {isSignedIn && team ? drawer : null}
+      {isSignedIn && team ? (
+        <Box
+          component="nav"
+          sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+        >
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={open}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            sx={{
+              display: { xs: "block", md: "none" },
+              zIndex: 1200,
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {drawer}
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: "none", md: "block" },
+              zIndex: 1200,
+              "& .MuiDrawer-paper": {
+                width: drawerWidth,
+                boxSizing: "border-box",
+              },
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Box>
+      ) : null}
     </Box>
   );
 };
