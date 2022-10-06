@@ -58,7 +58,7 @@ const MenuBars: FC = (props: Props) => {
         sx={{
           zIndex: {
             xs: 1199,
-            md: 1201,
+            lg: 1201,
           },
         }}
       >
@@ -70,7 +70,7 @@ const MenuBars: FC = (props: Props) => {
             sx={{
               flexGrow: 0,
               mr: 2,
-              display: { md: "none" },
+              display: { lg: "none" },
             }}
           >
             <MenuIcon />
@@ -162,7 +162,7 @@ const MenuBars: FC = (props: Props) => {
       {isSignedIn && team ? (
         <Box
           component="nav"
-          sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+          sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
         >
           <Drawer
             container={container}
@@ -173,7 +173,7 @@ const MenuBars: FC = (props: Props) => {
               keepMounted: true,
             }}
             sx={{
-              display: { xs: "block", md: "none" },
+              display: { xs: "block", lg: "none" },
               zIndex: 1200,
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
@@ -186,7 +186,7 @@ const MenuBars: FC = (props: Props) => {
           <Drawer
             variant="permanent"
             sx={{
-              display: { xs: "none", md: "block" },
+              display: { xs: "none", lg: "block" },
               zIndex: 1200,
               "& .MuiDrawer-paper": {
                 width: drawerWidth,

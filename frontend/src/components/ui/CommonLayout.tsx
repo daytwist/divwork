@@ -65,7 +65,7 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
           <MenuBars />
           <Box component="main" sx={{ flexGrow: 1 }}>
             <Toolbar />
-            <Container sx={{ px: 3, py: 6 }}>
+            <Container sx={{ px: { xs: 2, sm: 3 }, py: { xs: 4, sm: 6 } }}>
               <Grid2 container justifyContent="center">
                 <Grid2>{children}</Grid2>
               </Grid2>

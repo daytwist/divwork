@@ -100,7 +100,7 @@ const TeamsShow: FC = () => {
                     sx={{
                       width: { xs: 80, sm: 100 },
                       height: { xs: 80, sm: 120 },
-                      mr: { xs: 1, sm: 2 },
+                      mr: { xs: 0, md: 2 },
                     }}
                   >
                     <Avatar
@@ -115,14 +115,18 @@ const TeamsShow: FC = () => {
                       variant="button"
                       sx={{
                         color: "black",
-                        mt: { xs: 0, sm: 1 },
+                        mt: 1,
                       }}
                     >
                       {user.name}
                     </Typography>
                   </Stack>
                 </Link>
-                <Box sx={{ width: { xs: 200, sm: 350, md: 500, lg: 600 } }}>
+                <Box
+                  sx={{
+                    width: { xs: 260, sm: 420, md: 530, lg: 750, xl: 900 },
+                  }}
+                >
                   <TabPanel value={tabValue} index={0}>
                     <PriorityBarChart user={user} maxCount={maxCount} />
                   </TabPanel>
