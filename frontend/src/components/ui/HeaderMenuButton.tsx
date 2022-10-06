@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Divider,
+  IconButton,
   ListItemIcon,
   ListItemText,
   Menu,
@@ -84,13 +85,24 @@ export const HeaderMenuButton: FC = () => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black" }}
-        data-testid="current-user-name"
+        sx={{ color: "black", display: { xs: "none", sm: "flex" } }}
+        data-testid="current-user-icon"
       >
         <Avatar src={currentUser?.avatar} alt="avatar" sx={{ mr: 1 }} />
         {currentUser?.name}
         <ArrowDropDownIcon fontSize="small" />
       </Button>
+      <IconButton
+        id="header-menu-button"
+        aria-controls={open ? "header-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+        sx={{ display: { xs: "flex", sm: "none" }, p: 0 }}
+        data-testid="current-user-icon"
+      >
+        <Avatar src={currentUser?.avatar} alt="avatar" />
+      </IconButton>
       <Menu
         id="header-menu"
         anchorEl={anchorEl}

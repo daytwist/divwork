@@ -60,7 +60,7 @@ describe.only("SignIn", () => {
     });
 
     // Headerにログインユーザー名が表示される
-    expect(await screen.findByTestId("current-user-name")).toBeInTheDocument();
+    expect(await screen.findByTestId("current-user-icon")).toBeInTheDocument();
     expect(await screen.findByText("ログインしました")).toBeInTheDocument();
   }, 8000);
 });

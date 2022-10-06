@@ -45,12 +45,12 @@ describe("MenuBars", () => {
       </BrowserRouter>
     );
 
-    expect(await screen.findByTestId("current-user-name")).toBeInTheDocument();
+    expect(await screen.findByTestId("current-user-icon")).toBeInTheDocument();
 
     // ユーザー名をクリックするとメニューが表示される
     expect(screen.queryByText("マイタスク")).not.toBeInTheDocument();
     act(() => {
-      userEvent.click(screen.getByTestId("current-user-name"));
+      userEvent.click(screen.getByTestId("current-user-icon"));
     });
     expect(screen.getByText("マイタスク")).toBeInTheDocument();
   });

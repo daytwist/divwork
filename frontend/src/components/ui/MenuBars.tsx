@@ -68,6 +68,7 @@ const MenuBars: FC = (props: Props) => {
             edge="start"
             onClick={handleDrawerToggle}
             sx={{
+              flexGrow: 0,
               mr: 2,
               display: { md: "none" },
             }}
