@@ -115,7 +115,7 @@ const TasksShow: FC = () => {
             direction="column"
             spacing={3}
             alignContent="center"
-            width={700}
+            sx={{ width: { xs: 350, sm: 530, md: 780, lg: 800, xl: 1000 } }}
           >
             <Grid2 xs={12}>
               <Stack direction="row" spacing={1} alignItems="center">
@@ -124,7 +124,7 @@ const TasksShow: FC = () => {
               </Stack>
             </Grid2>
             <Grid2 xs={12}>
-              <Card sx={{ p: 2 }}>
+              <Card sx={{ p: { xs: 1, sm: 2 } }}>
                 <CardHeader
                   title={
                     <Typography variant="h5" component="div">
@@ -148,7 +148,7 @@ const TasksShow: FC = () => {
                           登録日：{DatetimeFormat(task.created_at)}
                         </Typography>
                       </Grid2>
-                      {division ? (
+                      {division && (
                         <Grid2 xs={12}>
                           <Stack direction="row">
                             <PeopleIcon
@@ -167,7 +167,7 @@ const TasksShow: FC = () => {
                             </Typography>
                           </Stack>
                         </Grid2>
-                      ) : null}
+                      )}
                       {childrenTasks.length ? (
                         <Grid2 xs={12}>
                           <Stack direction="row">
@@ -206,16 +206,22 @@ const TasksShow: FC = () => {
                     )
                   }
                 />
-                <CardContent>
-                  <Grid2 container rowSpacing={2} pt={0} px={0} pb={2}>
-                    {task.description ? (
+                <CardContent sx={{ p: { xs: 1, sm: 2 } }}>
+                  <Grid2
+                    container
+                    rowSpacing={2}
+                    pt={0}
+                    px={0}
+                    sx={{ pb: { xs: 1, sm: 2 } }}
+                  >
+                    {task.description && (
                       <Grid2 xs={12}>
                         <TaskContentTypography
                           subtitle="詳細"
                           body={task.description}
                         />
                       </Grid2>
-                    ) : null}
+                    )}
                     <Grid2 xs={6}>
                       <PriorityStack value={task.priority} />
                     </Grid2>
@@ -231,42 +237,54 @@ const TasksShow: FC = () => {
                         body={`${task.rate_of_progress}%`}
                       />
                     </Grid2>
-                    <Grid2 xs={6}>
-                      {task.is_done ? (
+                    {task.is_done && (
+                      <Grid2 xs={6}>
                         <TaskContentTypography
                           subtitle="完了日"
                           body={DatetimeFormat(task.updated_at)}
                         />
-                      ) : null}
-                    </Grid2>
+                      </Grid2>
+                    )}
                   </Grid2>
                 </CardContent>
                 <CardActions>
                   <Stack direction="row" spacing={2}>
-                    {task.user_id === currentUser?.id ? (
+                    {task.user_id === currentUser?.id && (
                       <IsDoneUpdateButton
                         onClick={handleIsDoneUpdate}
                         disabled={false}
                         isFinished={task.is_done}
                       />
-                    ) : null}
-                    {task.is_done ? null : (
-                      <Button
-                        variant="contained"
-                        type="button"
-                        component={RouterLink}
-                        to={`/tasks/${task.id}/divisions/new`}
-                        startIcon={<ConnectWithoutContactIcon />}
-                      >
-                        分担する
-                      </Button>
+                    )}
+                    {task.is_done || (
+                      <div>
+                        <Tooltip title="分担する" placement="top" arrow>
+                          <IconButton
+                            color="primary"
+                            component={RouterLink}
+                            to={`/tasks/${task.id}/divisions/new`}
+                            sx={{ display: { xs: "flex", md: "none" } }}
+                          >
+                            <ConnectWithoutContactIcon />
+                          </IconButton>
+                        </Tooltip>
+                        <Button
+                          variant="contained"
+                          component={RouterLink}
+                          to={`/tasks/${task.id}/divisions/new`}
+                          startIcon={<ConnectWithoutContactIcon />}
+                          sx={{ display: { xs: "none", md: "flex" } }}
+                        >
+                          分担する
+                        </Button>
+                      </div>
                     )}
                   </Stack>
                 </CardActions>
               </Card>
             </Grid2>
             <Grid2 xs={12}>
-              {division ? (
+              {division && (
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -305,7 +323,7 @@ const TasksShow: FC = () => {
                     )}
                   </AccordionDetails>
                 </Accordion>
-              ) : null}
+              )}
               {childrenTasks.length ? (
                 <Accordion>
                   <AccordionSummary

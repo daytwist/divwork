@@ -15,11 +15,7 @@ export const TaskCardAvatar = (props: Props) => {
       alt="avatar"
       component={Link}
       to={`/users/${userId}`}
-      sx={{
-        width: { sm: 30 },
-        height: { sm: 30 },
-        mr: 1,
-      }}
+      sx={{ width: 30, height: 30, mr: 1 }}
     />
   );
 };
