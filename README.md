@@ -1,6 +1,6 @@
 [![frontend Lint and Test](https://github.com/daytwist/divwork/actions/workflows/frontend.yml/badge.svg)](https://github.com/daytwist/divwork/actions/workflows/frontend.yml) [![backend Lint and Test](https://github.com/daytwist/divwork/actions/workflows/backend.yml/badge.svg)](https://github.com/daytwist/divwork/actions/workflows/backend.yml)
 
-# divwork
+# DivWork
 
 ### サービス概要
 チームで作業する時、誰が何のタスクを担当しているか把握出来ず困ったことはありませんか？<br>
@@ -27,3 +27,25 @@
 ### なぜこのサービスを作りたいのか
 チーム全体のタスクはExcelで管理することが多かったのですが、手作業で更新しなければならないのと、履歴が残らないので非常に不便でした。また個々の業務量が把握できず、業務の分担に困っていました。<br>
 そこでチームのタスク管理ツールを作成し、さらに分担機能を追加しメンバー間の助け合いを促進出来るようなサービスを作りたいと思いました。
+
+### 使用技術
+**backend**
+- Ruby 3.1.2
+- Ruby on Rails 6.1.6
+- RSpec
+
+**frontend**
+- React 18.1.0
+- TypeScript 4.4.2
+- Jest
+- Testing Library
+
+**インフラ**
+- MySQL 8.0.30
+- Nginx
+- Puma
+- Docker
+- AWS EC2/RDS
+
+**その他**
+- Github Actions
