@@ -90,22 +90,22 @@ const MenuBars: FC = (props: Props) => {
           </Typography>
           <div>
             {isSignedIn ? (
-              <Box sx={{ flexGrow: 0, display: "flex" }}>
+              <Box sx={{ flexGrow: 0 }}>
                 <HeaderMenuButton />
               </Box>
             ) : (
-              <Box sx={{ flexGrow: 0, display: "flex" }}>
+              <Box sx={{ flexGrow: 0 }}>
                 <Button
                   component={Link}
                   to="/sign_up/teams/select"
-                  sx={{ my: 2, color: "black", display: "flex" }}
+                  sx={{ my: { xs: 1, md: 2 }, color: "black" }}
                 >
                   ユーザー登録
                 </Button>
                 <Button
                   component={Link}
                   to="/sign_in"
-                  sx={{ my: 2, color: "black", display: "flex" }}
+                  sx={{ my: { xs: 1, md: 2 }, color: "black" }}
                 >
                   ログイン
                 </Button>
