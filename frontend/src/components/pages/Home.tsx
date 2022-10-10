@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { Link } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
@@ -10,7 +9,7 @@ import browser from "../../images/browser.png";
 import screen from "../../images/screen.png";
 import { useGuestSignIn } from "../../hooks/useGuestSignIn";
 
-const Home: FC = () => {
+export const Home = () => {
   const handleGuestSignIn = useGuestSignIn();
 
   return (
@@ -166,5 +165,3 @@ const Home: FC = () => {
     </Grid2>
   );
 };
-
-export default Home;

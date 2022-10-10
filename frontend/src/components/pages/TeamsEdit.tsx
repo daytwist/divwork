@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -22,7 +22,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const TeamsEdit: FC = () => {
+export const TeamsEdit = () => {
   const { currentUser, teamReloadFlag, setTeamReloadFlag } =
     useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
@@ -164,5 +164,3 @@ const TeamsEdit: FC = () => {
     </Grid2>
   );
 };
-
-export default TeamsEdit;

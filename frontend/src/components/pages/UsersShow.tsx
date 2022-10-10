@@ -1,6 +1,5 @@
 import {
   useContext,
-  FC,
   useState,
   SyntheticEvent,
   useEffect,
@@ -21,7 +20,7 @@ import { TabPanel } from "../ui/TabPanel";
 import { UserNameHeader } from "../models/user/UserNameHeader";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const UsersShow: FC = () => {
+export const UsersShow = () => {
   const { currentUser } = useContext(AuthContext);
   const urlParams = useParams<{ id: string }>();
   const [flag, setFlag] = useState<boolean>(false);
@@ -199,5 +198,3 @@ const UsersShow: FC = () => {
     </div>
   );
 };
-
-export default UsersShow;

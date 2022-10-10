@@ -1,10 +1,10 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import AdminRoute from "../components/functional/AdminRoute";
-import TeamsEdit from "../components/pages/TeamsEdit";
-import TeamsShow from "../components/pages/TeamsShow";
-import CommonLayout from "../components/ui/CommonLayout";
+import { AdminRoute } from "../components/functional/AdminRoute";
+import { TeamsEdit } from "../components/pages/TeamsEdit";
+import { TeamsShow } from "../components/pages/TeamsShow";
+import { CommonLayout } from "../components/ui/CommonLayout";
 import { server } from "../mocks/server";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";

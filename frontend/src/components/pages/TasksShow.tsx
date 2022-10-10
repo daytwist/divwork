@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -40,7 +40,7 @@ import { DeadlineTypography } from "../models/task/DeadlineTypography";
 import { IsDoneTypography } from "../models/task/IsDoneTypography";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const TasksShow: FC = () => {
+export const TasksShow = () => {
   const { currentUser, teamReloadFlag, setTeamReloadFlag } =
     useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
@@ -346,5 +346,3 @@ const TasksShow: FC = () => {
     </div>
   );
 };
-
-export default TasksShow;

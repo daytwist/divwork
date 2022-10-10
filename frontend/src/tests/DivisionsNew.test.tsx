@@ -7,8 +7,8 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { server } from "../mocks/server";
 import { AuthProvider } from "../providers/AuthProvider";
-import DivisionsNew from "../components/pages/DivisionsNew";
-import UsersShow from "../components/pages/UsersShow";
+import { DivisionsNew } from "../components/pages/DivisionsNew";
+import { UsersShow } from "../components/pages/UsersShow";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 
 describe("DivisionsNew", () => {

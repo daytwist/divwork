@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -27,7 +27,7 @@ import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const DivisionsNew: FC = () => {
+export const DivisionsNew = () => {
   const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const params = useParams<{ id: string }>();
@@ -207,5 +207,3 @@ const DivisionsNew: FC = () => {
     </Grid2>
   );
 };
-
-export default DivisionsNew;

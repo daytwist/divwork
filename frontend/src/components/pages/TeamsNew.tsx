@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
@@ -8,7 +8,7 @@ import { TeamsResponse } from "../../types";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { BackButton } from "../ui/BackButton";
 
-const TeamsNew: FC = () => {
+export const TeamsNew = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const [newTeamName, setNewTeamName] = useState<string>("");
@@ -84,5 +84,3 @@ const TeamsNew: FC = () => {
     </Grid2>
   );
 };
-
-export default TeamsNew;

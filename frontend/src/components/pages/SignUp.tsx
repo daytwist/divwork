@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Stack, TextField, Typography } from "@mui/material";
@@ -17,7 +17,7 @@ type State = {
   isAdmin: boolean;
 };
 
-const SignUp: FC = () => {
+export const SignUp = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -148,5 +148,3 @@ const SignUp: FC = () => {
     </Grid2>
   );
 };
-
-export default SignUp;

@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useContext, useState } from "react";
+import { MouseEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -25,7 +25,7 @@ import { axiosInstance } from "../../utils/axios";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
-export const HeaderMenuButton: FC = () => {
+export const HeaderMenuButton = () => {
   const { setIsSignedIn, currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();

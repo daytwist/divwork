@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
-import MenuBars from "../components/ui/MenuBars";
+import { MenuBars } from "../components/ui/MenuBars";
 import { server } from "../mocks/server";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";

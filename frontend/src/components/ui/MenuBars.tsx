@@ -1,4 +1,4 @@
-import { FC, useCallback, useContext, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Divider,
@@ -30,7 +30,7 @@ interface Props {
   window?: () => Window;
 }
 
-const MenuBars: FC = (props: Props) => {
+export const MenuBars = (props: Props) => {
   const { window } = props;
   const { isSignedIn, currentUser } = useContext(AuthContext);
   const { team, users } = useFetchTeam();
@@ -201,5 +201,3 @@ const MenuBars: FC = (props: Props) => {
     </Box>
   );
 };
-
-export default MenuBars;

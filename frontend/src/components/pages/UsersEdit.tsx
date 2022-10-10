@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
+import { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Box, Button, Stack, Tab, Typography } from "@mui/material";
@@ -15,7 +15,7 @@ import { UsersEditProfile } from "../models/user/UsersEditProfile";
 import { UsersEditPassword } from "../models/user/UsersEditPassword";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const UsersEdit: FC = () => {
+export const UsersEdit = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -157,5 +157,3 @@ const UsersEdit: FC = () => {
     </Grid2>
   );
 };
-
-export default UsersEdit;

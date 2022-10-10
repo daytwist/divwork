@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
-import TeamsSelect from "../components/pages/TeamsSelect";
+import { TeamsSelect } from "../components/pages/TeamsSelect";
 
 describe("TeamsSelect", () => {
   test("スナップショット", () => {

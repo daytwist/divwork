@@ -2,11 +2,11 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { act } from "react-dom/test-utils";
-import PrivateRoute from "../components/functional/PrivateRoute";
-import PublicRoute from "../components/functional/PublicRoute";
+import { PrivateRoute } from "../components/functional/PrivateRoute";
+import { PublicRoute } from "../components/functional/PublicRoute";
 import { server } from "../mocks/server";
-import SignIn from "../components/pages/SignIn";
-import TeamsShow from "../components/pages/TeamsShow";
+import { SignIn } from "../components/pages/SignIn";
+import { TeamsShow } from "../components/pages/TeamsShow";
 import { AuthProvider } from "../providers/AuthProvider";
 
 describe("PublicRoute", () => {

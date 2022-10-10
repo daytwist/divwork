@@ -11,13 +11,13 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { jaJP } from "@mui/x-data-grid";
-import MenuBars from "./MenuBars";
+import { MenuBars } from "./MenuBars";
 import { AlertSnackbar } from "./AlertSnackbar";
 import { Footer } from "./Footer";
 import { RecommendBar } from "./RecommendBar";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const CommonLayout: FC<RouteProps> = ({ children }) => {
+export const CommonLayout: FC<RouteProps> = ({ children }) => {
   const { loading } = useContext(AuthContext);
   const location = useLocation();
 
@@ -78,5 +78,3 @@ const CommonLayout: FC<RouteProps> = ({ children }) => {
     </div>
   );
 };
-
-export default CommonLayout;

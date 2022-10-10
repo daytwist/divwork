@@ -5,11 +5,11 @@ import userEvent from "@testing-library/user-event";
 import renderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
-import SignIn from "../components/pages/SignIn";
+import { SignIn } from "../components/pages/SignIn";
 import { AuthProvider } from "../providers/AuthProvider";
-import TeamsShow from "../components/pages/TeamsShow";
+import { TeamsShow } from "../components/pages/TeamsShow";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import CommonLayout from "../components/ui/CommonLayout";
+import { CommonLayout } from "../components/ui/CommonLayout";
 
 describe.only("SignIn", () => {
   test("スナップショット", () => {

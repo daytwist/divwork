@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Avatar,
@@ -18,7 +18,7 @@ import { useFetchTeam } from "../../hooks/useFetchTeam";
 import { TabPanel } from "../ui/TabPanel";
 import { DeadlineBarChart } from "../models/team/DeadlineBarChart";
 
-const TeamsShow: FC = () => {
+export const TeamsShow = () => {
   const { team, users } = useFetchTeam();
   const [tabValue, setTabValue] = useState(0);
 
@@ -145,5 +145,3 @@ const TeamsShow: FC = () => {
     </div>
   );
 };
-
-export default TeamsShow;

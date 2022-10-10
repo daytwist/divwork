@@ -3,7 +3,7 @@ import { Navigate, RouteProps } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 
-const PublicRoute: FC<RouteProps> = ({ children }) => {
+export const PublicRoute: FC<RouteProps> = ({ children }) => {
   const { loading, isSignedIn } = useContext(AuthContext);
 
   if (loading) {
@@ -15,5 +15,3 @@ const PublicRoute: FC<RouteProps> = ({ children }) => {
   }
   return <div>{children}</div>;
 };
-
-export default PublicRoute;

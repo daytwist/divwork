@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -17,7 +17,7 @@ import { axiosInstance } from "../../utils/axios";
 import { Team, TeamsSelectResponse } from "../../types";
 import { BackButton } from "../ui/BackButton";
 
-const TeamsSelect: FC = () => {
+export const TeamsSelect = () => {
   const [teams, setTeams] = useState<Team[]>([]);
   const [teamId, setTeamId] = useState<string | number>("");
   const [teamName, setTeamName] = useState("");
@@ -121,5 +121,3 @@ const TeamsSelect: FC = () => {
     </Grid2>
   );
 };
-
-export default TeamsSelect;

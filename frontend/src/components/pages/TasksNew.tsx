@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Stack, Typography } from "@mui/material";
@@ -11,7 +11,7 @@ import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const TasksNew: FC = () => {
+export const TasksNew = () => {
   const { currentUser, teamReloadFlag, setTeamReloadFlag } =
     useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
@@ -105,5 +105,3 @@ const TasksNew: FC = () => {
     </Grid2>
   );
 };
-
-export default TasksNew;

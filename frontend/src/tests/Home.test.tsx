@@ -5,11 +5,11 @@ import renderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
 import { rest } from "msw";
-import Home from "../components/pages/Home";
+import { Home } from "../components/pages/Home";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import CommonLayout from "../components/ui/CommonLayout";
-import TeamsShow from "../components/pages/TeamsShow";
+import { CommonLayout } from "../components/ui/CommonLayout";
+import { TeamsShow } from "../components/pages/TeamsShow";
 import { server } from "../mocks/server";
 
 describe("Home", () => {

@@ -4,9 +4,9 @@ import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import SignUp from "../components/pages/SignUp";
+import { SignUp } from "../components/pages/SignUp";
 import { AuthProvider } from "../providers/AuthProvider";
-import TeamsNew from "../components/pages/TeamsNew";
+import { TeamsNew } from "../components/pages/TeamsNew";
 
 describe("TeamsNew", () => {
   test("新規チーム作成", async () => {

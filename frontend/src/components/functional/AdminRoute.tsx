@@ -3,7 +3,7 @@ import { Navigate, RouteProps } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 
-const AdminRoute: FC<RouteProps> = ({ children }) => {
+export const AdminRoute: FC<RouteProps> = ({ children }) => {
   const { loading, currentUser, isSignedIn } = useContext(AuthContext);
 
   if (loading) {
@@ -19,5 +19,3 @@ const AdminRoute: FC<RouteProps> = ({ children }) => {
 
   return <Navigate to="/sign_in" />;
 };
-
-export default AdminRoute;

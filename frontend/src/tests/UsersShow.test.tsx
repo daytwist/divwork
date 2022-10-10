@@ -5,10 +5,10 @@ import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { server } from "../mocks/server";
-import UsersShow from "../components/pages/UsersShow";
+import { UsersShow } from "../components/pages/UsersShow";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import CommonLayout from "../components/ui/CommonLayout";
+import { CommonLayout } from "../components/ui/CommonLayout";
 
 describe("UsersShow", () => {
   test("ユーザーのタスク一覧ページ", async () => {

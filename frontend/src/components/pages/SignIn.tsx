@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Stack, TextField, Typography } from "@mui/material";
@@ -11,7 +11,7 @@ import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { PasswordTextfield } from "../models/user/PasswordTextfield";
 import { BackButton } from "../ui/BackButton";
 
-const SignIn: FC = () => {
+export const SignIn = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -109,5 +109,3 @@ const SignIn: FC = () => {
     </Grid2>
   );
 };
-
-export default SignIn;
