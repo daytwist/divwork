@@ -59,8 +59,14 @@ describe("UsersShow", () => {
       expect(screen.queryByText("FINISHED_TASK_2")).not.toBeInTheDocument();
     });
 
-    const finishButton = screen.getByRole("button", { name: "完了済みにする" });
-    const deleteButton = screen.getByRole("button", { name: "削除する" });
+    const finishButton = screen
+      .getAllByRole("button", {
+        name: "完了済みにする",
+      })
+      .pop();
+    const deleteButton = screen
+      .getAllByRole("button", { name: "削除する" })
+      .pop();
     expect(finishButton).toBeDisabled();
     expect(deleteButton).toBeDisabled();
 
@@ -70,8 +76,12 @@ describe("UsersShow", () => {
     expect(finishButton).toBeEnabled();
     expect(deleteButton).toBeEnabled();
 
+    const isFinishedTab = screen.getAllByText("完了済み").pop();
+
     act(() => {
-      userEvent.click(screen.getByText("完了済み"));
+      if (isFinishedTab) {
+        userEvent.click(isFinishedTab);
+      }
     });
 
     // 完了タスクのみ表示される

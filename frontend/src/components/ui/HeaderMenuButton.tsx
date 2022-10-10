@@ -86,7 +86,7 @@ export const HeaderMenuButton: FC = () => {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         sx={{ color: "black", display: { xs: "none", sm: "flex" } }}
-        data-testid="current-user-icon"
+        data-testid="current-user-name"
       >
         <Avatar src={currentUser?.avatar} alt="avatar" sx={{ mr: 1 }} />
         {currentUser?.name}
@@ -99,7 +99,6 @@ export const HeaderMenuButton: FC = () => {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         sx={{ display: { xs: "flex", sm: "none" }, p: 0 }}
-        data-testid="current-user-icon"
       >
         <Avatar src={currentUser?.avatar} alt="avatar" />
       </IconButton>
