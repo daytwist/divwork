@@ -7,7 +7,7 @@ import {
   TextField,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { DivisionTask, EditTask } from "../../../types";
+import { DivisionTask, EditTask } from "../../../types/taskTypes";
 import { PriorityTextField } from "./PriorityTextField";
 import { DeadlineTextField } from "./DeadlineTextField";
 

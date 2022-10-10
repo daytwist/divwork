@@ -5,7 +5,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
-import { TasksResponse } from "../types";
+import { TasksResponse } from "../types/taskTypes";
 
 type Props = {
   selectionModel: GridRowId[];

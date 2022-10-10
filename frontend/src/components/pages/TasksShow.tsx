@@ -29,7 +29,7 @@ import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
 import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
-import { Task, TasksResponse } from "../../types";
+import { Task, TasksResponse } from "../../types/taskTypes";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { UserNameHeader } from "../models/user/UserNameHeader";
 import { ChildrenTasksDetails } from "../models/task/ChildrenTasksDetails";

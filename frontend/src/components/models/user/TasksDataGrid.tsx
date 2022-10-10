@@ -11,7 +11,8 @@ import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact
 import EditIcon from "@mui/icons-material/Edit";
 import clsx from "clsx";
 import { PriorityChipProps } from "./PriorityChipProps";
-import { Task, User } from "../../../types";
+import { User } from "../../../types/userTypes";
+import { Task } from "../../../types/taskTypes";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { TasksDeleteIconButton } from "../task/TasksDeleteIconButton";

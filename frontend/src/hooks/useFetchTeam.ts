@@ -2,7 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
-import { Team, TeamsShowResponse, User } from "../types";
+import { Team, TeamsShowResponse } from "../types/teamTypes";
+import { User } from "../types/userTypes";
 import { AuthContext } from "../providers/AuthProvider";
 
 export const useFetchTeam = () => {

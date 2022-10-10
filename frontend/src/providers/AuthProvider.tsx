@@ -10,7 +10,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { AuthSessionsResponse, User } from "../types";
+import { AuthSessionsResponse, User } from "../types/userTypes";
 import { axiosInstance } from "../utils/axios";
 
 type Props = {

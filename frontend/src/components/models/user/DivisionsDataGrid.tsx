@@ -3,7 +3,7 @@
 import { Link as RouterLink } from "react-router-dom";
 import { Link, Avatar, Stack, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DivisionHistory } from "../../../types";
+import { DivisionHistory } from "../../../types/divisionTypes";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 
 type Props = {

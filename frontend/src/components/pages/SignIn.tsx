@@ -6,7 +6,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { AuthContext } from "../../providers/AuthProvider";
-import { AuthResponse, PasswordState } from "../../types";
+import { AuthResponse, PasswordState } from "../../types/userTypes";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { PasswordTextfield } from "../models/user/PasswordTextfield";
 import { BackButton } from "../ui/BackButton";

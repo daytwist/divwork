@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { User } from "../types/userTypes";
 import {
   ParentTask,
-  DivisionIncludeUserAvatar,
   Task,
   TasksShowResponse,
-  User,
   ChildTask,
-} from "../types";
+} from "../types/taskTypes";
+import { DivisionIncludeUserAvatar } from "../types/divisionTypes";
 import { axiosInstance } from "../utils/axios";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 

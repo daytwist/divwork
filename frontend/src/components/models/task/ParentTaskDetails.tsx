@@ -8,7 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { DivisionIncludeUserAvatar, ParentTask } from "../../../types";
+import { ParentTask } from "../../../types/taskTypes";
+import { DivisionIncludeUserAvatar } from "../../../types/divisionTypes";
 import { TaskContentTypography } from "./TaskContentTypography";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 import { PriorityStack } from "./PriorityStack";

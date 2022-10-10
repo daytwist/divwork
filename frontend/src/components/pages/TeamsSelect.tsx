@@ -14,7 +14,7 @@ import {
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
-import { Team, TeamsSelectResponse } from "../../types";
+import { Team, TeamsSelectResponse } from "../../types/teamTypes";
 import { BackButton } from "../ui/BackButton";
 
 export const TeamsSelect = () => {

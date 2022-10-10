@@ -2,7 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { DivisionHistory, Task, User, UsersResponse } from "../types";
+import { User, UsersResponse } from "../types/userTypes";
+import { Task } from "../types/taskTypes";
+import { DivisionHistory } from "../types/divisionTypes";
 import { axiosInstance } from "../utils/axios";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 

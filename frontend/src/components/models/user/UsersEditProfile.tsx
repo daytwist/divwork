@@ -21,7 +21,7 @@ import {
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../../utils/axios";
-import { User, UsersUpdateResponse } from "../../../types";
+import { User, UsersUpdateResponse } from "../../../types/userTypes";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { SnackbarContext } from "../../../providers/SnackbarProvider";
 

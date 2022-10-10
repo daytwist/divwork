@@ -17,7 +17,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
 import { useFetchTeam } from "../../hooks/useFetchTeam";
-import { EditTeam, TeamsResponse } from "../../types";
+import { EditTeam, TeamsResponse } from "../../types/teamTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { BackIconButton } from "../ui/BackIconButton";

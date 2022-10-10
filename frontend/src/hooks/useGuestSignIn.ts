@@ -5,7 +5,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../utils/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
-import { AuthResponse } from "../types";
+import { AuthResponse } from "../types/userTypes";
 
 export const useGuestSignIn = () => {
   const { setIsSignedIn } = useContext(AuthContext);

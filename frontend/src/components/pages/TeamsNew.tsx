@@ -4,7 +4,7 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { axiosInstance } from "../../utils/axios";
-import { TeamsResponse } from "../../types";
+import { TeamsResponse } from "../../types/teamTypes";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { BackButton } from "../ui/BackButton";
 
