@@ -5,7 +5,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { User, UsersResponse } from "../types/userTypes";
 import { Task } from "../types/taskTypes";
 import { DivisionHistory } from "../types/divisionTypes";
-import { axiosInstance } from "../utils/axios";
+import { baseAxios } from "../apis/axios";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 
 type Props = {
@@ -41,7 +41,7 @@ export const useFetchUser = (props: Props) => {
   };
 
   useEffect(() => {
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<UsersResponse>) => {
         console.log(res);
         setUser(res?.data.user);

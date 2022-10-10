@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
 import { User } from "../../types/userTypes";
 import { DivisionTask } from "../../types/taskTypes";
 import {
@@ -73,7 +73,6 @@ export const DivisionsNew = () => {
       url: `/tasks/${params.id}/divisions`,
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
@@ -91,7 +90,7 @@ export const DivisionsNew = () => {
       },
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<DivisionsCreateResponse>) => {
         console.log(res);
         setTeamReloadFlag(!teamReloadFlag);
@@ -124,7 +123,7 @@ export const DivisionsNew = () => {
   };
 
   useEffect(() => {
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<DivisionsNewResponse>) => {
         console.log(res.data);
         setTask(res.data.task);

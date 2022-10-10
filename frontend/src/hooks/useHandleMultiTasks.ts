@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useCallback, useContext } from "react";
 import Cookies from "js-cookie";
 import { GridRowId } from "@mui/x-data-grid";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
+import { baseAxios } from "../apis/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 import { TasksResponse } from "../types/taskTypes";
@@ -27,7 +27,6 @@ export const useHandleMultiTasks = (props: Props) => {
         url: `/tasks/${id}`,
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json",
           "access-token": Cookies.get("_access_token") || "",
           client: Cookies.get("_client") || "",
           uid: Cookies.get("_uid") || "",
@@ -42,7 +41,7 @@ export const useHandleMultiTasks = (props: Props) => {
             },
       };
 
-      axiosInstance(options)
+      baseAxios(options)
         .then((res: AxiosResponse<TasksResponse>) => {
           console.log(res);
           setFlag(!flag);
@@ -80,7 +79,7 @@ export const useHandleMultiTasks = (props: Props) => {
         },
       };
 
-      axiosInstance(options)
+      baseAxios(options)
         .then((res: AxiosResponse) => {
           console.log(res);
           setFlag(!flag);

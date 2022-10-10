@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { GridRowId } from "@mui/x-data-grid";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
+import { baseAxios } from "../apis/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 
@@ -29,7 +29,7 @@ export const useTasksDelete = (props: Props) => {
   };
 
   const handleTasksDelete = useCallback(() => {
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse) => {
         console.log(res);
         setTeamReloadFlag(!teamReloadFlag);

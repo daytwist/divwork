@@ -5,7 +5,7 @@ import { Box, Button, Stack, Tab, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
 import { User } from "../../types/userTypes";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -69,7 +69,7 @@ export const UsersEdit = () => {
       },
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse) => {
         console.log(res);
         setIsSignedIn(false);

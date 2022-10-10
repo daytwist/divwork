@@ -10,7 +10,7 @@ import {
   ChildTask,
 } from "../types/taskTypes";
 import { DivisionIncludeUserAvatar } from "../types/divisionTypes";
-import { axiosInstance } from "../utils/axios";
+import { baseAxios } from "../apis/axios";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 
 type Props = {
@@ -46,7 +46,7 @@ export const useFetchTask = (props: Props) => {
   };
 
   useEffect(() => {
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<TasksShowResponse>) => {
         console.log(res);
         setTask(res?.data.task);

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
 import { Team, TeamsSelectResponse } from "../../types/teamTypes";
 import { BackButton } from "../ui/BackButton";
 
@@ -51,7 +51,7 @@ export const TeamsSelect = () => {
   };
 
   useEffect(() => {
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<TeamsSelectResponse>) => {
         console.log(res);
         setTeams(res.data.teams);

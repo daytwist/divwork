@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
 import { useFetchTeam } from "../../hooks/useFetchTeam";
 import { EditTeam, TeamsResponse } from "../../types/teamTypes";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -67,7 +67,6 @@ export const TeamsEdit = () => {
       url: `/teams/${currentUser?.team_id}`,
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
@@ -75,7 +74,7 @@ export const TeamsEdit = () => {
       data: team,
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<TeamsResponse>) => {
         console.log(res);
         setTeamReloadFlag(!teamReloadFlag);

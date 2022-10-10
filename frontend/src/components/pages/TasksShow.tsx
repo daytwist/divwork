@@ -22,7 +22,7 @@ import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
@@ -60,7 +60,6 @@ export const TasksShow = () => {
       url: `/tasks/${task?.id}`,
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
@@ -75,7 +74,7 @@ export const TasksShow = () => {
           },
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
         setTask(res.data.task);

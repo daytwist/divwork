@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
 import { TeamsResponse } from "../../types/teamTypes";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { BackButton } from "../ui/BackButton";
@@ -17,13 +17,10 @@ export const TeamsNew = () => {
     const teamsCreateOptions: AxiosRequestConfig = {
       url: "/teams",
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       data: { name: newTeamName },
     };
 
-    axiosInstance(teamsCreateOptions)
+    baseAxios(teamsCreateOptions)
       .then((res: AxiosResponse<TeamsResponse>) => {
         console.log(res);
         handleSetSnackbar({

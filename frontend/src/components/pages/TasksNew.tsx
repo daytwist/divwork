@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
 import { TasksResponse, EditTask } from "../../types/taskTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
@@ -42,7 +42,6 @@ export const TasksNew = () => {
       url: "/tasks",
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
@@ -56,7 +55,7 @@ export const TasksNew = () => {
       },
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
         setTeamReloadFlag(!teamReloadFlag);

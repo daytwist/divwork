@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
+import { baseAxios } from "../apis/axios";
 import { Team, TeamsShowResponse } from "../types/teamTypes";
 import { User } from "../types/userTypes";
 import { AuthContext } from "../providers/AuthProvider";
@@ -23,7 +23,7 @@ export const useFetchTeam = () => {
 
   useEffect(() => {
     if (currentUser) {
-      axiosInstance(options)
+      baseAxios(options)
         .then((res: AxiosResponse<TeamsShowResponse>) => {
           console.log(res);
           setTeam(res.data.team);

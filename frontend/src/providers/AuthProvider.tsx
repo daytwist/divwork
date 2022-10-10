@@ -11,7 +11,7 @@ import {
   useState,
 } from "react";
 import { AuthSessionsResponse, User } from "../types/userTypes";
-import { axiosInstance } from "../utils/axios";
+import { baseAxios } from "../apis/axios";
 
 type Props = {
   children: ReactNode;
@@ -72,7 +72,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<AuthSessionsResponse>) => {
         console.log(res);
 
