@@ -20,7 +20,7 @@ import { TasksDeleteIconButton } from "../task/TasksDeleteIconButton";
 type Props = {
   isFinished: boolean;
   user: User | undefined;
-  tasks: Task[];
+  tasks: Task[] | undefined;
   selectionModel: GridRowId[];
   setSelectionModel: Dispatch<SetStateAction<GridRowId[]>>;
 };
@@ -29,7 +29,7 @@ export const TasksDataGrid = (props: Props) => {
   const { isFinished, user, tasks, selectionModel, setSelectionModel } = props;
   const { currentUser } = useContext(AuthContext);
 
-  const rows = tasks.map((task) => ({
+  const rows = tasks?.map((task) => ({
     id: task.id,
     title: task.title,
     description: task.description,
@@ -177,7 +177,7 @@ export const TasksDataGrid = (props: Props) => {
     >
       {user?.id === currentUser?.id ? (
         <DataGrid
-          rows={rows}
+          rows={rows || []}
           columns={isFinished ? finishedTasksColumns : unfinishedTasksColumns}
           pageSize={10}
           rowsPerPageOptions={[10]}
@@ -189,7 +189,7 @@ export const TasksDataGrid = (props: Props) => {
         />
       ) : (
         <DataGrid
-          rows={rows}
+          rows={rows || []}
           columns={isFinished ? finishedTasksColumns : unfinishedTasksColumns}
           pageSize={10}
           rowsPerPageOptions={[10]}
