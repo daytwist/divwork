@@ -25,7 +25,13 @@ export const ChildrenTasksDetails = (props: Props) => {
   const { childrenTasks } = props;
 
   return (
-    <Grid2 container direction="column" rowSpacing={1} pt={0} px={2} pb={2}>
+    <Grid2
+      container
+      direction="column"
+      rowSpacing={1}
+      pt={0}
+      sx={{ px: { xs: 1, sm: 2 }, pb: { xs: 1, sm: 2 } }}
+    >
       {childrenTasks?.map((childTask) => (
         <div key={childTask.id}>
           <Grid2 xs={12}>
@@ -53,15 +59,15 @@ export const ChildrenTasksDetails = (props: Props) => {
               </Typography>
             </Stack>
           </Grid2>
-          {childTask.division.comment ? (
+          {childTask.division.comment && (
             <Grid2 xs={12}>
               <Typography variant="body1" component="div">
                 コメント：{childTask.division.comment}
               </Typography>
             </Grid2>
-          ) : null}
+          )}
           <Grid2 xs={12}>
-            <Card sx={{ p: 2, mt: 2 }}>
+            <Card sx={{ p: { xs: 1, sm: 2 }, mt: { xs: 1, sm: 2 } }}>
               <CardHeader
                 sx={{ p: 1 }}
                 title={
@@ -98,14 +104,14 @@ export const ChildrenTasksDetails = (props: Props) => {
               />
               <CardContent sx={{ p: 1 }}>
                 <Grid2 container rowSpacing={2} p={0}>
-                  {childTask.description ? (
+                  {childTask.description && (
                     <Grid2 xs={12}>
                       <TaskContentTypography
                         subtitle="詳細"
                         body={childTask.description}
                       />
                     </Grid2>
-                  ) : null}
+                  )}
                   <Grid2 xs={6}>
                     <PriorityStack value={childTask.priority} />
                   </Grid2>
@@ -125,7 +131,7 @@ export const ChildrenTasksDetails = (props: Props) => {
               </CardContent>
             </Card>
           </Grid2>
-          <Divider sx={{ my: 4 }} />
+          <Divider sx={{ my: { xs: 2, sm: 4 } }} />
         </div>
       ))}
     </Grid2>

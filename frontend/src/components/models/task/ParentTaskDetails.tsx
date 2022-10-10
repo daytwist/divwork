@@ -25,7 +25,13 @@ export const ParentTaskDetails = (props: Props) => {
   const { division, parentTask } = props;
 
   return (
-    <Grid2 container direction="column" rowSpacing={1} pt={0} px={2} pb={2}>
+    <Grid2
+      container
+      direction="column"
+      rowSpacing={1}
+      pt={0}
+      sx={{ px: { xs: 1, sm: 2 }, pb: { xs: 1, sm: 2 } }}
+    >
       <Grid2 xs={12}>
         <Typography color="text.secondary" variant="body2" component="div">
           {DatetimeFormat(division.created_at)}
@@ -49,15 +55,15 @@ export const ParentTaskDetails = (props: Props) => {
           </Typography>
         </Stack>
       </Grid2>
-      {division.comment ? (
+      {division.comment && (
         <Grid2 xs={12}>
           <Typography variant="body1" component="div">
             コメント：{division.comment}
           </Typography>
         </Grid2>
-      ) : null}
+      )}
       <Grid2 xs={12}>
-        <Card sx={{ p: 2, mt: 2 }}>
+        <Card sx={{ p: { xs: 1, sm: 2 }, mt: { xs: 1, sm: 2 } }}>
           <CardHeader
             sx={{ p: 1 }}
             title={
@@ -95,14 +101,14 @@ export const ParentTaskDetails = (props: Props) => {
           />
           <CardContent sx={{ p: 1 }}>
             <Grid2 container rowSpacing={2} p={0}>
-              {parentTask.description ? (
+              {parentTask.description && (
                 <Grid2 xs={12}>
                   <TaskContentTypography
                     subtitle="詳細"
                     body={parentTask.description}
                   />
                 </Grid2>
-              ) : null}
+              )}
               <Grid2 xs={6}>
                 <PriorityStack value={parentTask.priority} />
               </Grid2>

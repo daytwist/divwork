@@ -11,9 +11,22 @@ export const BackIconButton = () => {
 
   return (
     <Tooltip title="戻る" placement="top" arrow>
-      <IconButton size="large" onClick={handleBack}>
-        <ArrowBackIcon fontSize="inherit" />
-      </IconButton>
+      <div>
+        <IconButton
+          size="medium"
+          onClick={handleBack}
+          sx={{ display: { xs: "flex", sm: "none" } }}
+        >
+          <ArrowBackIcon fontSize="inherit" />
+        </IconButton>
+        <IconButton
+          size="large"
+          onClick={handleBack}
+          sx={{ display: { xs: "none", sm: "flex" } }}
+        >
+          <ArrowBackIcon fontSize="inherit" />
+        </IconButton>
+      </div>
     </Tooltip>
   );
 };

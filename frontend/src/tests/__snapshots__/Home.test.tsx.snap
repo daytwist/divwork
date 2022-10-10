@@ -2,13 +2,13 @@
 
 exports[`Home スナップショット 1`] = `
 <div
-  className="MuiGrid2-root MuiGrid2-container css-14x5mjd-MuiGrid2-root"
+  className="MuiGrid2-root MuiGrid2-container css-6pdv1i-MuiGrid2-root"
 >
   <div
-    className="MuiGrid2-root MuiGrid2-grid-xs-6 css-sptymy-MuiGrid2-root"
+    className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-md-7 MuiGrid2-grid-lg-6 css-1qh1r3k-MuiGrid2-root"
   >
     <div
-      className="css-yz6u8k-MuiStack-root"
+      className="css-ag2nwu-MuiStack-root"
     >
       <div
         className="MuiTypography-root MuiTypography-h2 css-1sra7t5-MuiTypography-root"
@@ -89,10 +89,10 @@ exports[`Home スナップショット 1`] = `
     </div>
   </div>
   <div
-    className="MuiGrid2-root MuiGrid2-grid-xs-6 css-sptymy-MuiGrid2-root"
+    className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-md-5 MuiGrid2-grid-lg-6 css-13iieav-MuiGrid2-root"
   >
     <div
-      className="MuiBox-root css-1p60kzr"
+      className="MuiBox-root css-38icjw"
     >
       <img
         alt="telework"
@@ -103,7 +103,7 @@ exports[`Home スナップショット 1`] = `
     </div>
   </div>
   <div
-    className="MuiGrid2-root MuiGrid2-grid-xs-6 css-sptymy-MuiGrid2-root"
+    className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-md-7 MuiGrid2-grid-lg-6 css-1qh1r3k-MuiGrid2-root"
   >
     <div
       className="css-1p5q5e5-MuiStack-root"
@@ -121,10 +121,10 @@ exports[`Home スナップショット 1`] = `
     </div>
   </div>
   <div
-    className="MuiGrid2-root MuiGrid2-grid-xs-6 css-sptymy-MuiGrid2-root"
+    className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-md-5 MuiGrid2-grid-lg-6 css-13iieav-MuiGrid2-root"
   >
     <div
-      className="MuiBox-root css-utdpdo"
+      className="MuiBox-root css-1qqb1x3"
     >
       <img
         alt="screen"
@@ -138,7 +138,7 @@ exports[`Home スナップショット 1`] = `
     className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
   >
     <div
-      className="MuiGrid2-root MuiGrid2-container css-1aptk5h-MuiGrid2-root"
+      className="MuiGrid2-root MuiGrid2-container css-122nd73-MuiGrid2-root"
     >
       <div
         className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
@@ -150,16 +150,21 @@ exports[`Home スナップショット 1`] = `
         </div>
       </div>
       <div
-        className="MuiGrid2-root MuiGrid2-grid-xs-2 css-bytlsb-MuiGrid2-root"
+        className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-sm-4 MuiGrid2-grid-md-2 css-en44ia-MuiGrid2-root"
       >
-        <img
-          alt="graph"
-          src=""
-          width={150}
-        />
+        <div
+          className="MuiBox-root css-cgw7gv"
+        >
+          <img
+            alt="graph"
+            height="100%"
+            src=""
+            width="100%"
+          />
+        </div>
       </div>
       <div
-        className="MuiGrid2-root MuiGrid2-grid-xs-4 css-tttlff-MuiGrid2-root"
+        className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-sm-8 MuiGrid2-grid-md-4 css-1jdotee-MuiGrid2-root"
       >
         <div
           className="css-1okj3ks-MuiStack-root"
@@ -177,16 +182,21 @@ exports[`Home スナップショット 1`] = `
         </div>
       </div>
       <div
-        className="MuiGrid2-root MuiGrid2-grid-xs-2 css-bytlsb-MuiGrid2-root"
+        className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-sm-4 MuiGrid2-grid-md-2 css-en44ia-MuiGrid2-root"
       >
-        <img
-          alt="task"
-          src=""
-          width={130}
-        />
+        <div
+          className="MuiBox-root css-cgw7gv"
+        >
+          <img
+            alt="task"
+            height="100%"
+            src=""
+            width="100%"
+          />
+        </div>
       </div>
       <div
-        className="MuiGrid2-root MuiGrid2-grid-xs-4 css-tttlff-MuiGrid2-root"
+        className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-sm-8 MuiGrid2-grid-md-4 css-1jdotee-MuiGrid2-root"
       >
         <div
           className="css-1okj3ks-MuiStack-root"
@@ -204,16 +214,22 @@ exports[`Home スナップショット 1`] = `
         </div>
       </div>
       <div
-        className="MuiGrid2-root MuiGrid2-grid-xs-2 css-bytlsb-MuiGrid2-root"
+        className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-sm-4 MuiGrid2-grid-md-2 css-en44ia-MuiGrid2-root"
       >
-        <img
-          alt="team"
-          src=""
-          width={140}
-        />
+        <div
+          className="MuiBox-root css-cgw7gv"
+        >
+          <img
+            alt="team"
+            className="css-1a1jomb-Home"
+            height="100%"
+            src=""
+            width="100%"
+          />
+        </div>
       </div>
       <div
-        className="MuiGrid2-root MuiGrid2-grid-xs-4 css-tttlff-MuiGrid2-root"
+        className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-sm-8 MuiGrid2-grid-md-4 css-1jdotee-MuiGrid2-root"
       >
         <div
           className="css-1okj3ks-MuiStack-root"
@@ -231,16 +247,21 @@ exports[`Home スナップショット 1`] = `
         </div>
       </div>
       <div
-        className="MuiGrid2-root MuiGrid2-grid-xs-2 css-bytlsb-MuiGrid2-root"
+        className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-sm-4 MuiGrid2-grid-md-2 css-en44ia-MuiGrid2-root"
       >
-        <img
-          alt="folder"
-          src=""
-          width={150}
-        />
+        <div
+          className="MuiBox-root css-cgw7gv"
+        >
+          <img
+            alt="browser"
+            height="100%"
+            src=""
+            width="100%"
+          />
+        </div>
       </div>
       <div
-        className="MuiGrid2-root MuiGrid2-grid-xs-4 css-tttlff-MuiGrid2-root"
+        className="MuiGrid2-root MuiGrid2-grid-xs-12 MuiGrid2-grid-sm-8 MuiGrid2-grid-md-4 css-1jdotee-MuiGrid2-root"
       >
         <div
           className="css-1okj3ks-MuiStack-root"

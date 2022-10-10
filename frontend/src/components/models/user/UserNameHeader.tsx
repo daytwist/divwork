@@ -12,7 +12,7 @@ export const UserNameHeader = (props: Props) => {
 
   const userNameHeader = useMemo(
     () => (
-      <Stack direction="row" alignItems="center" mb={1}>
+      <Stack direction="row" alignItems="center">
         <Avatar
           src={user?.avatar}
           alt="avatar"
@@ -21,8 +21,8 @@ export const UserNameHeader = (props: Props) => {
           sx={{
             width: { sm: 60 },
             height: { sm: 60 },
-            ml: 1,
-            mr: 2,
+            ml: { xs: 0, sm: 1 },
+            mr: { xs: 1, sm: 2 },
           }}
         />
         <Link

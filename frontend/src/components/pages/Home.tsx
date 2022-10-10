@@ -6,7 +6,7 @@ import telework from "../../images/telework.png";
 import graph from "../../images/graph.png";
 import task from "../../images/task.png";
 import team from "../../images/team.png";
-import folder from "../../images/folder.png";
+import browser from "../../images/browser.png";
 import screen from "../../images/screen.png";
 import { useGuestSignIn } from "../../hooks/useGuestSignIn";
 
@@ -17,12 +17,11 @@ const Home: FC = () => {
     <Grid2
       container
       rowSpacing={10}
-      columnSpacing={10}
       alignItems="center"
-      sx={{ pt: 3 }}
+      sx={{ pt: { xs: 0, md: 3 }, px: 4 }}
     >
-      <Grid2 xs={6}>
-        <Stack direction="column" spacing={2} alignItems="flex-start" mb={4}>
+      <Grid2 xs={12} md={7} lg={6}>
+        <Stack direction="column" spacing={2} mb={4}>
           <Typography variant="h2" component="div" data-testid="home-title">
             DivWork
           </Typography>
@@ -51,12 +50,12 @@ const Home: FC = () => {
           </Button>
         </Stack>
       </Grid2>
-      <Grid2 xs={6}>
-        <Box sx={{ width: 390, m: "auto" }}>
+      <Grid2 xs={12} md={5} lg={6}>
+        <Box sx={{ width: { xs: 230, sm: 400, md: 350, lg: 400 }, m: "auto" }}>
           <img src={telework} alt="telework" width="100%" height="100%" />
         </Box>
       </Grid2>
-      <Grid2 xs={6}>
+      <Grid2 xs={12} md={7} lg={6}>
         <Stack direction="column" spacing={2}>
           <Typography variant="h5" component="div">
             メンバーと協力してタスクを進める
@@ -66,22 +65,26 @@ const Home: FC = () => {
           </Typography>
         </Stack>
       </Grid2>
-      <Grid2 xs={6}>
-        <Box sx={{ width: 400, mx: "auto" }}>
+      <Grid2 xs={12} md={5} lg={6}>
+        <Box sx={{ width: { xs: 230, sm: 400, md: 280, lg: 400 }, mx: "auto" }}>
           <img src={screen} alt="screen" width="100%" height="100%" />
         </Box>
       </Grid2>
       <Grid2 xs={12}>
-        <Grid2 container rowSpacing={5} columnSpacing={10}>
+        <Grid2 container rowSpacing={5} columnSpacing={5}>
           <Grid2 xs={12}>
             <Typography variant="h5" component="div" textAlign="center">
               チームのタスク管理に必要な機能が充実
             </Typography>
           </Grid2>
-          <Grid2 xs={2}>
-            <img src={graph} alt="graph" width={150} />
+          <Grid2 xs={12} sm={4} md={2}>
+            <Box
+              sx={{ width: { xs: 180, sm: 145, md: 120, lg: 150 }, m: "auto" }}
+            >
+              <img src={graph} alt="graph" width="100%" height="100%" />
+            </Box>
           </Grid2>
-          <Grid2 xs={4}>
+          <Grid2 xs={12} sm={8} md={4}>
             <Stack direction="column" spacing={1}>
               <Typography variant="h6" component="div">
                 チーム状況管理
@@ -95,10 +98,14 @@ const Home: FC = () => {
               </Typography>
             </Stack>
           </Grid2>
-          <Grid2 xs={2}>
-            <img src={task} alt="task" width={130} />
+          <Grid2 xs={12} sm={4} md={2}>
+            <Box
+              sx={{ width: { xs: 180, sm: 145, md: 120, lg: 150 }, m: "auto" }}
+            >
+              <img src={task} alt="task" width="100%" height="100%" />
+            </Box>
           </Grid2>
-          <Grid2 xs={4}>
+          <Grid2 xs={12} sm={8} md={4}>
             <Stack direction="column" spacing={1}>
               <Typography variant="h6" component="div">
                 納期/進捗管理
@@ -112,10 +119,14 @@ const Home: FC = () => {
               </Typography>
             </Stack>
           </Grid2>
-          <Grid2 xs={2}>
-            <img src={team} alt="team" width={140} />
+          <Grid2 xs={12} sm={4} md={2}>
+            <Box
+              sx={{ width: { xs: 180, sm: 145, md: 120, lg: 150 }, m: "auto" }}
+            >
+              <img css src={team} alt="team" width="100%" height="100%" />
+            </Box>
           </Grid2>
-          <Grid2 xs={4}>
+          <Grid2 xs={12} sm={8} md={4}>
             <Stack direction="column" spacing={1}>
               <Typography variant="h6" component="div">
                 タスク分担機能
@@ -129,10 +140,14 @@ const Home: FC = () => {
               </Typography>
             </Stack>
           </Grid2>
-          <Grid2 xs={2}>
-            <img src={folder} alt="folder" width={150} />
+          <Grid2 xs={12} sm={4} md={2}>
+            <Box
+              sx={{ width: { xs: 180, sm: 145, md: 120, lg: 150 }, m: "auto" }}
+            >
+              <img src={browser} alt="browser" width="100%" height="100%" />
+            </Box>
           </Grid2>
-          <Grid2 xs={4}>
+          <Grid2 xs={12} sm={8} md={4}>
             <Stack direction="column" spacing={1}>
               <Typography variant="h6" component="div">
                 分担タスク管理
