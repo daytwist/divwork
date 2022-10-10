@@ -16,18 +16,20 @@ import {
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
-import { useFetchTeam } from "../../hooks/useFetchTeam";
+import { useTeam } from "../../hooks/useTeam";
 import { EditTeam, TeamsResponse } from "../../types/teamTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { BackIconButton } from "../ui/BackIconButton";
+import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 export const TeamsEdit = () => {
   const { currentUser, teamReloadFlag, setTeamReloadFlag } =
     useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const { team: teamData, users } = useFetchTeam();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const [teamData, isLoading, error] = useTeam();
   const [team, setTeam] = useState<EditTeam>({
     name: "",
     max_num_of_users: 10,
@@ -44,7 +46,7 @@ export const TeamsEdit = () => {
     },
   };
 
-  const numOfUsers = users ? users.length : 1;
+  const numOfUsers = teamData?.users ? teamData?.users.length : 1;
   const numbers: number[] = [];
   for (let i = numOfUsers; i < 21; i += 1) {
     numbers.push(i);
@@ -97,10 +99,25 @@ export const TeamsEdit = () => {
   };
 
   useEffect(() => {
-    if (teamData) {
-      setTeam(teamData);
+    if (teamData?.team) {
+      setTeam(teamData.team);
     }
-  }, [teamData]);
+  }, [teamData?.team]);
+
+  useEffect(() => {
+    if (error) {
+      handleSetSnackbar({
+        open: true,
+        type: "error",
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+        message: "情報取得出来ませんでした",
+      });
+    }
+  }, [error]);
+
+  if (isLoading) {
+    return <LoadingColorRing />;
+  }
 
   return (
     <Grid2 container direction="column" rowSpacing={4}>
