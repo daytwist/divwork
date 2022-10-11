@@ -5,13 +5,13 @@ import userEvent from "@testing-library/user-event";
 import renderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
-import SignIn from "../components/pages/SignIn";
+import { SignIn } from "../components/pages/SignIn";
 import { AuthProvider } from "../providers/AuthProvider";
-import TeamsShow from "../components/pages/TeamsShow";
+import { TeamsShow } from "../components/pages/TeamsShow";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import CommonLayout from "../components/ui/CommonLayout";
+import { CommonLayout } from "../components/ui/CommonLayout";
 
-describe.only("SignIn", () => {
+describe("SignIn", () => {
   test("スナップショット", () => {
     const tree = renderer
       .create(
@@ -23,7 +23,7 @@ describe.only("SignIn", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test.only("ログイン後の表示", async () => {
+  test("ログイン後の表示", async () => {
     render(
       <MemoryRouter initialEntries={["/sign_in"]}>
         <AuthProvider>

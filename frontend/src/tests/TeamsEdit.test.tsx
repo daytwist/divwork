@@ -5,12 +5,12 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import CommonLayout from "../components/ui/CommonLayout";
+import { CommonLayout } from "../components/ui/CommonLayout";
 import { server } from "../mocks/server";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import TeamsShow from "../components/pages/TeamsShow";
-import TeamsEdit from "../components/pages/TeamsEdit";
+import { TeamsShow } from "../components/pages/TeamsShow";
+import { TeamsEdit } from "../components/pages/TeamsEdit";
 
 describe("TeamsEdit", () => {
   server.use(

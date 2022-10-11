@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { User } from "../../../types";
+import { User } from "../../../types/userTypes";
 
 type Props = {
   user: User;

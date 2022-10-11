@@ -1,11 +1,11 @@
-import { FC, useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import hydrangea from "../../images/hydrangea.png";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const NotFound: FC = () => {
+export const NotFound = () => {
   const { isSignedIn } = useContext(AuthContext);
 
   return (
@@ -37,5 +37,3 @@ const NotFound: FC = () => {
     </Grid2>
   );
 };
-
-export default NotFound;

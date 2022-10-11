@@ -2,10 +2,10 @@ import { useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../utils/axios";
+import { baseAxios } from "../apis/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
-import { AuthResponse } from "../types";
+import { AuthResponse } from "../types/userTypes";
 
 export const useGuestSignIn = () => {
   const { setIsSignedIn } = useContext(AuthContext);
@@ -18,7 +18,7 @@ export const useGuestSignIn = () => {
   };
 
   const handleGuestSignIn = useCallback(() => {
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<AuthResponse>) => {
         console.log(res);
         Cookies.set("_access_token", res.headers["access-token"]);

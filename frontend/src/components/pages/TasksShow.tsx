@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -22,14 +22,14 @@ import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
 import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
-import { Task, TasksResponse } from "../../types";
+import { Task, TasksResponse } from "../../types/taskTypes";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { UserNameHeader } from "../models/user/UserNameHeader";
 import { ChildrenTasksDetails } from "../models/task/ChildrenTasksDetails";
@@ -40,7 +40,7 @@ import { DeadlineTypography } from "../models/task/DeadlineTypography";
 import { IsDoneTypography } from "../models/task/IsDoneTypography";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const TasksShow: FC = () => {
+export const TasksShow = () => {
   const { currentUser, teamReloadFlag, setTeamReloadFlag } =
     useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
@@ -60,7 +60,6 @@ const TasksShow: FC = () => {
       url: `/tasks/${task?.id}`,
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
@@ -75,7 +74,7 @@ const TasksShow: FC = () => {
           },
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
         setTask(res.data.task);
@@ -346,5 +345,3 @@ const TasksShow: FC = () => {
     </div>
   );
 };
-
-export default TasksShow;

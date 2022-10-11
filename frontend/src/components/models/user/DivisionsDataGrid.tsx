@@ -3,17 +3,17 @@
 import { Link as RouterLink } from "react-router-dom";
 import { Link, Avatar, Stack, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DivisionHistory } from "../../../types";
+import { DivisionHistory } from "../../../types/divisionTypes";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 
 type Props = {
-  divisions: DivisionHistory[];
+  divisions: DivisionHistory[] | undefined;
 };
 
 export const DivisionsDataGrid = (props: Props) => {
   const { divisions } = props;
 
-  const rows = divisions.map((division) => ({
+  const rows = divisions?.map((division) => ({
     id: division.id,
     parent_task_id: division.parent_task ? division.parent_task.id : undefined,
     parent_task_title: division.parent_task
@@ -143,7 +143,7 @@ export const DivisionsDataGrid = (props: Props) => {
   return (
     <div style={{ height: 430, width: "100%" }}>
       <DataGrid
-        rows={rows}
+        rows={rows || []}
         columns={columns}
         pageSize={10}
         rowsPerPageOptions={[10]}

@@ -8,7 +8,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { PasswordState } from "../../../types";
+import { PasswordState } from "../../../types/userTypes";
 
 type Props = {
   value: keyof PasswordState;

@@ -1,12 +1,12 @@
-import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
+import { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Box, Button, Stack, Tab, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
-import { User } from "../../types";
+import { baseAxios } from "../../apis/axios";
+import { User } from "../../types/userTypes";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
@@ -15,7 +15,7 @@ import { UsersEditProfile } from "../models/user/UsersEditProfile";
 import { UsersEditPassword } from "../models/user/UsersEditPassword";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const UsersEdit: FC = () => {
+export const UsersEdit = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ const UsersEdit: FC = () => {
       },
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse) => {
         console.log(res);
         setIsSignedIn(false);
@@ -157,5 +157,3 @@ const UsersEdit: FC = () => {
     </Grid2>
   );
 };
-
-export default UsersEdit;

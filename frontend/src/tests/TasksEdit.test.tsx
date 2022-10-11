@@ -2,12 +2,12 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { act } from "react-dom/test-utils";
-import CommonLayout from "../components/ui/CommonLayout";
+import { CommonLayout } from "../components/ui/CommonLayout";
 import { server } from "../mocks/server";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
-import TasksEdit from "../components/pages/TasksEdit";
-import TeamsShow from "../components/pages/TeamsShow";
+import { TasksEdit } from "../components/pages/TasksEdit";
+import { TeamsShow } from "../components/pages/TeamsShow";
 
 describe("TasksEdit", () => {
   test("タスク編集ページのアクセス制限", async () => {

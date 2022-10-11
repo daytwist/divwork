@@ -3,7 +3,7 @@ import { Navigate, RouteProps } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 
-const PrivateRoute: FC<RouteProps> = ({ children }) => {
+export const PrivateRoute: FC<RouteProps> = ({ children }) => {
   const { loading, isSignedIn } = useContext(AuthContext);
 
   if (loading) {
@@ -15,5 +15,3 @@ const PrivateRoute: FC<RouteProps> = ({ children }) => {
   }
   return <Navigate to="/sign_in" />;
 };
-
-export default PrivateRoute;

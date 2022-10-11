@@ -1,17 +1,17 @@
-import { ChangeEvent, FC, useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
 import { AuthContext } from "../../providers/AuthProvider";
-import { AuthResponse, PasswordState } from "../../types";
+import { AuthResponse, PasswordState } from "../../types/userTypes";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { PasswordTextfield } from "../models/user/PasswordTextfield";
 import { BackButton } from "../ui/BackButton";
 
-const SignIn: FC = () => {
+export const SignIn = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const SignIn: FC = () => {
       },
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<AuthResponse>) => {
         console.log(res);
         Cookies.set("_access_token", res.headers["access-token"]);
@@ -109,5 +109,3 @@ const SignIn: FC = () => {
     </Grid2>
   );
 };
-
-export default SignIn;

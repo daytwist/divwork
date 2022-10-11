@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Avatar, Link, Stack, Typography } from "@mui/material";
-import { User } from "../../../types";
+import { User } from "../../../types/userTypes";
 
 type Props = {
   user: User | undefined;

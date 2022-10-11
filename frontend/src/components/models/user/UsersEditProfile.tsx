@@ -20,8 +20,8 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../../utils/axios";
-import { User, UsersUpdateResponse } from "../../../types";
+import { baseAxios } from "../../../apis/axios";
+import { User, UsersUpdateResponse } from "../../../types/userTypes";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { SnackbarContext } from "../../../providers/SnackbarProvider";
 
@@ -67,7 +67,6 @@ export const UsersEditProfile = (props: Props) => {
       url: "/auth",
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
@@ -79,7 +78,7 @@ export const UsersEditProfile = (props: Props) => {
       },
     };
 
-    axiosInstance(updateOptions)
+    baseAxios(updateOptions)
       .then((res: AxiosResponse<UsersUpdateResponse>) => {
         console.log(res);
         setCurrentUser(res.data.data);

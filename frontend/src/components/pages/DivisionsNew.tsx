@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -15,19 +15,19 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
+import { baseAxios } from "../../apis/axios";
+import { User } from "../../types/userTypes";
+import { DivisionTask } from "../../types/taskTypes";
 import {
-  DivisionTask,
   DivisionsCreateResponse,
   DivisionsNewResponse,
-  User,
-} from "../../types";
+} from "../../types/divisionTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const DivisionsNew: FC = () => {
+export const DivisionsNew = () => {
   const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const params = useParams<{ id: string }>();
@@ -73,7 +73,6 @@ const DivisionsNew: FC = () => {
       url: `/tasks/${params.id}/divisions`,
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
@@ -91,7 +90,7 @@ const DivisionsNew: FC = () => {
       },
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<DivisionsCreateResponse>) => {
         console.log(res);
         setTeamReloadFlag(!teamReloadFlag);
@@ -124,7 +123,7 @@ const DivisionsNew: FC = () => {
   };
 
   useEffect(() => {
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<DivisionsNewResponse>) => {
         console.log(res.data);
         setTask(res.data.task);
@@ -207,5 +206,3 @@ const DivisionsNew: FC = () => {
     </Grid2>
   );
 };
-
-export default DivisionsNew;

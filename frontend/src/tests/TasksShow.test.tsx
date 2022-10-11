@@ -6,8 +6,8 @@ import { rest } from "msw";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { server } from "../mocks/server";
-import TasksShow from "../components/pages/TasksShow";
-import UsersShow from "../components/pages/UsersShow";
+import { TasksShow } from "../components/pages/TasksShow";
+import { UsersShow } from "../components/pages/UsersShow";
 import { AuthProvider } from "../providers/AuthProvider";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 

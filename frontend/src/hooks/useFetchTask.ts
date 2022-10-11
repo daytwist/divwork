@@ -2,15 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { User } from "../types/userTypes";
 import {
   ParentTask,
-  DivisionIncludeUserAvatar,
   Task,
   TasksShowResponse,
-  User,
   ChildTask,
-} from "../types";
-import { axiosInstance } from "../utils/axios";
+} from "../types/taskTypes";
+import { DivisionIncludeUserAvatar } from "../types/divisionTypes";
+import { baseAxios } from "../apis/axios";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 
 type Props = {
@@ -46,7 +46,7 @@ export const useFetchTask = (props: Props) => {
   };
 
   useEffect(() => {
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<TasksShowResponse>) => {
         console.log(res);
         setTask(res?.data.task);

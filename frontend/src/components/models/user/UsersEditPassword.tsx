@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../../utils/axios";
-import { AuthPasswordResponse, PasswordState } from "../../../types";
+import { baseAxios } from "../../../apis/axios";
+import { AuthPasswordResponse, PasswordState } from "../../../types/userTypes";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { SnackbarContext } from "../../../providers/SnackbarProvider";
 import { PasswordTextfield } from "./PasswordTextfield";
@@ -31,7 +31,6 @@ export const UsersEditPassword = () => {
       url: "/auth/password",
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
@@ -42,7 +41,7 @@ export const UsersEditPassword = () => {
       },
     };
 
-    axiosInstance(options)
+    baseAxios(options)
       .then((res: AxiosResponse<AuthPasswordResponse>) => {
         console.log(res);
         setCurrentUser(res.data.data);

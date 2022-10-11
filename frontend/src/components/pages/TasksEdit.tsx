@@ -1,18 +1,18 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { axiosInstance } from "../../utils/axios";
-import { TasksResponse, EditTask } from "../../types";
+import { baseAxios } from "../../apis/axios";
+import { TasksResponse, EditTask } from "../../types/taskTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
 
-const TasksEdit: FC = () => {
+export const TasksEdit = () => {
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ const TasksEdit: FC = () => {
       url: `/tasks/${params.id}`,
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
         uid: Cookies.get("_uid") || "",
@@ -58,7 +57,7 @@ const TasksEdit: FC = () => {
       },
     };
 
-    axiosInstance(updateOptions)
+    baseAxios(updateOptions)
       .then((res: AxiosResponse<TasksResponse>) => {
         console.log(res);
         handleSetSnackbar({
@@ -113,5 +112,3 @@ const TasksEdit: FC = () => {
     </Grid2>
   );
 };
-
-export default TasksEdit;
