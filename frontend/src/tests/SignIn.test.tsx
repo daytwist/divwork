@@ -11,7 +11,7 @@ import { TeamsShow } from "../components/pages/TeamsShow";
 import { SnackbarProvider } from "../providers/SnackbarProvider";
 import { CommonLayout } from "../components/ui/CommonLayout";
 
-describe.only("SignIn", () => {
+describe("SignIn", () => {
   test("スナップショット", () => {
     const tree = renderer
       .create(
@@ -23,7 +23,7 @@ describe.only("SignIn", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test.only("ログイン後の表示", async () => {
+  test("ログイン後の表示", async () => {
     render(
       <MemoryRouter initialEntries={["/sign_in"]}>
         <AuthProvider>
