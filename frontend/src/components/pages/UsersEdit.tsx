@@ -7,22 +7,22 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
 import { User } from "../../types/userTypes";
-import { useFetchUser } from "../../hooks/useFetchUser";
+import { useUser } from "../../hooks/useUser";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { AlertDialog } from "../ui/AlertDialog";
 import { UsersEditProfile } from "../models/user/UsersEditProfile";
 import { UsersEditPassword } from "../models/user/UsersEditPassword";
 import { BackIconButton } from "../ui/BackIconButton";
+import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 export const UsersEdit = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const { user: userData } = useFetchUser({
-    action: "edit",
-    flag: undefined,
-  });
+  const [userData, isLoading] = useUser(undefined, "edit");
+  const [value, setValue] = useState("1");
+  const [open, setOpen] = useState(false);
 
   const [user, setUser] = useState<User>({
     team_id: 0,
@@ -42,13 +42,9 @@ export const UsersEdit = () => {
     admin: false,
   });
 
-  const [value, setValue] = useState("1");
-
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-
-  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -93,10 +89,14 @@ export const UsersEdit = () => {
   };
 
   useEffect(() => {
-    if (userData) {
-      setUser(userData);
+    if (userData?.user) {
+      setUser(userData.user);
     }
-  }, [userData]);
+  }, [userData?.user]);
+
+  if (isLoading) {
+    return <LoadingColorRing />;
+  }
 
   return (
     <Grid2 container direction="column" rowSpacing={2}>

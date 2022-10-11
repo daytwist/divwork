@@ -26,8 +26,7 @@ export const UsersShow = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [tabValue, setTabValue] = useState(0);
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const [userData, isLoading, error] = useUser(userId, reloadFlag);
+  const [userData, isLoading] = useUser(reloadFlag, "show");
 
   const tabProps = (index: number) => {
     return {
@@ -91,12 +90,6 @@ export const UsersShow = () => {
       setIsFinished(false);
     }
   }, [userId]);
-
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-  }, [error]);
 
   if (isLoading) {
     return <LoadingColorRing />;

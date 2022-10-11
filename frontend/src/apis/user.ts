@@ -1,9 +1,14 @@
+/* eslint-disable class-methods-use-this */
 import { authConfig, baseAxios } from "./axios";
 
 class UserApi {
-  // eslint-disable-next-line class-methods-use-this
   async getUser<T>(userId: string): Promise<T> {
     const res = await baseAxios.get<T>(`/users/${userId}`, authConfig);
+    return res.data;
+  }
+
+  async editUser<T>(userId: string): Promise<T> {
+    const res = await baseAxios.get<T>(`/users/${userId}/edit`, authConfig);
     return res.data;
   }
 }
