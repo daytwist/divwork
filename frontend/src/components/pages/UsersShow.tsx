@@ -112,7 +112,7 @@ export const UsersShow = () => {
         alignItems="center"
         data-testid="users-show-page"
       >
-        <Grid2 xs={12} mb={1}>
+        <Grid2 xs={12}>
           <Stack direction="row" spacing={1} alignItems="center">
             <BackIconButton />
             <UserNameHeader user={userData?.user} />
@@ -120,37 +120,9 @@ export const UsersShow = () => {
         </Grid2>
         <Grid2 xs={12}>
           <Stack
-            direction="column"
-            sx={{ display: { xs: "flex", sm: "none" } }}
-          >
-            {userData?.user?.id === currentUser?.id ? (
-              <TasksActionButtons
-                selectionModel={selectionModel}
-                isFinished={isFinished}
-                flag={reloadFlag}
-                setFlag={setReloadFlag}
-                tabValue={tabValue}
-              />
-            ) : (
-              <br />
-            )}
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <Tabs
-                value={tabValue}
-                onChange={handleSwitchTasks}
-                textColor="inherit"
-              >
-                <Tab label="未了" {...tabProps(0)} />
-                <Tab label="完了済み" {...tabProps(1)} />
-                <Tab label="分担履歴" {...tabProps(2)} />
-              </Tabs>
-            </Box>
-          </Stack>
-          <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="flex-end"
-            sx={{ display: { xs: "none", sm: "flex" } }}
           >
             {userData?.user?.id === currentUser?.id ? (
               <TasksActionButtons

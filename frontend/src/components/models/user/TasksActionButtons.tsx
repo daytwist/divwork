@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { Button, IconButton, Stack, Tooltip } from "@mui/material";
+import { Button, IconButton, Stack } from "@mui/material";
 import { GridRowId } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AlertDialog } from "../../ui/AlertDialog";
@@ -52,15 +52,13 @@ export const TasksActionButtons = (props: Props) => {
               disabled={selectionModel?.length === 0}
               isFinished={isFinished}
             />
-            <Tooltip title="削除する" placement="top" arrow>
-              <IconButton
-                color="error"
-                onClick={handleClickOpen}
-                disabled={selectionModel?.length === 0}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
+            <IconButton
+              color="error"
+              onClick={handleClickOpen}
+              disabled={selectionModel?.length === 0}
+            >
+              <DeleteIcon />
+            </IconButton>
             <AlertDialog
               open={open}
               handleClose={handleClose}
