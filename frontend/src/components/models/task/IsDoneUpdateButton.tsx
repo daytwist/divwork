@@ -1,4 +1,4 @@
-import { Button, IconButton, Tooltip } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 
 type Props = {
@@ -12,20 +12,14 @@ export const IsDoneUpdateButton = (props: Props) => {
 
   return (
     <div>
-      <Tooltip
-        title={isFinished ? "未了にする" : "完了済みにする"}
-        placement="top"
-        arrow
+      <IconButton
+        color="secondary"
+        onClick={onClick}
+        disabled={disabled}
+        sx={{ display: { xs: "flex", md: "none" } }}
       >
-        <IconButton
-          color="secondary"
-          onClick={onClick}
-          disabled={disabled}
-          sx={{ display: { xs: "flex", md: "none" } }}
-        >
-          <CheckIcon />
-        </IconButton>
-      </Tooltip>
+        <CheckIcon />
+      </IconButton>
       <Button
         color="secondary"
         variant="contained"
