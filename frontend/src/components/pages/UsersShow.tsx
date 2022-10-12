@@ -51,30 +51,6 @@ export const UsersShow = () => {
     []
   );
 
-  const unfinishedTasksDataGrid = (
-    <TasksDataGrid
-      isFinished={false}
-      user={userData?.user}
-      tasks={userData?.unfinished_tasks}
-      selectionModel={selectionModel}
-      setSelectionModel={setSelectionModel}
-    />
-  );
-
-  const finishedTasksDataGrid = (
-    <TasksDataGrid
-      isFinished
-      user={userData?.user}
-      tasks={userData?.finished_tasks}
-      selectionModel={selectionModel}
-      setSelectionModel={setSelectionModel}
-    />
-  );
-
-  const divisionsDataGrid = (
-    <DivisionsDataGrid divisions={userData?.divisions} />
-  );
-
   useEffect(() => {
     if (userData?.unfinished_tasks && tabValue === 0) {
       setIsFinished(false);
@@ -153,13 +129,25 @@ export const UsersShow = () => {
           sx={{ width: { xs: 330, sm: 560, md: 850, lg: 900, xl: 1050 } }}
         >
           <TabPanel value={tabValue} index={0}>
-            {unfinishedTasksDataGrid}
+            <TasksDataGrid
+              isFinished={false}
+              user={userData?.user}
+              tasks={userData?.unfinished_tasks}
+              selectionModel={selectionModel}
+              setSelectionModel={setSelectionModel}
+            />
           </TabPanel>
           <TabPanel value={tabValue} index={1}>
-            {finishedTasksDataGrid}
+            <TasksDataGrid
+              isFinished
+              user={userData?.user}
+              tasks={userData?.finished_tasks}
+              selectionModel={selectionModel}
+              setSelectionModel={setSelectionModel}
+            />
           </TabPanel>
           <TabPanel value={tabValue} index={2}>
-            {divisionsDataGrid}
+            <DivisionsDataGrid divisions={userData?.divisions} />
           </TabPanel>
         </Grid2>
       </Grid2>

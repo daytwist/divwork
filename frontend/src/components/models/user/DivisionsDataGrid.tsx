@@ -23,7 +23,7 @@ export const DivisionsDataGrid = (props: Props) => {
     parent_user_avatar: division.parent_user_avatar,
     parent_user_name: division.parent_user
       ? division.parent_user.name
-      : "退会済みユーザー",
+      : "不明なユーザー",
     child_task_id: division.child_task ? division.child_task.id : undefined,
     child_task_title: division.child_task
       ? division.child_task.title
@@ -32,7 +32,7 @@ export const DivisionsDataGrid = (props: Props) => {
     child_user_avatar: division.child_user_avatar,
     child_user_name: division.child_user
       ? division.child_user.name
-      : "退会済みユーザー",
+      : "不明なユーザー",
     comment: division.comment,
     created_at: DatetimeFormat(division.created_at),
   }));
