@@ -28,7 +28,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
 import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
-import { IsDoneUpdateButton } from "../models/task/IsDoneUpdateButton";
+import { UpdateIsDoneButton } from "../models/task/UpdateIsDoneButton";
 import { Task, TasksResponse } from "../../types/taskTypes";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { UserNameHeader } from "../models/user/UserNameHeader";
@@ -249,7 +249,7 @@ export const TasksShow = () => {
                 <CardActions>
                   <Stack direction="row" spacing={2}>
                     {task.user_id === currentUser?.id && (
-                      <IsDoneUpdateButton
+                      <UpdateIsDoneButton
                         onClick={handleIsDoneUpdate}
                         disabled={false}
                         isFinished={task.is_done}

@@ -9,10 +9,10 @@ import { useParams } from "react-router-dom";
 import { Box, Stack, Tab, Tabs } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { GridRowId } from "@mui/x-data-grid";
-import { TasksActionButtons } from "../models/user/TasksActionButtons";
+import { UserActionButtons } from "../models/user/UserActionButtons";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useUser } from "../../hooks/useUser";
-import { TasksDataGrid } from "../models/user/TasksDataGrid";
+import { UserTasksDataGrid } from "../models/user/UserTasksDataGrid";
 import { DivisionsDataGrid } from "../models/user/DivisionsDataGrid";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { TabPanel } from "../ui/TabPanel";
@@ -101,7 +101,7 @@ export const UsersShow = () => {
             sx={{ flexDirection: { xs: "column", sm: "row" } }}
           >
             {userData?.user?.id === currentUser?.id ? (
-              <TasksActionButtons
+              <UserActionButtons
                 selectionModel={selectionModel}
                 isFinished={isFinished}
                 flag={reloadFlag}
@@ -129,7 +129,7 @@ export const UsersShow = () => {
           sx={{ width: { xs: 330, sm: 560, md: 850, lg: 900, xl: 1050 } }}
         >
           <TabPanel value={tabValue} index={0}>
-            <TasksDataGrid
+            <UserTasksDataGrid
               isFinished={false}
               user={userData?.user}
               tasks={userData?.unfinished_tasks}
@@ -138,7 +138,7 @@ export const UsersShow = () => {
             />
           </TabPanel>
           <TabPanel value={tabValue} index={1}>
-            <TasksDataGrid
+            <UserTasksDataGrid
               isFinished
               user={userData?.user}
               tasks={userData?.finished_tasks}

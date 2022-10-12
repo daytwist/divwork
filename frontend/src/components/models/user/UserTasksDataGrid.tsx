@@ -16,7 +16,7 @@ type Props = {
   setSelectionModel: Dispatch<SetStateAction<GridRowId[]>>;
 };
 
-export const TasksDataGrid = (props: Props) => {
+export const UserTasksDataGrid = (props: Props) => {
   const { isFinished, user, tasks, selectionModel, setSelectionModel } = props;
   const { currentUser } = useContext(AuthContext);
   const unfinishedTasksColumns = UnfinishedTasksColumns(user);
