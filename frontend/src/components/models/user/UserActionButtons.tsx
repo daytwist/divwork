@@ -4,7 +4,7 @@ import { GridRowId } from "@mui/x-data-grid";
 import { TasksNewButton } from "../task/TasksNewButton";
 import { UpdateIsDoneButton } from "../task/UpdateIsDoneButton";
 import { DeleteTasksButton } from "../task/DeleteTasksButton";
-import { usePatchTasks } from '../../../hooks/usePatchTasks';
+import { usePatchTasksIsDone } from "../../../hooks/usePatchTasksIsDone";
 
 type Props = {
   selectionModel: GridRowId[];
@@ -17,7 +17,7 @@ type Props = {
 export const UserActionButtons = (props: Props) => {
   const { selectionModel, isFinished, flag, setFlag, tabValue } = props;
 
-  const handleUpdateIsDoneTasks = usePatchTasks({
+  const handleUpdateIsDoneTasks = usePatchTasksIsDone({
     selectionModel,
     isFinished,
     flag,

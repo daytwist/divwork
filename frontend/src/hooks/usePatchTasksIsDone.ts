@@ -14,12 +14,12 @@ type Props = {
   setFlag: Dispatch<SetStateAction<boolean>>;
 };
 
-export const usePatchTasks = (props: Props) => {
+export const usePatchTasksIsDone = (props: Props) => {
   const { selectionModel, isFinished, flag, setFlag } = props;
   const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
 
-  const handleUpdateIsDoneTasks = useCallback(() => {
+  const handleUpdateTasksIsDone = useCallback(() => {
     // eslint-disable-next-line array-callback-return
     selectionModel?.map((id) => {
       const options: AxiosRequestConfig = {
@@ -65,5 +65,5 @@ export const usePatchTasks = (props: Props) => {
     });
   }, [selectionModel, isFinished, flag, teamReloadFlag]);
 
-  return handleUpdateIsDoneTasks;
+  return handleUpdateTasksIsDone;
 };

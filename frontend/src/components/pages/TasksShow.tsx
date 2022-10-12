@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
-import Cookies from "js-cookie";
 import {
   Accordion,
   AccordionDetails,
@@ -21,15 +20,12 @@ import PeopleIcon from "@mui/icons-material/People";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { AuthContext } from "../../providers/AuthProvider";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { DatetimeFormat } from "../ui/DatetimeFormat";
 import { TasksDeleteIconButton } from "../models/task/TasksDeleteIconButton";
 import { UpdateIsDoneButton } from "../models/task/UpdateIsDoneButton";
-import { Task, TasksResponse } from "../../types/taskTypes";
+import { Task } from "../../types/taskTypes";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { UserNameHeader } from "../models/user/UserNameHeader";
 import { ChildrenTasksDetails } from "../models/task/ChildrenTasksDetails";
@@ -39,11 +35,10 @@ import { PriorityStack } from "../models/task/PriorityStack";
 import { DeadlineTypography } from "../models/task/DeadlineTypography";
 import { IsDoneTypography } from "../models/task/IsDoneTypography";
 import { BackIconButton } from "../ui/BackIconButton";
+import { usePatchTaskIsDone } from "../../hooks/usePatchTaskIsDone";
 
 export const TasksShow = () => {
-  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
-    useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
+  const { currentUser } = useContext(AuthContext);
   const {
     task: taskData,
     user,
@@ -55,48 +50,7 @@ export const TasksShow = () => {
 
   const [task, setTask] = useState<Task>();
 
-  const handleIsDoneUpdate = () => {
-    const options: AxiosRequestConfig = {
-      url: `/tasks/${task?.id}`,
-      method: "PATCH",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-      data: !task?.is_done
-        ? {
-            is_done: !task?.is_done,
-            rate_of_progress: 100,
-          }
-        : {
-            is_done: !task?.is_done,
-          },
-    };
-
-    baseAxios(options)
-      .then((res: AxiosResponse<TasksResponse>) => {
-        console.log(res);
-        setTask(res.data.task);
-        setTeamReloadFlag(!teamReloadFlag);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: task?.is_done
-            ? "タスクを未了にしました"
-            : "タスクを完了済みにしました",
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.messages.join("。")}`,
-        });
-      });
-  };
+  const handleUpdateTaskIsDone = usePatchTaskIsDone({ task, setTask });
 
   useEffect(() => {
     if (taskData) {
@@ -250,7 +204,7 @@ export const TasksShow = () => {
                   <Stack direction="row" spacing={2}>
                     {task.user_id === currentUser?.id && (
                       <UpdateIsDoneButton
-                        onClick={handleIsDoneUpdate}
+                        onClick={handleUpdateTaskIsDone}
                         disabled={false}
                         isFinished={task.is_done}
                       />
