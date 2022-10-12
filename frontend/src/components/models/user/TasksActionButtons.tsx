@@ -45,7 +45,7 @@ export const TasksActionButtons = (props: Props) => {
         sx={{ display: { xs: "flex", md: "none" } }}
       >
         <TasksNewButton />
-        {tabValue === 2 || (
+        {tabValue === 2 ? null : (
           <Stack direction="row" spacing={1}>
             <IsDoneUpdateButton
               onClick={handleMultiIsDoneUpdate}
@@ -74,7 +74,7 @@ export const TasksActionButtons = (props: Props) => {
         sx={{ display: { xs: "none", md: "flex" } }}
       >
         <TasksNewButton />
-        {tabValue === 2 || (
+        {tabValue === 2 ? null : (
           <Stack direction="row" spacing={2}>
             <IsDoneUpdateButton
               onClick={handleMultiIsDoneUpdate}
