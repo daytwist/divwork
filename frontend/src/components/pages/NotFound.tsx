@@ -1,39 +1,49 @@
+/** @jsxImportSource @emotion/react */
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { css } from "@emotion/react";
 import hydrangea from "../../images/hydrangea.png";
 import { AuthContext } from "../../providers/AuthProvider";
 
 export const NotFound = () => {
   const { isSignedIn } = useContext(AuthContext);
 
+  const imgStyle = css`
+    width: 100%;
+    height: 100%;
+  `;
+
   return (
-    <Grid2 container rowSpacing={8} columnSpacing={3}>
-      <Grid2 xs={12}>
+    <Stack
+      alignItems="flex-start"
+      sx={{ flexDirection: { xs: "column", sm: "row" }, pt: 5 }}
+    >
+      <Box
+        sx={{
+          width: { xs: 200, sm: 250, md: 300 },
+          height: { xs: 200, sm: 250, md: 300 },
+          mr: { xs: 0, sm: 5, md: 15 },
+          mb: { xs: 5, sm: 0 },
+        }}
+      >
+        <img css={imgStyle} src={hydrangea} alt="紫陽花" />
+      </Box>
+      <Stack direction="column" spacing={3} alignItems="flex-start">
         <Typography variant="h4" component="div">
           404 Not Found
         </Typography>
-      </Grid2>
-      <Grid2 xs={6}>
-        <Box sx={{ width: 300, height: 300 }}>
-          <img src={hydrangea} alt="紫陽花" width="100%" height="100%" />
-        </Box>
-      </Grid2>
-      <Grid2 xs={6}>
-        <Stack direction="column" spacing={3} alignItems="flex-start">
-          <Typography variant="body1" component="div">
-            ページが見つかりませんでした。
-          </Typography>
-          <Button
-            variant="contained"
-            component={Link}
-            to={isSignedIn ? "/teams" : "/"}
-          >
-            ホームへ戻る
-          </Button>
-        </Stack>
-      </Grid2>
-    </Grid2>
+        <Typography variant="body1" component="div">
+          ページが見つかりませんでした。
+        </Typography>
+        <Button
+          variant="contained"
+          component={Link}
+          to={isSignedIn ? "/teams" : "/"}
+        >
+          ホームへ戻る
+        </Button>
+      </Stack>
+    </Stack>
   );
 };
