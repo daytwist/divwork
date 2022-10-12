@@ -8,7 +8,8 @@ export const baseAxios = axios.create({
   },
 });
 
-export const authConfig: AxiosRequestConfig = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const authConfig: AxiosRequestConfig<any> = {
   headers: {
     "access-token": Cookies.get("_access_token") || "",
     client: Cookies.get("_client") || "",
