@@ -33,7 +33,7 @@ export const useTeam = (): [
     return () => {
       abortCtrl.abort();
     };
-  }, [currentUser?.team_id, teamReloadFlag]);
+  }, [currentUser, teamReloadFlag]);
 
   return [teamData, isLoading, error];
 };

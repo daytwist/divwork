@@ -63,7 +63,7 @@ export const useUser = (
     return () => {
       abortCtrl.abort();
     };
-  }, [userId, reloadFlag]);
+  }, [userId, action, reloadFlag]);
 
   return [userData, isLoading];
 };
