@@ -1,6 +1,8 @@
+/** @jsxImportSource @emotion/react */
 import { Link } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { css } from "@emotion/react";
 import telework from "../../images/telework.png";
 import graph from "../../images/graph.png";
 import task from "../../images/task.png";
@@ -11,6 +13,11 @@ import { useGuestSignIn } from "../../hooks/useGuestSignIn";
 
 export const Home = () => {
   const handleGuestSignIn = useGuestSignIn();
+
+  const imgStyle = css`
+    width: 100%;
+    height: 100%;
+  `;
 
   return (
     <Grid2
@@ -51,7 +58,7 @@ export const Home = () => {
       </Grid2>
       <Grid2 xs={12} md={5} lg={6}>
         <Box sx={{ width: { xs: 230, sm: 400, md: 350, lg: 400 }, m: "auto" }}>
-          <img src={telework} alt="telework" width="100%" height="100%" />
+          <img css={imgStyle} src={telework} alt="telework" />
         </Box>
       </Grid2>
       <Grid2 xs={12} md={7} lg={6}>
@@ -66,7 +73,7 @@ export const Home = () => {
       </Grid2>
       <Grid2 xs={12} md={5} lg={6}>
         <Box sx={{ width: { xs: 230, sm: 400, md: 280, lg: 400 }, mx: "auto" }}>
-          <img src={screen} alt="screen" width="100%" height="100%" />
+          <img css={imgStyle} src={screen} alt="screen" />
         </Box>
       </Grid2>
       <Grid2 xs={12}>
@@ -80,7 +87,7 @@ export const Home = () => {
             <Box
               sx={{ width: { xs: 180, sm: 145, md: 120, lg: 150 }, m: "auto" }}
             >
-              <img src={graph} alt="graph" width="100%" height="100%" />
+              <img css={imgStyle} src={graph} alt="graph" />
             </Box>
           </Grid2>
           <Grid2 xs={12} sm={8} md={4}>
@@ -101,7 +108,7 @@ export const Home = () => {
             <Box
               sx={{ width: { xs: 180, sm: 145, md: 120, lg: 150 }, m: "auto" }}
             >
-              <img src={task} alt="task" width="100%" height="100%" />
+              <img css={imgStyle} src={task} alt="task" />
             </Box>
           </Grid2>
           <Grid2 xs={12} sm={8} md={4}>
@@ -122,7 +129,7 @@ export const Home = () => {
             <Box
               sx={{ width: { xs: 180, sm: 145, md: 120, lg: 150 }, m: "auto" }}
             >
-              <img css src={team} alt="team" width="100%" height="100%" />
+              <img css={imgStyle} src={team} alt="team" />
             </Box>
           </Grid2>
           <Grid2 xs={12} sm={8} md={4}>
@@ -143,7 +150,7 @@ export const Home = () => {
             <Box
               sx={{ width: { xs: 180, sm: 145, md: 120, lg: 150 }, m: "auto" }}
             >
-              <img src={browser} alt="browser" width="100%" height="100%" />
+              <img css={imgStyle} src={browser} alt="browser" />
             </Box>
           </Grid2>
           <Grid2 xs={12} sm={8} md={4}>
