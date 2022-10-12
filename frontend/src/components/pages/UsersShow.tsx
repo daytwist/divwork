@@ -96,9 +96,9 @@ export const UsersShow = () => {
         </Grid2>
         <Grid2 xs={12}>
           <Stack
-            direction="row"
             justifyContent="space-between"
             alignItems="flex-end"
+            sx={{ flexDirection: { xs: "column", sm: "row" } }}
           >
             {userData?.user?.id === currentUser?.id ? (
               <TasksActionButtons
