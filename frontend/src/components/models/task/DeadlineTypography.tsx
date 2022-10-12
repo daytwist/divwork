@@ -2,11 +2,13 @@ import { Typography } from "@mui/material";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 
 type Props = {
-  deadline: Date;
+  deadline: Date | undefined;
 };
 
 export const DeadlineTypography = (props: Props) => {
   const { deadline } = props;
+
+  if (!deadline) return null;
 
   return (
     <div>

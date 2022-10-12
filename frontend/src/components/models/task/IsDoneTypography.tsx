@@ -2,7 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 type Props = {
-  isDone: boolean;
+  isDone: boolean | undefined;
 };
 
 export const IsDoneTypography = (props: Props) => {
