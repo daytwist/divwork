@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Divider,
@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useTeam } from "../../hooks/useTeam";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 type Props = {
   // eslint-disable-next-line react/require-default-props
@@ -26,7 +25,6 @@ type Props = {
 
 export const LeftDrawer = (props: Props) => {
   const { window, open, onClose } = props;
-  const { handleSetSnackbar } = useContext(SnackbarContext);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [teamData, isLoading, error] = useTeam();
 
@@ -79,12 +77,7 @@ export const LeftDrawer = (props: Props) => {
 
   useEffect(() => {
     if (error) {
-      handleSetSnackbar({
-        open: true,
-        type: "error",
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        message: "情報取得出来ませんでした",
-      });
+      console.log(error);
     }
   }, [error]);
 

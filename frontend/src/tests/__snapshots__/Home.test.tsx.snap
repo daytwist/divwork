@@ -96,9 +96,8 @@ exports[`Home スナップショット 1`] = `
     >
       <img
         alt="telework"
-        height="100%"
+        className="css-158tgc5-Home"
         src=""
-        width="100%"
       />
     </div>
   </div>
@@ -128,9 +127,8 @@ exports[`Home スナップショット 1`] = `
     >
       <img
         alt="screen"
-        height="100%"
+        className="css-158tgc5-Home"
         src=""
-        width="100%"
       />
     </div>
   </div>
@@ -157,9 +155,8 @@ exports[`Home スナップショット 1`] = `
         >
           <img
             alt="graph"
-            height="100%"
+            className="css-158tgc5-Home"
             src=""
-            width="100%"
           />
         </div>
       </div>
@@ -189,9 +186,8 @@ exports[`Home スナップショット 1`] = `
         >
           <img
             alt="task"
-            height="100%"
+            className="css-158tgc5-Home"
             src=""
-            width="100%"
           />
         </div>
       </div>
@@ -221,10 +217,8 @@ exports[`Home スナップショット 1`] = `
         >
           <img
             alt="team"
-            className="css-1a1jomb-Home"
-            height="100%"
+            className="css-158tgc5-Home"
             src=""
-            width="100%"
           />
         </div>
       </div>
@@ -254,9 +248,8 @@ exports[`Home スナップショット 1`] = `
         >
           <img
             alt="browser"
-            height="100%"
+            className="css-158tgc5-Home"
             src=""
-            width="100%"
           />
         </div>
       </div>

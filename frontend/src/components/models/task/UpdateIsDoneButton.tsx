@@ -7,7 +7,7 @@ type Props = {
   isFinished: boolean | undefined;
 };
 
-export const IsDoneUpdateButton = (props: Props) => {
+export const UpdateIsDoneButton = (props: Props) => {
   const { onClick, disabled, isFinished } = props;
 
   return (
