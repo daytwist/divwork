@@ -13,7 +13,7 @@ type Props = {
 
 export const usePatchTaskIsDone = (props: Props) => {
   const { task, setTask } = props;
-  const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
+  const { reloadTeamFlag, setReloadTeamFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
 
   const options: AxiosRequestConfig = {
@@ -39,7 +39,7 @@ export const usePatchTaskIsDone = (props: Props) => {
       .then((res: AxiosResponse<TaskResponse>) => {
         console.log(res);
         setTask(res.data.task);
-        setTeamReloadFlag(!teamReloadFlag);
+        setReloadTeamFlag(!reloadTeamFlag);
         handleSetSnackbar({
           open: true,
           type: "success",

@@ -16,7 +16,7 @@ type Props = {
 
 export const useDeleteTasks = (props: Props) => {
   const { selectionModel, isFinished, flag, setFlag, handleClose } = props;
-  const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
+  const { reloadTeamFlag, setReloadTeamFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
 
   const handleMultiTasksDelete = useCallback(() => {
@@ -36,7 +36,7 @@ export const useDeleteTasks = (props: Props) => {
         .then((res: AxiosResponse) => {
           console.log(res);
           setFlag(!flag);
-          setTeamReloadFlag(!teamReloadFlag);
+          setReloadTeamFlag(!reloadTeamFlag);
           handleSetSnackbar({
             open: true,
             type: "success",
@@ -54,7 +54,7 @@ export const useDeleteTasks = (props: Props) => {
           });
         });
     });
-  }, [selectionModel, isFinished, flag, teamReloadFlag]);
+  }, [selectionModel, isFinished, flag, reloadTeamFlag]);
 
   return handleMultiTasksDelete;
 };

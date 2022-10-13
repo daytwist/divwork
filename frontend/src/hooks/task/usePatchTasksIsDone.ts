@@ -16,7 +16,7 @@ type Props = {
 
 export const usePatchTasksIsDone = (props: Props) => {
   const { selectionModel, isFinished, flag, setFlag } = props;
-  const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
+  const { reloadTeamFlag, setReloadTeamFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
 
   const handleUpdateTasksIsDone = useCallback(() => {
@@ -44,7 +44,7 @@ export const usePatchTasksIsDone = (props: Props) => {
         .then((res: AxiosResponse<TaskResponse>) => {
           console.log(res);
           setFlag(!flag);
-          setTeamReloadFlag(!teamReloadFlag);
+          setReloadTeamFlag(!reloadTeamFlag);
           handleSetSnackbar({
             open: true,
             type: "success",
@@ -63,7 +63,7 @@ export const usePatchTasksIsDone = (props: Props) => {
           });
         });
     });
-  }, [selectionModel, isFinished, flag, teamReloadFlag]);
+  }, [selectionModel, isFinished, flag, reloadTeamFlag]);
 
   return handleUpdateTasksIsDone;
 };

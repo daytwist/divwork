@@ -1,13 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { TeamsSelectResponse } from '../../types/teamTypes';
+import { TeamsSelectResponse } from "../../types/teamTypes";
 import { teamApi } from "../../apis/team";
-import { SnackbarContext } from '../../providers/SnackbarProvider';
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
-export const useFetchTeams = (): [
-  TeamsSelectResponse | undefined,
-  boolean,
-] => {
+export const useFetchTeams = (): [TeamsSelectResponse | undefined, boolean] => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const [teamsData, setTeamsData] = useState<TeamsSelectResponse>();

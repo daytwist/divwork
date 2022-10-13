@@ -11,8 +11,8 @@ type Props = {
   values: {
     password: string;
     passwordConfirmation: string;
-  }
-}
+  };
+};
 
 export const usePatchPassword = (props: Props) => {
   const { values } = props;

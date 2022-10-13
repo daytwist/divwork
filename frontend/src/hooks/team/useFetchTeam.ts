@@ -9,7 +9,7 @@ export const useFetchTeam = (): [
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any | undefined
 ] => {
-  const { currentUser, teamReloadFlag } = useContext(AuthContext);
+  const { currentUser, reloadTeamFlag } = useContext(AuthContext);
   const [teamData, setTeamData] = useState<TeamsShowResponse>();
   const [isLoading, setIsLoading] = useState(true);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
@@ -33,7 +33,7 @@ export const useFetchTeam = (): [
     return () => {
       abortCtrl.abort();
     };
-  }, [currentUser, teamReloadFlag]);
+  }, [currentUser, reloadTeamFlag]);
 
   return [teamData, isLoading, error];
 };

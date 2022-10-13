@@ -13,7 +13,7 @@ type Props = {
 
 export const usePatchTeam = (props: Props) => {
   const { team } = props;
-  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
+  const { currentUser, reloadTeamFlag, setReloadTeamFlag } =
     useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export const usePatchTeam = (props: Props) => {
     baseAxios(options)
       .then((res: AxiosResponse<TeamsResponse>) => {
         console.log(res);
-        setTeamReloadFlag(!teamReloadFlag);
+        setReloadTeamFlag(!reloadTeamFlag);
         handleSetSnackbar({
           open: true,
           type: "success",

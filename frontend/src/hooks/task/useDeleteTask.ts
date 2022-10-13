@@ -13,7 +13,7 @@ type Props = {
 
 export const useDeleteTask = (props: Props) => {
   const { taskId } = props;
-  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
+  const { currentUser, reloadTeamFlag, setReloadTeamFlag } =
     useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export const useDeleteTask = (props: Props) => {
     baseAxios(options)
       .then((res: AxiosResponse) => {
         console.log(res);
-        setTeamReloadFlag(!teamReloadFlag);
+        setReloadTeamFlag(!reloadTeamFlag);
         handleSetSnackbar({
           open: true,
           type: "success",

@@ -14,7 +14,7 @@ type Props = {
 
 export const usePostTask = (props: Props) => {
   const { task, deadline } = props;
-  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
+  const { currentUser, reloadTeamFlag, setReloadTeamFlag } =
     useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ export const usePostTask = (props: Props) => {
     baseAxios(options)
       .then((res: AxiosResponse<TaskResponse>) => {
         console.log(res);
-        setTeamReloadFlag(!teamReloadFlag);
+        setReloadTeamFlag(!reloadTeamFlag);
         handleSetSnackbar({
           open: true,
           type: "success",
