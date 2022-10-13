@@ -54,12 +54,12 @@ export type NewDivision = {
   comment: string;
 };
 
-export type DivisionsNewResponse = {
+export type FetchNewDivisionResponse = {
   task: Task;
   team_members: User[];
 };
 
-export type DivisionsCreateResponse = {
+export type PostDivisionResponse = {
   task: Task;
   division: Division;
 };

@@ -1,6 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   Button,
   Divider,
@@ -14,24 +12,16 @@ import {
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
 import { User } from "../../types/userTypes";
 import { DivisionTask } from "../../types/taskTypes";
-import {
-  DivisionsCreateResponse,
-  DivisionsNewResponse,
-} from "../../types/divisionTypes";
-import { AuthContext } from "../../providers/AuthProvider";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
+import { usePostDivision } from "../../hooks/usePostDivision";
+import { useFetchNewDivision } from "../../hooks/useFetchNewDivision";
+import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 export const DivisionsNew = () => {
-  const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const params = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  const [divisionData, isLoading] = useFetchNewDivision();
 
   const [task, setTask] = useState<DivisionTask>({
     title: "",
@@ -45,6 +35,13 @@ export const DivisionsNew = () => {
   const [comment, setComment] = useState<string>("");
   const [teamMembers, setTeamMembers] = useState<User[]>([]);
   const [teamMemberValue, setTeamMemberValue] = useState<string>("");
+
+  const handleCreateDivision = usePostDivision({
+    task,
+    deadline,
+    comment,
+    teamMemberValue,
+  });
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -68,79 +65,17 @@ export const DivisionsNew = () => {
     setDeadline(newValue);
   };
 
-  const handleDivisionsCreate = () => {
-    const options: AxiosRequestConfig = {
-      url: `/tasks/${params.id}/divisions`,
-      method: "POST",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-      data: {
-        task: {
-          title: task.title,
-          description: task.description,
-          priority: task.priority,
-          deadline,
-          user_id: teamMemberValue ? Number(teamMemberValue) : "",
-          parent_id: task.parent_id,
-        },
-        division: { comment },
-      },
-    };
-
-    baseAxios(options)
-      .then((res: AxiosResponse<DivisionsCreateResponse>) => {
-        console.log(res);
-        setTeamReloadFlag(!teamReloadFlag);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "分担タスクを作成しました",
-        });
-        navigate(`/users/${res.data.division.user_id}`, { replace: false });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-          message: err.response.data.error,
-        });
-      });
-  };
-
-  const options: AxiosRequestConfig = {
-    url: `/tasks/${params.id}/divisions/new`,
-    method: "GET",
-    headers: {
-      "access-token": Cookies.get("_access_token") || "",
-      client: Cookies.get("_client") || "",
-      uid: Cookies.get("_uid") || "",
-    },
-  };
-
   useEffect(() => {
-    baseAxios(options)
-      .then((res: AxiosResponse<DivisionsNewResponse>) => {
-        console.log(res.data);
-        setTask(res.data.task);
-        setDeadline(res.data.task.deadline);
-        setTeamMembers(res.data.team_members);
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          message: `${err.response.data.messages}`,
-        });
-        navigate("/teams", { replace: true });
-      });
-  }, [params]);
+    if (divisionData) {
+      setTask(divisionData?.task);
+      setDeadline(divisionData?.task.deadline);
+      setTeamMembers(divisionData?.team_members);
+    }
+  }, [divisionData]);
+
+  if (isLoading) {
+    return <LoadingColorRing />;
+  }
 
   return (
     <Grid2 container direction="column" rowSpacing={3} width={700}>
@@ -198,7 +133,7 @@ export const DivisionsNew = () => {
           data-testid="send-button"
           variant="contained"
           type="submit"
-          onClick={handleDivisionsCreate}
+          onClick={handleCreateDivision}
         >
           完了
         </Button>
