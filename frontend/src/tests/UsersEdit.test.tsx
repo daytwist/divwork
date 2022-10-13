@@ -97,6 +97,7 @@ describe("UsersEdit", () => {
       </MemoryRouter>
     );
 
+    await screen.findByText("パスワード再設定");
     act(() => {
       userEvent.click(screen.getByText("パスワード再設定"));
     });
@@ -141,6 +142,7 @@ describe("UsersEdit", () => {
       </MemoryRouter>
     );
 
+    await screen.findByText("その他");
     act(() => {
       userEvent.click(screen.getByText("その他"));
     });

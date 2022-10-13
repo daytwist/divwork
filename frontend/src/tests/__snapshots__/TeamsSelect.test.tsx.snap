@@ -2,184 +2,131 @@
 
 exports[`TeamsSelect スナップショット 1`] = `
 <div
-  className="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-column css-s21l6u-MuiGrid2-root"
+  className="MuiBox-root css-1pt6pjc"
 >
-  <div
-    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
+  <svg
+    aria-busy={true}
+    aria-label="blocks-loading"
+    className="blocks-wrapper"
+    data-testid="color-ring-svg"
+    height="80"
+    preserveAspectRatio="xMidYMid"
+    role="status"
+    style={Object {}}
+    viewBox="0 0 100 100"
+    width="80"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
   >
-    <div
-      className="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-1vw6mcs-MuiTypography-root"
-    >
-      所属チームの選択
-    </div>
-    <div
-      className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
-    >
-      選択したチームでユーザー登録します。
-    </div>
-  </div>
-  <div
-    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
-  >
-    <div
-      className="MuiFormControl-root css-1wmrndo-MuiFormControl-root"
-    >
-      <label
-        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorSecondary Mui-required css-1v4qvbo-MuiFormLabel-root-MuiInputLabel-root"
-        data-shrink={false}
-        id="team_label"
+    <defs>
+      <mask
+        id="ldio-4offds5dlws-mask"
       >
-        チーム
-        <span
-          aria-hidden={true}
-          className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
+        <circle
+          cx="50"
+          cy="50"
+          r="26"
+          stroke="#fff"
+          strokeDasharray="122.52211349000194 40.840704496667314"
+          strokeLinecap="round"
+          strokeWidth="9"
+          transform="rotate(198.018 50 50)"
         >
-           
-          *
-        </span>
-      </label>
-      <div
-        className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorSecondary MuiInputBase-formControl css-hjtp1-MuiInputBase-root-MuiOutlinedInput-root"
-        onClick={[Function]}
-        variant="outlined"
-      >
-        <div
-          aria-expanded="false"
-          aria-haspopup="listbox"
-          aria-labelledby="team_label"
-          className="MuiSelect-select MuiSelect-outlined MuiOutlinedInput-input MuiInputBase-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          role="button"
-          tabIndex={0}
-        >
-          <span
-            className="notranslate"
-          >
-            ​
-          </span>
-        </div>
-        <input
-          aria-hidden={true}
-          className="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-          disabled={false}
-          onAnimationStart={[Function]}
-          onChange={[Function]}
-          required={true}
-          tabIndex={-1}
-          value=""
-        />
-        <svg
-          aria-hidden={true}
-          className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-          data-testid="ArrowDropDownIcon"
-          focusable="false"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M7 10l5 5 5-5z"
+          <animateTransform
+            attributeName="transform"
+            dur="1s"
+            keyTimes="0;1"
+            repeatCount="indefinite"
+            type="rotate"
+            values="0 50 50;360 50 50"
           />
-        </svg>
-        <fieldset
-          aria-hidden={true}
-          className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-        >
-          <legend
-            className="css-1ftyaf0"
-          >
-            <span>
-              チーム
-               
-              *
-            </span>
-          </legend>
-        </fieldset>
-      </div>
-    </div>
-  </div>
-  <div
-    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
-  >
-    <div
-      className="css-w4z10b-MuiStack-root"
+        </circle>
+      </mask>
+    </defs>
+    <g
+      mask="url(#ldio-4offds5dlws-mask)"
     >
-      <a
-        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-sghohy-MuiButtonBase-root-MuiButton-root"
-        href="/sign_up"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onContextMenu={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={0}
+      <rect
+        fill="#b8c480"
+        height="100"
+        width="15"
+        x="14.5"
+        y="0"
       >
-        次へ
-      </a>
-      <button
-        className="MuiButton-root MuiButton-text MuiButton-textSecondary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1d3f8j8-MuiButtonBase-root-MuiButton-root"
-        disabled={false}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onContextMenu={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={0}
-        type="button"
+        <animate
+          attributeName="fill"
+          begin="-0.8s"
+          dur="1s"
+          keyTimes="0;0.25;0.5;0.75;1"
+          repeatCount="indefinite"
+          values="#b8c480;#B2A3B5;#F4442E;#51E5FF;#429EA6"
+        />
+      </rect>
+      <rect
+        fill="#B2A3B5"
+        height="100"
+        width="15"
+        x="28.5"
+        y="0"
       >
-        戻る
-      </button>
-    </div>
-  </div>
-  <div
-    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
-  >
-    <div
-      className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
-    >
-      または
-    </div>
-  </div>
-  <div
-    className="MuiGrid2-root MuiGrid2-grid-xs-12 css-16fnxy3-MuiGrid2-root"
-  >
-    <a
-      className="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-zcbmsk-MuiButtonBase-root-MuiButton-root"
-      href="/sign_up/teams/new"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onContextMenu={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={0}
-    >
-      新規チーム作成
-    </a>
-  </div>
+        <animate
+          attributeName="fill"
+          begin="-0.6s"
+          dur="1s"
+          keyTimes="0;0.25;0.5;0.75;1"
+          repeatCount="indefinite"
+          values="#b8c480;#B2A3B5;#F4442E;#51E5FF;#429EA6"
+        />
+      </rect>
+      <rect
+        fill="#F4442E"
+        height="100"
+        width="15"
+        x="42.5"
+        y="0"
+      >
+        <animate
+          attributeName="fill"
+          begin="-0.4s"
+          dur="1s"
+          keyTimes="0;0.25;0.5;0.75;1"
+          repeatCount="indefinite"
+          values="#b8c480;#B2A3B5;#F4442E;#51E5FF;#429EA6"
+        />
+      </rect>
+      <rect
+        fill="#51E5FF"
+        height="100"
+        width="15"
+        x="56.5"
+        y="0"
+      >
+        <animate
+          attributeName="fill"
+          begin="-0.2s"
+          dur="1s"
+          keyTimes="0;0.25;0.5;0.75;1"
+          repeatCount="indefinite"
+          values="#b8c480;#B2A3B5;#F4442E;#51E5FF;#429EA6"
+        />
+      </rect>
+      <rect
+        fill="#429EA6"
+        height="100"
+        width="15"
+        x="70.5"
+        y="0"
+      >
+        <animate
+          attributeName="fill"
+          begin="0s"
+          dur="1s"
+          keyTimes="0;0.25;0.5;0.75;1"
+          repeatCount="indefinite"
+          values="#b8c480;#B2A3B5;#F4442E;#51E5FF;#429EA6"
+        />
+      </rect>
+    </g>
+  </svg>
 </div>
 `;
