@@ -1,29 +1,22 @@
-import { SyntheticEvent, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { Box, Button, Stack, Tab, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
 import { User } from "../../types/userTypes";
 import { useFetchUser } from "../../hooks/user/useFetchUser";
-import { AuthContext } from "../../providers/AuthProvider";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { AlertDialog } from "../ui/AlertDialog";
 import { UsersEditProfile } from "../models/user/UsersEditProfile";
 import { UsersEditPassword } from "../models/user/UsersEditPassword";
 import { BackIconButton } from "../ui/BackIconButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
+import { useDeleteUser } from "../../hooks/user/useDeleteUser";
 
 export const UsersEdit = () => {
-  const { setIsSignedIn } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
   const [userData, isLoading] = useFetchUser(undefined, "edit");
+  const handleDeleteUser = useDeleteUser();
+
   const [value, setValue] = useState("1");
   const [open, setOpen] = useState(false);
-
   const [user, setUser] = useState<User>({
     team_id: 0,
     name: "",
@@ -52,40 +45,6 @@ export const UsersEdit = () => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleUsersDelete = () => {
-    const options: AxiosRequestConfig = {
-      url: "/auth",
-      method: "DELETE",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-    };
-
-    baseAxios(options)
-      .then((res: AxiosResponse) => {
-        console.log(res);
-        setIsSignedIn(false);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message:
-            "アカウントを削除しました。またのご利用をお待ちしております。",
-        });
-        navigate("/", { replace: true });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-          message: err.response.data.error,
-        });
-      });
   };
 
   useEffect(() => {
@@ -146,7 +105,7 @@ export const UsersEdit = () => {
                     open={open}
                     handleClose={handleClose}
                     objectName="アカウント"
-                    onClick={handleUsersDelete}
+                    onClick={handleDeleteUser}
                   />
                 </Grid2>
               </TabPanel>
