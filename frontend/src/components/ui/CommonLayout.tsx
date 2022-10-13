@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { FC, useContext } from "react";
 import { RouteProps, useLocation } from "react-router-dom";
 import { css, Global } from "@emotion/react";
@@ -40,26 +41,26 @@ export const CommonLayout: FC<RouteProps> = ({ children }) => {
   );
   theme = responsiveFontSizes(theme);
 
-  const styles = {
-    "*": css`
+  const globalStyles = css`
+    * {
       margin: 0;
-    `,
+    }
 
-    main: css`
+    main {
       display: flex;
       flex-direction: column;
       min-height: calc(100vh - 50px);
-    `,
+    }
 
-    footer: css`
+    footer {
       margin-top: auto;
-    `,
-  };
+    }
+  `;
 
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Global styles={styles} />
+        <Global styles={globalStyles} />
         <AlertSnackbar />
         <Box sx={{ display: "flex" }}>
           <MenuBars />
