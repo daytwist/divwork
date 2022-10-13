@@ -14,7 +14,7 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import { useFetchTeam } from "../../hooks/useFetchTeam";
+import { useFetchTeam } from "../../hooks/team/useFetchTeam";
 
 type Props = {
   // eslint-disable-next-line react/require-default-props

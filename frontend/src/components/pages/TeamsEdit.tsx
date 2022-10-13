@@ -1,6 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -14,26 +12,21 @@ import {
   Button,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
-import { useFetchTeam } from "../../hooks/useFetchTeam";
-import { EditTeam, TeamsResponse } from "../../types/teamTypes";
-import { AuthContext } from "../../providers/AuthProvider";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { useFetchTeam } from "../../hooks/team/useFetchTeam";
+import { EditTeam } from "../../types/teamTypes";
 import { BackIconButton } from "../ui/BackIconButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
+import { usePatchTeam } from "../../hooks/team/usePatchTeam";
 
 export const TeamsEdit = () => {
-  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
-    useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [teamData, isLoading, error] = useFetchTeam();
   const [team, setTeam] = useState<EditTeam>({
     name: "",
     max_num_of_users: 10,
   });
+
+  const handleUpdateTeam = usePatchTeam({ team });
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -64,40 +57,6 @@ export const TeamsEdit = () => {
     setTeam({ ...team, [name]: value });
   };
 
-  const handleTeamsUpdate = () => {
-    const options: AxiosRequestConfig = {
-      url: `/teams/${currentUser?.team_id}`,
-      method: "PATCH",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-      data: team,
-    };
-
-    baseAxios(options)
-      .then((res: AxiosResponse<TeamsResponse>) => {
-        console.log(res);
-        setTeamReloadFlag(!teamReloadFlag);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "チーム情報を更新しました",
-        });
-        navigate("/teams", { replace: false });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
-          message: err.response.data.errors.full_messages.join("。"),
-        });
-      });
-  };
-
   useEffect(() => {
     if (teamData?.team) {
       setTeam(teamData.team);
@@ -106,12 +65,7 @@ export const TeamsEdit = () => {
 
   useEffect(() => {
     if (error) {
-      handleSetSnackbar({
-        open: true,
-        type: "error",
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        message: "情報取得出来ませんでした",
-      });
+      console.log(error);
     }
   }, [error]);
 
@@ -172,7 +126,7 @@ export const TeamsEdit = () => {
           variant="contained"
           color="secondary"
           type="submit"
-          onClick={handleTeamsUpdate}
+          onClick={handleUpdateTeam}
         >
           更新する
         </Button>

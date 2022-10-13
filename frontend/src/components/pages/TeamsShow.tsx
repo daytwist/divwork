@@ -14,7 +14,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { PriorityBarChart } from "../models/team/PriorityBarChart";
 import { TasksNewButton } from "../models/task/TasksNewButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
-import { useFetchTeam } from "../../hooks/useFetchTeam";
+import { useFetchTeam } from "../../hooks/team/useFetchTeam";
 import { TabPanel } from "../ui/TabPanel";
 import { DeadlineBarChart } from "../models/team/DeadlineBarChart";
 

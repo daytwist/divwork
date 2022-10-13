@@ -12,12 +12,13 @@ import {
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
-import { Team, TeamsSelectResponse } from "../../types/teamTypes";
+import { Team } from "../../types/teamTypes";
 import { BackButton } from "../ui/BackButton";
+import { useFetchTeams } from "../../hooks/team/useFetchTeams";
+import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 export const TeamsSelect = () => {
+  const [teamsData, isLoading] = useFetchTeams();
   const [teams, setTeams] = useState<Team[]>([]);
   const [teamId, setTeamId] = useState<string | number>("");
   const [teamName, setTeamName] = useState("");
@@ -45,21 +46,15 @@ export const TeamsSelect = () => {
     }
   };
 
-  const options: AxiosRequestConfig = {
-    url: "/teams/select",
-    method: "GET",
-  };
-
   useEffect(() => {
-    baseAxios(options)
-      .then((res: AxiosResponse<TeamsSelectResponse>) => {
-        console.log(res);
-        setTeams(res.data.teams);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (teamsData?.teams) {
+      setTeams(teamsData.teams);
+    }
+  }, [teamsData?.teams]);
+
+  if (isLoading) {
+    return <LoadingColorRing />;
+  }
 
   return (
     <Grid2 container direction="column" rowSpacing={3}>

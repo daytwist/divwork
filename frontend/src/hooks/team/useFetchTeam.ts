@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { TeamsShowResponse } from "../types/teamTypes";
-import { AuthContext } from "../providers/AuthProvider";
-import { teamApi } from "../apis/team";
+import { TeamsShowResponse } from "../../types/teamTypes";
+import { AuthContext } from "../../providers/AuthProvider";
+import { teamApi } from "../../apis/team";
 
 export const useFetchTeam = (): [
   TeamsShowResponse | undefined,

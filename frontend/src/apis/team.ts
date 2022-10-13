@@ -1,8 +1,13 @@
+/* eslint-disable class-methods-use-this */
 import Cookies from "js-cookie";
 import { baseAxios } from "./axios";
 
 class TeamApi {
-  // eslint-disable-next-line class-methods-use-this
+  async getTeams<T>(): Promise<T> {
+    const res = await baseAxios.get<T>("/teams/select");
+    return res.data;
+  }
+
   async getTeam<T>(teamId: number): Promise<T> {
     const res = await baseAxios.get<T>(`/teams/${teamId}`, {
       headers: {
