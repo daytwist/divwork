@@ -1,5 +1,5 @@
-import { Dispatch, useContext, SetStateAction } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Dispatch, useContext, SetStateAction } from "react";
+import { Link, useParams } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -24,7 +24,7 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import { Task, ChildTask } from "../../../types/taskTypes";
 import { DivisionIncludeUserAvatar } from "../../../types/divisionTypes";
 import { usePatchTaskIsDone } from "../../../hooks/usePatchTaskIsDone";
-import { NewDivisionButton } from './NewDivisionButton';
+import { NewDivisionButton } from "./NewDivisionButton";
 
 type Props = {
   task: Task | undefined;
@@ -160,9 +160,7 @@ export const TaskCard = (props: Props) => {
               isFinished={task?.is_done}
             />
           )}
-          {task?.is_done ? null : (
-            <NewDivisionButton task={task} />
-          )}
+          {task?.is_done ? null : <NewDivisionButton task={task} />}
         </Stack>
       </CardActions>
     </Card>
