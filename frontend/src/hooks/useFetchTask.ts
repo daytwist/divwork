@@ -1,71 +1,68 @@
-import { useContext, useEffect, useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { User } from "../types/userTypes";
-import {
-  ParentTask,
-  Task,
-  TasksShowResponse,
-  ChildTask,
-} from "../types/taskTypes";
-import { DivisionIncludeUserAvatar } from "../types/divisionTypes";
-import { baseAxios } from "../apis/axios";
 import { SnackbarContext } from "../providers/SnackbarProvider";
+import { taskApi } from "../apis/task";
+import { FetchTaskResponse } from "../types/taskTypes";
 
-type Props = {
-  action: string;
-};
-
-export const useFetchTask = (props: Props) => {
-  const { action } = props;
+export const useFetchTask = (
+  action: string
+): [FetchTaskResponse | undefined, boolean] => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
-  const params = useParams<{ id: string }>();
+  const { id: taskId } = useParams();
   const navigate = useNavigate();
-  const [task, setTask] = useState<Task>();
-  const [user, setUser] = useState<User>();
-  const [parentTask, setParentTask] = useState<ParentTask>();
-  const [childrenTasks, setChildrenTasks] = useState<ChildTask[]>([]);
-  const [division, setDivision] = useState<DivisionIncludeUserAvatar>();
-
-  let url = "";
-  if (action === "edit") {
-    url = `/tasks/${params.id}/edit`;
-  } else {
-    url = `/tasks/${params.id}`;
-  }
-
-  const options: AxiosRequestConfig = {
-    url,
-    method: "GET",
-    headers: {
-      "access-token": Cookies.get("_access_token") || "",
-      client: Cookies.get("_client") || "",
-      uid: Cookies.get("_uid") || "",
-    },
-  };
+  const [taskData, setTaskData] = useState<FetchTaskResponse>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    baseAxios(options)
-      .then((res: AxiosResponse<TasksShowResponse>) => {
-        console.log(res);
-        setTask(res?.data.task);
-        setUser(res.data.user);
-        setParentTask(res.data.parent_task);
-        setChildrenTasks(res.data.children_tasks);
-        setDivision(res.data.division);
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          message: `${err.response.data.messages}`,
-        });
-        navigate("/teams", { replace: true });
-      });
-  }, [params, action]);
+    if (!taskId) return undefined;
+    const abortCtrl = new AbortController();
 
-  return { task, user, parentTask, childrenTasks, division };
+    if (action === "edit") {
+      taskApi
+        .editTask<FetchTaskResponse>(taskId)
+        .then((result) => {
+          console.log(result);
+          setTaskData(result);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          handleSetSnackbar({
+            open: true,
+            type: "error",
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            message: "情報取得に失敗しました",
+          });
+          navigate("/teams", { replace: true });
+          setIsLoading(false);
+        });
+    }
+
+    if (action === "show") {
+      taskApi
+        .getTask<FetchTaskResponse>(taskId)
+        .then((result) => {
+          console.log(result);
+          setTaskData(result);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          handleSetSnackbar({
+            open: true,
+            type: "error",
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            message: "情報取得に失敗しました",
+          });
+          navigate("/teams", { replace: true });
+          setIsLoading(false);
+        });
+    }
+
+    return () => {
+      abortCtrl.abort();
+    };
+  }, [taskId, action]);
+
+  return [taskData, isLoading];
 };

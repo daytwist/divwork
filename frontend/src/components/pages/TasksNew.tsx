@@ -5,7 +5,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
-import { TasksResponse, EditTask } from "../../types/taskTypes";
+import { TaskResponse, EditTask } from "../../types/taskTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
@@ -56,7 +56,7 @@ export const TasksNew = () => {
     };
 
     baseAxios(options)
-      .then((res: AxiosResponse<TasksResponse>) => {
+      .then((res: AxiosResponse<TaskResponse>) => {
         console.log(res);
         setTeamReloadFlag(!teamReloadFlag);
         handleSetSnackbar({

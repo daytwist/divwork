@@ -29,7 +29,7 @@ import { NewDivisionButton } from "./NewDivisionButton";
 type Props = {
   task: Task | undefined;
   setTask: Dispatch<SetStateAction<Task | undefined>>;
-  childrenTasks: ChildTask[];
+  childrenTasks: ChildTask[] | undefined;
   division: DivisionIncludeUserAvatar | undefined;
 };
 
@@ -78,7 +78,7 @@ export const TaskCard = (props: Props) => {
                 </Stack>
               </Grid2>
             )}
-            {childrenTasks.length ? (
+            {childrenTasks?.length ? (
               <Grid2 xs={12}>
                 <Stack direction="row">
                   <PeopleIcon

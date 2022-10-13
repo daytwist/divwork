@@ -32,7 +32,7 @@ export const useFetchUser = (
             open: true,
             type: "error",
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            message: `${err.response.data.messages}`,
+            message: "情報取得に失敗しました",
           });
           navigate("/teams", { replace: true });
           setIsLoading(false);

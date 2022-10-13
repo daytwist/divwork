@@ -5,7 +5,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../apis/axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
-import { TasksResponse } from "../types/taskTypes";
+import { TaskResponse } from "../types/taskTypes";
 
 type Props = {
   selectionModel: GridRowId[];
@@ -41,7 +41,7 @@ export const usePatchTasksIsDone = (props: Props) => {
       };
 
       baseAxios(options)
-        .then((res: AxiosResponse<TasksResponse>) => {
+        .then((res: AxiosResponse<TaskResponse>) => {
           console.log(res);
           setFlag(!flag);
           setTeamReloadFlag(!teamReloadFlag);

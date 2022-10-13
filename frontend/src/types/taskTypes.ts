@@ -69,11 +69,11 @@ export type DivisionTask = {
   parent_id: number;
 };
 
-export type TasksResponse = {
+export type TaskResponse = {
   task: Task;
 };
 
-export type TasksShowResponse = {
+export type FetchTaskResponse = {
   task: Task;
   user: User;
   parent_task: ParentTask;

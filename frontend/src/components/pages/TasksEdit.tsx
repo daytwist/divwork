@@ -5,19 +5,20 @@ import { Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
-import { TasksResponse, EditTask } from "../../types/taskTypes";
+import { TaskResponse, EditTask } from "../../types/taskTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useFetchTask } from "../../hooks/useFetchTask";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
+import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 export const TasksEdit = () => {
   const { currentUser } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   const params = useParams<{ id: string }>();
-  const { task: taskData } = useFetchTask({ action: "edit" });
+  const [taskData, isLoading] = useFetchTask("edit");
 
   const [task, setTask] = useState<EditTask>({
     title: "",
@@ -58,7 +59,7 @@ export const TasksEdit = () => {
     };
 
     baseAxios(updateOptions)
-      .then((res: AxiosResponse<TasksResponse>) => {
+      .then((res: AxiosResponse<TaskResponse>) => {
         console.log(res);
         handleSetSnackbar({
           open: true,
@@ -79,11 +80,15 @@ export const TasksEdit = () => {
   };
 
   useEffect(() => {
-    if (taskData) {
-      setTask(taskData);
-      setDeadline(taskData.deadline);
+    if (taskData?.task) {
+      setTask(taskData.task);
+      setDeadline(taskData.task.deadline);
     }
-  }, [taskData]);
+  }, [taskData?.task]);
+
+  if (isLoading) {
+    return <LoadingColorRing />;
+  }
 
   return (
     <Grid2 container direction="column" rowSpacing={3} width={700}>

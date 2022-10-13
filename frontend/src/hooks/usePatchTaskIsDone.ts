@@ -2,7 +2,7 @@ import { useContext, Dispatch, SetStateAction } from "react";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../apis/axios";
-import { Task, TasksResponse } from "../types/taskTypes";
+import { Task, TaskResponse } from "../types/taskTypes";
 import { AuthContext } from "../providers/AuthProvider";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 
@@ -36,7 +36,7 @@ export const usePatchTaskIsDone = (props: Props) => {
 
   const handleUpdateTaskIsDone = () => {
     baseAxios(options)
-      .then((res: AxiosResponse<TasksResponse>) => {
+      .then((res: AxiosResponse<TaskResponse>) => {
         console.log(res);
         setTask(res.data.task);
         setTeamReloadFlag(!teamReloadFlag);
