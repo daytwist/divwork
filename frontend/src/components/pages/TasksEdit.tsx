@@ -1,23 +1,14 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Cookies from "js-cookie";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
-import { TaskResponse, EditTask } from "../../types/taskTypes";
-import { AuthContext } from "../../providers/AuthProvider";
+import { EditTask } from "../../types/taskTypes";
 import { useFetchTask } from "../../hooks/useFetchTask";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
+import { usePatchTask } from "../../hooks/usePatchTask";
 
 export const TasksEdit = () => {
-  const { currentUser } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-  const params = useParams<{ id: string }>();
   const [taskData, isLoading] = useFetchTask("edit");
 
   const [task, setTask] = useState<EditTask>({
@@ -29,6 +20,8 @@ export const TasksEdit = () => {
   });
   const [deadline, setDeadline] = useState<Date | null>(new Date());
 
+  const handleUpdateTask = usePatchTask({ task, deadline });
+
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -38,45 +31,6 @@ export const TasksEdit = () => {
 
   const handleDeadlineChange = (newValue: Date | null) => {
     setDeadline(newValue);
-  };
-
-  const handleTasksUpdate = () => {
-    const updateOptions: AxiosRequestConfig = {
-      url: `/tasks/${params.id}`,
-      method: "PATCH",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-      data: {
-        title: task.title,
-        description: task.description,
-        priority: task.priority,
-        deadline,
-        rate_of_progress: task.rate_of_progress,
-      },
-    };
-
-    baseAxios(updateOptions)
-      .then((res: AxiosResponse<TaskResponse>) => {
-        console.log(res);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "タスクを更新しました",
-        });
-        navigate(`/users/${currentUser?.id}`, { replace: false });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.messages.join("。")}`,
-        });
-      });
   };
 
   useEffect(() => {
@@ -110,7 +64,7 @@ export const TasksEdit = () => {
         />
       </Grid2>
       <Grid2 xs={12}>
-        <Button variant="contained" type="submit" onClick={handleTasksUpdate}>
+        <Button variant="contained" type="submit" onClick={handleUpdateTask}>
           完了
         </Button>
       </Grid2>
