@@ -19,7 +19,7 @@ import { RecommendBar } from "./RecommendBar";
 import { AuthContext } from "../../providers/AuthProvider";
 
 export const CommonLayout: FC<RouteProps> = ({ children }) => {
-  const { loading } = useContext(AuthContext);
+  const { isLoading } = useContext(AuthContext);
   const location = useLocation();
 
   let theme = createTheme(
@@ -71,7 +71,7 @@ export const CommonLayout: FC<RouteProps> = ({ children }) => {
                 <Grid2>{children}</Grid2>
               </Grid2>
             </Container>
-            {!loading && location.pathname === "/" ? <RecommendBar /> : null}
+            {!isLoading && location.pathname === "/" ? <RecommendBar /> : null}
           </Box>
         </Box>
         <Footer />

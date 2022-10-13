@@ -1,25 +1,18 @@
-import { useCallback, useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { GridRowId } from "@mui/x-data-grid";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../apis/axios";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { baseAxios } from "../../apis/axios";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
-type Props = {
-  taskId: string | GridRowId | undefined;
-};
-
-export const useTasksDelete = (props: Props) => {
-  const { taskId } = props;
-  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
-    useContext(AuthContext);
+export const useDeleteUser = () => {
+  const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
 
   const options: AxiosRequestConfig = {
-    url: `/tasks/${taskId}`,
+    url: "/auth",
     method: "DELETE",
     headers: {
       "access-token": Cookies.get("_access_token") || "",
@@ -28,17 +21,18 @@ export const useTasksDelete = (props: Props) => {
     },
   };
 
-  const handleTasksDelete = useCallback(() => {
+  const handleDeleteUser = () => {
     baseAxios(options)
       .then((res: AxiosResponse) => {
         console.log(res);
-        setTeamReloadFlag(!teamReloadFlag);
+        setIsSignedIn(false);
         handleSetSnackbar({
           open: true,
           type: "success",
-          message: "タスクを削除しました",
+          message:
+            "アカウントを削除しました。またのご利用をお待ちしております。",
         });
-        navigate(`/users/${currentUser?.id}`, { replace: true });
+        navigate("/", { replace: true });
       })
       .catch((err) => {
         console.log(err);
@@ -46,10 +40,10 @@ export const useTasksDelete = (props: Props) => {
           open: true,
           type: "error",
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-          message: err.response.data.errors,
+          message: err.response.data.error,
         });
       });
-  }, []);
+  };
 
-  return handleTasksDelete;
+  return handleDeleteUser;
 };

@@ -1,13 +1,10 @@
 import {
   ChangeEvent,
-  useContext,
   useState,
   FormEvent,
   Dispatch,
   SetStateAction,
 } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { PhotoCamera } from "@mui/icons-material";
 import {
   Avatar,
@@ -19,11 +16,8 @@ import {
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../../apis/axios";
-import { User, UsersUpdateResponse } from "../../../types/userTypes";
-import { AuthContext } from "../../../providers/AuthProvider";
-import { SnackbarContext } from "../../../providers/SnackbarProvider";
+import { User } from "../../../types/userTypes";
+import { usePatchUser } from "../../../hooks/user/usePatchUser";
 
 type Props = {
   user: User;
@@ -32,13 +26,16 @@ type Props = {
 
 export const UsersEditProfile = (props: Props) => {
   const { user, setUser } = props;
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
 
   const [image, setImage] = useState({
     data: "",
     filename: "",
+  });
+
+  const handleUpdateUser = usePatchUser({
+    name: user.name,
+    email: user.email,
+    avatar: image,
   });
 
   const handleInputChange = (
@@ -46,6 +43,7 @@ export const UsersEditProfile = (props: Props) => {
   ) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
+    console.log(value);
   };
 
   const handleImageSelect = (event: FormEvent) => {
@@ -55,49 +53,11 @@ export const UsersEditProfile = (props: Props) => {
       reader.onload = () => {
         setImage({
           data: reader.result as string,
-          filename: files[0] ? files[0].name : "unknownfile",
+          filename: files[0] ? files[0].name : "unknownFile",
         });
       };
       reader.readAsDataURL(files[0]);
     }
-  };
-
-  const handleUsersUpdate = () => {
-    const updateOptions: AxiosRequestConfig = {
-      url: "/auth",
-      method: "PATCH",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-      data: {
-        name: user.name,
-        email: user.email,
-        avatar: image,
-      },
-    };
-
-    baseAxios(updateOptions)
-      .then((res: AxiosResponse<UsersUpdateResponse>) => {
-        console.log(res);
-        setCurrentUser(res.data.data);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "ユーザー情報を更新しました",
-        });
-        navigate(`/users/${currentUser?.id}`, { replace: false });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
-          message: err.response.data.errors.full_messages.join("。"),
-        });
-      });
   };
 
   return (
@@ -172,7 +132,7 @@ export const UsersEditProfile = (props: Props) => {
           variant="contained"
           color="secondary"
           type="submit"
-          onClick={handleUsersUpdate}
+          onClick={handleUpdateUser}
         >
           更新する
         </Button>

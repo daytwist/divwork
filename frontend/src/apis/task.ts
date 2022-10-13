@@ -2,9 +2,9 @@
 import Cookies from "js-cookie";
 import { baseAxios } from "./axios";
 
-class UserApi {
-  async getUser<T>(userId: string): Promise<T> {
-    const res = await baseAxios.get<T>(`/users/${userId}`, {
+class TaskApi {
+  async getTask<T>(taskId: string): Promise<T> {
+    const res = await baseAxios.get<T>(`/tasks/${taskId}`, {
       headers: {
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
@@ -14,8 +14,8 @@ class UserApi {
     return res.data;
   }
 
-  async editUser<T>(userId: string): Promise<T> {
-    const res = await baseAxios.get<T>(`/users/${userId}/edit`, {
+  async editTask<T>(taskId: string): Promise<T> {
+    const res = await baseAxios.get<T>(`/tasks/${taskId}/edit`, {
       headers: {
         "access-token": Cookies.get("_access_token") || "",
         client: Cookies.get("_client") || "",
@@ -26,4 +26,4 @@ class UserApi {
   }
 }
 
-export const userApi = new UserApi();
+export const taskApi = new TaskApi();

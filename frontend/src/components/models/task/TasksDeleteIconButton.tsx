@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { GridRowId } from "@mui/x-data-grid";
 import { AlertDialog } from "../../ui/AlertDialog";
-import { useTasksDelete } from "../../../hooks/useTasksDelete";
+import { useDeleteTask } from "../../../hooks/task/useDeleteTask";
 
 type Props = {
   taskId: string | GridRowId | undefined;
@@ -11,7 +11,7 @@ type Props = {
 
 export const TasksDeleteIconButton = (props: Props) => {
   const { taskId } = props;
-  const handleTasksDelete = useTasksDelete({ taskId });
+  const handleTasksDelete = useDeleteTask({ taskId });
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {

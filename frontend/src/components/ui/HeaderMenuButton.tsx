@@ -1,6 +1,5 @@
 import { MouseEvent, useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -20,16 +19,12 @@ import TaskIcon from "@mui/icons-material/Task";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
 import { AuthContext } from "../../providers/AuthProvider";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { useSignOut } from "../../hooks/user/useSignOut";
 
 export const HeaderMenuButton = () => {
-  const { setIsSignedIn, currentUser } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-
+  const { currentUser } = useContext(AuthContext);
+  const handleSignOut = useSignOut();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -39,42 +34,6 @@ export const HeaderMenuButton = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleSignOut = () => {
-    const options: AxiosRequestConfig = {
-      url: "/auth/sign_out",
-      method: "DELETE",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-    };
-
-    baseAxios(options)
-      .then((res: AxiosResponse) => {
-        console.log(res);
-        Cookies.remove("_access_token");
-        Cookies.remove("_client");
-        Cookies.remove("_uid");
-        setIsSignedIn(false);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "ログアウトしました",
-        });
-        navigate("/", { replace: true });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          message: `${err.response.data.errors[0]}`,
-        });
-      });
   };
 
   return (

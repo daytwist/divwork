@@ -1,21 +1,12 @@
-import { ChangeEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { ChangeEvent, useState } from "react";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
-import { AuthContext } from "../../providers/AuthProvider";
-import { AuthResponse, PasswordState } from "../../types/userTypes";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { PasswordState } from "../../types/userTypes";
 import { PasswordTextfield } from "../models/user/PasswordTextfield";
 import { BackButton } from "../ui/BackButton";
+import { useSignIn } from "../../hooks/user/useSignIn";
 
 export const SignIn = () => {
-  const { setIsSignedIn } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [values, setValues] = useState<PasswordState>({
     password: "",
@@ -23,45 +14,12 @@ export const SignIn = () => {
     showPassword: false,
   });
 
+  const handleSignIn = useSignIn(email, values.password);
+
   const handleValuesChange =
     (prop: keyof PasswordState) => (event: ChangeEvent<HTMLInputElement>) => {
       setValues({ ...values, [prop]: event.target.value });
     };
-
-  const handleSignIn = () => {
-    const options: AxiosRequestConfig = {
-      url: "/auth/sign_in",
-      method: "POST",
-      params: {
-        email,
-        password: values.password,
-      },
-    };
-
-    baseAxios(options)
-      .then((res: AxiosResponse<AuthResponse>) => {
-        console.log(res);
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers.client);
-        Cookies.set("_uid", res.headers.uid);
-        setIsSignedIn(true);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "ログインしました",
-        });
-        navigate("/teams", { replace: false });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          message: `${err.response.data.errors}`,
-        });
-      });
-  };
 
   return (
     <Grid2 container direction="column" rowSpacing={3}>

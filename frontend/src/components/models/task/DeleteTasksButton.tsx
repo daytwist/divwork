@@ -3,7 +3,7 @@ import { IconButton, Button } from "@mui/material";
 import { GridRowId } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AlertDialog } from "../../ui/AlertDialog";
-import { useDeleteTasks } from "../../../hooks/useDeleteTasks";
+import { useDeleteTasks } from "../../../hooks/task/useDeleteTasks";
 
 type Props = {
   selectionModel: GridRowId[];

@@ -1,22 +1,12 @@
-import { ChangeEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { ChangeEvent, useState } from "react";
 import { Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
-import { TasksResponse, EditTask } from "../../types/taskTypes";
-import { AuthContext } from "../../providers/AuthProvider";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { EditTask } from "../../types/taskTypes";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
+import { usePostTask } from "../../hooks/task/usePostTask";
 
 export const TasksNew = () => {
-  const { currentUser, teamReloadFlag, setTeamReloadFlag } =
-    useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-
   const [task, setTask] = useState<EditTask>({
     title: "",
     description: "",
@@ -25,6 +15,8 @@ export const TasksNew = () => {
     user_id: 0,
   });
   const [deadline, setDeadline] = useState<Date | null>(new Date());
+
+  const handleCreateTask = usePostTask({ task, deadline });
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -35,46 +27,6 @@ export const TasksNew = () => {
 
   const handleDeadlineChange = (newValue: Date | null) => {
     setDeadline(newValue);
-  };
-
-  const handleTasksCreate = () => {
-    const options: AxiosRequestConfig = {
-      url: "/tasks",
-      method: "POST",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-      data: {
-        title: task.title,
-        description: task.description,
-        deadline,
-        priority: task.priority,
-        user_id: currentUser?.id,
-      },
-    };
-
-    baseAxios(options)
-      .then((res: AxiosResponse<TasksResponse>) => {
-        console.log(res);
-        setTeamReloadFlag(!teamReloadFlag);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "タスクを作成しました",
-        });
-        navigate(`/users/${currentUser?.id}`, { replace: false });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.messages.join("。")}`,
-        });
-      });
   };
 
   return (
@@ -97,7 +49,7 @@ export const TasksNew = () => {
         />
       </Grid2>
       <Grid2 xs={12}>
-        <Button variant="contained" type="submit" onClick={handleTasksCreate}>
+        <Button variant="contained" type="submit" onClick={handleCreateTask}>
           完了
         </Button>
       </Grid2>

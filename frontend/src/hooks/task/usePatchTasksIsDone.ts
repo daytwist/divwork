@@ -2,10 +2,10 @@ import { Dispatch, SetStateAction, useCallback, useContext } from "react";
 import Cookies from "js-cookie";
 import { GridRowId } from "@mui/x-data-grid";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../apis/axios";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
-import { TasksResponse } from "../types/taskTypes";
+import { baseAxios } from "../../apis/axios";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { TaskResponse } from "../../types/taskTypes";
 
 type Props = {
   selectionModel: GridRowId[];
@@ -16,7 +16,7 @@ type Props = {
 
 export const usePatchTasksIsDone = (props: Props) => {
   const { selectionModel, isFinished, flag, setFlag } = props;
-  const { teamReloadFlag, setTeamReloadFlag } = useContext(AuthContext);
+  const { reloadTeamFlag, setReloadTeamFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
 
   const handleUpdateTasksIsDone = useCallback(() => {
@@ -41,10 +41,10 @@ export const usePatchTasksIsDone = (props: Props) => {
       };
 
       baseAxios(options)
-        .then((res: AxiosResponse<TasksResponse>) => {
+        .then((res: AxiosResponse<TaskResponse>) => {
           console.log(res);
           setFlag(!flag);
-          setTeamReloadFlag(!teamReloadFlag);
+          setReloadTeamFlag(!reloadTeamFlag);
           handleSetSnackbar({
             open: true,
             type: "success",
@@ -63,7 +63,7 @@ export const usePatchTasksIsDone = (props: Props) => {
           });
         });
     });
-  }, [selectionModel, isFinished, flag, teamReloadFlag]);
+  }, [selectionModel, isFinished, flag, reloadTeamFlag]);
 
   return handleUpdateTasksIsDone;
 };

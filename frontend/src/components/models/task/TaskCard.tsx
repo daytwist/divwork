@@ -23,13 +23,13 @@ import { UpdateIsDoneButton } from "./UpdateIsDoneButton";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { Task, ChildTask } from "../../../types/taskTypes";
 import { DivisionIncludeUserAvatar } from "../../../types/divisionTypes";
-import { usePatchTaskIsDone } from "../../../hooks/usePatchTaskIsDone";
+import { usePatchTaskIsDone } from "../../../hooks/task/usePatchTaskIsDone";
 import { NewDivisionButton } from "./NewDivisionButton";
 
 type Props = {
   task: Task | undefined;
   setTask: Dispatch<SetStateAction<Task | undefined>>;
-  childrenTasks: ChildTask[];
+  childrenTasks: ChildTask[] | undefined;
   division: DivisionIncludeUserAvatar | undefined;
 };
 
@@ -78,7 +78,7 @@ export const TaskCard = (props: Props) => {
                 </Stack>
               </Grid2>
             )}
-            {childrenTasks.length ? (
+            {childrenTasks?.length ? (
               <Grid2 xs={12}>
                 <Stack direction="row">
                   <PeopleIcon

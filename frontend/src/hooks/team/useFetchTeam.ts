@@ -1,15 +1,15 @@
 import { useState, useEffect, useContext } from "react";
-import { TeamsShowResponse } from "../types/teamTypes";
-import { AuthContext } from "../providers/AuthProvider";
-import { teamApi } from "../apis/team";
+import { TeamsShowResponse } from "../../types/teamTypes";
+import { AuthContext } from "../../providers/AuthProvider";
+import { teamApi } from "../../apis/team";
 
-export const useTeam = (): [
+export const useFetchTeam = (): [
   TeamsShowResponse | undefined,
   boolean,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any | undefined
 ] => {
-  const { currentUser, teamReloadFlag } = useContext(AuthContext);
+  const { currentUser, reloadTeamFlag } = useContext(AuthContext);
   const [teamData, setTeamData] = useState<TeamsShowResponse>();
   const [isLoading, setIsLoading] = useState(true);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
@@ -33,7 +33,7 @@ export const useTeam = (): [
     return () => {
       abortCtrl.abort();
     };
-  }, [currentUser?.team_id, teamReloadFlag]);
+  }, [currentUser, reloadTeamFlag]);
 
   return [teamData, isLoading, error];
 };

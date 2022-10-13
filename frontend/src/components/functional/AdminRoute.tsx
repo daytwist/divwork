@@ -4,9 +4,9 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 export const AdminRoute: FC<RouteProps> = ({ children }) => {
-  const { loading, currentUser, isSignedIn } = useContext(AuthContext);
+  const { isLoading, currentUser, isSignedIn } = useContext(AuthContext);
 
-  if (loading) {
+  if (isLoading) {
     return <LoadingColorRing />;
   }
 

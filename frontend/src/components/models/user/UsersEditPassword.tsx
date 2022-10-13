@@ -1,67 +1,23 @@
-import { ChangeEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { ChangeEvent, useState } from "react";
 import { Button } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../../apis/axios";
-import { AuthPasswordResponse, PasswordState } from "../../../types/userTypes";
-import { AuthContext } from "../../../providers/AuthProvider";
-import { SnackbarContext } from "../../../providers/SnackbarProvider";
+import { PasswordState } from "../../../types/userTypes";
 import { PasswordTextfield } from "./PasswordTextfield";
+import { usePatchPassword } from "../../../hooks/user/usePatchPassword";
 
 export const UsersEditPassword = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-
   const [values, setValues] = useState({
     password: "",
     passwordConfirmation: "",
     showPassword: false,
   });
 
+  const handleUpdatePassword = usePatchPassword({ values });
+
   const handleValuesChange =
     (prop: keyof PasswordState) => (event: ChangeEvent<HTMLInputElement>) => {
       setValues({ ...values, [prop]: event.target.value });
     };
-
-  const handlePasswordUpdate = () => {
-    const options: AxiosRequestConfig = {
-      url: "/auth/password",
-      method: "PATCH",
-      headers: {
-        "access-token": Cookies.get("_access_token") || "",
-        client: Cookies.get("_client") || "",
-        uid: Cookies.get("_uid") || "",
-      },
-      data: {
-        password: values.password,
-        password_confirmation: values.passwordConfirmation,
-      },
-    };
-
-    baseAxios(options)
-      .then((res: AxiosResponse<AuthPasswordResponse>) => {
-        console.log(res);
-        setCurrentUser(res.data.data);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "パスワードを更新しました",
-        });
-        navigate(`/users/${currentUser?.id}`, { replace: false });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
-          message: err.response.data.errors.full_messages.join("。"),
-        });
-      });
-  };
 
   return (
     <Grid2 container direction="column" rowSpacing={3}>
@@ -85,7 +41,7 @@ export const UsersEditPassword = () => {
           handleChange={handleValuesChange}
           label="新しいパスワード(確認用)"
           withHelperText={false}
-          handleSubmit={handlePasswordUpdate}
+          handleSubmit={handleUpdatePassword}
           required
         />
       </Grid2>
@@ -93,7 +49,7 @@ export const UsersEditPassword = () => {
         <Button
           color="secondary"
           variant="contained"
-          onClick={handlePasswordUpdate}
+          onClick={handleUpdatePassword}
         >
           更新する
         </Button>

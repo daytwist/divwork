@@ -18,14 +18,14 @@ type Props = {
 };
 
 type AuthContextValue = {
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   isSignedIn: boolean;
   setIsSignedIn: Dispatch<SetStateAction<boolean>>;
   currentUser: User | undefined;
   setCurrentUser: Dispatch<SetStateAction<User | undefined>>;
-  teamReloadFlag: boolean;
-  setTeamReloadFlag: Dispatch<SetStateAction<boolean>>;
+  reloadTeamFlag: boolean;
+  setReloadTeamFlag: Dispatch<SetStateAction<boolean>>;
 };
 
 export const AuthContext = createContext<AuthContextValue>(
@@ -33,31 +33,31 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 export const AuthProvider: FC<Props> = ({ children }) => {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
-  const [teamReloadFlag, setTeamReloadFlag] = useState(false);
+  const [reloadTeamFlag, setReloadTeamFlag] = useState(false);
 
   const AuthProviderValue = useMemo(
     () => ({
-      loading,
-      setLoading,
+      isLoading,
+      setIsLoading,
       isSignedIn,
       setIsSignedIn,
       currentUser,
       setCurrentUser,
-      teamReloadFlag,
-      setTeamReloadFlag,
+      reloadTeamFlag,
+      setReloadTeamFlag,
     }),
     [
-      loading,
-      setLoading,
+      isLoading,
+      setIsLoading,
       isSignedIn,
       setIsSignedIn,
       currentUser,
       setCurrentUser,
-      teamReloadFlag,
-      setTeamReloadFlag,
+      reloadTeamFlag,
+      setReloadTeamFlag,
     ]
   );
 
@@ -79,13 +79,13 @@ export const AuthProvider: FC<Props> = ({ children }) => {
         if (res.data.is_signed_in === true) {
           setIsSignedIn(true);
           setCurrentUser(res.data.current_user);
-          setLoading(false);
+          setIsLoading(false);
         } else if (res.data.is_signed_in === false) {
           setIsSignedIn(false);
           setCurrentUser(undefined);
-          setLoading(false);
+          setIsLoading(false);
         } else {
-          setLoading(true);
+          setIsLoading(true);
         }
       })
       .catch((err) => console.log(err));

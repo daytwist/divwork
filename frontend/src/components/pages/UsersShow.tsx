@@ -11,7 +11,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { GridRowId } from "@mui/x-data-grid";
 import { UserActionButtons } from "../models/user/UserActionButtons";
 import { AuthContext } from "../../providers/AuthProvider";
-import { useUser } from "../../hooks/useUser";
+import { useFetchUser } from "../../hooks/user/useFetchUser";
 import { UserTasksDataGrid } from "../models/user/UserTasksDataGrid";
 import { DivisionsDataGrid } from "../models/user/DivisionsDataGrid";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
@@ -26,8 +26,7 @@ export const UsersShow = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [tabValue, setTabValue] = useState(0);
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const [userData, isLoading, error] = useUser(userId, reloadFlag);
+  const [userData, isLoading] = useFetchUser(reloadFlag, "show");
 
   const tabProps = (index: number) => {
     return {
@@ -67,12 +66,6 @@ export const UsersShow = () => {
       setIsFinished(false);
     }
   }, [userId]);
-
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-  }, [error]);
 
   if (isLoading) {
     return <LoadingColorRing />;

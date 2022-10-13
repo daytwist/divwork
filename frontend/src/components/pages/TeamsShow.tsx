@@ -14,13 +14,13 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { PriorityBarChart } from "../models/team/PriorityBarChart";
 import { TasksNewButton } from "../models/task/TasksNewButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
-import { useTeam } from "../../hooks/useTeam";
+import { useFetchTeam } from "../../hooks/team/useFetchTeam";
 import { TabPanel } from "../ui/TabPanel";
 import { DeadlineBarChart } from "../models/team/DeadlineBarChart";
 
 export const TeamsShow = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const [teamData, isLoading, error] = useTeam();
+  const [teamData, isLoading, error] = useFetchTeam();
   const [tabValue, setTabValue] = useState(0);
 
   const tabProps = (index: number) => {

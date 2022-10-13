@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { useGuestSignIn } from "../../hooks/useGuestSignIn";
+import { useGuestSignIn } from "../../hooks/user/useGuestSignIn";
 
 export const RecommendBar = () => {
   const handleGuestSignIn = useGuestSignIn();
