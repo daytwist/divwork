@@ -53,14 +53,14 @@ export const TasksForm = (props: Props) => {
           onChange={onChange}
         />
       </Grid2>
-      <Grid2 xs={4}>
+      <Grid2 xs={12} sm={4}>
         <PriorityTextField value={task.priority} onChange={onChange} />
       </Grid2>
-      <Grid2 xs={8}>
+      <Grid2 xs={12} sm={8} sx={{ mt: { xs: 1, sm: 0 } }}>
         <DeadlineTextField value={deadline} onChange={onChangeDeadline} />
       </Grid2>
       {action === "edit" ? (
-        <Grid2 xs={12} mt={2}>
+        <Grid2 xs={12} sx={{ mt: { xs: 1, sm: 2 } }}>
           <FormControl sx={{ width: "13ch" }}>
             <InputLabel color="secondary" htmlFor="rate-of-progress">
               進捗率
