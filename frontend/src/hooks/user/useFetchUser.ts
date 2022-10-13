@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { userApi } from "../apis/user";
-import { UsersResponse } from "../types/userTypes";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { userApi } from "../../apis/user";
+import { UsersResponse } from "../../types/userTypes";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 export const useFetchUser = (
   reloadFlag: boolean | undefined,

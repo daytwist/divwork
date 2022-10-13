@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { User } from "../../../types/userTypes";
-import { usePatchUser } from "../../../hooks/usePatchUser";
+import { usePatchUser } from "../../../hooks/user/usePatchUser";
 
 type Props = {
   user: User;

@@ -7,7 +7,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
 import { User } from "../../types/userTypes";
-import { useFetchUser } from "../../hooks/useFetchUser";
+import { useFetchUser } from "../../hooks/user/useFetchUser";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { AlertDialog } from "../ui/AlertDialog";

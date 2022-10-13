@@ -20,7 +20,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../../providers/AuthProvider";
-import { useSignOut } from "../../hooks/auth/useSignOut";
+import { useSignOut } from "../../hooks/user/useSignOut";
 
 export const HeaderMenuButton = () => {
   const { currentUser } = useContext(AuthContext);

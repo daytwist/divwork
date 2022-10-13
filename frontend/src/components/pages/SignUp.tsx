@@ -5,7 +5,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { PasswordState } from "../../types/userTypes";
 import { PasswordTextfield } from "../models/user/PasswordTextfield";
 import { BackButton } from "../ui/BackButton";
-import { useSignUp } from "../../hooks/auth/useSignUp";
+import { useSignUp } from "../../hooks/user/useSignUp";
 
 type State = {
   teamId: number;

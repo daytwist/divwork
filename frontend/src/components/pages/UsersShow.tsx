@@ -11,7 +11,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { GridRowId } from "@mui/x-data-grid";
 import { UserActionButtons } from "../models/user/UserActionButtons";
 import { AuthContext } from "../../providers/AuthProvider";
-import { useFetchUser } from "../../hooks/useFetchUser";
+import { useFetchUser } from "../../hooks/user/useFetchUser";
 import { UserTasksDataGrid } from "../models/user/UserTasksDataGrid";
 import { DivisionsDataGrid } from "../models/user/DivisionsDataGrid";
 import { LoadingColorRing } from "../ui/LoadingColorRing";

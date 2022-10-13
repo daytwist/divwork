@@ -4,7 +4,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { PasswordState } from "../../types/userTypes";
 import { PasswordTextfield } from "../models/user/PasswordTextfield";
 import { BackButton } from "../ui/BackButton";
-import { useSignIn } from "../../hooks/auth/useSignIn";
+import { useSignIn } from "../../hooks/user/useSignIn";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");

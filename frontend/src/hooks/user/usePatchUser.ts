@@ -2,10 +2,10 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../apis/axios";
-import { UsersUpdateResponse } from "../types/userTypes";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { baseAxios } from "../../apis/axios";
+import { UsersUpdateResponse } from "../../types/userTypes";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 type Props = {
   name: string;
