@@ -2,10 +2,10 @@ import { Dispatch, SetStateAction, useCallback, useContext } from "react";
 import Cookies from "js-cookie";
 import { GridRowId } from "@mui/x-data-grid";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../apis/axios";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
-import { TaskResponse } from "../types/taskTypes";
+import { baseAxios } from "../../apis/axios";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { TaskResponse } from "../../types/taskTypes";
 
 type Props = {
   selectionModel: GridRowId[];

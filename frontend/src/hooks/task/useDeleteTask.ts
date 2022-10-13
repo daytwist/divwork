@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { GridRowId } from "@mui/x-data-grid";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../apis/axios";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { baseAxios } from "../../apis/axios";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 type Props = {
   taskId: string | GridRowId | undefined;

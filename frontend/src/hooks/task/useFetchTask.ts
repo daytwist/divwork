@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { SnackbarContext } from "../providers/SnackbarProvider";
-import { taskApi } from "../apis/task";
-import { FetchTaskResponse } from "../types/taskTypes";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { taskApi } from "../../apis/task";
+import { FetchTaskResponse } from "../../types/taskTypes";
 
 export const useFetchTask = (
   action: string

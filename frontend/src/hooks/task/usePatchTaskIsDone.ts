@@ -1,10 +1,10 @@
 import { useContext, Dispatch, SetStateAction } from "react";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../apis/axios";
-import { Task, TaskResponse } from "../types/taskTypes";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { baseAxios } from "../../apis/axios";
+import { Task, TaskResponse } from "../../types/taskTypes";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 type Props = {
   task: Task | undefined;

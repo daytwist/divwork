@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { GridRowId } from "@mui/x-data-grid";
 import { AlertDialog } from "../../ui/AlertDialog";
-import { useDeleteTask } from "../../../hooks/useDeleteTask";
+import { useDeleteTask } from "../../../hooks/task/useDeleteTask";
 
 type Props = {
   taskId: string | GridRowId | undefined;

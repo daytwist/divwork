@@ -4,7 +4,7 @@ import { GridRowId } from "@mui/x-data-grid";
 import { TasksNewButton } from "../task/TasksNewButton";
 import { UpdateIsDoneButton } from "../task/UpdateIsDoneButton";
 import { DeleteTasksButton } from "../task/DeleteTasksButton";
-import { usePatchTasksIsDone } from "../../../hooks/usePatchTasksIsDone";
+import { usePatchTasksIsDone } from "../../../hooks/task/usePatchTasksIsDone";
 
 type Props = {
   selectionModel: GridRowId[];

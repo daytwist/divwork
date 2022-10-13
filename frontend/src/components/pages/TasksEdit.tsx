@@ -2,11 +2,11 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { EditTask } from "../../types/taskTypes";
-import { useFetchTask } from "../../hooks/useFetchTask";
+import { useFetchTask } from "../../hooks/task/useFetchTask";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
-import { usePatchTask } from "../../hooks/usePatchTask";
+import { usePatchTask } from "../../hooks/task/usePatchTask";
 
 export const TasksEdit = () => {
   const [taskData, isLoading] = useFetchTask("edit");

@@ -16,8 +16,8 @@ import { User } from "../../types/userTypes";
 import { DivisionTask } from "../../types/taskTypes";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
-import { usePostDivision } from "../../hooks/usePostDivision";
-import { useFetchNewDivision } from "../../hooks/useFetchNewDivision";
+import { usePostDivision } from "../../hooks/division/usePostDivision";
+import { useFetchNewDivision } from "../../hooks/division/useFetchNewDivision";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 
 export const DivisionsNew = () => {

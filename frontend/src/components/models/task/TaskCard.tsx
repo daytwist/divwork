@@ -23,7 +23,7 @@ import { UpdateIsDoneButton } from "./UpdateIsDoneButton";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { Task, ChildTask } from "../../../types/taskTypes";
 import { DivisionIncludeUserAvatar } from "../../../types/divisionTypes";
-import { usePatchTaskIsDone } from "../../../hooks/usePatchTaskIsDone";
+import { usePatchTaskIsDone } from "../../../hooks/task/usePatchTaskIsDone";
 import { NewDivisionButton } from "./NewDivisionButton";
 
 type Props = {

@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FetchNewDivisionResponse } from "../types/divisionTypes";
-import { divisionApi } from "../apis/division";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { FetchNewDivisionResponse } from "../../types/divisionTypes";
+import { divisionApi } from "../../apis/division";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 export const useFetchNewDivision = (): [
   FetchNewDivisionResponse | undefined,

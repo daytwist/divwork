@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../apis/axios";
-import { TaskResponse, EditTask } from "../types/taskTypes";
-import { SnackbarContext } from "../providers/SnackbarProvider";
+import { baseAxios } from "../../apis/axios";
+import { TaskResponse, EditTask } from "../../types/taskTypes";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 type Props = {
   task: EditTask | undefined;

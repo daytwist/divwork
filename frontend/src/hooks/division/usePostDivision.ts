@@ -2,11 +2,11 @@ import { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../apis/axios";
-import { PostDivisionResponse } from "../types/divisionTypes";
-import { AuthContext } from "../providers/AuthProvider";
-import { SnackbarContext } from "../providers/SnackbarProvider";
-import { DivisionTask } from "../types/taskTypes";
+import { baseAxios } from "../../apis/axios";
+import { PostDivisionResponse } from "../../types/divisionTypes";
+import { AuthContext } from "../../providers/AuthProvider";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { DivisionTask } from "../../types/taskTypes";
 
 type Props = {
   task: DivisionTask | undefined;

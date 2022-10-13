@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { useFetchTask } from "../../hooks/useFetchTask";
+import { useFetchTask } from "../../hooks/task/useFetchTask";
 import { Task } from "../../types/taskTypes";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
 import { UserNameHeader } from "../models/user/UserNameHeader";

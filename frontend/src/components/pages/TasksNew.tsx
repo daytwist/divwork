@@ -4,7 +4,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { EditTask } from "../../types/taskTypes";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
-import { usePostTask } from "../../hooks/usePostTask";
+import { usePostTask } from "../../hooks/task/usePostTask";
 
 export const TasksNew = () => {
   const [task, setTask] = useState<EditTask>({
