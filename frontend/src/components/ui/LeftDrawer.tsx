@@ -46,7 +46,7 @@ export const LeftDrawer = (props: Props) => {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="/teams">
+          <ListItemButton component={Link} to="/teams" onClick={onClose}>
             <ListItemIcon>
               <StarIcon />
             </ListItemIcon>
@@ -58,7 +58,11 @@ export const LeftDrawer = (props: Props) => {
         </ListItem>
         {teamData?.users?.map((user) => (
           <ListItem key={user.id} disablePadding>
-            <ListItemButton component={Link} to={`/users/${user.id}`}>
+            <ListItemButton
+              component={Link}
+              to={`/users/${user.id}`}
+              onClick={onClose}
+            >
               <ListItemAvatar>
                 <Avatar src={user.avatar} alt="avatar" />
               </ListItemAvatar>
