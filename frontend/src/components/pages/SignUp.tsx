@@ -1,15 +1,11 @@
-import { ChangeEvent, useContext, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { ChangeEvent, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { baseAxios } from "../../apis/axios";
-import { AuthResponse, PasswordState } from "../../types/userTypes";
-import { AuthContext } from "../../providers/AuthProvider";
-import { SnackbarContext } from "../../providers/SnackbarProvider";
+import { PasswordState } from "../../types/userTypes";
 import { PasswordTextfield } from "../models/user/PasswordTextfield";
 import { BackButton } from "../ui/BackButton";
+import { useSignUp } from "../../hooks/auth/useSignUp";
 
 type State = {
   teamId: number;
@@ -18,10 +14,6 @@ type State = {
 };
 
 export const SignUp = () => {
-  const { setIsSignedIn } = useContext(AuthContext);
-  const { handleSetSnackbar } = useContext(SnackbarContext);
-  const navigate = useNavigate();
-
   const location = useLocation();
   const { teamId, teamName, isAdmin } = location.state as State;
 
@@ -35,6 +27,14 @@ export const SignUp = () => {
     showPassword: false,
   });
 
+  const handleSignUp = useSignUp({
+    name: user.name,
+    email: user.email,
+    password: values.password,
+    teamId,
+    isAdmin,
+  });
+
   const handleUserChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -46,44 +46,6 @@ export const SignUp = () => {
     (prop: keyof PasswordState) => (event: ChangeEvent<HTMLInputElement>) => {
       setValues({ ...values, [prop]: event.target.value });
     };
-
-  const handleSignUp = () => {
-    const options: AxiosRequestConfig = {
-      url: "/auth",
-      method: "POST",
-      params: {
-        name: user.name,
-        email: user.email,
-        password: values.password,
-        team_id: teamId,
-        admin: isAdmin,
-      },
-    };
-
-    baseAxios(options)
-      .then((res: AxiosResponse<AuthResponse>) => {
-        console.log(res);
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers.client);
-        Cookies.set("_uid", res.headers.uid);
-        setIsSignedIn(true);
-        handleSetSnackbar({
-          open: true,
-          type: "success",
-          message: "ユーザー登録しました",
-        });
-        navigate("/teams", { replace: false });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleSetSnackbar({
-          open: true,
-          type: "error",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          message: `${err.response.data.errors.full_messages.join("。")}`,
-        });
-      });
-  };
 
   return (
     <Grid2 container direction="column" rowSpacing={4}>

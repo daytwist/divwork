@@ -9,7 +9,7 @@ import task from "../../images/task.png";
 import team from "../../images/team.png";
 import browser from "../../images/browser.png";
 import screen from "../../images/screen.png";
-import { useGuestSignIn } from "../../hooks/useGuestSignIn";
+import { useGuestSignIn } from "../../hooks/auth/useGuestSignIn";
 
 export const Home = () => {
   const handleGuestSignIn = useGuestSignIn();
