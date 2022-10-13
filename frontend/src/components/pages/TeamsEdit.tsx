@@ -16,7 +16,7 @@ import {
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
-import { useTeam } from "../../hooks/useTeam";
+import { useFetchTeam } from "../../hooks/useFetchTeam";
 import { EditTeam, TeamsResponse } from "../../types/teamTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
@@ -29,7 +29,7 @@ export const TeamsEdit = () => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const [teamData, isLoading, error] = useTeam();
+  const [teamData, isLoading, error] = useFetchTeam();
   const [team, setTeam] = useState<EditTeam>({
     name: "",
     max_num_of_users: 10,

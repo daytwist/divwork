@@ -14,7 +14,7 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import { useTeam } from "../../hooks/useTeam";
+import { useFetchTeam } from "../../hooks/useFetchTeam";
 
 type Props = {
   // eslint-disable-next-line react/require-default-props
@@ -26,7 +26,7 @@ type Props = {
 export const LeftDrawer = (props: Props) => {
   const { window, open, onClose } = props;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const [teamData, isLoading, error] = useTeam();
+  const [teamData, isLoading, error] = useFetchTeam();
 
   const drawerWidth = 240;
 

@@ -4,7 +4,7 @@ import { userApi } from "../apis/user";
 import { UsersResponse } from "../types/userTypes";
 import { SnackbarContext } from "../providers/SnackbarProvider";
 
-export const useUser = (
+export const useFetchUser = (
   reloadFlag: boolean | undefined,
   action: string
 ): [UsersResponse | undefined, boolean] => {

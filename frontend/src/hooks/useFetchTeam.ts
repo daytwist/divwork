@@ -3,7 +3,7 @@ import { TeamsShowResponse } from "../types/teamTypes";
 import { AuthContext } from "../providers/AuthProvider";
 import { teamApi } from "../apis/team";
 
-export const useTeam = (): [
+export const useFetchTeam = (): [
   TeamsShowResponse | undefined,
   boolean,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -7,7 +7,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
 import { User } from "../../types/userTypes";
-import { useUser } from "../../hooks/useUser";
+import { useFetchUser } from "../../hooks/useFetchUser";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 import { AlertDialog } from "../ui/AlertDialog";
@@ -20,7 +20,7 @@ export const UsersEdit = () => {
   const { setIsSignedIn } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const [userData, isLoading] = useUser(undefined, "edit");
+  const [userData, isLoading] = useFetchUser(undefined, "edit");
   const [value, setValue] = useState("1");
   const [open, setOpen] = useState(false);
 

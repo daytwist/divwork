@@ -11,7 +11,7 @@ type Props = {
   taskId: string | GridRowId | undefined;
 };
 
-export const useTasksDelete = (props: Props) => {
+export const useDeleteTask = (props: Props) => {
   const { taskId } = props;
   const { currentUser, teamReloadFlag, setTeamReloadFlag } =
     useContext(AuthContext);
@@ -28,7 +28,7 @@ export const useTasksDelete = (props: Props) => {
     },
   };
 
-  const handleTasksDelete = useCallback(() => {
+  const handleDeleteTask = useCallback(() => {
     baseAxios(options)
       .then((res: AxiosResponse) => {
         console.log(res);
@@ -51,5 +51,5 @@ export const useTasksDelete = (props: Props) => {
       });
   }, []);
 
-  return handleTasksDelete;
+  return handleDeleteTask;
 };
