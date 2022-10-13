@@ -85,8 +85,8 @@ export const UsersEditProfile = (props: Props) => {
               src={user.avatar}
               alt="avatar"
               sx={{
-                width: { sm: 120 },
-                height: { sm: 120 },
+                width: 150,
+                height: 150,
               }}
             />
           ) : (
@@ -108,7 +108,7 @@ export const UsersEditProfile = (props: Props) => {
           label="ユーザー名"
           variant="standard"
           color="secondary"
-          sx={{ width: "30ch" }}
+          sx={{ width: { xs: "25ch", sm: "30ch" } }}
           helperText="10文字以内"
           name="name"
           value={user?.name}
@@ -121,7 +121,7 @@ export const UsersEditProfile = (props: Props) => {
           label="メールアドレス"
           variant="standard"
           color="secondary"
-          sx={{ width: "30ch" }}
+          sx={{ width: { xs: "25ch", sm: "30ch" } }}
           name="email"
           value={user?.email}
           onChange={handleInputChange}

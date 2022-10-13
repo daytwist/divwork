@@ -22,7 +22,7 @@ export const UserNameHeader = (props: Props) => {
             width: { sm: 60 },
             height: { sm: 60 },
             ml: { xs: 0, sm: 1 },
-            mr: { xs: 1, sm: 2 },
+            mr: { xs: 1.5, sm: 2 },
           }}
         />
         <Link

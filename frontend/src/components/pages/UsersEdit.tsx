@@ -1,22 +1,19 @@
 import { SyntheticEvent, useEffect, useState } from "react";
-import { Box, Button, Stack, Tab, Typography } from "@mui/material";
+import { Box, Stack, SxProps, Tab, Theme, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { User } from "../../types/userTypes";
 import { useFetchUser } from "../../hooks/user/useFetchUser";
-import { AlertDialog } from "../ui/AlertDialog";
 import { UsersEditProfile } from "../models/user/UsersEditProfile";
 import { UsersEditPassword } from "../models/user/UsersEditPassword";
 import { BackIconButton } from "../ui/BackIconButton";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
-import { useDeleteUser } from "../../hooks/user/useDeleteUser";
+import { DeleteAccountButton } from "../models/user/DeleteAccountButton";
 
 export const UsersEdit = () => {
   const [userData, isLoading] = useFetchUser(undefined, "edit");
-  const handleDeleteUser = useDeleteUser();
-
   const [value, setValue] = useState("1");
-  const [open, setOpen] = useState(false);
+
   const [user, setUser] = useState<User>({
     team_id: 0,
     name: "",
@@ -35,16 +32,13 @@ export const UsersEdit = () => {
     admin: false,
   });
 
+  const tabSx: SxProps<Theme> = {
+    px: { xs: 1, sm: 2 },
+    py: { xs: 0.5, sm: 1.5 },
+  };
+
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   useEffect(() => {
@@ -68,7 +62,7 @@ export const UsersEdit = () => {
         </Stack>
       </Grid2>
       <Grid2 xs={12}>
-        <Box sx={{ width: 370 }}>
+        <Box sx={{ width: { xs: 300, sm: 350 } }}>
           <TabContext value={value}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <TabList
@@ -76,9 +70,9 @@ export const UsersEdit = () => {
                 textColor="secondary"
                 indicatorColor="secondary"
               >
-                <Tab label="プロフィール" value="1" />
-                <Tab label="パスワード再設定" value="2" />
-                <Tab label="その他" value="3" />
+                <Tab label="プロフィール" value="1" sx={tabSx} />
+                <Tab label="パスワード" value="2" sx={tabSx} />
+                <Tab label="その他" value="3" sx={tabSx} />
               </TabList>
             </Box>
             <Grid2 container direction="column" alignContent="center">
@@ -94,19 +88,7 @@ export const UsersEdit = () => {
               </TabPanel>
               <TabPanel value="3">
                 <Grid2>
-                  <Button
-                    color="error"
-                    variant="outlined"
-                    onClick={handleClickOpen}
-                  >
-                    アカウント削除
-                  </Button>
-                  <AlertDialog
-                    open={open}
-                    handleClose={handleClose}
-                    objectName="アカウント"
-                    onClick={handleDeleteUser}
-                  />
+                  <DeleteAccountButton />
                 </Grid2>
               </TabPanel>
             </Grid2>
