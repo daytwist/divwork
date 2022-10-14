@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
   FormControl,
@@ -16,9 +16,13 @@ import { Team } from "../../types/teamTypes";
 import { BackButton } from "../ui/BackButton";
 import { useFetchTeams } from "../../hooks/team/useFetchTeams";
 import { LoadingColorRing } from "../ui/LoadingColorRing";
+import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 export const TeamsSelect = () => {
+  const { handleSetSnackbar } = useContext(SnackbarContext);
+  const navigate = useNavigate();
   const [teamsData, isLoading] = useFetchTeams();
+
   const [teams, setTeams] = useState<Team[]>([]);
   const [teamId, setTeamId] = useState<string | number>("");
   const [teamName, setTeamName] = useState("");
@@ -32,6 +36,21 @@ export const TeamsSelect = () => {
         width: 250,
       },
     },
+  };
+
+  const checkIsSelectedTeam = () => {
+    if (teamId) {
+      navigate("/sign_up", {
+        state: { teamId, teamName, isAdmin: false },
+        replace: false,
+      });
+    } else {
+      handleSetSnackbar({
+        open: true,
+        type: "error",
+        message: "チームを選択してください",
+      });
+    }
   };
 
   const handleSelectChange = (event: SelectChangeEvent<string | number>) => {
@@ -86,13 +105,7 @@ export const TeamsSelect = () => {
       </Grid2>
       <Grid2 xs={12}>
         <Stack direction="row" spacing={1}>
-          <Button
-            variant="contained"
-            component={Link}
-            to="/sign_up"
-            key={teamId}
-            state={{ teamId, teamName, isAdmin: false }}
-          >
+          <Button variant="contained" onClick={checkIsSelectedTeam}>
             次へ
           </Button>
           <BackButton />
