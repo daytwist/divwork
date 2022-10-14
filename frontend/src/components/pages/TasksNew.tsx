@@ -30,7 +30,12 @@ export const TasksNew = () => {
   };
 
   return (
-    <Grid2 container direction="column" rowSpacing={3} width={700}>
+    <Grid2
+      container
+      direction="column"
+      rowSpacing={3}
+      sx={{ width: { xs: 300, sm: 500, lg: 700 } }}
+    >
       <Grid2 xs={12}>
         <Stack direction="row" spacing={1} alignItems="center">
           <BackIconButton />

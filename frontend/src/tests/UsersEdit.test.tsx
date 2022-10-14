@@ -69,16 +69,11 @@ describe("UsersEdit", () => {
       userEvent.click(screen.getByText("更新する"));
     });
 
-    jest.useFakeTimers();
-    act(() => {
-      jest.advanceTimersByTime(3000);
-    });
-
     // 更新するとUsersShowページへ遷移する
-    expect(await screen.findByTestId("users-show-page")).toBeInTheDocument();
     expect(
       await screen.findByText("ユーザー情報を更新しました")
     ).toBeInTheDocument();
+    expect(await screen.findByTestId("users-show-page")).toBeInTheDocument();
   }, 8000);
 
   test("パスワード更新", async () => {
@@ -97,33 +92,28 @@ describe("UsersEdit", () => {
       </MemoryRouter>
     );
 
-    await screen.findByText("パスワード再設定");
+    await screen.findByText("パスワード");
     act(() => {
-      userEvent.click(screen.getByText("パスワード再設定"));
+      userEvent.click(screen.getByText("パスワード"));
     });
 
     await act(() => {
       userEvent.type(
         screen.getByLabelText("新しいパスワード *"),
-        "newpassword"
+        "newPassword"
       );
       userEvent.type(
         screen.getByLabelText("新しいパスワード(確認用) *"),
-        "newpassword"
+        "newPassword"
       );
       userEvent.click(screen.getByRole("button", { name: "更新する" }));
     });
 
-    jest.useFakeTimers();
-    act(() => {
-      jest.advanceTimersByTime(3000);
-    });
-
     // 更新するとUsersShowページへ遷移する
-    expect(await screen.findByTestId("users-show-page")).toBeInTheDocument();
     expect(
       await screen.findByText("パスワードを更新しました")
     ).toBeInTheDocument();
+    expect(await screen.findByTestId("users-show-page")).toBeInTheDocument();
   });
 
   test("アカウント削除", async () => {

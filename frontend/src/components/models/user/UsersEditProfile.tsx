@@ -85,8 +85,8 @@ export const UsersEditProfile = (props: Props) => {
               src={user.avatar}
               alt="avatar"
               sx={{
-                width: { sm: 120 },
-                height: { sm: 120 },
+                width: 150,
+                height: 150,
               }}
             />
           ) : (

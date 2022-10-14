@@ -10,12 +10,9 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { ChildTask } from "../../../types/taskTypes";
-import { TaskContentTypography } from "./TaskContentTypography";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
-import { PriorityStack } from "./PriorityStack";
 import { TaskCardAvatar } from "./TaskCardAvatar";
-import { DeadlineTypography } from "./DeadlineTypography";
-import { IsDoneTypography } from "./IsDoneTypography";
+import { TaskCardContent } from "./TaskCardContent";
 
 type Props = {
   childrenTasks: ChildTask[];
@@ -103,31 +100,7 @@ export const ChildrenTasksDetails = (props: Props) => {
                 }
               />
               <CardContent sx={{ p: 1 }}>
-                <Grid2 container rowSpacing={2} p={0}>
-                  {childTask.description && (
-                    <Grid2 xs={12}>
-                      <TaskContentTypography
-                        subtitle="詳細"
-                        body={childTask.description}
-                      />
-                    </Grid2>
-                  )}
-                  <Grid2 xs={6}>
-                    <PriorityStack value={childTask.priority} />
-                  </Grid2>
-                  <Grid2 xs={6}>
-                    <DeadlineTypography deadline={childTask.deadline} />
-                  </Grid2>
-                  <Grid2 xs={6}>
-                    <IsDoneTypography isDone={childTask.is_done} />
-                  </Grid2>
-                  <Grid2 xs={6}>
-                    <TaskContentTypography
-                      subtitle="進捗率"
-                      body={`${childTask.rate_of_progress}%`}
-                    />
-                  </Grid2>
-                </Grid2>
+                <TaskCardContent task={childTask} />
               </CardContent>
             </Card>
           </Grid2>

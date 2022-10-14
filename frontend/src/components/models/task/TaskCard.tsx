@@ -14,10 +14,6 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import PeopleIcon from "@mui/icons-material/People";
 import EditIcon from "@mui/icons-material/Edit";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
-import { DeadlineTypography } from "./DeadlineTypography";
-import { IsDoneTypography } from "./IsDoneTypography";
-import { PriorityStack } from "./PriorityStack";
-import { TaskContentTypography } from "./TaskContentTypography";
 import { TasksDeleteIconButton } from "./TasksDeleteIconButton";
 import { UpdateIsDoneButton } from "./UpdateIsDoneButton";
 import { AuthContext } from "../../../providers/AuthProvider";
@@ -25,6 +21,7 @@ import { Task, ChildTask } from "../../../types/taskTypes";
 import { DivisionIncludeUserAvatar } from "../../../types/divisionTypes";
 import { usePatchTaskIsDone } from "../../../hooks/task/usePatchTaskIsDone";
 import { NewDivisionButton } from "./NewDivisionButton";
+import { TaskCardContent } from "./TaskCardContent";
 
 type Props = {
   task: Task | undefined;
@@ -43,7 +40,7 @@ export const TaskCard = (props: Props) => {
     <Card sx={{ p: { xs: 1, sm: 2 } }}>
       <CardHeader
         title={
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" data-testid="task-title">
             {task?.title}
           </Typography>
         }
@@ -113,43 +110,8 @@ export const TaskCard = (props: Props) => {
           )
         }
       />
-      <CardContent sx={{ p: { xs: 1, sm: 2 } }}>
-        <Grid2
-          container
-          rowSpacing={2}
-          pt={0}
-          px={0}
-          sx={{ pb: { xs: 1, sm: 2 } }}
-        >
-          {task?.description && (
-            <Grid2 xs={12}>
-              <TaskContentTypography subtitle="詳細" body={task?.description} />
-            </Grid2>
-          )}
-          <Grid2 xs={6}>
-            <PriorityStack value={task?.priority} />
-          </Grid2>
-          <Grid2 xs={6}>
-            <DeadlineTypography deadline={task?.deadline} />
-          </Grid2>
-          <Grid2 xs={6}>
-            <IsDoneTypography isDone={task?.is_done} />
-          </Grid2>
-          <Grid2 xs={6}>
-            <TaskContentTypography
-              subtitle="進捗率"
-              body={`${task?.rate_of_progress}%`}
-            />
-          </Grid2>
-          {task?.is_done && (
-            <Grid2 xs={6}>
-              <TaskContentTypography
-                subtitle="完了日"
-                body={DatetimeFormat(task?.updated_at)}
-              />
-            </Grid2>
-          )}
-        </Grid2>
+      <CardContent sx={{ p: 2 }}>
+        <TaskCardContent task={task} />
       </CardContent>
       <CardActions>
         <Stack direction="row" spacing={2}>

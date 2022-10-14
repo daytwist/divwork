@@ -78,7 +78,12 @@ export const DivisionsNew = () => {
   }
 
   return (
-    <Grid2 container direction="column" rowSpacing={3} width={700}>
+    <Grid2
+      container
+      direction="column"
+      rowSpacing={3}
+      sx={{ width: { xs: 300, sm: 500, lg: 700 } }}
+    >
       <Grid2 xs={12}>
         <Stack direction="row" spacing={1} alignItems="center">
           <BackIconButton />
@@ -96,7 +101,7 @@ export const DivisionsNew = () => {
           onChangeDeadline={handleDeadlineChange}
         />
       </Grid2>
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: { xs: 2, sm: 4 } }} />
       <Grid2 xs={12}>
         <FormControl required sx={{ width: 200 }} color="secondary">
           <InputLabel id="users_label">分担先ユーザー</InputLabel>
