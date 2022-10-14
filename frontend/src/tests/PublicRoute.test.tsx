@@ -1,7 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { act } from "react-dom/test-utils";
 import { PrivateRoute } from "../components/functional/PrivateRoute";
 import { PublicRoute } from "../components/functional/PublicRoute";
 import { server } from "../mocks/server";
@@ -58,16 +57,9 @@ describe("PublicRoute", () => {
       </MemoryRouter>
     );
 
+    expect(await screen.findByTestId("teams-show-h4")).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.queryByLabelText("メールアドレス")).not.toBeInTheDocument();
     });
-
-    jest.useFakeTimers();
-    act(() => {
-      jest.advanceTimersByTime(5000);
-    });
-
-    expect(await screen.findByTestId("teams-show-h4")).toBeInTheDocument();
-    expect(await screen.findByText("USER_2")).toBeInTheDocument();
   });
 });

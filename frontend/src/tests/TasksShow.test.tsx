@@ -49,7 +49,7 @@ describe("TasksShow", () => {
     );
 
     // タスクのタイトルが表示されている
-    expect(await screen.findByText("TASK_2")).toBeInTheDocument();
+    expect(await screen.findByTestId("task-title")).toBeInTheDocument();
 
     act(() => {
       userEvent.click(screen.getByTestId("parent-task-details"));

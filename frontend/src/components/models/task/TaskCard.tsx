@@ -40,7 +40,7 @@ export const TaskCard = (props: Props) => {
     <Card sx={{ p: { xs: 1, sm: 2 } }}>
       <CardHeader
         title={
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" data-testid="task-title">
             {task?.title}
           </Typography>
         }
