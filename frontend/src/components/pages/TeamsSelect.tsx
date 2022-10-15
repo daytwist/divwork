@@ -81,8 +81,16 @@ export const TeamsSelect = () => {
         <Typography variant="h4" component="div" gutterBottom>
           所属チームの選択
         </Typography>
-        <Typography variant="body1" component="div">
+        <Typography variant="body1" component="div" gutterBottom>
           選択したチームでユーザー登録します。
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          component="div"
+          gutterBottom
+        >
+          上限人数に達していないチームに参加することが出来ます。
         </Typography>
       </Grid2>
       <Grid2 xs={12}>
