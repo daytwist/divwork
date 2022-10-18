@@ -76,6 +76,22 @@ https://www.figma.com/file/pAoXCDwvvRGQLwRekIkFmG/%E7%94%BB%E9%9D%A2%E9%81%B7%E7
 ## ER図
 ![ER図](frontend/src/images/er.png)
 
+## Dockerを用いた開発環境の再現方法
+1. リポジトリをクローンする
+```
+git clone https://github.com/daytwist/divwork.git
+```
+
+2. コンテナを起動する
+```
+make up
+```
+
+3. コンテナを停止する
+```
+make stop
+```
+
 ## 今後の予定
 - タスクウェイト表示機能作成
 - タスクファイル添付機能作成
