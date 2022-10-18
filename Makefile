@@ -18,3 +18,6 @@ front:
 
 back:
 	docker-compose exec backend bash
+
+down:
+	docker-compose down
