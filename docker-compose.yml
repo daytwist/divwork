@@ -4,6 +4,7 @@ volumes:
   public-data:
   tmp-data:
   log-data:
+  node_modules:
 
 services:
   db:
@@ -45,6 +46,7 @@ services:
     command: bash -c "yarn start-dev"
     volumes:
       - ./frontend:/usr/src/app:delegated
+      - node_modules:/usr/src/app/node_modules/
     environment:
       - CHOKIDAR_USEPOLLING=true
     ports:
