@@ -1,5 +1,5 @@
 build:
-	docker-compose build
+	docker-compose up -d --build
 
 up:
 	docker-compose up -d
@@ -19,5 +19,8 @@ front:
 back:
 	docker-compose exec backend bash
 
+db:
+	docker-compose exec backend bundle exec rails db:create db:migrate db:seed
+
 down:
-	docker-compose down
+	docker-compose down -v
