@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2022_10_02_042410) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "divisions", "tasks"
   add_foreign_key "divisions", "users"
+  add_foreign_key "tasks", "tasks", column: "parent_id"
   add_foreign_key "tasks", "users"
   add_foreign_key "users", "teams"
 end

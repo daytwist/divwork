@@ -14,7 +14,7 @@
       user.tasks.create!(
         title: Faker::Job.title,
         description: Faker::Books::Lovecraft.sentence,
-        deadline: Faker::Time.between(from: DateTime.now, to: DateTime.now + 7, format: :long),
+        deadline: Faker::Time.between(from: DateTime.now, to: DateTime.now + 10, format: :long),
         priority: rand(0..2),
         is_done: false
       )
