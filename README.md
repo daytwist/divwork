@@ -77,7 +77,7 @@ DivWorkはチーム作業のためのタスク管理ツールです。チーム�
 - Nginx
 - Puma
 - Docker/Docker Compose
-- AWS EC2/RDS/S3/ALB/VPC/Route53/ACM
+- AWS EC2/RDS/S3/VPC/ELB/Route53/ACM
 
 **CI/CD**
 - Github Actions
@@ -93,6 +93,9 @@ https://www.figma.com/file/pAoXCDwvvRGQLwRekIkFmG/%E7%94%BB%E9%9D%A2%E9%81%B7%E7
 ![ER図](frontend/src/images/er.png)
 
 <br/>
+
+## インフラ構成図
+![インフラ構成図](frontend/src/images/infra.png)
 
 ## Dockerを用いた開発環境の再現手順
 1. リポジトリをクローンする
