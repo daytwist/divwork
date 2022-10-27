@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { User } from "../../types/userTypes";
 import { DivisionTask } from "../../types/taskTypes";
 import { TasksForm } from "../models/task/TasksForm";
@@ -139,8 +140,9 @@ export const DivisionsNew = () => {
           variant="contained"
           type="submit"
           onClick={handleCreateDivision}
+          startIcon={<AutoAwesomeIcon />}
         >
-          完了
+          分担する
         </Button>
       </Grid2>
     </Grid2>
