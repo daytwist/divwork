@@ -29,6 +29,7 @@ export const Header = (props: Props) => {
           xs: 1199,
           lg: 1201,
         },
+        height: { xs: 56, sm: 64 },
       }}
     >
       <Toolbar>
@@ -67,15 +68,11 @@ export const Header = (props: Props) => {
               <Button
                 component={Link}
                 to="/sign_up/teams/select"
-                sx={{ my: { xs: 1, md: 2 }, color: "black" }}
+                sx={{ color: "black" }}
               >
                 ユーザー登録
               </Button>
-              <Button
-                component={Link}
-                to="/sign_in"
-                sx={{ my: { xs: 1, md: 2 }, color: "black" }}
-              >
+              <Button component={Link} to="/sign_in" sx={{ color: "black" }}>
                 ログイン
               </Button>
             </Box>

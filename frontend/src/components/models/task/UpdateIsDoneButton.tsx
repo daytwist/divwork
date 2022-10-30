@@ -1,5 +1,6 @@
 import { Button, IconButton } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
+import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 
 type Props = {
   onClick: () => void;
@@ -18,7 +19,7 @@ export const UpdateIsDoneButton = (props: Props) => {
         disabled={disabled}
         sx={{ display: { xs: "flex", md: "none" } }}
       >
-        <CheckIcon />
+        {isFinished ? <KeyboardReturnIcon /> : <CheckIcon />}
       </IconButton>
       <Button
         color="secondary"

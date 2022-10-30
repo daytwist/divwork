@@ -16,7 +16,11 @@ export const MenuBars = () => {
     <Box>
       <Header onClick={handleDrawerToggle} />
       {isSignedIn ? (
-        <LeftDrawer open={open} onClose={handleDrawerToggle} />
+        <LeftDrawer
+          open={open}
+          setOpen={setOpen}
+          onClose={handleDrawerToggle}
+        />
       ) : null}
     </Box>
   );

@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   Bar,
   BarChart,
@@ -18,17 +17,14 @@ type Props = {
 export const DeadlineBarChart = (props: Props) => {
   const { user, maxCount } = props;
 
-  const data = useMemo(
-    () => [
-      {
-        name: user.name,
-        "3日以内": user.unfinished_tasks_deadline_count[2],
-        "4日〜7日以内": user.unfinished_tasks_deadline_count[1],
-        "8日以上": user.unfinished_tasks_deadline_count[0],
-      },
-    ],
-    [user]
-  );
+  const data = [
+    {
+      name: user.name,
+      "3日以内": user.unfinished_tasks_deadline_count[2],
+      "4日〜7日以内": user.unfinished_tasks_deadline_count[1],
+      "8日以上": user.unfinished_tasks_deadline_count[0],
+    },
+  ];
 
   return (
     <ResponsiveContainer width="100%" height={70}>
@@ -43,7 +39,7 @@ export const DeadlineBarChart = (props: Props) => {
             style={{ fontFamily: "roboto" }}
           />
         </Bar>
-        <Bar dataKey="4日〜7日以内" stackId="a" fill="#ffd600">
+        <Bar dataKey="4日〜7日以内" stackId="a" fill="#ffc107">
           <LabelList
             dataKey="4日〜7日以内"
             position="top"

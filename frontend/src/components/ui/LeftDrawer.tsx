@@ -1,83 +1,33 @@
-import { useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
-import {
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Toolbar,
-  Box,
-  Avatar,
-  ListItemAvatar,
-  ListItemIcon,
-} from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { Drawer, Toolbar, Box, IconButton, useTheme } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useFetchTeam } from "../../hooks/team/useFetchTeam";
+import { DrawerHeader } from "./DrawerHeader";
+import { DrawerList } from "./DrawerList";
 
 type Props = {
   // eslint-disable-next-line react/require-default-props
   window?: () => Window;
   open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   onClose: () => void;
 };
 
 export const LeftDrawer = (props: Props) => {
-  const { window, open, onClose } = props;
+  const { window, open, setOpen, onClose } = props;
+  const theme = useTheme();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [teamData, isLoading, error] = useFetchTeam();
 
   const drawerWidth = 240;
 
-  const unfinishedTasksCount = useCallback((tasks: number[]) => {
-    const total = tasks.reduce((sum: number, element: number) => {
-      return sum + element;
-    }, 0);
-    return total;
-  }, []);
-
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  const drawer = (
-    <div>
-      <Toolbar />
-      <Divider />
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/teams" onClick={onClose}>
-            <ListItemIcon>
-              <StarIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={teamData?.team?.name}
-              secondary={`${teamData?.users?.length}人のメンバー`}
-            />
-          </ListItemButton>
-        </ListItem>
-        {teamData?.users?.map((user) => (
-          <ListItem key={user.id} disablePadding>
-            <ListItemButton
-              component={Link}
-              to={`/users/${user.id}`}
-              onClick={onClose}
-            >
-              <ListItemAvatar>
-                <Avatar src={user.avatar} alt="avatar" />
-              </ListItemAvatar>
-              <ListItemText
-                primary={user.name}
-                secondary={`${unfinishedTasksCount(
-                  user.unfinished_tasks_priority_count
-                )}件のタスク`}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (error) {
@@ -97,7 +47,7 @@ export const LeftDrawer = (props: Props) => {
       >
         <Drawer
           container={container}
-          variant="temporary"
+          variant="persistent"
           open={open}
           onClose={onClose}
           ModalProps={{
@@ -112,7 +62,16 @@ export const LeftDrawer = (props: Props) => {
             },
           }}
         >
-          {drawer}
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <DrawerList onClose={onClose} teamData={teamData} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -125,7 +84,8 @@ export const LeftDrawer = (props: Props) => {
             },
           }}
         >
-          {drawer}
+          <Toolbar />
+          <DrawerList onClose={onClose} teamData={teamData} />
         </Drawer>
       </Box>
     </div>
