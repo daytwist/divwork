@@ -39,7 +39,7 @@ export const DeadlineBarChart = (props: Props) => {
             style={{ fontFamily: "roboto" }}
           />
         </Bar>
-        <Bar dataKey="4日〜7日以内" stackId="a" fill="#ffd600">
+        <Bar dataKey="4日〜7日以内" stackId="a" fill="#ffc107">
           <LabelList
             dataKey="4日〜7日以内"
             position="top"

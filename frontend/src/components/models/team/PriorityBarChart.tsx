@@ -56,7 +56,7 @@ export const PriorityBarChart = (props: Props) => {
         <Bar
           dataKey="中"
           stackId="a"
-          fill="#ffd600"
+          fill="#ffc107"
           isAnimationActive={animate}
           onAnimationStart={onAnimationStart}
         >
