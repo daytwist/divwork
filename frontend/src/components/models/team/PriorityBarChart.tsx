@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -25,17 +25,14 @@ export const PriorityBarChart = (props: Props) => {
     }, 2000);
   }, []);
 
-  const data = useMemo(
-    () => [
-      {
-        name: user.name,
-        高: user.unfinished_tasks_priority_count[2],
-        中: user.unfinished_tasks_priority_count[1],
-        低: user.unfinished_tasks_priority_count[0],
-      },
-    ],
-    [user]
-  );
+  const data = [
+    {
+      name: user.name,
+      高: user.unfinished_tasks_priority_count[2],
+      中: user.unfinished_tasks_priority_count[1],
+      低: user.unfinished_tasks_priority_count[0],
+    },
+  ];
 
   return (
     <ResponsiveContainer width="100%" height={70}>
