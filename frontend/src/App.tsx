@@ -1,6 +1,5 @@
 import { StrictMode } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import usePageTracking from "./hooks/usePageTracking";
 import { AuthProvider } from "./providers/AuthProvider";
 import { SnackbarProvider } from "./providers/SnackbarProvider";
 import { CommonLayout } from "./components/ui/CommonLayout";
@@ -28,8 +27,6 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 export const App = () => {
-  usePageTracking();
-
   return (
     <StrictMode>
       <BrowserRouter>
