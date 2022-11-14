@@ -56,7 +56,6 @@ export const UsersEditProfile = (props: Props) => {
           data: reader.result as string,
           filename: files[0] ? files[0].name : "unknownFile",
         });
-        console.log(reader.result);
       };
       reader.readAsDataURL(files[0]);
     }
