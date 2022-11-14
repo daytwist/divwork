@@ -6,8 +6,9 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
     if @resource
       if params[:avatar] && params[:avatar][:data].present?
         blob = ActiveStorage::Blob.create_after_upload!(
-          io: StringIO.new("#{decode(params[:avatar][:data])}\n"),
-          filename: params[:avatar][:filename]
+          io: StringIO.new("#{decode(params[:avatar][:data].split(',')[1])}\n"),
+          filename: params[:avatar][:filename],
+          content_type: "image/png"
         )
         @resource.avatar.attach(blob)
       end
