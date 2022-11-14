@@ -1,4 +1,5 @@
-[![frontend Lint and Test](https://github.com/daytwist/divwork/actions/workflows/frontend.yml/badge.svg)](https://github.com/daytwist/divwork/actions/workflows/frontend.yml) [![backend Lint and Test](https://github.com/daytwist/divwork/actions/workflows/backend.yml/badge.svg)](https://github.com/daytwist/divwork/actions/workflows/backend.yml)
+
+[![frontend Lint and Test](https://github.com/daytwist/divwork/actions/workflows/frontend.yml/badge.svg)](https://github.com/daytwist/divwork/actions/workflows/frontend.yml) [![backend Lint and Test](https://github.com/daytwist/divwork/actions/workflows/backend.yml/badge.svg)](https://github.com/daytwist/divwork/actions/workflows/backend.yml) [![Deploy](https://github.com/daytwist/divwork/actions/workflows/deploy.yml/badge.svg)](https://github.com/daytwist/divwork/actions/workflows/deploy.yml)
 
 # DivWork
 https://divwork.net
@@ -48,6 +49,7 @@ DivWorkはチーム作業のためのタスク管理ツールです。チーム�
 - タスク作成、編集、削除機能
 - チームタスクグラフ化機能
 - 分担作成、履歴機能
+- レスポンシブデザイン
 
 <br/>
 
@@ -80,7 +82,7 @@ DivWorkはチーム作業のためのタスク管理ツールです。チーム�
 - AWS EC2/RDS/S3/VPC/ELB/Route53/ACM
 
 **CI/CD**
-- Github Actions
+- GitHub Actions
 
 <br/>
 
