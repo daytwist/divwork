@@ -19,7 +19,7 @@ export const usePostDivision = (props: Props) => {
   const { task, deadline, comment, teamMemberValue } = props;
   const { reloadTeamFlag, setReloadTeamFlag } = useContext(AuthContext);
   const { handleSetSnackbar } = useContext(SnackbarContext);
-  const { taskId } = useParams();
+  const { id: taskId } = useParams();
   const navigate = useNavigate();
 
   const options: AxiosRequestConfig = {
