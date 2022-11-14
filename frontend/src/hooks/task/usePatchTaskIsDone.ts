@@ -31,6 +31,7 @@ export const usePatchTaskIsDone = (props: Props) => {
         }
       : {
           is_done: !task?.is_done,
+          rate_of_progress: 0,
         },
   };
 
