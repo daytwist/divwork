@@ -47,14 +47,16 @@ export const UsersEditProfile = (props: Props) => {
   };
 
   const handleImageSelect = (event: FormEvent) => {
-    const reader = new FileReader();
     const { files } = event.target as HTMLInputElement;
+    const reader = new FileReader();
+
     if (files) {
       reader.onload = () => {
         setImage({
           data: reader.result as string,
           filename: files[0] ? files[0].name : "unknownFile",
         });
+        console.log(reader.result);
       };
       reader.readAsDataURL(files[0]);
     }
@@ -72,7 +74,7 @@ export const UsersEditProfile = (props: Props) => {
               <IconButton component="label">
                 <input
                   hidden
-                  accept="image/*"
+                  accept="image/png, image/jpeg"
                   type="file"
                   onChange={handleImageSelect}
                 />
