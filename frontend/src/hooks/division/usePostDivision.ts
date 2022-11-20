@@ -6,10 +6,10 @@ import { baseAxios } from "../../apis/axios";
 import { PostDivisionResponse } from "../../types/divisionTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
-import { DivisionTask } from "../../types/taskTypes";
+import { DividedTask } from "../../types/taskTypes";
 
 type Props = {
-  task: DivisionTask | undefined;
+  task: DividedTask | undefined;
   deadline: Date | null;
   comment: string;
   teamMemberValue: string;

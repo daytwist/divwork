@@ -11,11 +11,11 @@ import {
   Avatar,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import { TeamsShowResponse } from "../../types/teamTypes";
+import { FetchTeamResponse } from "../../types/teamTypes";
 
 type Props = {
   onClose: () => void;
-  teamData: TeamsShowResponse | undefined;
+  teamData: FetchTeamResponse | undefined;
 };
 
 export const DrawerList = (props: Props) => {

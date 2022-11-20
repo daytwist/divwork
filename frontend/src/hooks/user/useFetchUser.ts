@@ -1,17 +1,17 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { userApi } from "../../apis/user";
-import { UsersResponse } from "../../types/userTypes";
+import { UserResponse } from "../../types/userTypes";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 export const useFetchUser = (
   reloadFlag: boolean | undefined,
   action: string
-): [UsersResponse | undefined, boolean] => {
+): [UserResponse | undefined, boolean] => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const { id: userId } = useParams();
   const navigate = useNavigate();
-  const [userData, setUserData] = useState<UsersResponse>();
+  const [userData, setUserData] = useState<UserResponse>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const useFetchUser = (
 
     if (action === "edit") {
       userApi
-        .editUser<UsersResponse>(userId)
+        .editUser<UserResponse>(userId)
         .then((result) => {
           console.log(result);
           setUserData(result);
@@ -41,7 +41,7 @@ export const useFetchUser = (
 
     if (action === "show") {
       userApi
-        .getUser<UsersResponse>(userId)
+        .getUser<UserResponse>(userId)
         .then((result) => {
           console.log(result);
           setUserData(result);

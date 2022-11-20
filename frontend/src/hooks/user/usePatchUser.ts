@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
-import { UsersUpdateResponse } from "../../types/userTypes";
+import { PatchAuthResponse } from "../../types/userTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
@@ -36,7 +36,7 @@ export const usePatchUser = (props: Props) => {
 
   const handleUpdateUser = () => {
     baseAxios(options)
-      .then((res: AxiosResponse<UsersUpdateResponse>) => {
+      .then((res: AxiosResponse<PatchAuthResponse>) => {
         console.log(res);
         setCurrentUser(res.data.data);
         handleSetSnackbar({

@@ -10,7 +10,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { AuthSessionsResponse, User } from "../types/userTypes";
+import { FetchSessionsResponse, User } from "../types/userTypes";
 import { baseAxios } from "../apis/axios";
 
 type Props = {
@@ -73,7 +73,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     baseAxios(options)
-      .then((res: AxiosResponse<AuthSessionsResponse>) => {
+      .then((res: AxiosResponse<FetchSessionsResponse>) => {
         console.log(res);
 
         if (res.data.is_signed_in === true) {

@@ -14,7 +14,7 @@ import {
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { User } from "../../types/userTypes";
-import { DivisionTask } from "../../types/taskTypes";
+import { DividedTask } from "../../types/taskTypes";
 import { TasksForm } from "../models/task/TasksForm";
 import { BackIconButton } from "../ui/BackIconButton";
 import { usePostDivision } from "../../hooks/division/usePostDivision";
@@ -24,7 +24,7 @@ import { LoadingColorRing } from "../ui/LoadingColorRing";
 export const DivisionsNew = () => {
   const [divisionData, isLoading] = useFetchNewDivision();
 
-  const [task, setTask] = useState<DivisionTask>({
+  const [task, setTask] = useState<DividedTask>({
     title: "",
     description: "",
     priority: "",

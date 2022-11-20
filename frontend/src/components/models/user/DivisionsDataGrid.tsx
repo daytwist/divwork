@@ -3,11 +3,11 @@
 import { Link as RouterLink } from "react-router-dom";
 import { Link, Avatar, Stack, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DivisionHistory } from "../../../types/divisionTypes";
+import { DividedHistory } from "../../../types/divisionTypes";
 import { DatetimeFormat } from "../../ui/DatetimeFormat";
 
 type Props = {
-  divisions: DivisionHistory[] | undefined;
+  divisions: DividedHistory[] | undefined;
 };
 
 export const DivisionsDataGrid = (props: Props) => {

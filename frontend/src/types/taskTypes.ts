@@ -61,7 +61,7 @@ export type EditTask = {
   user_id: number;
 };
 
-export type DivisionTask = {
+export type DividedTask = {
   title: string;
   description: string;
   priority: string;

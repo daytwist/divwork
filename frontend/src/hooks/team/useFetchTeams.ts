@@ -1,19 +1,19 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { TeamsSelectResponse } from "../../types/teamTypes";
+import { TeamsResponse } from "../../types/teamTypes";
 import { teamApi } from "../../apis/team";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
-export const useFetchTeams = (): [TeamsSelectResponse | undefined, boolean] => {
+export const useFetchTeams = (): [TeamsResponse | undefined, boolean] => {
   const { handleSetSnackbar } = useContext(SnackbarContext);
   const navigate = useNavigate();
-  const [teamsData, setTeamsData] = useState<TeamsSelectResponse>();
+  const [teamsData, setTeamsData] = useState<TeamsResponse>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const abortCtrl = new AbortController();
     teamApi
-      .getTeams<TeamsSelectResponse>()
+      .getTeams<TeamsResponse>()
       .then((result) => {
         console.log(result);
         setTeamsData(result);
