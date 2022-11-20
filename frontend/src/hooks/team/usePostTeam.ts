@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
-import { TeamsResponse } from "../../types/teamTypes";
+import { TeamResponse } from "../../types/teamTypes";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
 export const usePostTeam = (name: string) => {
@@ -17,7 +17,7 @@ export const usePostTeam = (name: string) => {
 
   const handleCreateTeam = () => {
     baseAxios(options)
-      .then((res: AxiosResponse<TeamsResponse>) => {
+      .then((res: AxiosResponse<TeamResponse>) => {
         console.log(res);
         handleSetSnackbar({
           open: true,

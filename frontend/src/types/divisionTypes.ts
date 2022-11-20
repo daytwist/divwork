@@ -11,7 +11,7 @@ export type Division = {
   comment: string;
 };
 
-export type DivisionHistory = {
+export type DividedHistory = {
   id: number;
   user_id: number | undefined;
   task_id: number;

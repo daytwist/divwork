@@ -13,15 +13,15 @@ export type EditTeam = {
   max_num_of_users: number;
 };
 
-export type TeamsSelectResponse = {
+export type TeamsResponse = {
   teams: Team[];
 };
 
-export type TeamsResponse = {
+export type TeamResponse = {
   team: Team;
 };
 
-export type TeamsShowResponse = {
+export type FetchTeamResponse = {
   team: Team;
   users: User[];
 };

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
-import { AuthPasswordResponse } from "../../types/userTypes";
+import { PatchPasswordResponse } from "../../types/userTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
@@ -36,7 +36,7 @@ export const usePatchPassword = (props: Props) => {
 
   const handleUpdatePassword = () => {
     baseAxios(options)
-      .then((res: AxiosResponse<AuthPasswordResponse>) => {
+      .then((res: AxiosResponse<PatchPasswordResponse>) => {
         console.log(res);
         setCurrentUser(res.data.data);
         handleSetSnackbar({

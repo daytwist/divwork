@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseAxios } from "../../apis/axios";
-import { TeamsResponse, EditTeam } from "../../types/teamTypes";
+import { TeamResponse, EditTeam } from "../../types/teamTypes";
 import { AuthContext } from "../../providers/AuthProvider";
 import { SnackbarContext } from "../../providers/SnackbarProvider";
 
@@ -31,7 +31,7 @@ export const usePatchTeam = (props: Props) => {
 
   const handleUpdateTeam = () => {
     baseAxios(options)
-      .then((res: AxiosResponse<TeamsResponse>) => {
+      .then((res: AxiosResponse<TeamResponse>) => {
         console.log(res);
         setReloadTeamFlag(!reloadTeamFlag);
         handleSetSnackbar({

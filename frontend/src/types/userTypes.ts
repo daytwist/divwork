@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { DivisionHistory } from "./divisionTypes";
+import { DividedHistory } from "./divisionTypes";
 import { Task } from "./taskTypes";
 
 export type User = {
@@ -20,16 +20,25 @@ export type User = {
   admin: boolean;
 };
 
-export type UsersResponse = {
+export type UserResponse = {
   user: User;
   unfinished_tasks: Task[];
   finished_tasks: Task[];
-  divisions: DivisionHistory[];
+  divisions: DividedHistory[];
 };
 
-export type UsersUpdateResponse = {
+export type AuthResponse = {
+  data: User;
+};
+
+export type PatchAuthResponse = {
   status: string;
   data: User;
+};
+
+export type FetchSessionsResponse = {
+  is_signed_in: boolean;
+  current_user: User | undefined;
 };
 
 export type PasswordState = {
@@ -38,16 +47,7 @@ export type PasswordState = {
   showPassword: boolean;
 };
 
-export type AuthSessionsResponse = {
-  is_signed_in: boolean;
-  current_user: User | undefined;
-};
-
-export type AuthResponse = {
-  data: User;
-};
-
-export type AuthPasswordResponse = {
+export type PatchPasswordResponse = {
   success: boolean;
   data: User;
   message: string;
